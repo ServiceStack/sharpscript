@@ -81,57 +81,57 @@ $("FORM").submit(function(){
 <div class="tab-content">
     <div class="tab-pane" id="default-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'DefaultScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="html-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'HtmlScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="protected-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'ProtectedScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="info-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'InfoScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="redis-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'RedisScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="db-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'DbScriptsAsync' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="ss-scripts" role="tabpanel">
 {{ "live-template" | partial({ rows, className, template:`{{ 'ServiceStackScripts' | assignTo: filter }}
-{{ filter | filtersAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
+{{ filter | methodsAvailable | where => contains(lower(it.Name), lower(nameContains ?? ''))  
           | assignTo: filters }}
-<table class="table table-striped"><caption>{{ filter | filterLinkToSrc }}</caption>
+<table class="table table-striped"><caption>{{ filter | methodLinkToSrc }}</caption>
 {{#each filters}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>

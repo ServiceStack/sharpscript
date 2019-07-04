@@ -280,10 +280,10 @@ truthy: {{ true | truthy('T') }}, {{ 1 | truthy('T') }}, {{ null | truthy('T') }
 <p>
     The <em>end*</em> methods short-circuits the execution of a method and discard any results.
     They're useful to use in combination with the 
-    <a href="/docs/filters-reference?nameContains=use&amp;tab=default-scripts"><em>use*</em> methods</a>
+    <a href="/docs/scripts-reference?nameContains=use&amp;tab=default-scripts"><em>use*</em> methods</a>
     which discards the old value and creates a new value 
     to be used from that point on in the expression.
-    <a href="/docs/filters-reference?nameContains=show&amp;tab=default-scripts"><em>show</em> is an alias</a>
+    <a href="/docs/scripts-reference?nameContains=show&amp;tab=default-scripts"><em>show</em> is an alias</a>
     for <em>use</em> that reads better when used at the end of an expression.
 </p>
 
@@ -315,9 +315,9 @@ useIf: {{ 1 | useIf(true) }} / {{ 1 | useIf(false) | default('unreachable') }}` 
 
 <p>
     There's also an 
-    <a href="/docs/filters-reference?nameContains=only&amp;tab=default-scripts"><em>only*</em> method</a>
+    <a href="/docs/scripts-reference?nameContains=only&amp;tab=default-scripts"><em>only*</em> method</a>
     for each 
-    <a href="/docs/filters-reference?nameContains=end&amp;tab=default-scripts"><em>end*</em> method</a>    
+    <a href="/docs/scripts-reference?nameContains=end&amp;tab=default-scripts"><em>end*</em> method</a>    
     above with the inverse behavior, e.g:
 </p>
 
@@ -540,7 +540,7 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
 
 <p>
     See the Filter API Reference for the 
-    <a href="/docs/filters-reference?tab=default-scripts">full list of default scripts available</a>.
+    <a href="/docs/scripts-reference?tab=default-scripts">full list of default scripts available</a>.
 </p>
 
 {{ "doc-links" | partial({ order }) }}

@@ -22,7 +22,7 @@ order: 22
 <p>
     Not having to write any C# code or perform any app builds dramatically reduces the cognitive overhead and conceptual knowledge 
     required for development where the only thing front-end Web developers need to know is <a href="/docs/syntax">#Script's familiar syntax</a> 
-    and what <a href="/docs/filters-reference">methods are available</a> to call. 
+    and what <a href="/docs/scripts-reference">methods are available</a> to call. 
     Because of [#Script's JavaScript compatibility](/docs/expression-viewer), developing a Website with <em>#Script</em> will be instantly familiar to 
     JavaScript devs despite calling and binding directly to .NET APIs behind the scenes.
 </p>
@@ -686,7 +686,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     As <em>#Script</em> is unable to use a Typed ORM like <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">OrmLite</a>
     to hide the nuances of each database, we need to be a bit more diligent in <em>#Script</em> to use parameterized SQL that works across 
     multiple databases by using the 
-    <a href="/docs/filters-reference?nameContains=sql&amp;tab=db-scripts"><em>sql*</em> DB Filters</a> to avoid using RDBMS-specific
+    <a href="/docs/scripts-reference?nameContains=sql&amp;tab=db-scripts"><em>sql*</em> DB Filters</a> to avoid using RDBMS-specific
     SQL syntax. The 
     <a href="https://github.com/sharp-apps/Rockwind/blob/master/northwind/customer.html">/northwind/customer.html</a>
     contains a good example containing a number of things to watch out for:

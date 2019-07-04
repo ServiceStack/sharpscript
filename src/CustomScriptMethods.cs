@@ -131,7 +131,7 @@ namespace SharpScript
             throw new NotSupportedException("Unknown Filter: " + name);
         }
 
-        public IRawString filterLinkToSrc(string name)
+        public IRawString methodLinkToSrc(string name)
         {
             const string prefix = "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Methods/";
 
@@ -153,7 +153,7 @@ namespace SharpScript
             return new RawString($"<a href='{url}'>{type.Name}.cs</a>");
         }
 
-        public FilterInfo[] filtersAvailable(string name)
+        public ScriptMethodInfo[] methodsAvailable(string name)
         {
             var filterType = GetFilterType(name);
             var filters = filterType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
@@ -162,13 +162,13 @@ namespace SharpScript
                 .ThenBy(x => x.GetParameters().Count())
                 .Where(x => x.DeclaringType != typeof(ScriptMethods) && x.DeclaringType != typeof(object))
                 .Where(m => !m.IsSpecialName)                
-                .Select(FilterInfo.Create);
+                .Select(ScriptMethodInfo.Create);
 
             return to.ToArray();
         }
     }
 
-    public class FilterInfo
+    public class ScriptMethodInfo
     {
         public string Name { get; set; }
         public string FirstParam { get; set; }
@@ -176,14 +176,14 @@ namespace SharpScript
         public int ParamCount { get; set; }
         public string[] RemainingParams { get; set; }
 
-        public static FilterInfo Create(MethodInfo mi)
+        public static ScriptMethodInfo Create(MethodInfo mi)
         {
             var paramNames = mi.GetParameters()
                 .Where(x => x.ParameterType != typeof(ScriptScopeContext))
                 .Select(x => x.Name)
                 .ToArray();
 
-            var to = new FilterInfo {
+            var to = new ScriptMethodInfo {
                 Name = mi.Name,
                 FirstParam = paramNames.FirstOrDefault(),
                 ParamCount = paramNames.Length,
