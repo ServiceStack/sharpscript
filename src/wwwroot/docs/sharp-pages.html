@@ -457,4 +457,53 @@ order: 19
     of which are pre-registered when registering the <em>SharpPagesFeature</em> Plugin.
 </p>
 
+<h3 id="markdown">Markdown Support</h3>
+
+<p>
+    Markdown is a great way to maintain and embed content of which <em>#Script</em> has great support for, which can be rendered using the
+    <em>markdown</em> filter to render markdown text to HTML:
+</p>
+
+<pre>{{#raw}}{{ `## Heading` | markdown }}{{/raw}}</pre>
+
+<p>
+    This can be combined with other composable filters like <a href="/docs/protected-scripts#includefile">includeFile</a> to easily and 
+    efficiently render markdown content maintained in a separate file:
+</p>
+
+<pre>{{#raw}}{{ 'doc.md' | includeFile | markdown }}{{/raw}}</pre>
+
+<p>
+  Or you could use <a href="/docs/protected-scripts#includeurlwithcache">includeUrlWithCache</a> to efficiently render markdown from an
+  external URL:
+</p>
+
+<pre>{{#raw}}{{ url | includeUrlWithCache | markdown }}{{/raw}}</pre>
+
+<p>
+  A popular way for embedding static markdown content inside a page is to use the <a href="/docs/blocks#markdown">markdown</a> script block
+  which <a href="https://github.com/ServiceStack/sharpscript">this website</a> makes extensive use of:
+</p>
+
+<pre>{{#raw}}
+{{#markdown}}
+### Heading
+> Static Markdown Example
+{{/markdown }}
+{{/raw}}</pre>
+
+<p>
+  Providing an easy way for mixing in markdown content inside a dynamic web page. To embed dynamically rendered markdown content you can use
+  the <a href="/docs/blocks#capture">capture</a> script block to capture dynamic markdown that you can render with the <em>markdown</em> filter:
+</p>
+
+<pre>{{#raw}}{{#capture md}}
+### Dynamic Markdown Example
+{{#each i in range(1,5)}}
+  - {{i}}
+{{/each}}
+{{/capture}}
+{{ md | markdown }}
+{{/raw}}</pre>
+
 {{ "doc-links" | partial({ order }) }}

@@ -1,2 +1,4 @@
-<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-smi">context</span>.<span class="pl-smi">ScriptMethods</span>.<span class="pl-en">Insert</span>(<span class="pl-c1">0</span>, <span class="pl-k">new</span> <span class="pl-en">MyScriptMethods</span>());</pre></div>
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">new</span> <span class="pl-smi">ScriptContext</span> {
+    <span class="pl-smi">InsertScriptMethods</span> <span class="pl-k">=</span> { <span class="pl-k">new</span> <span class="pl-en">MyScriptMethods</span>() }
+}.<span class="pl-en">Init</span>();</pre></div>
 </div>
