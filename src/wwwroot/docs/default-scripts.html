@@ -488,15 +488,34 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
 <h4 id="iterating">Iterating</h4>
 
 <p>
-    The <em>select</em> method and its inverse <em>forEach</em> are the primary way to generate custom output 
+    The <em>map</em>, <em>select</em> method and its inverse <em>selectEach</em> are some ways to generate output 
     for each item in a collection:
 </p>
 
-{{ 'live-template' | partial({ rows: 5, template: `{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | assignTo:scoreRecords }}
+{{ 'live-template' | partial({ rows: 7, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
+<b>map</b>
+<ol>{{ scoreRecords | map => `<li>${it.name} = ${it.score}</li>` | join('') | raw }}</ol>
 <b>select</b>
 <ol>{{ scoreRecords | select: <li>{it.name} = {it.score}</li> }}</ol>
-<b>forEach</b>
-<ol>{{ '<li> {{ it.name }} = {{ it.score }} </li>' | forEach(scoreRecords) }}</ol>` }) }}
+<b>selectEach</b>
+<ol>{{ '<li> {{ it.name }} = {{ it.score }} </li>' | selectEach(scoreRecords) }}</ol>" }) }}
+
+<p>
+    Although a lot of times it's easier to use the <a href="/docs/blocks#each">each</a> Script Block to iterate over items:
+</p>
+
+{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
+{{#each scoreRecords}}
+  {{index+1}}. {{it.name}} = {{it.score}}
+{{/each}}" }) }}
+
+<p>If you instead need to iterate over a collection to perform side-effects without generating output you can use <em>forEach</em>:</p>
+
+{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
+{{ [] | to => scores }}
+{{scoreRecords.forEach((record, index) => scores.push(record.score))}}
+{{ scores | join}}" }) }}
+
 
 <p>
     Use <em>step</em> if you want to iterate using a custom step function:
