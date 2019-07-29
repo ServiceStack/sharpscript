@@ -5,6 +5,6 @@
    | map => it.CompanyName[0] 
    | assignTo => customerFirstChars }}
 Unique first letters from Product names and Customer names:
-{{#each union(productFirstChars,customerFirstChars) }}
+{{#each productFirstChars.union(customerFirstChars) }}
   {{it}}
 {{/each}}

@@ -1,4 +1,4 @@
 {{ products 
    | groupBy => it.Category
-   | map => { Category: it.Key, AveragePrice: average(it, p => p.UnitPrice) } 
+   | map => { Category: it.Key, AveragePrice: it.average(p => p.UnitPrice) } 
    | htmlDump }}

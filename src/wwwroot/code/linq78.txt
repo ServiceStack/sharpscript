@@ -1,3 +1,3 @@
 {{ [5, 4, 1, 3, 9, 8, 6, 7, 2, 0] | assignTo: numbers }}
-{{ numbers | sum | assignTo: numSum }}
+{{ numbers.sum() | to => numSum }}
 The sum of the numbers is {{numSum}}.

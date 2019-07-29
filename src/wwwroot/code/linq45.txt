@@ -1,4 +1,4 @@
 {{ ['from   ', ' salt', ' earn ', '  last   ', ' near ', ' form  '] | assignTo: anagrams }}
-{{#each groupBy(anagrams, w => trim(w), { map: a => upper(a), comparer: anagramComparer }) }}
+{{#each anagrams.groupBy(w => w.trim(), { map: a => a.upper(), comparer: anagramComparer }) }}
 {{it | json}}
 {{/each}}

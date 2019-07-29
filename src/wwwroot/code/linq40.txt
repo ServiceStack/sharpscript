@@ -2,5 +2,6 @@
 {{ nums 
    | groupBy => it % 5
    | let => { remainder: it.Key, nums: it }
-   | select: Numbers with a remainder of { remainder } when divided by 5:\n{nums | join('\n')}\n
+   | map => `Numbers with a remainder of ${remainder} when divided by 5:\n${nums.join('\n')}`
+   | join('\n')
 }}

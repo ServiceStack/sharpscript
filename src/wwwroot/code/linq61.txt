@@ -1,2 +1,2 @@
 {{ [] | assignTo: numbers }}
-{{ numbers | first | otherwise('null') }}
+{{ numbers.first() ?? 'null' }}

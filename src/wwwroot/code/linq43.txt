@@ -1,15 +1,12 @@
-{{ customers 
-   | map => { 
-        CompanyName: it.CompanyName, 
-        YearGroups: map (
-            groupBy(it.Orders, it => it.OrderDate.Year),
-            yg => { 
-                Year: yg.Key,
-                MonthGroups: map (
-                    groupBy(yg, o => o.OrderDate.Month),
-                    mg => { Month: mg.Key, Orders: mg }
-                ) 
-            }
-        ) 
-     }
+{{ customers | map => { 
+    CompanyName: it.CompanyName, 
+    YearGroups: it.Orders.groupBy(it => it.OrderDate.Year).map(yg =>
+        { 
+            Year: yg.Key,
+            MonthGroups: yg.groupBy(o => o.OrderDate.Month).map(mg => 
+                { Month: mg.Key, Orders: mg }
+            ) 
+        }
+      ) 
+   }
    | htmlDump }}

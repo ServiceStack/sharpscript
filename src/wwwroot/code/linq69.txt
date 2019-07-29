@@ -1,5 +1,5 @@
 {{ products 
    | groupBy => it.Category
-   | where => any(it, it => it.UnitsInStock = 0)
+   | where => it.any(it => it.UnitsInStock = 0)
    | let => { Category: it.Key, Products: it } 
    | htmlDump }}

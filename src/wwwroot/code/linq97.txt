@@ -1,4 +1,4 @@
 {{ [ 'cherry', 'apple', 'blueberry' ] | assignTo: wordsA }}
 {{ [ 'apple', 'blueberry', 'cherry' ] | assignTo: wordsB }}
-{{ wordsA | equivalentTo(wordsB) | assignTo: match }}
+{{ wordsA.equivalentTo(wordsB) | to => match }}
 The sequences match: {{ match | lower }}
