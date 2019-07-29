@@ -1,6 +1,6 @@
 {{ customers 
    | where => it.Region = 'WA' 
-   | assignTo: waCustomers 
+   | to => waCustomers 
 }}
 Customers from Washington and their orders:
 {{ waCustomers | selectPartial: customer }}

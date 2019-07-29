@@ -1,8 +1,8 @@
 {{ customers 
     | map => it.CompanyName
-    | assignTo => customerNames }}
+    | to => customerNames }}
 {{ products 
     | map => it.ProductName
-    | assignTo => productNames }}
+    | to => productNames }}
 Customer and product names:
 {{ customerNames.concat(productNames) | join(`\n`) }}

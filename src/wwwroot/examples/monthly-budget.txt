@@ -1,19 +1,19 @@
-{{ 11200 | assignTo: balance }}
-{{ 3     | assignTo: projectedMonths }}
+{{ 11200 | to => balance }}
+{{ 3     | to => projectedMonths }}
 {{'
 Salary:        4000
 App Royalties: 200
-'| trim | parseKeyValueText(':') | assignTo: monthlyRevenues }}
+'| trim | parseKeyValueText(':') | to => monthlyRevenues }}
 {{'
 Rent      1000
 Internet  50
 Mobile    50
 Food      400
 Misc      200
-'| trim | parseKeyValueText | assignTo: monthlyExpenses }}
-{{ monthlyRevenues | values | sum | assignTo: totalRevenues }}
-{{ monthlyExpenses | values | sum | assignTo: totalExpenses }}
-{{ subtract(totalRevenues, totalExpenses) | assignTo: totalSavings }}
+'| trim | parseKeyValueText | to => monthlyExpenses }}
+{{ monthlyRevenues | values | sum | to => totalRevenues }}
+{{ monthlyExpenses | values | sum | to => totalExpenses }}
+{{ subtract(totalRevenues, totalExpenses) | to => totalSavings }}
 
 Current Balance: <b>{{ balance | currency }}</b>
 

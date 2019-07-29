@@ -1,4 +1,4 @@
-{{ '1997-01-01' | assignTo: cutoffDate }}
+{{ '1997-01-01' | to => cutoffDate }}
 {{ customers 
    | where => it.Region = 'WA'
    | zip => it.Orders
