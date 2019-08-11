@@ -2,7 +2,7 @@
     { 
         links: { 
             '/docs/model-view-controller': 'MVC', 
-            '/docs/sharp-pages': 'Sharp Pages', 
+            '/docs/sharp-pages': '#Script Pages', 
             '/docs/code-pages': 'Sharp Code Pages'
         } 
     }) 

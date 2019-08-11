@@ -17,7 +17,7 @@ namespace SharpScript
     public class AppHost : AppHostBase
     {
         public AppHost()
-            : base("Sharp Pages", typeof(TemplateServices).Assembly) { }
+            : base("#Script Pages", typeof(TemplateServices).Assembly) { }
 
         public ScriptContext LinqContext;
 

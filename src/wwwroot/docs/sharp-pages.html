@@ -1,15 +1,15 @@
 <!--
-title: Sharp Pages
+title: #Script Pages
 order: 19
 -->
 
 <p>
     One of the most popular use-cases for a high-performance and versatile scripting language like #Script is as a server-side
-    HTML Sharp Pages for .NET Web Applications where it can provide a simpler, cleaner and portable alternative than Razor and 
+    HTML #Script Pages for .NET Web Applications where it can provide a simpler, cleaner and portable alternative than Razor and 
     Razor Pages in ASP.NET and ASP.NET Core Web Apps. 
 </p>
 
-<h3>Sharp Pages in ServiceStack</h3>
+<h3>#Script Pages in ServiceStack</h3>
 
 <p>
     The <em>SharpPagesFeature</em> plugin provides a first-class experience for generating dynamic websites where it's able to 
@@ -17,14 +17,14 @@ order: 19
 </p>
 
 <p>
-    To enable Sharp Pages in ServiceStack you just need to register the <em>SharpPagesFeature</em> plugin:
+    To enable #Script Pages in ServiceStack you just need to register the <em>SharpPagesFeature</em> plugin:
 </p>
 
 {{ 'gfm/sharp-pages/01.md' | githubMarkdown }}
 
 <p>
     <em>SharpPagesFeature</em> is a subclass of <em>ScriptContext</em> which defines the context on which all ServiceStack 
-    Sharp Pages are executed within. It provides deep integration within ServiceStack by replacing the ScriptContext's stand-alone 
+    #Script Pages are executed within. It provides deep integration within ServiceStack by replacing the ScriptContext's stand-alone 
     dependencies with ServiceStack AppHost providers, where it: 
 </p>
 
@@ -34,15 +34,15 @@ order: 19
     <li>Configures it to use ServiceStack's <a href="https://docs.servicestack.net/ioc">Funq IOC Container</a>         
         so all ServiceStack dependencies are available to Code Pages</li>
     <li>Configures it to use ServiceStack's <a href="https://docs.servicestack.net/appsettings">AppSettings</a>         
-        so all AppHost AppSettings are available to Sharp Pages as well</li>
+        so all AppHost AppSettings are available to #Script Pages as well</li>
     <li>Configures <b>ScanAssemblies</b> to use AppHost Service Assemblies so it auto-registers all Filters in Service .dlls</li>
     <li>Registers the <em>ProtectedScripts</em> allowing pages to access richer server-side functionality</li>
     <li>Registers the <b>markdown</b> Filter Transformer using ServiceStack's built-in MarkdownDeep implementation</li>
     <li>Makes the <em>ServiceStackCodePage</em> subclass available so Code Pages has access to same functionality as Services</li>
-    <li>Registers a Request Handler which enables all requests <b>.html</b> pages to be handled by Sharp Pages</li>
+    <li>Registers a Request Handler which enables all requests <b>.html</b> pages to be handled by #Script Pages</li>
 </ul>
 
-<p>If preferred, you can change which <b>.html</b> extension gets handled by Sharp Pages with:</p>
+<p>If preferred, you can change which <b>.html</b> extension gets handled by #Script Pages with:</p>
 
 {{ 'gfm/sharp-pages/02.md' | githubMarkdown }}
 
@@ -113,7 +113,7 @@ order: 19
 <h4 id="pretty-urls-by-default">Pretty URLs by default</h4>
 
 <p>
-    Essentially Sharp Pages embraces conventional page-based routing which enables <b>pretty urls</b> inferred from the pages file and directory names
+    Essentially #Script Pages embraces conventional page-based routing which enables <b>pretty urls</b> inferred from the pages file and directory names
     where each page can be requested with or without its <b>.html</b> extension:
 </p>
 
@@ -170,7 +170,7 @@ order: 19
 <h3 id="dynamic-page-routes">Dynamic Page Routes</h3>
 
 <p>
-    In addition to these static conventions, Sharp Pages now supports Nuxt-like 
+    In addition to these static conventions, #Script Pages now supports Nuxt-like 
     <a href="https://nuxtjs.org/guide/routing#dynamic-routes">Dynamic Routes</a>
     where any <b>file</b> or <b>directory</b> names prefixed with an <b>_underscore</b> enables a wildcard path which assigns the matching path component 
     to the arguments name:

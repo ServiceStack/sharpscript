@@ -47,7 +47,7 @@ title: Kurt Cobain
 --&gt;</code></pre>
 
 <p>
-    You won't need to specify a custom layout as Sharp Pages will automatically select the closest layout from the page at:
+    You won't need to specify a custom layout as #Script Pages will automatically select the closest layout from the page at:
     <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/wwwroot/usecases/rockstar-files/dead/_layout.html">/rockstar-files/dead/_layout.html</a>.
     You'll also no longer need to maintain your Layout pages and partials in <em>/Views/Shared</em> separate from your views as they 
     all get to all live cohesively in the same logical folder structure. 
@@ -57,13 +57,13 @@ title: Kurt Cobain
 <p>
     The declarative <em>{{ pass: page }}</em> is used to embed a page in a layout instead of the imperative <em>@RenderBody()</em>.
     Likewise the syntax for partials changes to <em>{{ pass: "menu-alive" | partial }}</em> from <em>@Html.Partial("MenuAlive")</em>.
-    Sharp Pages also alleviates the need for bespoke partials like <em>@Html.PartialMarkdown("Content")</em> as it can instead leverage the 
+    #Script Pages also alleviates the need for bespoke partials like <em>@Html.PartialMarkdown("Content")</em> as it can instead leverage the 
     flexibility of chaining existing filters to achieve the same result like
     <em>{{ pass: "content.md" | includeFile | markdown }}</em>.
 </p>
 
 <p>
-    To get a feel for what an equivalent Razor Website looks like compared to Sharp Pages checkout:
+    To get a feel for what an equivalent Razor Website looks like compared to #Script Pages checkout:
 </p>
 
 <table class="table">

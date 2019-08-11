@@ -51,7 +51,7 @@ with a <a href="http://sharpscript.net/docs/html-scripts" rel="nofollow">HTML Sc
 <a id="user-content-sql-studio-example" class="anchor" href="#sql-studio-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SQL Studio Example</h3>
 <p>To take the ad hoc SQL Query example even further, it also becomes trivial to implement a SQL Viewer to run ad hoc queries on your App's configured database.</p>
 <p><a href="http://rockwind-sqlite.web-app.io/northwind/sql/" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/rockwind/sql-viewer.png" alt="" style="max-width:100%;"></a></p>
-<p>The <a href="http://rockwind-sqlite.web-app.io/northwind/sql/" rel="nofollow">Northwind SQL Viewer</a> above was developed using the 2 Sharp Pages below:</p>
+<p>The <a href="http://rockwind-sqlite.web-app.io/northwind/sql/" rel="nofollow">Northwind SQL Viewer</a> above was developed using the 2 #Script Pages below:</p>
 <h4>
 <a id="user-content-northwindsqlindexhtml" class="anchor" href="#northwindsqlindexhtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind/northwind/sql/index.html">/northwind/sql/index.html</a>
 </h4>
@@ -114,7 +114,7 @@ the partial HTML fragment with <code>return</code>:</p>
 <span class="pl-c1">{{</span> <span class="pl-v">sql</span> | <span class="pl-e"><span class="pl-v">dbSelect</span></span> | <span class="pl-e"><span class="pl-v">htmlDump</span></span> | <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
 <h3>
 <a id="user-content-live-development-workflow" class="anchor" href="#live-development-workflow" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Development Workflow</h3>
-<p>Thanks to the live development workflow of Sharp Pages, this is the quickest way we've previously been able to implement any of this functionality.
+<p>Thanks to the live development workflow of #Script Pages, this is the quickest way we've previously been able to implement any of this functionality.
 Where all development can happen at runtime with no compilation or builds, yielding a highly productive iterative workflow to implement common functionality
 like viewing ad hoc SQL Queries in Excel or even just to rapidly prototype APIs so they can be consumed immediately by Client Applications before
 formalizing them into Typed ServiceStack Services where they can take advantage of its rich typed metadata and ecosystem.</p>
