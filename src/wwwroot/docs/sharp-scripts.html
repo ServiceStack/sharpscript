@@ -33,54 +33,6 @@ can be added in its page arguments to enable or configure any features.
 
 Lets go through a couple of different possibilities we can do with scripts:
 
-### Adhoc reports
-
-Scripts can use the built-in [Database Scripts](/docs/db-scripts) to be able to [run queries against any](/docs/sharp-apps#multi-platform-configurations) `sqlite`, `sqlserver`, `mysql` and `postgres` database and quickly view data snapshots using the built-in
-[HTML Scripts](/docs/html-scripts#htmldump), e.g:
-{{/markdown}}
-
-{{ 'gfm/sharp-scripts/01.md' | githubMarkdown }}
-
-{{#markdown}}
-#### Specifying Script Arguments
-
-The above script generates a static HTML page can be invoked with **any number of named arguments** after the script name, in this case it
-generates a report for Northwind Order **#10643**, saves it to `10643.html` and opens it in the OS's default browser:
-
-    $ web run script.html -id 10643 > 10643.html && start 10643.html
-
-Which looks like:
-
-![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/10643.html.png)
-
-### textDump
-
-Generating static `.html` pages can quickly produce reports that looks good enough to share with others, 
-but if you just want to see a snapshot info at a glance or be able to share in text-based mediums like email or chat
-channels you can replace `htmlDump` with `textDump` where it will instead output GitHub flavored Markdown tables, e.g:
-{{/markdown}}
-
-{{ 'gfm/sharp-scripts/02.md' | githubMarkdown }}
-
-{{#markdown}}
-As the output is human-readable we can view directly it without a browser:
-
-    $ web run script.ss -id 10643 
-
-Which will output:
-{{/markdown}}
-
-{{ 'gfm/sharp-scripts/07.md' | githubMarkdown }}
-
-{{#markdown}}
-And because they're GitHub Flavored Markdown Tables they can be embedded directly in Markdown docs (like this) where it's renders as:
-{{/markdown}}
-
-<div class='markdown-body'>
-{{ 'gfm/sharp-scripts/08.md' | githubMarkdown }}
-</div>
-
-{{#markdown}}
 ### AWS Dashboards
 
 The [comprehensive built-in scripts](/docs/default-scripts) coupled with ServiceStack's agnostic 
@@ -200,5 +152,53 @@ Which starts a live watched session that re-renders itself on save, initially wi
 ### Live Session
 
 [![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/livepad.gif)](/docs/sharp-scripts)
+
+### Adhoc reports
+
+Scripts can use the built-in [Database Scripts](/docs/db-scripts) to be able to [run queries against any](/docs/sharp-apps#multi-platform-configurations) `sqlite`, `sqlserver`, `mysql` and `postgres` database and quickly view data snapshots using the built-in
+[HTML Scripts](/docs/html-scripts#htmldump), e.g:
 {{/markdown}}
 
+{{ 'gfm/sharp-scripts/01.md' | githubMarkdown }}
+
+{{#markdown}}
+#### Specifying Script Arguments
+
+The above script generates a static HTML page can be invoked with **any number of named arguments** after the script name, in this case it
+generates a report for Northwind Order **#10643**, saves it to `10643.html` and opens it in the OS's default browser:
+
+    $ web run script.html -id 10643 > 10643.html && start 10643.html
+
+Which looks like:
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/10643.html.png)
+
+### textDump
+
+Generating static `.html` pages can quickly produce reports that looks good enough to share with others, 
+but if you just want to see a snapshot info at a glance or be able to share in text-based mediums like email or chat
+channels you can replace `htmlDump` with `textDump` where it will instead output GitHub flavored Markdown tables, e.g:
+{{/markdown}}
+
+{{ 'gfm/sharp-scripts/02.md' | githubMarkdown }}
+
+{{#markdown}}
+As the output is human-readable we can view directly it without a browser:
+
+    $ web run script.ss -id 10643 
+
+Which will output:
+{{/markdown}}
+
+{{ 'gfm/sharp-scripts/07.md' | githubMarkdown }}
+
+{{#markdown}}
+And because they're GitHub Flavored Markdown Tables they can be embedded directly in Markdown docs (like this) where it's renders as:
+{{/markdown}}
+
+<div class='markdown-body'>
+{{ 'gfm/sharp-scripts/08.md' | githubMarkdown }}
+</div>
+
+
+{{ "doc-links" | partial({ order }) }}
