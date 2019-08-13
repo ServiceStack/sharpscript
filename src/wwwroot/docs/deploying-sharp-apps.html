@@ -1,26 +1,35 @@
 <!--
 title: Deploying Sharp Apps
-order: 27
+order: 28
 -->
 
-<p>
-    As all <a href="/docs/sharp-apps">Sharp Apps</a> use the same pre-compiled <a href="https://github.com/ServiceStack/Web">/web</a> binary, 
-    deployment is greatly simplified as it only needs to be concerned with deploying static files and starting <em>web/app.dll</em> 
-    with the App's <em>app.settings</em>. 
-</p>
-
-<h2>Deploying Sharp Apps to Ubuntu</h2>
-
-<p>
-    A common way for reliably hosting .NET Core Apps on Ubuntu is to use <a href="http://supervisord.org/index.html">supervisor</a> 
-    to monitor the <em>dotnet</em> self-hosting processes behind an nginx reverse proxy which handles external HTTP requests to
-    your website and proxies them to the dotnet process running your Web App on a local port. You'll need access to a Unix 
-    environment on your client Desktop, either using Linux, OSX or 
-    <a href="https://github.com/ServiceStack/redis-windows#option-1-install-redis-on-ubuntu-on-windows">Installing Windows Subsystem for Linux (WSL)</a>.
-</p>
-
-
 {{#markdown}}
+### Gist or GitHub App Server Deployments
+
+As Sharp Apps are just .NET Core Web Apps, the same App can be run within a Chromium Desktop App with 
+[app](https://docs.servicestack.net/netcore-windows-desktop), cross-platform on Windows, macOS or Linux with 
+[web](https://docs.servicestack.net/web-tool) in the preferred browser or hosted on a server where it's accessible to everyone with an internet connection.
+
+Not only does not needing to compile Sharp Apps dramatically simplify App development but it also dramatically simplifies 
+App deployment where you can completely skip all CI and build steps as there's nothing to build or deploy with the built-in
+support for Gist publishing.
+
+All that's required is to run the App on your server with `web open <app>`, e.g. to run `redis` Gist App:
+
+    $ web open redis
+
+Or to "install" the Gist App (without launching it with "open") so it can be run offline locally:
+
+    $ web install redis
+    
+## Deploying Sharp Apps to Ubuntu
+
+A common way for reliably hosting .NET Core Apps on Ubuntu is to use [supervisor](http://supervisord.org/index.html)
+to monitor the `dotnet` self-hosting processes behind an nginx reverse proxy which handles external HTTP requests to
+your website and proxies them to the dotnet process running your Web App on a local port. You'll need access to a Unix 
+environment on your client Desktop, either using Linux, OSX or 
+[Installing Windows Subsystem for Linux (WSL)](https://github.com/ServiceStack/redis-windows#option-1-install-redis-on-ubuntu-on-windows).
+
 ### Setup the deploy User Account
 
 Using a Unix command-line or [Windows Subsystem for Linux (WSL)](https://github.com/ServiceStack/redis-windows#option-1-install-redis-on-ubuntu-on-windows) 
@@ -44,116 +53,119 @@ prompting for a password:
 
 > In vi type `i` to start editing a file and `ESC` to quit edit mode and `:wq` to save your changes before exiting.
 
-For simplifying the one-time setup, it's easier to sign-in as super user:
-
-    $ sudo su -
-
 #### Install the dotnet `web` tool:
 
     $ dotnet tool install -g web
 
-Change into the directory where want to install the app:
+For simplifying the one-time setup, it's easier to sign-in as super user:
 
-    $ cd /home/deploy/apps
+    $ sudo su -
 
-Install your app from your GitHub project:
+#### Configure Nginx
 
-    $ web install spirals --source mythz
-
-Optional, but you can test that your app runs without issues with:
-
-    $ cd spirals && web
-
-#### Setup nginx
-
-To setup the nginx reverse proxy for this website change into:
+Which runs on port `5000` by default, which you can make available under your preferred domain by adding an nginx virtual host by changing to:
 
     $ cd /etc/nginx/sites-available/
 
-Then create an nginx website configuration template with:
+Then creating a Virtual Host configuration for your App, which you can start from using the mix `nginx` config template:
 
-    web init nginx
+    $ web mix nginx
 
-Rename it to the domain name you want to host it under:
+Then renaming the `my-app.web-app.io` file to the domain you want it hosted on instead, e.g:
 
-    $ mv my-app.web-app.io spirals.web-app.io
+    $ mv my-app.web-app.io redis.your-domain.com
 
-Edit the file and replace it to use your App settings:
+You'll also need to rename the virtual host in the config file, which in vi you can do with:
 
-    $ vi spirals.web-app.io
+    :%s/my-app.web-app.io/redis.your-domain.com/g
 
-Specifically you want to change the **domain name** and **port** you want to host it on which you can do quickly with the search/replace commands:
+Now to enable the site in nginx, link it with:
 
-    :%s/my-app.web-app.io/spirals.web-app.io/g
-    :%s/5000/5009/g 
+    $ ln -s /etc/nginx/sites-available/redis.your-domain.com /etc/nginx/sites-enabled/redis.your-domain.com
 
-Then type `:wq` to quit vi. To enable the site in nginx we need to create a symbolic link in `/sites-enabled`:
-
-    $ ln -s /etc/nginx/sites-available/spirals.web-app.io /etc/nginx/sites-enabled/spirals.web-app.io
-
-Then reload `nginx` to pick up changes:
+Then reload nginx to pick up changes:
 
     $ /etc/init.d/nginx reload
 
-#### Setup supervisor
+And voila! your Gist Sharp App is now being served at **redis.your-domain.com**
 
-Now that we have our website configured with nginx we need to setup supervisor to start and monitor the .NET Core process by changing into:
+#### Configure Supervisor
+
+We can further harden the .NET Core App process by having it run under a managed [supervisord](http://supervisord.org/index.html) process.
+
+To do this [create a deploy User Account](https://sharpscript.net/docs/deploying-sharp-apps#setup-the-deploy-user-account) and give it
+permission to run the `supervisorctl` and `web` programs, then change directory to:
 
     $ cd /etc/supervisor/conf.d
 
 Then generate a supervisor configuration template with:
 
-    $ web init supervisor
+    $ web mix supervisor
 
 Rename it to your Web App's folder name:
 
-    $ mv app.my-app.conf app.spirals.conf
+    $ mv app.my-app.conf app.redis.conf
 
-Then use vi to customize the configuration for your App: 
-
-    $ vi app.spirals.conf
-
-If your apps are located in `/home/deploy/apps/` then you can just run the Search/Replace rules:
+Then change all references of `my-app` to `redis`, which in vi you can do with:
 
     :%s/my-app/spirals/g
-    :%s/5000/5009/g
 
 Which will change it to:
 
-    [program:app-spirals]
-    command=/home/deploy/.dotnet/tools/web --release
-    directory=/home/deploy/apps/spirals
-    autostart=true
-    autorestart=true
-    stderr_logfile=/var/log/app-spirals.err.log
-    stdout_logfile=/var/log/app-spirals.out.log
-    environment=ASPNETCORE_ENVIRONMENT=Production,ASPNETCORE_URLS="http://*:5009/"
-    user=deploy
-    stopsignal=INT
+```
+[program:app-redis]
+command=/home/deploy/.dotnet/tools/web run redis --release
+directory=/home/deploy/.sharp-apps/redis
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/app-redis.err.log
+stdout_logfile=/var/log/app-redis.out.log
+environment=ASPNETCORE_ENVIRONMENT=Production,ASPNETCORE_URLS="http://*:5000/"
+user=deploy
+stopsignal=INT
+```
 
-> The `--release` flag overrides **debug** in `app.settings` so it's always run in release mode.
+> The --release flag overrides debug in app.settings so it's always run in release mode.
 
 After reviewing the changes, tell supervisor to register and start the supervisor process with:
 
     $ supervisorctl update
 
-Where your website will now be up and running at: [spirals.web-app.io](http://spirals.web-app.io).
+Where your website will now be up and running under a managed process at: **redis.your-domain.com**
 
-### Deploying Updates
+#### Deploy Updates
 
-After the one-time setup above, updating Sharp Apps are more easily done with:
+Now that's everything's configured, deploying app updates are easily done by installing the app again (which downloads the latest version),
+then restarting the supervisor managed process, in these 2 commands:
 
-    $ cd /home/deploy/apps
-    $ sudo /home/deploy/.dotnet/tools/web install spirals --source mythz
-    $ sudo supervisorctl restart app-spirals
+    $ web install redis
+    $ supervisorctl restart app-redis 
 
 Which can also be deployed from the Windows Command Prompt using a remote SSH command by combining the above commands in a `deploy-spirals.sh` text file:
 
-    ssh -t deploy@web-app.io "cd /home/deploy/apps && sudo /home/deploy/.dotnet/tools/web install spirals --source mythz && sudo supervisorctl restart app-spirals"
+    ssh -t deploy@web-app.io "sudo /home/deploy/.dotnet/tools/web install redis && sudo supervisorctl restart app-redis"
 
 Where App updates can then be performed with a single WSL bash command from the Windows Command Prompt:
 
     $ bash deploy-spirals.sh
+
+
+### Customized App Settings
+
+If you need to customize the App's settings, like we've needed to do with [blog.web-app.io](http://blog.web-app.io) **app.settings** to replace
+its OAuth keys, you can add a modified copy in its App folder which will take precedence over the read-only gist version:
+
+    $HOME/.sharp-apps/blog/app.settings
+    
+### Hosted Gist Apps
+
+All our Gist Apps are now hosted this way, by running a locally downloaded Gist App that's hosted at the following URLs:
+
+ - [redis.web-app.io](http://redis.web-app.io)
+ - [blog.web-app.io](http://blog.web-app.io)
+ - [plugins.web-app.io](http://plugins.web-app.io)
+ - [spirals.web-app.io](http://spirals.web-app.io)
+ - [bare.web-app.io](http://bare.web-app.io)
 
 ### Using Travis CI to deploy using Docker to AWS ECS
 
