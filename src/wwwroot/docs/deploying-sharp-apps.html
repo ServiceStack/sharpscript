@@ -1,17 +1,17 @@
 <!--
 title: Deploying Sharp Apps
-order: 28
+order: 24
 -->
 
 {{#markdown}}
 ### Gist or GitHub App Server Deployments
 
-As Sharp Apps are just .NET Core Web Apps, the same App can be run within a Chromium Desktop App with 
+As Sharp Apps are just .NET Core Web Apps, the same App can be run within a [Chromium Desktop App](/docs/gist-desktop-apps) with 
 [app](https://docs.servicestack.net/netcore-windows-desktop), cross-platform on Windows, macOS or Linux with 
 [web](https://docs.servicestack.net/web-tool) in the preferred browser or hosted on a server where it's accessible to everyone with an internet connection.
 
 Not only does not needing to compile Sharp Apps dramatically simplify App development but it also dramatically simplifies 
-App deployment where you can completely skip all CI and build steps as there's nothing to build or deploy with the built-in
+App deployment where you can **completely skip all CI and build steps** as there's nothing to build or deploy with the built-in
 support for Gist publishing.
 
 All that's required is to run the App on your server with `web open <app>`, e.g. to run `redis` Gist App:

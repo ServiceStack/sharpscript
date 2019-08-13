@@ -4,14 +4,14 @@ order: 23
 -->
 
 {{#markdown}}
-Gist Desktop Apps are simply [Sharp Apps](https://sharpscript.net/docs/sharp-apps) deployed as a Gist giving it additional liveness capabilities 
-unseen in .NET Core Apps where they can be **run on-the-fly without installation!**
+Gist Desktop Apps are simply [Sharp Apps](https://sharpscript.net/docs/sharp-apps) that's published to a Gist giving it additional liveness capabilities 
+unseen in .NET Core Apps where they can be **run on-the-fly without installation!** where they're always running the latest version.
 
 To recap [Sharp Apps](https://sharpscript.net/docs/sharp-apps) enable a dramatically simplified and productive workflow where
-entire Apps can be developed in a real-time dev workflow without compilation using a [JavaScript inspired syntax](https://sharpscript.net/docs/syntax)
-with access to a [comprehensive default library](https://sharpscript.net/docs/scripts-reference) that includes built-in support 
+entire Apps can be **developed in a real-time without compilation** using a [JavaScript inspired syntax](https://sharpscript.net/docs/syntax)
+and access to a [comprehensive default library](https://sharpscript.net/docs/scripts-reference) inc. built-in support 
 for the [most popular RDBMS's](https://sharpscript.net/docs/sharp-apps#multi-platform-configurations), 
-[Redis](https://sharpscript.net/docs/redis-scripts), AWS and Azure support that can be further extended with support for
+[Redis](https://sharpscript.net/docs/redis-scripts), AWS and Azure that can be further extended with support for
 [plugins](https://sharpscript.net/docs/sharp-apps#plugins).
 
 ### Windows .NET Core Desktop Apps
@@ -27,20 +27,20 @@ and partial support for auto updating, but it still requires a large download an
 #### Tiny footprint of Sharp Apps
 
 By contrast the majority of the download size of Sharp Apps is in the local .NET Core installation and [app](https://docs.servicestack.net/netcore-windows-desktop) 
-dotnet tool which are shared by all Sharp Apps, only the app-specific web assets and `#Script` source files need to be downloaded, making
+dotnet tool which are **shared by all Sharp Apps**, only the app-specific web assets and `#Script` source files need to be downloaded, making
 them a lot smaller and quicker to download (and run instantly). 
 
-They can even be further reduced by utilizing the resources embedded into **ServiceStack.dll** like the built-in SVG icons and stylesheet 
-and `/css/bootstrap.css`, which many Sharp Apps take advantage of to reduce their footprint.
+They can even be further reduced by utilizing the resources embedded into **[ServiceStack](https://docs.servicestack.net/)** like the built-in 
+[SVG images](https://docs.servicestack.net/svg) and stylesheet and `/css/bootstrap.css`, which many Sharp Apps take advantage of to reduce their footprint.
 
 ### Running Gist Desktop Apps
 
-If you haven't already, install the [app](https://docs.servicestack.net/netcore-windows-desktop) dotnet tool which is the only app required to
-run all Gist and Sharp Desktop Apps:
+If you haven't already, install the [app](https://docs.servicestack.net/netcore-windows-desktop) dotnet tool which is the 
+**only app required** to run **all Gist and Sharp Desktop Apps**:
 
     $ dotnet tool install -g app
 
-> OSX or Linux users can run Sharp Apps with the [web](https://docs.servicestack.net/web-tool) dotnet tool instead
+> OSX or Linux users can run Sharp Apps with the cross-platform [web](https://docs.servicestack.net/web-tool) dotnet tool instead
 
 Now everyone can launch a Windows Desktop Sharp App by specifying the name of the App they want to open with:
 
@@ -67,7 +67,7 @@ The list of available apps is also visible from the command-line with:
     6. plugins     Extend Apps with Plugins, ServiceStack Services and other C# extensions  by @sharp-apps
     7. chat        Extensible App with custom AppHost using OAuth + SSE for real-time Chat  by @sharp-apps
 
-Making Sharp Apps both discoverable as well as launch.
+Where Sharp Apps both discoverable as well as launch.
 
 ### Run Apps from URLs
 
@@ -79,6 +79,10 @@ it can also be run directly from a **Gist URL**, **Gist Id**, **GitHub Repo** or
     $ app open 189cd72bfaf480526e4b34814c80f2c0
     $ app open https://github.com/sharp-apps/redis
     $ app open https://github.com/sharp-apps/plugins/archive/v5.zip
+
+Local Sharp Apps can simply run `app` in the Sharp Apps directory:
+
+    $ app
 
 ### Cross Platform
 
@@ -102,7 +106,7 @@ When App's are launched with `open` it creates a folder in the Users `.sharp-app
 
 This is the current directory that the App is run from and where any files created by App's will be saved to and preserved across App runs.
 
-For Gist Apps this is an empty folder as the Gist files are loaded into memory, however to support being able to run Apps offline
+For **Gist Apps this is an empty folder** as the Gist files are loaded into memory, however to support being able to run Apps offline
 it also serializes all Gist files (after fetching all truncated files) to JSON at:
 
     $HOME\.sharp-apps\redis.gist
@@ -117,7 +121,7 @@ it's preferred to run them with `app open redis` so you're always running the la
 
 #### Uninstall Apps
 
-As Gist App's are downloaded on-the-fly and loaded into memory there's not much to uninstall just an empty folder and a `<app-name.gist>`
+As Gist App's are downloaded on-the-fly and loaded into memory there's not much to uninstall just an empty folder and a `<app-name>.gist`
 JSON blob which you can either manually delete or get the dotnet tool to do it for you.
 
 To view all App's you've opened, run:
@@ -254,8 +258,9 @@ Users that are not on Windows can use the `web` tool instead to launch your App 
 
     $ web open spirals
 
-With its built-in publishing support, it means you can create an App from scratch, publish it to a gist, register it in the App directory - 
-where your creations are ready for the world to use in minutes!
+With its built-in publishing support, it means you can **create an App from scratch, publish it to a gist, register it in the App directory** - 
+where your creations are ready for the world to use **in minutes!**
+
 We're not aware of any other Desktop App solution that comes close to this level of turn around time.
 
 #### blog
@@ -409,7 +414,7 @@ For GitHub Repo apps, `open` is equivalent to re-running `install` and `run` eac
 
 ### GitHub Sharp App Commands
 
-Whilst they work differently, `open`, `install`, `run` and `uninstall` have the same behavior for both Gist and GitHub Repo Apps, i.e:
+Whilst they work differently, `open`, `install`, `run` and `uninstall` have the **same behavior** for both Gist and GitHub Repo Apps, i.e:
 
   - `open` - Always run the latest version of the App
   - `install` - Download the App only so it can be run offline
