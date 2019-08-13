@@ -88,17 +88,19 @@ providers like the [Virtual File System](/virtual-file-system) makes it easy to 
 like all Tables and Row counts in managed AWS RDS Instances or Search for static Asset resources in S3 Buckets.
 {{/markdown}}
 
-{{ 'gfm/sharp-scripts/03.md' | githubMarkdown }}
+{{ 'gfm/sharp-scripts/03.md' | githubMarkdown | to => md }}
+{{ md | replace('&lt;<span class="pl-ent">script</span>&gt;', '<span class="pl-en">```code</span><span class="pl-s1"></span>') 
+      | replace('<span class="pl-k">&lt;</span><span class="pl-k">/</span>script<span class="pl-k">&gt;</span></span>','<span class="pl-en">```</span><span class="pl-s1"></span>      ') | raw }}
 
 {{#markdown}}
 You can use `$NAME` to move confidential information out of public scripts where it will be replaced with Environment 
-Variables. Then run the script as normal and optionally override the `find` pattern for files you want to search for:
+Variables. Then run the script as normal and optionally provide a pattern for files you want to search for:
 
-    $ web run script-aws.ss -find *.png
+    $ web run script-aws.ss *.jpg
 
 Where it displays a dashboard of activity from your AWS resources: containing all Tables with their Row Counts, 
 adhoc queries like your last 5 Orders, The Root files and Folders available in your S3 Bucket and any matching resources 
-from your `find` search pattern:
+from your specified search pattern:
 {{/markdown}}
 
 {{ 'gfm/sharp-scripts/09.md' | githubMarkdown }}
@@ -110,7 +112,9 @@ The nice thing about `#Script` late-binding and cloud agnostic providers is that
 can **use the exact same script** to query an Azure managed SQL Server Database and Azure Blob File Storage:
 {{/markdown}}
 
-{{ 'gfm/sharp-scripts/04.md' | githubMarkdown }}
+{{ 'gfm/sharp-scripts/04.md' | githubMarkdown | to => md }}
+{{ md | replace('&lt;<span class="pl-ent">script</span>&gt;', '<span class="pl-en">```code</span><span class="pl-s1"></span>') 
+      | replace('<span class="pl-k">&lt;</span><span class="pl-k">/</span>script<span class="pl-k">&gt;</span></span>','<span class="pl-en">```</span><span class="pl-s1"></span>      ') | raw }}
 
 {{#markdown}}
 ## Live #Script with 'web watch'
