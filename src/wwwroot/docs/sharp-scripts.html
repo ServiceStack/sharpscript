@@ -101,11 +101,53 @@ Variables. Then run the script as normal and optionally provide a pattern for fi
 Where it displays a dashboard of activity from your AWS resources: containing all Tables with their Row Counts, 
 adhoc queries like your last 5 Orders, The Root files and Folders available in your S3 Bucket and any matching resources 
 from your specified search pattern:
-{{/markdown}}
 
-{{ 'gfm/sharp-scripts/09.md' | githubMarkdown }}
+    Querying AWS...
 
-{{#markdown}}
+    | Tables                   ||
+    |--------------------|------|
+    | Order Detail       | 2155 |
+    | Order              | 830  |
+    | Customer           | 91   |
+    | Product            | 77   |
+    | Territory          | 53   |
+    | Region             | 0    |
+    | Shipper            | 0    |
+    | Supplier           | 0    |
+    | Category           | 0    |
+    | Employee           | 0    |
+    | Employee Territory | 0    |
+
+    Last 5 Orders:
+
+    | # | Id    | CustomerId | EmployeeId | Freight |
+    |---|-------|------------|------------|---------|
+    | 1 | 11077 | RATTC      | 1          | $8.53   |
+    | 2 | 11076 | BONAP      | 4          | $38.28  |
+    | 3 | 11075 | RICSU      | 8          | $6.19   |
+    | 4 | 11074 | SIMOB      | 7          | $18.44  |
+    | 5 | 11073 | PERIC      | 2          | $24.95  |
+
+
+    | Root Files + Folders   |
+    |------------------------|
+    | api/                   |
+    | northwind/             |
+    | rockstars/             |
+    | index.html             |
+    | web.aws.settings       |
+    | web.postgres.settings  |
+    | web.sqlite.settings    |
+    | web.sqlserver.settings |
+
+
+    First 5 *.jpg files in S3:
+    assets/img/home-icon.jpg
+    rockstars/alive/grohl/splash.jpg
+    rockstars/alive/love/splash.jpg
+    rockstars/alive/springsteen/splash.jpg
+    rockstars/alive/vedder/splash.jpg
+
 ### Azure Dashboards
 
 The nice thing about `#Script` late-binding and cloud agnostic providers is that with just different configuration we
@@ -125,7 +167,9 @@ To watch a script just replace `run` with `watch`:
 
     $ web watch script-aws.ss *.jpg
 
-[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/watch-aws-azure.gif)](/docs/sharp-scripts)
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/watch-aws-azure.gif)](https://youtu.be/GQvxyPHQjhM)
+
+> YouTube: [youtu.be/GQvxyPHQjhM](https://youtu.be/GQvxyPHQjhM)
 
 The ability to run stand-alone adhoc scripts in an extensible dynamic scripting language feels like you're 
 using a "developer enhanced" SQL Studio, where you can combine queries from multiple data sources, [manipulate them with LINQ](https://sharpscript.net/linq/restriction-operators) 
