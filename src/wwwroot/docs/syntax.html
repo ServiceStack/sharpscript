@@ -83,8 +83,8 @@ order: 3
     ES6 Shorthand notation is also supported where you can use the argument name as its property name in a Dictionary:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ 'foo'    | assignTo: bar }}
-{{ { bar }  | assignTo: obj }}
+{{ 'live-template' | partial({ template: "{{ 'foo'    | to => bar }}
+{{ { bar }  | to => obj }}
 {{ obj['bar'] }}" }) }}
 
 <h4>Quotes</h4>
@@ -201,6 +201,7 @@ Captured Argument: {{template}}"
     layout templates.
 </p>
 
+<a name="extension-methods"></a>
 {{#markdown}}
 
 ### Script Methods can be used as Extension Methods

@@ -31,6 +31,20 @@ order: 16
     An easy way to prettify errors in Web Pages is to use <a href="/docs/html-scripts#htmlerror">HTML Error Scripts</a>.
 </blockquote>
 
+{{#markdown}}
+#### ifErrorReturn
+
+You can use `ifErrorReturn` in all Script Methods that [throw Managed Exceptions](#implementing-method-exceptions) 
+to specify a return value to use instead of throwing the Exception. 
+
+E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Authenticate` Service is called from an unauthenticated Request, e.g:
+
+    {{#script}}
+    AUTH = {{ 'Authenticate' | execService({ ifErrorReturn: "null" }) | json }};
+    {{/script}}
+
+{{/markdown}}
+
 <h4>Unhandled Exceptions Behavior</h4>
 
 <p>
@@ -231,7 +245,7 @@ order: 16
     all the arguments meet the condition or return the Object Dictionary if all conditions are met:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ 1 | assignTo: one }}{{ 'bar' | assignTo: foo }}{{ '' | assignTo: empty }}
+{{ 'live-template' | partial({ rows:5, template: `{{ 1 | to => one }}{{ 'bar' | to => foo }}{{ '' | to => empty }}
 {{ { one, foo, empty } | ensureAllArgsNotNull | htmlDump({ caption: 'ensureAllArgsNotNull' }) }}
 ensureAllArgsNotEmpty:
 {{ { one, foo, empty } | ensureAllArgsNotEmpty({ assignError:'ex' }) | htmlDump }}
@@ -241,7 +255,7 @@ ensureAllArgsNotEmpty:
     The <em>ensureAny*</em> methods only requires one of the arguments meet the condition to return the Object Dictionary:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ '' | assignTo: empty }}
+{{ 'live-template' | partial({ rows:5, template: `{{ '' | to => empty }}
 {{ { foo, empty } | ensureAnyArgsNotNull | htmlDump({ caption: 'ensureAnyArgsNotNull' }) }}
 ensureAnyArgsNotEmpty:
 {{ { foo, empty } | ensureAnyArgsNotEmpty({ assignError:'ex' }) | htmlDump }}

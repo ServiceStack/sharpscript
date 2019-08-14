@@ -14,13 +14,13 @@ order: 11
     <em>headerStyle</em> can be any <a href="/docs/default-scripts#text-style">Text Style</a>
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] | assignTo: rockstars }}
+{{ 'live-template' | partial({ template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] | to => rockstars }}
 {{ rockstars | htmlDump }}
 Uses defaults: {{ rockstars | htmlDump({ headerTag: 'th', headerStyle: 'splitCase' }) }}` }) }}
 
 <h5>htmlDump customizations</h5>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] | assignTo: rockstars }}
+{{ 'live-template' | partial({ rows:3, template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] | to => rockstars }}
 {{ rockstars | htmlDump({ className: "table table-striped", caption: "Rockstars" }) }}
 {{ [] | htmlDump({ captionIfEmpty: "No Rockstars"}) }}` }) }}
 
@@ -29,7 +29,7 @@ Uses defaults: {{ rockstars | htmlDump({ headerTag: 'th', headerStyle: 'splitCas
 <p>
     Helper method to simplify rendering a <em>class="..."</em> list on HTML elements, it accepts Dictionary of boolean flags, List of strings or string, e.g:
 </p>
-{{ 'live-template' | partial({ rows:7, template: `{{ 1 | assignTo: index }}
+{{ 'live-template' | partial({ rows:7, template: `{{ 1 | to => index }}
 Dictionary All: {{ {alt:isOdd(index), active:true} | htmlClass }}
 Dictionary One: {{ {alt:isEven(index), active:true} | htmlClass }}
 Dictionary None: {{ {alt:isEven(index), active:false} | htmlClass }}

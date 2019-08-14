@@ -15,10 +15,10 @@
            <span class="pl-e"><span class="pl-v">INNER</span></span> <span class="pl-e"><span class="pl-v">JOIN</span></span>
            <span class="pl-e"><span class="pl-v">Shipper</span></span> <span class="pl-e"><span class="pl-v">s</span></span> <span class="pl-e"><span class="pl-v">ON</span></span> <span class="pl-e"><span class="pl-v">o.ShipVia</span></span> = <span class="pl-e"><span class="pl-v">s.Id</span></span>
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">o.Id</span></span> = @<span class="pl-e"><span class="pl-v">id</span></span>` 
-  | <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) | <span class="pl-e"><span class="pl-v">assignTo</span></span>: <span class="pl-e"><span class="pl-v">order</span></span> <span class="pl-c1">}}</span>
+  | <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) | <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">order</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span><span class="pl-c1">#with</span> <span class="pl-v">order</span><span class="pl-c1">}}</span>
-  <span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">"</span>table table-striped<span class="pl-pds">"</span></span> | <span class="pl-e"><span class="pl-v">assignTo</span></span>: <span class="pl-e"><span class="pl-v">className</span></span> <span class="pl-c1">}}</span>
+  <span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">"</span>table table-striped<span class="pl-pds">"</span></span> | <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">className</span></span> <span class="pl-c1">}}</span>
 <span class="pl-s1">  &lt;<span class="pl-ent">style</span>&gt;<span class="pl-ent">table</span> {<span class="pl-c1"><span class="pl-c1">border</span></span>: <span class="pl-c1">5<span class="pl-k">px</span></span> <span class="pl-c1">solid</span> <span class="pl-c1">transparent</span>} <span class="pl-ent">th</span> {<span class="pl-c1"><span class="pl-c1">white-space</span></span>: <span class="pl-c1">nowrap</span>}&lt;/<span class="pl-ent">style</span>&gt;</span>
   
   &lt;<span class="pl-ent">div</span> <span class="pl-e"><span class="pl-e">style</span>=</span><span class="pl-s"><span class="pl-pds">"</span>display:flex<span class="pl-pds">"</span></span>&gt;

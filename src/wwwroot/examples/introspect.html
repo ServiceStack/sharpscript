@@ -17,8 +17,8 @@
     <tr><th>Id</th><th>Name</th><th>CPU Time</th><th>User Time</th><th>Memory (current)</th>
         <th>Memory (peak)</th><th>Active Threads</th></tr>
     {{#if currentProcess}}
-    {{ currentProcess | assignTo: p }}
-    {{ "h':'mm':'ss'.'FFF" | assignTo: fmtTime }}
+    {{ currentProcess | to => p }}
+    {{ "h':'mm':'ss'.'FFF" | to => fmtTime }}
     <tr>
         <td>{{ Id }}</td>
         <td>{{ p.ProcessName | substringWithEllipsis(15) }}</td>

@@ -1,3 +1,3 @@
-{{ 'select url from quote where id= @id' | dbScalar({ qs.id }) | urlContents | markdown | assignTo:quote}}
+{{ 'select url from quote where id= @id' | dbScalar({ qs.id }) | urlContents | markdown | to =>quote}}
 
 {{ quote | replace('Razor', 'Templates') | replace('2010', now.Year) | raw }}

@@ -82,7 +82,7 @@ order: 12
         page: 'page', 
         files: 
         { 
-            'page.html' : '{{ "https://raw.githubusercontent.com/ServiceStack/sharpscript/master/src" | assignTo: src }}
+            'page.html' : '{{ "https://raw.githubusercontent.com/ServiceStack/sharpscript/master/src" | to => src }}
 {{ `${src}/wwwroot/code/linq01.txt` | includeUrl }}'
         } 
     }) 
@@ -153,106 +153,7 @@ order: 12
 </p>
 {{/raw}}
 
-<table class="table table-striped">
-    <caption>WebRoot Virtual File Sources APIs</caption>
-    <thead>
-        <tr>
-            <th>Method Name</th>
-            <th>
-                <a href="https://github.com/ServiceStack/ServiceStack/tree/master/src/ServiceStack.Interfaces/IO">Virtual File System API</a>
-            </th>
-        </tr>
-    </thead>
-    <tr>
-        <th colspan="2" style="text-align:right">File APIs</th>
-    </tr>
-    <tr>
-        <th>filesFind</th>
-        <td>GetAllMatchingFiles(globPattern)</td>
-    </tr>
-    <tr>
-        <th>fileExists</th>
-        <td>FileExists(virtualPath)</td>
-    </tr>
-    <tr>
-        <th>file</th>
-        <td>GetFile(virtualPath)</td>
-    </tr>
-    <tr>
-        <th>fileWrite</th>
-        <td>WriteFile(virtualPath, contents)</td>
-    </tr>
-    <tr>
-        <th>fileAppend</th>
-        <td>AppendFile(virtualPath, contents)</td>
-    </tr>
-    <tr>
-        <th>fileDelete</th>
-        <td>DeleteFile(virtualPath)</td>
-    </tr>
-    <tr>
-        <th>fileReadAll</th>
-        <td>GetFile(virtualPath).ReadAllText()</td>
-    </tr>
-    <tr>
-        <th>fileReadAllBytes</th>
-        <td>GetFile(virtualPath).ReadAllBytes()</td>
-    </tr>
-    <tr>
-        <th>fileHash</th>
-        <td>GetFileHash(virtualPath)</td>
-    </tr>
-    <tr>
-        <th colspan="2" style="text-align:right">Directory APIs</th>
-    </tr>
-    <tr>
-        <th>dir</th>
-        <td>GetDirectory(virtualPath)</td>
-    </tr>
-    <tr>
-        <th>dirExists</th>
-        <td>DirectoryExists(virtualPath)</td>
-    </tr>
-    <tr>
-        <th>dirFile</th>
-        <td>GetDirectory(dirPath).GetFile(fileName)</td>
-    </tr>
-    <tr>
-        <th>dirFiles</th>
-        <td>.GetDirectory(dirPath).GetFiles()</td>
-    </tr>
-    <tr>
-        <th>dirDirectory</th>
-        <td>GetDirectory(dirPath).GetDirectory(dirName)</td>
-    </tr>
-    <tr>
-        <th>dirDirectories</th>
-        <td>GetDirectory(dirPath).GetDirectories()</td>
-    </tr>
-    <tr>
-        <th>dirFilesFind</th>
-        <td>GetDirectory(dirPath).GetAllMatchingFiles(globPatern)</td>
-    </tr>
-    <tr>
-        <th colspan="2" style="text-align:right">Virtual File System APIs</th>
-    </tr>
-    <tr>
-        <th>vfsAllFiles</th>
-        <td>GetAllFiles()</td>
-    </tr>
-    <tr>
-        <th>vfsAllRootFiles</th>
-        <td>GetRootFiles()</td>
-    </tr>
-    <tr>
-        <th>vfsAllRootDirectories</th>
-        <td>GetRootDirectories()</td>
-    </tr>
-    <tr>
-        <th>vfsCombinePath</th>
-        <td>CombineVirtualPath(basePath, relativePath)</td>
-    </tr>
-</table>
+{{ 'gfm/protected-scripts/02.md' | githubMarkdown }}
 
 <p>
     See the Scripts API Reference for the 

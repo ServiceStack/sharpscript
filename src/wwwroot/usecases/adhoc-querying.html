@@ -17,7 +17,7 @@ order: 6
 }
 </style>
 
-{{ 'examples/adhoc-query-db.html' | includeFile | assignTo: template }}
+{{ 'examples/adhoc-query-db.html' | includeFile | to => template }}
 
 {{ "live-template" | partial({ rows:15, template }) }}
 

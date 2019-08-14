@@ -16,7 +16,7 @@ order: 9
         page: 'page', 
         files: 
         { 
-            '_layout.html': `{{ 'from layout' | assignTo: layoutArg }}
+            '_layout.html': `{{ 'from layout' | to => layoutArg }}
 I am a Layout with page
 {{ page }}`,
             'page.html' : `I am a Page with a partial
@@ -46,7 +46,7 @@ Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
         </section>
     </div>
     <div class="template">
-        <textarea class="form-control" rows="7">{{ "code/linq04-partials.txt" | includeFile }}</textarea>
+        <textarea class="form-control" rows="3">{{ "code/linq04-partials.txt" | includeFile }}</textarea>
     </div>
     <div class="result">
         <div class="output"></div>
@@ -67,10 +67,7 @@ Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
 Customer {{ it.CustomerId }} {{ it.CompanyName | raw }}
 {{ it.Orders | selectPartial: order }}{{/partial}}
 
-{{ customers 
-    | where => it.Region = 'WA' 
-    | assignTo: waCustomers 
- }}
+{{ customers | where => it.Region = 'WA' | to => waCustomers }}
  Customers from Washington and their orders:
  {{ waCustomers | selectPartial: customer }}` }) }}
 

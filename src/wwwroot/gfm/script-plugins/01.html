@@ -176,4 +176,192 @@ its contents:</p>
     }
 }</pre></div>
 <p>Although generally not required as <a href="/docs/default-scripts#evalTemplate">evalTemplate script method</a> registered by default has equivalent functionality.</p>
+<h3>
+<a id="user-content-githubplugin" class="anchor" href="#githubplugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GitHubPlugin</h3>
+<p>ServiceStack's available GitHub integration can be used in your <code>#Script</code> by adding <code>GitHubPlugin</code> to your <code>ScriptContext</code> or <code>SharpPagesFeature</code>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">new</span> <span class="pl-smi">ScriptContext</span> {
+    <span class="pl-smi">Plugins</span> <span class="pl-k">=</span> { <span class="pl-k">new</span> <span class="pl-en">GitHubPlugin</span>() },
+}.<span class="pl-en">Init</span>();</pre></div>
+<p>This is enabled by default in the <code>web</code> and <code>app</code> dotnet tools so they can be used in <code>#Script</code> <strong>.ss</strong> scripts.</p>
+<p>Checkout <a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Methods/GitHubScripts.cs">GitHubScripts.cs</a>
+for the full API available. Here's <a href="https://developer.github.com/v3/gists/#example">GitHub's Gist API</a> example of creating gists in <code>#Script</code>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">githubGateway</span>(<span class="pl-s"><span class="pl-pds">'</span>GITHUB_GIST_TOKEN<span class="pl-pds">'</span></span>.<span class="pl-en">envVariable</span>()) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gateway
+
+{{ <span class="pl-smi">gateway</span>.<span class="pl-en">githubCreateGist</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World Examples<span class="pl-pds">'</span></span>, {
+     <span class="pl-s"><span class="pl-pds">'</span>hello_world_ruby.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span>   <span class="pl-s"><span class="pl-pds">'</span>Run `ruby hello_world.rb` to print Hello World<span class="pl-pds">'</span></span>,
+     <span class="pl-s"><span class="pl-pds">'</span>hello_world_python.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Run `python hello_world.py` to print Hello World<span class="pl-pds">'</span></span>,
+   })
+   <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newGist }}
+
+{ <span class="pl-k">...</span>newGist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>new gist<span class="pl-pds">'</span></span> })</pre></div>
+<p>View Gist files and metadata example:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">gateway</span>.<span class="pl-en">githubGist</span>(gistId) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gist
+
+{ <span class="pl-k">...</span>gist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gist<span class="pl-pds">'</span></span> })
+
+<span class="pl-s"><span class="pl-pds">`</span>#### Gist Files<span class="pl-pds">`</span></span>
+#each file <span class="pl-k">in</span> <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>.<span class="pl-smi">Keys</span>
+    <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>[file] <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> file })
+<span class="pl-k">/</span>each</pre></div>
+<p>Which renders the following GitHub Flavored Markdown output:</p>
+<table>
+<thead>
+<tr>
+<th>gist</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node Id</td>
+<td>MDQ6R2lzdDRjNWQ5NWVjNGIyNTk0YjRjZGQyMzg5ODdmZTdhMTVh</td>
+</tr>
+<tr>
+<td>Git Pull Url</td>
+<td><a href="https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a.git">https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a.git</a></td>
+</tr>
+<tr>
+<td>Git Push Url</td>
+<td><a href="https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a.git">https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a.git</a></td>
+</tr>
+<tr>
+<td>Forks Url</td>
+<td><a href="https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/forks">https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/forks</a></td>
+</tr>
+<tr>
+<td>Commits Url</td>
+<td><a href="https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/commits">https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/commits</a></td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Comments Url</td>
+<td><a href="https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/comments">https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a/comments</a></td>
+</tr>
+<tr>
+<td>Truncated</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td></td>
+</tr>
+<tr>
+<td>Id</td>
+<td>4c5d95ec4b2594b4cdd238987fe7a15a</td>
+</tr>
+<tr>
+<td>Url</td>
+<td><a href="https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a">https://api.github.com/gists/4c5d95ec4b2594b4cdd238987fe7a15a</a></td>
+</tr>
+<tr>
+<td>Html Url</td>
+<td><a href="https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a">https://gist.github.com/4c5d95ec4b2594b4cdd238987fe7a15a</a></td>
+</tr>
+<tr>
+<td>Files</td>
+<td></td>
+</tr>
+<tr>
+<td>Public</td>
+<td>True</td>
+</tr>
+<tr>
+<td>Created at</td>
+<td>2019-06-15</td>
+</tr>
+<tr>
+<td>Updated At</td>
+<td>2019-06-15</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Hello World Examples</td>
+</tr>
+<tr>
+<td>User Id</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>
+<a id="user-content-gist-files" class="anchor" href="#gist-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gist Files</h4>
+<table>
+<thead>
+<tr>
+<th>hello_world_python.txt</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filename</td>
+<td>hello_world_python.txt</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>Raw Url</td>
+<td><a href="https://gist.githubusercontent.com/gistlyn/.../hello_world_python.txt" rel="nofollow">https://gist.githubusercontent.com/gistlyn/.../hello_world_python.txt</a></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>48</td>
+</tr>
+<tr>
+<td>Truncated</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>Run <code>python hello_world.py</code> to print Hello World</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>hello_world_ruby.txt</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filename</td>
+<td>hello_world_ruby.txt</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>Raw Url</td>
+<td><a href="https://gist.githubusercontent.com/gistlyn/.../hello_world_ruby.txt" rel="nofollow">https://gist.githubusercontent.com/gistlyn/.../hello_world_ruby.txt</a></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>46</td>
+</tr>
+<tr>
+<td>Truncated</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>Run <code>ruby hello_world.rb</code> to print Hello World</td>
+</tr>
+</tbody>
+</table>
 </div>

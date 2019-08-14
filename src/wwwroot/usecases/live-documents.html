@@ -8,7 +8,7 @@ order: 4
     reactive live documents containing a mix of docs, processing and calculations like creating a personal budget:
 </p>
 
-{{ 'examples/monthly-budget.txt' | includeFile | assignTo: template }}
+{{ 'examples/monthly-budget.txt' | includeFile | to => template }}
 {{ "live-template" | partial({ rows:33, template }) }}
 
 <style>

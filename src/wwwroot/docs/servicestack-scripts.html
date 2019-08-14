@@ -35,8 +35,18 @@ order: 13
 
 {{ 'gfm/servicestack-scripts/01.md' | githubMarkdown }}
 
-{{ 'examples/sendtogateway-customers.html' | includeFile | assignTo: template }}
+{{ 'examples/sendtogateway-customers.html' | includeFile | to => template }}
 {{ "live-template" | partial({ rows:11, template }) }}
+
+<h3>execService</h3>
+
+<p>
+    <em>execService</em> is a readable alternative to calling a service via <em>sendToGateway</em> without arguments, e.g:
+</p>
+
+<pre>{{#raw}}AUTH = {{ 'Authenticate' | execService({ ifErrorReturn: "null" }) | json }};
+
+AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }};{{/raw}}</pre>
 
 <h3>publishToGateway</h3>
 
@@ -95,7 +105,7 @@ order: 13
     and other Querying related functionality:
 </p>
 
-{{ 'examples/sendToAutoQuery-data.html' | includeFile | assignTo: template }}
+{{ 'examples/sendToAutoQuery-data.html' | includeFile | to => template }}
 {{ "live-template" | partial({ rows:6, template }) }}
 
 <h3>AutoQuery RDBMS</h3>
@@ -145,7 +155,7 @@ order: 13
     <a href="https://docs.servicestack.net/autoquery-rdbms#implicit-conventions">implicit conventions</a> as well:
 </p>
 
-{{ 'examples/sendToAutoQuery-rdms.html' | includeFile | assignTo: template }}
+{{ 'examples/sendToAutoQuery-rdms.html' | includeFile | to => template }}
 {{ "live-template" | partial({ rows:6, template }) }}
 
 <p>
