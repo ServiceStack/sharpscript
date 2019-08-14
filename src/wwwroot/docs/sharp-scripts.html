@@ -16,8 +16,9 @@ for automating the desired task.
 Some [protected script methods](/docs/protected-scripts) used to improve Usage in shell scripts, include:
 
  - `string proc(string exeFileName, {arguments:string, dir:string})`
-    - **arguments**: command line args
-    - **dir**: working directory
+    - Execute a local system process
+        - **arguments**: command line args
+        - **dir**: working directory
  - `sh(cmdArgs, {dir:string})`
     - Executes shell commands. Uses `cmd.exe /C {cmdArgs}` in Windows, otherwise `/bin/bash -c {cmdArgs}` on macOS/Linux
  - `string exePath(string exeName)` 
