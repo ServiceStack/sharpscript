@@ -4,6 +4,101 @@ order: 21
 -->
 
 {{#markdown}}
+Unlike most languages, `#Script` has 2 outputs, the side-effect of the script itself and its textual output which makes it ideal for 
+literate programming where executable snippets can be embedded inside an executable document. 
+
+[code blocks](/docs/syntax#code-blocks) are a convenient markup for embedding executable scripts within a document without the distracting boilerplate 
+of wrapping each statement in expression blocks. Together with `web watch`, `#Script` allows for an iterative, exploratory style of programming
+in a live programming environment that benefits many domains whose instant progressive feedback unleashes an unprecedented amount of
+productivity, one of those areas it benefits is shell scripting where the iterative feedback is invaluable in working towards a solution
+for automating the desired task.
+
+Some [protected script methods](/docs/protected-scripts) used to improve Usage in shell scripts, include:
+
+ - `string proc(string exeFileName, {arguments:string, dir:string})`
+    - **arguments**: command line args
+    - **dir**: working directory
+ - `sh(cmdArgs, {dir:string})`
+    - Executes shell commands. Uses `cmd.exe /C {cmdArgs}` in Windows, otherwise `/bin/bash -c {cmdArgs}` on macOS/Linux
+ - `string exePath(string exeName)` 
+    - Returns the full path to an executable located in the users **$PATH**
+ - `string osPaths(string path)` 
+    - Rewrite paths to use `\` for Windows, otherwise uses `/`
+
+From this list, you're likely to use `sh` the most to execute arbitrary commands with:
+
+    cmd | sh
+
+> As with any `#Script` method, it can also be executed using the less natural forms of `cmd.sh()` or `sh(cmd)`
+
+Which will emit the **StandardOutput** of the command if successful, otherwise it throws an Exception if anything was written to
+the **StandardError**. Checkout the [Error Handling docs](https://sharpscript.net/docs/error-handling) for how to handle exceptions.
+
+With the features in this release, `#Script` has now became our preferred way to create x-plat shell scripts which can be run
+with the Windows [app](/netcore-windows-desktop) or x-plat [web](/web-tool) dotnet tool which runs everywhere .NET Core does.
+
+As such, all scripts in [ServiceStack/mix](https://github.com/ServiceStack/mix) provides a good collection of `.ss` scripts to check out
+which are used to maintain the Gist content that powers the new `mix` feature.
+
+#### Live Shell Scripting Preview  
+
+To provide a glimpse of the productivity of this real-time exploratory programming-style, here's an example
+of a task we needed to automate to import and rename **48px** SVG images from [Material Design Icons Project](https://github.com/google/material-design-icons) folders into the form needed in the `mix` Gists:
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/rename-icons.gif)](https://youtu.be/joXSHtfb_7g)
+
+> YouTube: [youtu.be/joXSHtfb_7g](https://youtu.be/joXSHtfb_7g)
+
+Here we can see how we're able to progressively arrive at our solution without leaving the source code, with the **watched** script 
+automatically updated at each `Ctrl+S` save point where we're able to easily infer its behavior from its descriptive textual output.
+
+#### Explore HTTP APIs in real-time
+
+The real-time scriptability of `#Script` makes it ideal for a whole host of explanatory programming tasks that would otherwise be painful
+in the slow code/build/debug cycles of a compiled language like C#, like being able to cut, sort & slice HTTP APIs with ease:
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/github-api.gif)](https://youtu.be/Yjx_9Tp91bQ)
+
+> YouTube: [youtu.be/Yjx_9Tp91bQ](https://youtu.be/Yjx_9Tp91bQ)
+
+#### Live Querying of Databases
+
+It also serves a great tool for data exploration, akin to a programmable SQL Studio environment with instant feedback:
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/query-northwind.gif)](https://youtu.be/HCjxVJ8RyPc)
+
+> YouTube: [youtu.be/HCjxVJ8RyPc](https://youtu.be/HCjxVJ8RyPc)
+
+That benefits from being able to maintain reusable queries in simple, executable text files that can be organized along with other 
+shell scripts and treated like source code where it can be checked into a versionable repo, that anyone will be able to checkout and run 
+from the command-line in Windows, macOS or Linux OS's.
+
+#### Utilize high-level ServiceStack Features
+
+Here's another example showing the expressive power of `#Script` and its [comprehensive high-level library](https://sharpscript.net/docs/scripts-reference)
+which is used to update all library dependencies of the [Vue and React "lite" Project Templates](/templates-lite):
+
+{{/markdown}}
+
+{{ 'gfm/sharp-scripts/12.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+{{#markdown}}
+
+Running without any arguments:
+
+    $ web run libraries.ss
+
+will update both React and Vue dependencies:
+
+```
+Writing to 26 files to react-lite-lib 'ad42adc11337c243ee203f9e9f84622c' ...
+Writing to 41 files to vue-lite-lib '717258cd4c26ba612e5eed0615d8d61c' ...
+```
+
+Alternatively it can be limited to updating a single Framework dependencies with:
+
+    $ web run libraries.ss vue-lite-lib
+
 The [web dotnet tool](https://docs.servicestack.net/web-new) also includes the capability of both **executing** `#Script` scripts as well
 as **watching** scripts to enable a [live visual REPL](#live-script-with-web-watch) with instant real-time feedback that makes it perfect
 for explanatory tasks.

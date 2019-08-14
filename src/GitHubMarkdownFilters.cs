@@ -103,6 +103,7 @@ namespace SharpScript
                             .PostBytesToUrlAsync(new Dictionary<string,string> { {"text", bytes.FromUtf8Bytes() }, {"mode", Mode}, {"context", RepositoryContext} }.ToJson().ToUtf8Bytes(), 
                                 contentType:MimeTypes.Json, requestFilter:x => x.UserAgent = "#Script");
 
+
                     var headerBytes = "<div class=\"gfm\">".ToUtf8Bytes();
                     var footerBytes = "</div>".ToUtf8Bytes();
                     
@@ -113,7 +114,9 @@ namespace SharpScript
 
                     if (Context.VirtualFiles is IVirtualFiles vfs)
                     {
-                        vfs.GetFileSystemVirtualFiles().WriteFile(htmlFilePath, wrappedBytes);
+                        var fs = vfs.GetFileSystemVirtualFiles();
+                        fs.DeleteFile(htmlFilePath);
+                        fs.WriteFile(htmlFilePath, wrappedBytes);
                     }
 
                     if (UseMemoryCache)
