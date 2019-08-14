@@ -23,8 +23,6 @@ namespace SharpScript
 
         public override void Configure(Container container)
         {
-            ServiceStack.Memory.NetCoreMemory.Configure();
-
             SetConfig(new HostConfig { 
                 DebugMode = AppSettings.Get("DebugMode", Env.IsWindows),
             });
@@ -62,6 +60,9 @@ namespace SharpScript
                 ScriptMethods = { 
                     customFilters,
                     new DbScriptsAsync()
+                },
+                FilterTransformers = {
+                    ["convertScriptToCodeBlocks"] = GitHubMarkdownScripts.convertScriptToCodeBlocks,
                 },
                 Args = {
                     ["products"] = TemplateQueryData.Products

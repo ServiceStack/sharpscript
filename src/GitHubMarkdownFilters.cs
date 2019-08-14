@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ServiceStack;
@@ -7,7 +8,7 @@ using ServiceStack.Text;
 
 namespace SharpScript
 {
-    public class GitHubMarkdownFilters : ScriptMethods
+    public class GitHubMarkdownScripts : ScriptMethods
     {
         public string ApiBaseUrl { get; set; } = "https://api.github.com";
 
@@ -23,11 +24,30 @@ namespace SharpScript
              return html.ToRawString();
         }
 
+        public static async Task<Stream> TransformToHtml(Stream markdownStream)
+        {
+            var md = await markdownStream.ReadToEndAsync();
+            var html = MarkdownConfig.Transformer.Transform(md);
+            return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
+        }
+        
+        public static async Task<Stream> convertScriptToCodeBlocks(Stream renderedHtmlMarkdownBlock)
+        {
+            var html = await renderedHtmlMarkdownBlock.ReadToEndAsync();
+            html = html.Replace("&lt;<span class=\"pl-ent\">script</span>&gt;",
+                                "<span class=\"pl-en\">```code</span>")
+                       .Replace("&lt;/<span class=\"pl-ent\">script</span>&gt;",
+                                "<span class=\"pl-en\">```</span>")
+                       .Replace("<span class=\"pl-s1\"><span class=\"pl-k\">&lt;</span><span class=\"pl-k\">/</span>script<span class=\"pl-k\">&gt;</span></span>",
+                                "<span class=\"pl-en\">```</span>");
+            return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
+        }
+
         public async Task githubMarkdown(ScriptScopeContext scope, string markdownPath) 
         {
             var file = Context.ProtectedMethods.ResolveFile(nameof(githubMarkdown), scope, markdownPath);
             var htmlFilePath = file.VirtualPath.LastLeftPart('.') + ".html";
-            var cacheKey = nameof(GitHubMarkdownFilters) + ">" + htmlFilePath;
+            var cacheKey = nameof(GitHubMarkdownScripts) + ">" + htmlFilePath;
 
             var htmlFile = Context.VirtualFiles.GetFile(htmlFilePath);
             if (htmlFile != null && htmlFile.LastModified >= file.LastModified)

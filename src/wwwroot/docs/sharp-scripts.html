@@ -4,12 +4,16 @@ order: 21
 -->
 
 {{#markdown}}
-The [web .NET Core tool](https://docs.servicestack.net/web-new) also serve as a `#Script` runner. The Vue and React "lite" project templates
-take advantage of this in their [Pre-compiled minified production _bundle.ss script](https://docs.servicestack.net/templates-lite#pre-compiled-minified-production-bundles) 
+The [web dotnet tool](https://docs.servicestack.net/web-new) also includes the capability of both **executing** `#Script` scripts as well
+as **watching** scripts to enable a [live visual REPL](#live-script-with-web-watch) with instant real-time feedback that makes it perfect
+for explanatory tasks.
+
+The Vue and React "lite" project templates take advantage of this in their 
+[Pre-compiled minified production _bundle.ss script](https://docs.servicestack.net/templates-lite#pre-compiled-minified-production-bundles) 
 which is run with `web run {script}`:
 {{/markdown}}
 
-{{ 'gfm/sharp-scripts/10.md' | githubMarkdown }}
+{{ 'gfm/sharp-scripts/10.md' | githubMarkdown | convertScriptToCodeBlocks }}
 
 {{#markdown}}
 Which can be run with the `web` tool:
@@ -40,9 +44,7 @@ providers like the [Virtual File System](/virtual-file-system) makes it easy to 
 like all Tables and Row counts in managed AWS RDS Instances or Search for static Asset resources in S3 Buckets.
 {{/markdown}}
 
-{{ 'gfm/sharp-scripts/03.md' | githubMarkdown | to => md }}
-{{ md | replace('&lt;<span class="pl-ent">script</span>&gt;', '<span class="pl-en">```code</span><span class="pl-s1"></span>') 
-      | replace('<span class="pl-k">&lt;</span><span class="pl-k">/</span>script<span class="pl-k">&gt;</span>','<span class="pl-en">```</span><span class="pl-s1"></span>') | raw }}
+{{ 'gfm/sharp-scripts/03.md' | githubMarkdown | convertScriptToCodeBlocks }}
 
 {{#markdown}}
 You can use `$NAME` to move confidential information out of public scripts where it will be replaced with Environment 
@@ -106,9 +108,7 @@ The nice thing about `#Script` late-binding and cloud agnostic providers is that
 can **use the exact same script** to query an Azure managed SQL Server Database and Azure Blob File Storage:
 {{/markdown}}
 
-{{ 'gfm/sharp-scripts/04.md' | githubMarkdown | to => md }}
-{{ md | replace('&lt;<span class="pl-ent">script</span>&gt;', '<span class="pl-en">```code</span><span class="pl-s1"></span>') 
-      | replace('<span class="pl-k">&lt;</span><span class="pl-k">/</span>script<span class="pl-k">&gt;</span>','<span class="pl-en">```</span><span class="pl-s1"></span>') | raw }}
+{{ 'gfm/sharp-scripts/04.md' | githubMarkdown | convertScriptToCodeBlocks }}
 
 {{#markdown}}
 ## Live #Script with 'web watch'
