@@ -91,10 +91,8 @@ Running without any arguments:
 
 will update both React and Vue dependencies:
 
-```
-Writing to 26 files to react-lite-lib 'ad42adc11337c243ee203f9e9f84622c' ...
-Writing to 41 files to vue-lite-lib '717258cd4c26ba612e5eed0615d8d61c' ...
-```
+    Writing to 26 files to react-lite-lib 'ad42adc11337c243ee203f9e9f84622c' ...
+    Writing to 41 files to vue-lite-lib '717258cd4c26ba612e5eed0615d8d61c' ...
 
 Alternatively it can be limited to updating a single Framework dependencies with:
 
@@ -103,6 +101,8 @@ Alternatively it can be limited to updating a single Framework dependencies with
 The [web dotnet tool](https://docs.servicestack.net/web-new) also includes the capability of both **executing** `#Script` scripts as well
 as **watching** scripts to enable a [live visual REPL](#live-script-with-web-watch) with instant real-time feedback that makes it perfect
 for explanatory tasks.
+
+### Bundling and Minification
 
 The Vue and React "lite" project templates take advantage of this in their 
 [Pre-compiled minified production _bundle.ss script](https://docs.servicestack.net/templates-lite#pre-compiled-minified-production-bundles) 
@@ -125,7 +125,7 @@ Which will create the production bundles, minify all already non-minified bundle
 {{ 'gfm/sharp-scripts/11.md' | githubMarkdown }}
 
 {{#markdown}}
-**[Sharp Scripts](/docs/sharp-scripts)** are **run in the same context** and have access to the same functionality and features as a 
+Sharp Scripts are **run in the same context** and have access to the same functionality and features as a 54, 
 [Sharp App](/docs/sharp-apps) including extensibility va [custom plugins](/docs/sharp-apps#plugins). 
 They can run **stand-alone** independent of an 
 [app.settings](/docs/sharp-apps#ideal-for-web-designers-and-content-authors) config file, instead the app settings configuration
