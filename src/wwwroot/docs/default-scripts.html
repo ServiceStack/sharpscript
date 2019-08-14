@@ -42,7 +42,7 @@ Without: {{ '<b>hi</b>' | raw }}" }) }}
 <h4 id="arithmetic">Arithmetic</h4>
 
 <p>
-    #Script supports the same arithmetic expressions as JavaScript:
+    <em>#Script</em> supports the same arithmetic expressions as JavaScript:
 </p>
 
 {{ 'live-template' | partial({ rows: 7, template: "1 + 1 = {{ 1 + 1 }}
@@ -76,8 +76,9 @@ Bitwise = {{ 3 & 1 }}, {{ (3 | 1) }}, {{ 3 ^ 1 }}, {{ 3 << 1 }}, {{ 3 >> 1 }}, {
     To achieve the same result you'd need to execute them in their implied grouping explicitly:
 </p>
 
-{{ 'live-template' | partial({ template: "1 - 2 + 3 * 4 / 5 = {{ 1 - 2 + 3 * 4 / 5 }}
+{{ 'live-template' | partial({ rows:4, template: "1 - 2 + 3 * 4 / 5 = {{ 1 - 2 + 3 * 4 / 5 }}
 1 - 2 + 3 * 4 / 5 = {{ add(sub(1,2), div(mul(3,4), 5)) }}
+1 - 2 + 3 * 4 / 5 = {{ sub(1,2).add(mul(3,4).div(5)) }}
 ((1 - 2 + 3) * 4) / 5 = {{ 1 | subtract(2) | add(3) | multiply(4) | divide(5) }}" }) }}
 
 <h4 id="math">Math</h4>
@@ -394,7 +395,7 @@ Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
 {{ coords 
    | map => { x: it[0], y: it[1] }
    | scopeVars
-   | select: {index + 1}. ({x}, {y})\\n }}" }) }}
+   | map => `${index + 1}. (${x}, ${y})\n` | join('') }}" }) }}
 
 <p>
     Whilst these methods let you perform some other popular conversions:
