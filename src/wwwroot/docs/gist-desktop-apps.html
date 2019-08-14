@@ -25,7 +25,7 @@ the additional barrier to entry of forced installations.
 Electron resolves some of these issues which has seen a surge of popularity vs Native Apps with its more productive web development model
 and partial support for auto updating, but it still requires a large download and upfront installation.
 
-#### Tiny footprint of Sharp Apps
+#### Tiny footprint
 
 By contrast the majority of the download size of Sharp Apps is in the local .NET Core installation and [app](https://docs.servicestack.net/netcore-windows-desktop) 
 dotnet tool which are **shared by all Sharp Apps**, only the app-specific web assets and `#Script` source files need to be downloaded, making
@@ -41,9 +41,9 @@ If you haven't already, install the [app](https://docs.servicestack.net/netcore-
 
     $ dotnet tool install -g app
 
-> OSX or Linux users can run Sharp Apps with the cross-platform [web](https://docs.servicestack.net/web-tool) dotnet tool instead
-
 <iframe width="896" height="525" src="https://www.youtube.com/embed/FlKeaav0gt8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+> OSX or Linux users can run Sharp Apps with the cross-platform [web](https://docs.servicestack.net/web-tool) dotnet tool instead
 
 Now everyone can launch a Windows Desktop Sharp App by specifying the name of the App they want to open with:
 

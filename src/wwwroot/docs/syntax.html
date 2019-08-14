@@ -201,4 +201,149 @@ Captured Argument: {{template}}"
     layout templates.
 </p>
 
+{{#markdown}}
+
+### Script Methods can be used as Extension Methods
+
+A core feature of `#Script` is that it runs in a [sandbox](/sandbox) and only has access to functionality that's configured in its `ScriptContext`
+that it runs in, so by design `#Script` is prohibited from calling instance methods so they only have a read-only view of your objects
+unless you explicitly register `ScriptMethods` that allows them to change them. 
+
+This frees up the `instance.method()` syntax to be put to other use which can now be used to call every script method as an extension method.
+This can greatly improve the readability and execution flow of code, e,g. we can rewrite our previous 
+[JS Utils Eval](https://docs.servicestack.net/js-utils#eval) example:
+
+    itemsOf(3, padRight(reverse(arg), 8, '_'))
+
+into the more readable form using the same methods as extension methods off the first argument, e.g:
+
+    3.itemsOf(arg.reverse().padRight(8, '_'))
+
+{{/markdown}}
+
+{{ 'gfm/syntax/04.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### JavaScript Array Support
+
+We can use extension methods to define instance methods that can be called on any object to implement JS Array methods support 
+to further improve `#Script` source compatibility with JavaScript. 
+
+Here are [Mozilla's Array examples](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) in `#Script`
+utilizing its [Code Blocks](#code-blocks) feature to reduce the amount of boilerplate required:
+
+{{/markdown}}
+
+{{ 'gfm/syntax/03.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+{{#markdown}}
+
+Which can be run with `web run {script}.ss` to view its expected output:
+
+    Create an Array
+    2
+
+    Access (index into) an Array Item
+    Apple
+
+    Loop over an Array
+    Apple, 0
+    Banana, 1
+
+    Apple, 0
+    Banana, 1
+
+    Add to the end of an Array
+    3
+
+    Remove from the end of an Array
+    Orange
+
+    Remove from the front of an Array
+    Apple
+
+    Add to the front of an Array
+    2
+
+    Find the index of an item in the Array
+    1
+
+    Remove an item by index position
+    Banana
+    Strawberry,Mango
+
+    Remove items from an index position
+    Cabbage,Turnip,Radish,Carrot
+    Cabbage,Carrot
+    Turnip,Radish
+
+    Copy an Array
+    Strawberry,Mango
+
+Most JS Array methods are supported, including the latest additions from ES2019:
+
+ - `concat`
+ - `every`
+ - `filter`
+ - `find`
+ - `findIndex`
+ - `flat`
+ - `flatMap`
+ - `forEach`
+ - `includes`
+ - `indexOf`
+ - `join`
+ - `keys`
+ - `lastIndexOf`
+ - `map`
+ - `pop`
+ - `push`
+ - `reduce`
+ - `reverse`
+ - `shift`
+ - `slice`
+ - `some`
+ - `sort`
+ - `splice`
+ - `toString`
+ - `unshift`
+ - `values`
+
+
+### Code Blocks
+
+We've caught a glimpse of `#Script` new `code` blocks feature in the JavaScript Array Example above which dramatically reduces
+the boilerplate that would've otherwise been needed where each statement would've needed to be wrapped in an expression block. 
+
+They're akin to Razor's statement blocks which inverts Razor's **mode** of emitting text to treating text inside statement blocks as code, e.g:
+
+{{/markdown}}
+
+{{ 'gfm/syntax/05.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+{{#markdown}}
+
+The entire **code** feature is implemented within a
+[simple TransformCodeBlocks PreProcessor](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/ScriptPreprocessors.cs) 
+that's pre-configured by default and so can be removed by clearing the `Preprocessors` List:
+
+    var context = new ScriptContext();
+    context.Preprocessors.Clear();
+
+#### Preprocessor Code Transformations
+
+It performs a basic transformation that assumes every statement is an expression and wraps them in an `{{...}}` 
+expression block, the exception are expressions which are already within an expression block which are ignored and you still
+need to use to wrap multi-line expressions in `code` blocks.
+
+The other transformation `code` blocks perform is collapsing new lines and trimming each line, this is so scripts which are primarily 
+structured and indented for readability aren't reflected in its text output. 
+
+We can see an example of how `code` blocks work from the example below:
+{{/markdown}}
+
+{{ 'gfm/syntax/06.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+
 {{ "doc-links" | partial({ order }) }}

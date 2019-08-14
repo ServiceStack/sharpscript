@@ -1,0 +1,61 @@
+<div class="gfm"><div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span>Create an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">[<span class="pl-s"><span class="pl-pds">'</span>Apple<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Banana<span class="pl-pds">'</span></span>] <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> fruits</span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-smi">Count</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Access (index into) an Array Item<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">fruits[<span class="pl-c1">0</span>] <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> first</span>
+<span class="pl-s1">first</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Loop over an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">#each item <span class="pl-k">in</span> fruits</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>item<span class="pl-pse">}</span></span>, <span class="pl-s1"><span class="pl-pse">${</span>index<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-k">/</span>each</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">[] <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> sb</span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">forEach</span>((<span class="pl-smi">item</span>,<span class="pl-smi">index</span>,<span class="pl-smi">array</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">sb</span>.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>item<span class="pl-pse">}</span></span>, <span class="pl-s1"><span class="pl-pse">${</span>index<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>))</span>
+<span class="pl-s1"><span class="pl-smi">sb</span>.<span class="pl-c1">join</span>(<span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span><span class="pl-pds">`</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Add to the end of an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>Orange<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newLength</span>
+<span class="pl-s1">newLength</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Remove from the end of an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">pop</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> last</span>
+<span class="pl-s1">last</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Remove from the front of an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">shift</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> first</span>
+<span class="pl-s1">first</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Add to the front of an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">unshift</span>(<span class="pl-s"><span class="pl-pds">'</span>Strawberry<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newLength</span>
+<span class="pl-s1">newLength</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Find the index of an item in the Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">push</span>(<span class="pl-s"><span class="pl-pds">'</span>Mango<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> end</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">indexOf</span>(<span class="pl-s"><span class="pl-pds">'</span>Banana<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> pos</span>
+<span class="pl-s1">pos</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Remove an item by index position<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">splice</span>(pos, <span class="pl-c1">1</span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> removedItem</span>
+<span class="pl-s1">removedItem <span class="pl-k">|</span> join</span>
+<span class="pl-s1">fruits <span class="pl-k">|</span> join</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Remove items from an index position<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">[<span class="pl-s"><span class="pl-pds">'</span>Cabbage<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Turnip<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Radish<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Carrot<span class="pl-pds">'</span></span>] <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> vegetables </span>
+<span class="pl-s1">vegetables <span class="pl-k">|</span> join</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">1</span> <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> pos</span>
+<span class="pl-s1"><span class="pl-c1">2</span> <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> n</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">vegetables</span>.<span class="pl-c1">splice</span>(pos, n) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> removedItems </span>
+<span class="pl-s1">vegetables <span class="pl-k">|</span> join</span>
+<span class="pl-s1">removedItems <span class="pl-k">|</span> join</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">`</span><span class="pl-cce">\n</span>Copy an Array<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-smi">fruits</span>.<span class="pl-c1">slice</span>() <span class="pl-k">|</span> join</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</div>

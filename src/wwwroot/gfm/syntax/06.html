@@ -1,0 +1,83 @@
+<div class="gfm"><div class="highlight highlight-text-html-basic"><pre><span class="pl-c"><span class="pl-c">&lt;!--</span></span>
+<span class="pl-c">title: The title</span>
+<span class="pl-c"><span class="pl-c">--&gt;</span></span>
+
+# {{title}}
+
+{{ 1 + 1 }}
+
+&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">*</span> Odd numbers <span class="pl-k">&lt;</span> <span class="pl-c1">5</span> <span class="pl-k">*</span></span>
+<span class="pl-s1">#each i <span class="pl-k">in</span> <span class="pl-en">range</span>(<span class="pl-c1">1</span>,<span class="pl-c1">5</span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    #<span class="pl-k">if</span> <span class="pl-smi">i</span>.<span class="pl-en">isOdd</span>()</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>i<span class="pl-pse">}</span></span> is odd<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">    <span class="pl-k">else</span></span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>i<span class="pl-pse">}</span></span> is even<span class="pl-pds">`</span></span></span>
+<span class="pl-s1">    <span class="pl-k">/</span><span class="pl-k">if</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">/</span>each</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;
+
+&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">1</span> <span class="pl-k">+</span> <span class="pl-c1">2</span> <span class="pl-k">*</span> <span class="pl-c1">3</span></span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;
+
+&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">    {{ <span class="pl-c1">1</span> <span class="pl-k">+</span> <span class="pl-c1">1</span> }}</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    {{#<span class="pl-k">if</span> debug}}</span>
+<span class="pl-s1">        {{ <span class="pl-en">range</span>(<span class="pl-c1">1</span>,<span class="pl-c1">5</span>) </span>
+<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-smi">where</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">it</span>.<span class="pl-en">isOdd</span>() </span>
+<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-smi">map</span> <span class="pl-k">=&gt;</span> it <span class="pl-k">*</span> it   </span>
+<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-en">join</span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        }}</span>
+<span class="pl-s1">    {{<span class="pl-k">/</span><span class="pl-k">if</span>}}</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<p>Before this script is run it's processed by the
+<a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/ScriptPreprocessors.cs">TransformCodeBlocks PreProcessor</a>
+which transforms it to the normal <code>#Script</code> code:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c"><span class="pl-c">&lt;!--</span></span>
+<span class="pl-c">title: The title</span>
+<span class="pl-c"><span class="pl-c">--&gt;</span></span>
+
+# <span class="pl-c1">{{</span><span class="pl-v">title</span><span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span> <span class="pl-v">1</span> + <span class="pl-e"><span class="pl-v">1</span></span> <span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span>* <span class="pl-e"><span class="pl-v">Odd</span></span> <span class="pl-e"><span class="pl-v">numbers</span></span> &lt; <span class="pl-e"><span class="pl-v">5</span></span> *<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">#each</span> <span class="pl-v">i</span> <span class="pl-c1">in</span> <span class="pl-v">range</span>(<span class="pl-e"><span class="pl-v">1</span></span>,<span class="pl-e"><span class="pl-v">5</span></span>)<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">i.isOdd</span>()<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span>`${<span class="pl-e"><span class="pl-v">i</span></span>} <span class="pl-e"><span class="pl-v">is</span></span> <span class="pl-e"><span class="pl-v">odd</span></span>`<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">else</span><span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span>`${<span class="pl-e"><span class="pl-v">i</span></span>} <span class="pl-e"><span class="pl-v">is</span></span> <span class="pl-e"><span class="pl-v">even</span></span>`<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">/each</span><span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span><span class="pl-v">1</span> + <span class="pl-e"><span class="pl-v">2</span></span> * <span class="pl-e"><span class="pl-v">3</span></span><span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span> <span class="pl-v">1</span> + <span class="pl-e"><span class="pl-v">1</span></span> <span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">debug</span><span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span> <span class="pl-v">range</span>(<span class="pl-e"><span class="pl-v">1</span></span>,<span class="pl-e"><span class="pl-v">5</span></span>)
+| <span class="pl-e"><span class="pl-v">where</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.isOdd</span></span>()
+| <span class="pl-e"><span class="pl-v">map</span></span> =&gt; <span class="pl-e"><span class="pl-v">it</span></span> * <span class="pl-e"><span class="pl-v">it</span></span>
+| <span class="pl-e"><span class="pl-v">join</span></span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)
+<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span></pre></div>
+<p>The resulting output when executed is:</p>
+<pre><code># The title
+
+2
+
+1 is odd
+2 is even
+3 is odd
+4 is even
+5 is odd
+
+7
+
+2
+1,9,25
+</code></pre>
+</div>
