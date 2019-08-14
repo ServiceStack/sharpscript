@@ -3,6 +3,34 @@ title: Installation
 order: 1
 -->
 
+<h3>Running Sharp Scripts or creating Sharp Apps</h3>
+
+<p>
+    If you're only looking to run
+    <a href="/docs/sharp-scripts">Sharp Scripts</a> or creating <a href="/docs/sharp-apps">Sharp Apps</a>
+    or <a href="/docs/gist-desktop-apps">Gist Desktop Apps</a> then you'll only need to install the 
+    <a href="https://docs.servicestack.net/web-tool">web</a> or <a href="https://docs.servicestack.net/netcore-windows-desktop">app</a> dotnet tools.
+</p>
+
+<h4>Cross-platform command-line tool for Windows, macOS and Linux</h4>
+
+<pre>$ dotnet tool install -g web</pre>
+
+<h4>Windows 64bit in Chromium Desktop App</h4>
+
+<pre>$ dotnet tool install -g app</pre>
+
+<h4>Update to latest versions</h4>
+
+<p>
+    If you already have the tools installed, upgrade them to the latest version with:
+</p>
+
+<pre>$ dotnet tool update -g web
+$ dotnet tool update -g app</pre>
+
+<h3>Using <em>#Script</em> within .NET or .NET Core Apps</h3>
+
 <p>
     <em>#Script</em> is available for <b>.NET Core</b> or <b>.NET v4.5+</b> Framework projects from the <a href="https://www.nuget.org/packages/ServiceStack.Common">ServiceStack.Common</a> NuGet Package:
 </p>
