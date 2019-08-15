@@ -30,6 +30,76 @@
     to run a <a href="/docs/sharp-scripts">Sharp Script</a> in <a href="/docs/sharp-scripts#live-script-with-web-watch">watch mode</a>
     by creating a text file with the <em>.ss</em> extension and running it with <em>web watch &lt;name&gt;.ss</em>.
 </p>
+
+<h3>Explanatory programming</h3>
+
+<p>
+    Unlike most languages, <em>#Script</em> has 2 outputs, the side-effect of the script itself and its textual output which makes it ideal for 
+    literate programming where executable snippets can be embedded inside an executable document. 
+</p>
+<p>
+    <a href="/docs/syntax#code-blocks">code blocks</a> are a convenient markup for embedding executable scripts within a document without the 
+    distracting boilerplate of wrapping each statement in expression blocks. Together with <em>web watch</em>, <em>#Script</em> allows for an iterative, 
+    exploratory style of programming in a live programming environment that benefits many domains whose instant progressive feedback unleashes 
+    an unprecedented amount of productivity, one of those areas it benefits is shell scripting where the iterative feedback is invaluable in 
+    working towards a solution for automating the desired task.
+</p>
+
+
+<h4>Live Shell Scripting</h4>
+
+<p>
+    To provide a glimpse of the productivity of this real-time exploratory programming-style, here's an example
+    of a task we needed to automate to import and rename <b>48px</b> SVG images from 
+    <a href="https://github.com/google/material-design-icons">Material Design Icons Project</a>
+    folders into the form needed in the <a href="https://docs.servicestack.net/mix-tool">mix</a> Gists:
+</p>
+
+<a href="https://youtu.be/joXSHtfb_7g"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/rename-icons.gif" alt=""></a>
+
+<blockquote>
+YouTube: <a href="https://youtu.be/joXSHtfb_7g">youtu.be/joXSHtfb_7g</a>
+</blockquote>
+
+<p>
+    Here we can see how we're able to progressively arrive at our solution without leaving the source code, with the <b>watched</b> script 
+    automatically updated at each <em>Ctrl+S</em> save point where we're able to easily infer its behavior from its descriptive textual output.
+</p>
+
+
+<h4>Explore HTTP APIs in real-time</h4>
+
+<p>
+    The real-time scriptability of <em>#Script</em> makes it ideal for a whole host of explanatory programming tasks that would otherwise be painful
+    in the slow code/build/debug cycles of a compiled language like C#, like being able to cut, sort & slice HTTP APIs with ease:
+</p>
+
+<a href="https://youtu.be/Yjx_9Tp91bQ"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/github-api.gif" alt=""></a>
+
+<blockquote>
+YouTube: <a href="https://youtu.be/Yjx_9Tp91bQ">youtu.be/Yjx_9Tp91bQ</a>
+</blockquote>
+
+<h4>Live Querying of Databases</h4>
+
+<p>
+    It also serves a great tool for data exploration, akin to a programmable SQL Studio environment with instant feedback:
+</p>
+
+<a href="https://youtu.be/HCjxVJ8RyPc"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/mix/query-northwind.gif" alt=""></a>
+
+<blockquote>
+YouTube: <a href="https://youtu.be/HCjxVJ8RyPc">youtu.be/HCjxVJ8RyPc</a>
+</blockquote>
+
+<p>
+    That benefits from being able to maintain reusable queries in simple, executable text files that can be organized along with other 
+    shell scripts and treated like source code where it can be checked into a versionable repo, that anyone will be able to checkout and run 
+    from the command-line in Windows, macOS or Linux OS's.
+</p>
+
+<h4>Querying AWS and Azure RDBMS and File Storage Resources</h4>
+
 <p>
     Scripts have access to all built-in Scripts and ServiceStack's which makes it easy to create scripts 
     that run against 
