@@ -69,15 +69,41 @@ Which runs on port `5000` by default, which you can make available under your pr
 
 Then creating a Virtual Host configuration for your App, which you can start from using the mix `nginx` config template:
 
-    $ web mix nginx
+    $ web mix nginx -name redis
 
-Then renaming the `my-app.web-app.io` file to the domain you want it hosted on instead, e.g:
+Then renaming the `redis.web-app.io` file to the domain you want it hosted on instead, e.g:
 
-    $ mv my-app.web-app.io redis.your-domain.com
+    $ mv redis.web-app.io redis.your-domain.com
 
 You'll also need to rename the virtual host in the config file, which in vi you can do with:
 
-    :%s/my-app.web-app.io/redis.your-domain.com/g
+    :%s/redis.web-app.io/redis.your-domain.com/g
+
+Which should look something like:
+
+    server {
+        listen       80;
+        server_name redis.your-domain;
+
+        location / {
+            proxy_pass http://localhost:5000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection keep-alive;
+            proxy_cache_bypass $http_upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_buffering off;
+            proxy_ignore_client_abort off;
+            proxy_intercept_errors on;
+
+            client_max_body_size 500m;
+        }
+    }
+
+You'll also need to update the port number if you want to run your .NET Core App on a custom port.
 
 Now to enable the site in nginx, link it with:
 
@@ -100,32 +126,31 @@ permission to run the `supervisorctl` and `web` programs, then change directory 
 
 Then generate a supervisor configuration template with:
 
-    $ web mix supervisor-sharp
+    $ web mix supervisor-sharp -name redis
 
-Rename it to your Web App's folder name:
+Which should create 
 
-    $ mv app.my-app.conf app.redis.conf
+    $ app.redis.conf
 
-Then change all references of `my-app` to `redis`, which in vi you can do with:
+Which should be close to pre-populated with your App, you'll just need to change the port if you're using a custom port number:
 
-    :%s/my-app/spirals/g
-
-Which will change it to:
-
-```
-[program:app-redis]
-command=/home/deploy/.dotnet/tools/web run redis --release
-directory=/home/deploy/.sharp-apps/redis
-autostart=true
-autorestart=true
-stderr_logfile=/var/log/app-redis.err.log
-stdout_logfile=/var/log/app-redis.out.log
-environment=ASPNETCORE_ENVIRONMENT=Production,ASPNETCORE_URLS="http://*:5000/"
-user=deploy
-stopsignal=INT
-```
+    [program:app-redis]
+    command=/home/deploy/.dotnet/tools/web run redis --release
+    directory=/home/deploy/.sharp-apps/redis
+    autostart=true
+    autorestart=true
+    stderr_logfile=/var/log/app-redis.err.log
+    stdout_logfile=/var/log/app-redis.out.log
+    environment=ASPNETCORE_ENVIRONMENT=Production,ASPNETCORE_URLS="http://*:5000/"
+    user=deploy
+    stopsignal=INT
 
 > The --release flag overrides debug in app.settings so it's always run in release mode.
+
+If you don't have [mix](https://docs.servicestack.net/mix-tool) installed you can copy the above configuration and replace references of `redis` to 
+your app's name, which in vi you can do with:
+
+    :%s/redis/acme/g
 
 After reviewing the changes, tell supervisor to register and start the supervisor process with:
 
