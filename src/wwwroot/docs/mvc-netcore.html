@@ -33,10 +33,9 @@ order: 26
 <h4>Sharing Dependencies</h4>
 
 <p>
-    Unfortunately you'd need to resolve <em>ISharpPages</em> directly from ServiceStack's IOC as dependencies registered in 
-    ServiceStack's IOC aren't visible in .NET Core MVC but dependencies registered in .NET Core MVC are visible in ServiceStack
-    so to have the same dependencies available to both .NET Core MVC and ServiceStack you would instead register it in .NET Core's 
-    IOC then resolve the same instance in your ServiceStack AppHost, e.g:
+    To resolve <em>ISharpPages</em> from ASP.NET Core you will need to register it in ASP.NET's IOC, the easiest way to do
+    this is to use a <a href="https://docs.servicestack.net/modular-startup#register-aspnet-core-dependencies-in-apphost">Modular Startup</a>
+    where any dependencies registered in <em>Configure(IServiceCollection)</em> are available to both ASP.NET Core and ServiceStack, e.g:
 </p>
 
 {{ 'gfm/mvc-netcore/03.md' | githubMarkdown }}
@@ -47,7 +46,7 @@ order: 26
 
 {{ 'gfm/mvc-netcore/04.md' | githubMarkdown }}
 
-<h4>Using Templates without a ServiceStack AppHost</h4>
+<h4>Using #Script without a ServiceStack AppHost</h4>
 
 <p>
     If you don't need the <a href="/docs/sharp-pages">#Script Pages</a> support and would like to use Templates without a 

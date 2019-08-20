@@ -1,15 +1,14 @@
-<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span> : <span class="pl-en">ModularStartup</span>
 {
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
-    {
-        <span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">SharpPagesFeature</span>();
-        <span class="pl-smi">services</span>.<span class="pl-en">AddSingleton</span>(<span class="pl-smi">context</span>);
-        <span class="pl-smi">services</span>.<span class="pl-en">AddSingleton</span>(<span class="pl-smi">context</span>.<span class="pl-smi">Pages</span>);
-    }
+    <span class="pl-k">public</span> <span class="pl-en">Startup</span>(<span class="pl-en">IConfiguration</span> <span class="pl-smi">configuration</span>) : <span class="pl-k">base</span>(<span class="pl-smi">configuration</span>){}
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">ConfigureServices</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>) {}
 
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>)
     {
-        <span class="pl-smi">app</span>.<span class="pl-en">UseServiceStack</span>(<span class="pl-k">new</span> <span class="pl-en">AppHost</span>());
+        <span class="pl-smi">app</span>.<span class="pl-en">UseServiceStack</span>(<span class="pl-k">new</span> <span class="pl-en">AppHost</span> {
+            <span class="pl-smi">AppSettings</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">NetCoreAppSettings</span>(<span class="pl-smi">Configuration</span>)
+        });
     }
 }
 
@@ -17,7 +16,14 @@
 
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppHost</span> : <span class="pl-en">AppHostBase</span>
 {
-    <span class="pl-k">public</span> <span class="pl-en">AppHost</span>() : <span class="pl-k">base</span>(<span class="pl-s"><span class="pl-pds">"</span>ServiceStack #Script Pages<span class="pl-pds">"</span></span>, <span class="pl-k">typeof</span>(<span class="pl-en">MyServices</span>).<span class="pl-en">GetAssembly</span>()) {}
+    <span class="pl-k">public</span> <span class="pl-en">AppHost</span>() : <span class="pl-k">base</span>(<span class="pl-s"><span class="pl-pds">"</span>ServiceStack #Script Pages<span class="pl-pds">"</span></span>, <span class="pl-k">typeof</span>(<span class="pl-en">MyServices</span>).<span class="pl-smi">Assembly</span>) {}
+
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IServiceCollection</span> <span class="pl-smi">services</span>)
+    {
+        <span class="pl-k">var</span> <span class="pl-smi">feature</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">SharpPagesFeature</span>();
+        <span class="pl-smi">services</span>.<span class="pl-en">AddSingleton</span>(<span class="pl-smi">feature</span>);
+        <span class="pl-smi">services</span>.<span class="pl-en">AddSingleton</span>(<span class="pl-smi">feature</span>.<span class="pl-smi">Pages</span>);
+    }
 
     <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">Container</span> <span class="pl-smi">container</span>)
     {
