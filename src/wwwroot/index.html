@@ -28,14 +28,14 @@
 
 <p>
     After adding the <a href="https://www.nuget.org/packages/ServiceStack.Common">ServiceStack.Common</a> NuGet package,
-    you can start rendering pages by initialize a <em>ScriptContext</em>
+    you can start executing <em>#Script</em> by initializing a <em>ScriptContext</em>
 </p>
 
 {{ 'gfm/introduction/01.md' | githubMarkdown }}
 
 <p>
     The ScriptContext is the sandbox where all scripts are executed within, everything your script has access to and generates 
-    is maintained within the ScriptContext. Once initialize you can start using it to evaluate scripts which you can do with:
+    is maintained within the ScriptContext. Once initialized you can start using it to evaluate scripts which you can do with:
 </p>
 
 {{ 'gfm/introduction/02.md' | githubMarkdown }}
@@ -52,7 +52,7 @@
     by creating a text file with the <em>.ss</em> extension and running it with <em>web watch &lt;name&gt;.ss</em>.
 </p>
 
-<h3>Explanatory programming</h3>
+<h3>Exploratory programming</h3>
 
 <p>
     Unlike most languages, <em>#Script</em> has 2 outputs, the side-effect of the script itself and its textual output which makes it ideal for 
@@ -91,7 +91,7 @@ YouTube: <a href="https://youtu.be/joXSHtfb_7g">youtu.be/joXSHtfb_7g</a>
 <h4>Explore HTTP APIs in real-time</h4>
 
 <p>
-    The real-time scriptability of <em>#Script</em> makes it ideal for a whole host of explanatory programming tasks that would otherwise be painful
+    The real-time scriptability of <em>#Script</em> makes it ideal for a whole host of Exploratory programming tasks that would otherwise be painful
     in the slow code/build/debug cycles of a compiled language like C#, like being able to cut, sort & slice HTTP APIs with ease:
 </p>
 
@@ -140,7 +140,7 @@ YouTube: <a href="https://youtu.be/GQvxyPHQjhM">youtu.be/GQvxyPHQjhM</a>
 <h4>Live Transformations</h4>
 
 <p>
-    The <em>watch</em> mode enables an live REPL which serves as an interactive explanatory playground 
+    The <em>watch</em> mode enables an live REPL which serves as an interactive Exploratory playground 
     that's especially useful in scripts where you want instant feedback like viewing the results of 
     <a href="/docs/sharp-scripts#live-transformations">live transformations</a>:
 </p>
