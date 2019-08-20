@@ -60,39 +60,38 @@ order: 22
 
 <pre class="sh"><code>$ dotnet tool install -g web</code></pre>
 
-Then you can run <em>web list</em> to see which apps are available to install:
+Then you can run <em>web open</em> to see which apps are available to install:
 
-<pre class="sh"><code>$ web list</code></pre>
+<pre class="sh"><code>$ web open</code></pre>
 
 <p>
     By default this will list all <a href="https://github.com/sharp-apps">sharp-apps</a> available: 
 </p>
 
-<pre class="sh"><code>1. redis           Redis Admin Viewer developed as Vue Client Single Page App
-2. bare            Bootstrap + jQuery multi-page Website with dynamic Menu Navigation + API pages
-3. chat            Highly extensible App with custom AppHost leveraging OAuth + SSE for real-time Chat
-4. plugins         Extend Sharp Apps with Plugins, Filters, ServiceStack Services and other C# extensions
-5. blog            Minimal multi-user Twitter OAuth blogging platform that creates living powerful pages
-6. rockwind-aws    Rockwind Cloud Sharp App on AWS
-7. rockwind-azure  Rockwind Cloud Sharp App on Azure
-8. redis-html      Redis Admin Viewer developed as server-generated HTML Website
-9. spirals         Explore and generate different Spirals with SVG
-10. rockwind       Sharp App combining multi-layout Rockstars website + data-driven Northwind Browser
+<pre class="sh"><code>1. redis       Simple, lightweight, versatile Redis Admin UI
+    2. spirals     Explore and generate different Spirals with SVG
+    3. blog        Minimal, multi-user Twitter Auth blogging app
+    4. rockwind    Example combining Rockstars website + data-driven Northwind Browser
+    5. redis-html  Redis Admin Viewer developed as server-generated HTML Website
+    6. plugins     Extend Apps with Plugins, ServiceStack Services and other C# extensions
+    7. chat        Extensible App with custom AppHost leveraging OAuth + SSE for real-time Chat
+    8. bare        Basic Sharp Content Website
 
-Usage: web install &lt;name&gt;</code></pre>
+Usage: web open &lt;name&gt;</code></pre>
 
 <p>
     Where any of the apps can be installed by specifying the <b>name</b>, e.g. 
-    <a href="https://github.com/sharp-apps/spirals">spirals</a> can be installed with:
+    <a href="https://github.com/sharp-apps/spirals">spirals</a> can be run with:
 </p>
 
-<pre class="sh"><code>$ web install spirals</code></pre>
+<pre class="sh"><code>$ web open spirals</code></pre>
 
 <p>
-    Then to run any app, change into its installed directory and run <em>web</em> without any arguments:
+    Which will run the latest version of the <b>spirals</b> App each time. 
+    After an App has been run once or installed, you can run its local version with <em>web run</em>:
 </p>
 
-<pre class="sh"><code>$ cd spirals && web</code></pre>
+<pre class="sh"><code>$ web run spirals</code></pre>
 
 <p>
     Each Sharp App can also be run as a 
@@ -106,7 +105,7 @@ Usage: web install &lt;name&gt;</code></pre>
     Then running the Web App with <em>app</em> instead of <em>web</em>.
 </p>
 
-<pre class="sh"><code>$ app</code></pre>
+<pre class="sh"><code>$ app open spirals</code></pre>
 
 <h3>Spirals</h3>
 <div class="source">
@@ -144,6 +143,20 @@ Usage: web install &lt;name&gt;</code></pre>
     See the <a href="https://github.com/mythz/spirals#the-making-of-spirals">Making of Spirals</a> for a walk through on how to create
     the Spirals Web App from scratch.
 </p>
+
+<h3 id="init">Sharp App</h3>
+
+<p>
+    The easiest way to create an empty Sharp App is to run <em>app init</em> from an Empty App Directory:
+</p>
+
+<pre class="sh"><code>$ md Acme && cd Acme && web init</code></pre>
+
+<p>
+    Which will create an empty Sharp App as seen in the <b>Spirals</b> video above:
+</p>
+
+<img src="/assets/img/screenshots/app-init.png" alt="">
 
 <h3 id="project-templates">SharpApp Project Templates</h3>
 
