@@ -5,7 +5,8 @@
 
 <p>
     <em>#Script</em> is a <a href="/docs/introduction#simplicity-end-to-end">simple</a>, fast, highly versatile and
-    embeddable scripting language for .NET Core and .NET Apps that utilizes a 
+    <a href="/docs/introduction#embed">embeddable scripting language</a>
+    for .NET Core and .NET Apps that utilizes a 
     <a href="/docs/syntax">familiar expressive Syntax</a> 
     to enable dynamic scripting of .NET Apps via controlled access to pluggable 
     <a href="/docs/methods">methods</a> and <a href="/docs/arguments">arguments</a>
@@ -21,6 +22,26 @@
     <a href="/usecases/introspect-state">introspect the state of running .NET Apps</a> where they provide 
     <a href="/docs/servicestack-scripts#debug-template">valuable insight at a glance</a> with support for 
     <a href="/usecases/adhoc-querying">Adhoc querying</a>.
+</p>
+
+<h3 id="embed">Embed in .NET</h3>
+
+<p>
+    After adding the <a href="https://www.nuget.org/packages/ServiceStack.Common">ServiceStack.Common</a> NuGet package,
+    you can start rendering pages by initialize a <em>ScriptContext</em>
+</p>
+
+{{ 'gfm/introduction/01.md' | githubMarkdown }}
+
+<p>
+    The ScriptContext is the sandbox where all scripts are executed within, everything your script has access to and generates 
+    is maintained within the ScriptContext. Once initialize you can start using it to evaluate scripts which you can do with:
+</p>
+
+{{ 'gfm/introduction/02.md' | githubMarkdown }}
+
+<p>
+    For information for how to customize the <em>ScriptContext</em> see the <a href="/docs/introduction#embed">Embedding in .NET docs</a>.
 </p>
 
 <h3>Sharp Scripts</h3>

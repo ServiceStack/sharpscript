@@ -5,7 +5,7 @@ order: 2
 
 <p>
     <em>#Script</em> is a simple and elegant, <a href="/docs/methods">highly-extensible</a>, <a href="/docs/sandbox">sandboxed</a>, 
-    high-performance <a href="/docs/page-formats">general-purpose</a> templating engine for .NET 4.5 and .NET Core. 
+    high-performance <a href="/docs/page-formats">general-purpose</a>, <b>embeddable</b> scripting language for .NET Core and .NET Framework. 
     It's designed from the ground-up to be incrementally adoptable where its basic usage is simple enough 
     for non-technical users to use whilst it progressively enables access to more power and functionality allowing it to scale up to 
     support full server-rendering Web Server workloads and beyond. Its high-fidelity with JavaScript syntax allows it to use a common
@@ -13,7 +13,7 @@ order: 2
     compatible with <a href="https://vuejs.org/v2/guide/syntax.html#Filters">Vue filters</a>.
 </p>
 
-<h3>Quick walk through</h3>
+<h3 id="embed">Executing #Script in .NET</h3>
 
 <p>
     To render the pages we first create and initialize a <em>ScriptContext</em>
