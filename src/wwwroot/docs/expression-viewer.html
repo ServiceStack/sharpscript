@@ -49,7 +49,7 @@ order: 31
                     <option value="#expression=1%20<%202%20%26%26%20(t%20%7C%7C%203%20>%204)%20%26%26%20f&t=true&f=false">1 < 2 && (t || 3 > 4) && f</option>
                     <option value="#expression=a%20>%20(c%20%3F%3F%20b)%20%3F%20a%20%3A%20b&a=1&b=2">a > (c ?? b) ? a : b</option>
                     <option value="#expression=map(range(1%2Ccount)%2C%20x%20%3D>%20x%20*%20x)&count=5">map(range(1,count), x => x * x)</option>
-                    <option value="#expression=range(1%2Ccount).map(x%20%3D>%20x%20*%20x)&count=5">range(1,count).map(x => x * x)</option>
+                    <option value="#expression=1.range(count).map(x%20%3D>%20x%20*%20x)&count=5">1.range(count).map(x => x * x)</option>
                     <option value="#expression=%60Hello%2C%20%24%7Bname%7D!%20%24%7Ba%20%3F%20pow(1%2B2%2Ca)%20%3A%20''%7D%60&name='World'&a=3">`Hello, ${name}! ${a ? pow(1+2,a) : ''}`</option>
                     <option value="#expression=keys(%7B%20...a%2C%20c%3A3%2C%20...%7Bd%3A%204%7D%20%7D)&a=%7B%20b%3A%202%20%7D">keys({ ...a, c:3, ...{d: 4} })</option>
                     <option value="#expression=%5B1%2C%20...%5Brange(2%2Cpow(...%5B3%2Ce%5D))%5D%2C%201%5D&e=2">[1, ...[range(2,pow(...[3,e]))], 1]</option>

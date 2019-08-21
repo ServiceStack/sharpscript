@@ -18,6 +18,8 @@ All that's required is to run the App on your server with `web open <app>`, e.g.
 
     $ web open redis
 
+Which runs on port `5000` by default, you can run it under your preferred domain by configuring nginx below.
+
 Or to "install" the Gist App (without launching it with "open") so it can be run offline locally:
 
     $ web install redis
@@ -63,7 +65,7 @@ For simplifying the one-time setup, it's easier to sign-in as super user:
 
 #### Configure Nginx
 
-Which runs on port `5000` by default, which you can make available under your preferred domain by adding an nginx virtual host by changing to:
+You can make available under your preferred domain by adding an nginx virtual host by changing to:
 
     $ cd /etc/nginx/sites-available/
 

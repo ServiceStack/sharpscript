@@ -622,7 +622,7 @@ db.connection ~/northwind.sqlite</code></pre>
     To run the Rockwind app using the <em>northwind.sqlite</em> database, run the command below on Windows, Linux or OSX: 
 </p>
 
-<pre class="sh"><code>dotnet web/app.dll ../rockwind/app.sqlite.settings</code></pre>
+<pre class="sh"><code>web app.sqlite.settings</code></pre>
 
 <h5 id="app-sqlserver-settings">app.sqlserver.settings</h5>
 
@@ -793,7 +793,8 @@ defaultFileCacheExpirySecs     60</code></pre>
     With all files being sourced from S3 and the App configured to use AWS RDS PostgreSQL, the AWS settings is an example of 
     a <b>Pure Cloud App</b> where the entire App is hosted on managed cloud services that's decoupled from the .NET Core 2.1 binary 
     that runs it that for the most part won't require redeploying the Web App binary unless making configuration changes or 
-    upgrading the <em>web/app.dll</em> as any App changes can just be uploaded straight to S3 which changes reflected within the
+    upgrading the <a href="https://docs.servicestack.net/web-tool">web</a> dotnet tool
+    as any App changes can just be uploaded straight to S3 which changes reflected within the
     <em>checkForModifiedPagesAfterSecs</em> setting, which tells the Web App how long to wait before checking for file changes
     whilst <em>defaultFileCacheExpirySecs</em> specifies how long to cache files like <em>content.md</em> for.
 </p>
