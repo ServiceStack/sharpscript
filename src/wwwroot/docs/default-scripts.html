@@ -32,7 +32,7 @@ UTC now: {{ utcNow | dateFormat('o') }}" }) }}
 <h4 id="html-encoding">HTML Encoding</h4>
 
 <p>
-    All values of Template Expressions in <b>.html</b> pages are HTML-encoded by default, you can bypass the HTML encoding 
+    All values of #Script Expressions in <b>.html</b> pages are HTML-encoded by default, you can bypass the HTML encoding 
     to emit raw HTML by adding the <em>raw</em> filter as the last filter in an expression:
 </p>
 
@@ -535,7 +535,7 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
 {{/raw}}` }) }}
 
 <blockquote>
-    Useful when you want to emit a client-side Vue method or show examples of Template Expressions.
+    Useful when you want to emit a client-side Vue method or show examples of #Script Expressions.
 </blockquote>
 
 <p>

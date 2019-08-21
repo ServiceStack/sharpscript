@@ -191,7 +191,7 @@ order: 2
 <p>
     <em>#Script</em> is fast, parsing is done using StringSegment for minimal GC pressure, all I/O is non-blocking inc. async
     writes to OutputStream's. There's no buffering: Layouts, Pages and Partials are asynchronously written to a forward only stream.
-    There's no runtime reflection, each filter or binding within template expressions executes compiled and cached C# Expressions.
+    There's no runtime reflection, each filter or binding within #Script expressions executes compiled and cached C# Expressions.
 </p>
 
 <h3>Pure, Functional and Reactive</h3>
@@ -251,7 +251,7 @@ order: 2
 <p>
     They're non-invasive, by default <a href="/docs/sharp-pages">#Script Pages</a> is configured to handle
     <em>.html</em> files but can be configured to handle any html extension or <a href="/docs/page-formats">text file format</a>.
-    When a page doesn't contain any Template Expressions it's contents are returned as-is, making it easy to adopt in existing
+    When a page doesn't contain any #Script Expressions it's contents are returned as-is, making it easy to adopt in existing
     static websites.
 </p>
 
