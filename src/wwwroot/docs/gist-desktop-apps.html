@@ -122,6 +122,25 @@ Which will load the Gist files from the serialized **redis.gist** JSON blob inst
 which is useful for times you don't have an Internet connection or GitHub is down. However as small App's like **redis** start instantly
 it's preferred to run them with `app open redis` so you're always running the latest version.
 
+### Run local modified versions of existing Sharp Apps
+
+Installing or running a Sharp App will install it in the `$HOME\.sharp-apps\` folder but if you want to make changes to it, it's easier
+to install it in a local directory. For Sharp Apps published in a GitHub Repo you can either clone the repo or use the dotnet tools to
+install it from the command-line with the `new` command to specify the Repo you want to download and the `-source` parameter to specify
+which GitHub User or Organization, e.g. you can install [https://github.com/sharp-apps/redis](https://github.com/sharp-apps/redis) with:
+
+    $ app new redis -source sharp-apps
+
+Where you can open it in a text editor like VS Code:
+
+    $ code redis
+
+And run it in VS Code's terminal window, which during development you'll likely want to run it with your preferred Web Browser to access its Dev tools:
+
+    $ web
+
+Then you'll be able to changes to the App whilst it's running to see any changes in real-time.
+
 #### Uninstall Apps
 
 As Gist App's are downloaded on-the-fly and loaded into memory there's not much to uninstall just an empty folder and a `<app-name>.gist`

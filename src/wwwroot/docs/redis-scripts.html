@@ -122,16 +122,22 @@ order: 15
 <h3>Run against your local Redis instance</h3>
 
 <p>
-    You can run the above Redis SharpApp's against your local redis instance by cloning the 
-    <a href="https://github.com/ServiceStack/dotnet-app">NetCoreApps/WebApp</a> GitHub project and in the 
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps">/src/apps</a> folder run:
+    Since <em>redis</em> is published <a href="/docs/gist-desktop-apps">Gist Desktop App</a>, 
+    you can run the above <em>redis</em> SharpApp's against your local redis instance with:
 </p>
 
-<pre class="sh"><code>dotnet web/app.dll ../redis/app.settings</code></pre>
+<pre class="sh"><code>app open redis</code></pre>
 
 <p>
-    As this is a <a href="/usecases/web-templates">Web Template</a> Sharp App it doesn't need any compilation so after 
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps">running the Redis Web App</a>
+    Using <em>open</em> always downloads and runs the latest version, if you don't have an Internet connection you can later run 
+    any previous run Sharp Apps using <em>run</em>:
+</p>
+
+<pre class="sh"><code>app run redis</code></pre>
+
+<p>
+    As both are <a href="/docs/sharp-app">Sharp Apps</a> it doesn't need any compilation so after 
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps">running the Redis Web App</a> locally
     you can modify the source code and see changes in real-time thanks to its built-in <a href="/docs/hot-reloading">Hot Reloading</a> support.
 </p>
 
