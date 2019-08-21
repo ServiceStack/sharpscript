@@ -9,7 +9,7 @@ order: 4
 </p>
 
 {{ 'examples/monthly-budget.txt' | includeFile | to => template }}
-{{ "live-template" | partial({ rows:33, template }) }}
+{{ "live-template" | partial({ rows:34, template }) }}
 
 <style>
     .output {
@@ -25,6 +25,14 @@ order: 4
 </p>
 
 <iframe width="840" height="472" src="https://www.youtube.com/embed/FlKeaav0gt8?start=67" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3>Embed Live Data from JSON APIs</h3>
+
+{{ 'examples/query-github.txt' | includeFile | to => template }}
+
+<pre class="sh"><code>{{template}}</code></pre>
+
+<img src="/assets/img/query-github.png">
 
 {{ "usecase-links" | partial({ order }) }}
 

@@ -1,0 +1,13 @@
+{{#markdown}}
+## [ServiceStack](https://github.com/ServiceStack) GitHub Repos
+{{/markdown}}
+
+```code
+"https://api.github.com/orgs/ServiceStack/repos" | urlContentsWithCache({userAgent:'Script'}) | to => json
+
+json | parseJson | orderByDesc => it.watchers | to => repos
+
+repos | take(5) | map => { it.name, it.watchers, it.forks } | htmlDump({caption:'Top 5 Repos'})
+```
+
+Total Repos: {{ repos.count() }}, Watchers: {{ repos | map => it.watchers | sum }}

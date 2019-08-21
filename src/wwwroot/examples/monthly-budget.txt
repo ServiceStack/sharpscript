@@ -1,32 +1,34 @@
-{{ 11200 | to => balance }}
-{{ 3     | to => projectedMonths }}
-{{'
-Salary:        4000
-App Royalties: 200
-'| trim | parseKeyValueText(':') | to => monthlyRevenues }}
-{{'
-Rent      1000
-Internet  50
-Mobile    50
-Food      400
-Misc      200
-'| trim | parseKeyValueText | to => monthlyExpenses }}
-{{ monthlyRevenues | values | sum | to => totalRevenues }}
-{{ monthlyExpenses | values | sum | to => totalExpenses }}
-{{ subtract(totalRevenues, totalExpenses) | to => totalSavings }}
+```code
+{{`
+Salary:         4000
+App Royalties:  200
+` | trim | parseKeyValueText(':') | to => monthlyRevenues }}{{'
+Rent            1000
+Internet        50
+Mobile          50
+Food            400
+Misc            200
+'| trim | parseKeyValueText       | to => monthlyExpenses }}
 
+11200 | to => balance
+3     | to => projectedMonths
+monthlyRevenues | values | sum    | to => totalRevenues
+monthlyExpenses | values | sum    | to => totalExpenses
+(totalRevenues - totalExpenses)   | to => totalSavings
+```
 Current Balance: <b>{{ balance | currency }}</b>
 
 Monthly Revenues:
-{{ monthlyRevenues | toList | select: { it.Key | padRight(17) }{ it.Value | currency }\n }}
+{{monthlyRevenues | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| join('\n')}}
 Total            <b>{{ totalRevenues | currency }}</b>
 
 Monthly Expenses:
-{{ monthlyExpenses | toList | select: { it.Key | padRight(17) }{ it.Value | currency }\n }}
+{{monthlyExpenses | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| join('\n')}}
 Total            <b>{{ totalExpenses | currency }}</b>
 
-Monthly Savings: <b>{{ totalSavings | currency }}</b>
+Monthly Savings: <b>{{ totalSavings  | currency }}</b>
 
 Projected Cash Position:
-{{ projectedMonths | times | map => index + 1
- | select: { now | addMonths(it) | dateFormat }       <b>{ totalSavings | multiply(it) | add(balance) | currency }</b>\n }}
+{{ projectedMonths.times() | map => index + 1 | map => 
+   `${now.addMonths(it).dateFormat()}       <b>${(it * totalSavings + balance).currency()}</b>` 
+   | join('\n') | raw }}
