@@ -1,4 +1,7 @@
 ```code
+11200 | to => balance
+3     | to => projectedMonths
+
 {{`
 Salary:         4000
 App Royalties:  200
@@ -9,9 +12,6 @@ Mobile          50
 Food            400
 Misc            200
 '| trim | parseKeyValueText       | to => monthlyExpenses }}
-
-11200 | to => balance
-3     | to => projectedMonths
 monthlyRevenues | values | sum    | to => totalRevenues
 monthlyExpenses | values | sum    | to => totalExpenses
 (totalRevenues - totalExpenses)   | to => totalSavings
