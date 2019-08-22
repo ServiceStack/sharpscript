@@ -2,10 +2,10 @@
 11200 | to => balance
 3     | to => projectedMonths
 
-{{`
+{{'
 Salary:         4000
 App Royalties:  200
-` | trim | parseKeyValueText(':') | to => monthlyRevenues }}{{'
+'| trim | parseKeyValueText(':') | to => monthlyRevenues }}{{'
 Rent            1000
 Internet        50
 Mobile          50
