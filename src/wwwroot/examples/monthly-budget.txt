@@ -1,17 +1,20 @@
 ```code
-11200 | to => balance
-3     | to => projectedMonths
+11200             | to => balance
+3                 | to => projectedMonths
 
-{{'
-Salary:         4000
-App Royalties:  200
-'| trim | parseKeyValueText(':') | to => monthlyRevenues }}{{'
-Rent            1000
-Internet        50
-Mobile          50
-Food            400
-Misc            200
-'| trim | parseKeyValueText       | to => monthlyExpenses }}
+#keyvalues monthlyRevenues ':'
+* Salary:         4000
+* App Royalties:  200
+/keyvalues
+
+#keyvalues monthlyExpenses
+* Rent            1000
+* Internet        50
+* Mobile          50
+* Food            400
+* Misc            200
+/keyvalues
+
 monthlyRevenues | values | sum    | to => totalRevenues
 monthlyExpenses | values | sum    | to => totalExpenses
 (totalRevenues - totalExpenses)   | to => totalSavings
@@ -19,16 +22,15 @@ monthlyExpenses | values | sum    | to => totalExpenses
 Current Balance: <b>{{ balance | currency }}</b>
 
 Monthly Revenues:
-{{monthlyRevenues | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| join('\n')}}
+{{monthlyRevenues | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| joinln}}
 Total            <b>{{ totalRevenues | currency }}</b>
 
 Monthly Expenses:
-{{monthlyExpenses | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| join('\n')}}
+{{monthlyExpenses | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| joinln}}
 Total            <b>{{ totalExpenses | currency }}</b>
 
 Monthly Savings: <b>{{ totalSavings  | currency }}</b>
 
 Projected Cash Position:
-{{ projectedMonths.times() | map => index + 1 | map => 
-   `${now.addMonths(it).dateFormat()}       <b>${(it * totalSavings + balance).currency()}</b>` 
-   | join('\n') | raw }}
+{{projectedMonths.times() | map => index + 1 | map => 
+`${now.addMonths(it).dateFormat()}       ${(it * totalSavings + balance).currency()}`| joinln}}

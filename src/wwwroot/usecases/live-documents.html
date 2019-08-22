@@ -9,13 +9,15 @@ order: 4
 </p>
 
 {{ 'examples/monthly-budget.txt' | includeFile | to => template }}
-{{ "live-template" | partial({ rows:34, template }) }}
+{{ "live-template" | partial({ rows:36, template }) }}
 
 <style>
     .output {
         font-family: Monaco, Consolas;
     }
 </style>
+
+<blockquote>new <a href="/docs/blocks#keyvalues">keyvalues</a> block is available from <a href="https://docs.servicestack.net/myget">v5.6.1 on MyGet</a></blockquote>
 
 <h3>Live Document Blog</h3>
 
