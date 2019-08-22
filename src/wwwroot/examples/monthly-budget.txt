@@ -22,11 +22,11 @@ monthlyExpenses | values | sum    | to => totalExpenses
 Current Balance: <b>{{ balance | currency }}</b>
 
 Monthly Revenues:
-{{monthlyRevenues | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| joinln}}
+{{monthlyRevenues | toList | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
 Total            <b>{{ totalRevenues | currency }}</b>
 
 Monthly Expenses:
-{{monthlyExpenses | toList | map => `${it.Key.padRight(17)}${it.Value.currency()}`| joinln}}
+{{monthlyExpenses | toList | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
 Total            <b>{{ totalExpenses | currency }}</b>
 
 Monthly Savings: <b>{{ totalSavings  | currency }}</b>
