@@ -1,0 +1,26 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">KeyValuesBlock</span> : <span class="pl-en">ScriptBlock</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">string</span> <span class="pl-smi">Name</span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>keyvalues<span class="pl-pds">"</span></span>;
+    
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">Task</span> <span class="pl-en">WriteAsync</span>(<span class="pl-en">ScriptScopeContext</span> <span class="pl-smi">scope</span>, <span class="pl-en">PageBlockFragment</span> <span class="pl-smi">block</span>, <span class="pl-en">CancellationToken</span> <span class="pl-smi">ct</span>)
+    {
+        <span class="pl-k">var</span> <span class="pl-smi">literal</span> <span class="pl-k">=</span> <span class="pl-smi">block</span>.<span class="pl-smi">Argument</span>.<span class="pl-smi">Span</span>.<span class="pl-en">ParseVarName</span>(<span class="pl-k">out</span> <span class="pl-k">var</span> <span class="pl-smi">name</span>);
+
+        <span class="pl-k">var</span> <span class="pl-smi">delimiter</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>;
+        <span class="pl-smi">literal</span> <span class="pl-k">=</span> <span class="pl-smi">literal</span>.<span class="pl-en">AdvancePastWhitespace</span>();
+        <span class="pl-k">if</span> (<span class="pl-smi">literal</span>.<span class="pl-smi">Length</span> <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>)
+        {
+            <span class="pl-smi">literal</span> <span class="pl-k">=</span> <span class="pl-smi">literal</span>.<span class="pl-en">ParseJsToken</span>(<span class="pl-k">out</span> <span class="pl-k">var</span> <span class="pl-smi">token</span>);
+            <span class="pl-k">if</span> (<span class="pl-k">!</span>(<span class="pl-smi">token</span> <span class="pl-k">is</span> <span class="pl-en">JsLiteral</span> <span class="pl-smi">litToken</span>))
+              <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-en">NotSupportedException</span>(<span class="pl-s"><span class="pl-pds">$"</span>'keyvalues' expected delimiter but was {<span class="pl-smi">token</span>.<span class="pl-en">DebugToken</span>()}<span class="pl-pds">"</span></span>);
+            <span class="pl-smi">delimiter</span> <span class="pl-k">=</span> <span class="pl-smi">litToken</span>.<span class="pl-smi">Value</span>.<span class="pl-en">ToString</span>();
+        }
+        
+        <span class="pl-k">var</span> <span class="pl-smi">strFragment</span> <span class="pl-k">=</span> (<span class="pl-en">PageStringFragment</span>)<span class="pl-smi">block</span>.<span class="pl-smi">Body</span>[<span class="pl-c1">0</span>];
+        <span class="pl-k">var</span> <span class="pl-smi">strDict</span> <span class="pl-k">=</span> <span class="pl-smi">strFragment</span>.<span class="pl-smi">ValueString</span>.<span class="pl-en">Trim</span>().<span class="pl-en">ParseKeyValueText</span>(<span class="pl-smi">delimiter</span>);
+        <span class="pl-smi">scope</span>.<span class="pl-smi">PageResult</span>.<span class="pl-smi">Args</span>[<span class="pl-smi">name</span>.<span class="pl-en">ToString</span>()] <span class="pl-k">=</span> <span class="pl-smi">strDict</span>;
+
+        <span class="pl-k">return</span> <span class="pl-smi">TypeConstants</span>.<span class="pl-smi">EmptyTask</span>;
+    }
+}</pre></div>
+</div>

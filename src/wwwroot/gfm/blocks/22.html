@@ -1,0 +1,21 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">CsvBlock</span> : <span class="pl-en">ScriptBlock</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">string</span> <span class="pl-smi">Name</span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>csv<span class="pl-pds">"</span></span>;
+    
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">Task</span> <span class="pl-en">WriteAsync</span>(<span class="pl-en">ScriptScopeContext</span> <span class="pl-smi">scope</span>, <span class="pl-en">PageBlockFragment</span> <span class="pl-smi">block</span>, <span class="pl-en">CancellationToken</span> <span class="pl-smi">ct</span>)
+    {
+        <span class="pl-k">var</span> <span class="pl-smi">literal</span> <span class="pl-k">=</span> <span class="pl-smi">block</span>.<span class="pl-smi">Argument</span>.<span class="pl-en">ParseVarName</span>(<span class="pl-k">out</span> <span class="pl-k">var</span> <span class="pl-smi">name</span>);
+        
+        <span class="pl-k">var</span> <span class="pl-smi">strFragment</span> <span class="pl-k">=</span> (<span class="pl-en">PageStringFragment</span>)<span class="pl-smi">block</span>.<span class="pl-smi">Body</span>[<span class="pl-c1">0</span>];
+        <span class="pl-k">var</span> <span class="pl-smi">trimmedBody</span> <span class="pl-k">=</span> <span class="pl-smi">StringBuilderCache</span>.<span class="pl-en">Allocate</span>();
+        <span class="pl-k">foreach</span> (<span class="pl-k">var</span> <span class="pl-smi">line</span> <span class="pl-k">in</span> <span class="pl-smi">strFragment</span>.<span class="pl-smi">ValueString</span>.<span class="pl-en">ReadLines</span>())
+        {
+            <span class="pl-smi">trimmedBody</span>.<span class="pl-en">AppendLine</span>(<span class="pl-smi">line</span>.<span class="pl-en">Trim</span>());
+        }
+        <span class="pl-k">var</span> <span class="pl-smi">strList</span> <span class="pl-k">=</span> <span class="pl-smi">trimmedBody</span>.<span class="pl-en">ToString</span>().<span class="pl-en">FromCsv</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-en">List</span>&lt;<span class="pl-k">string</span>&gt;&gt;&gt;();
+        <span class="pl-smi">scope</span>.<span class="pl-smi">PageResult</span>.<span class="pl-smi">Args</span>[<span class="pl-smi">name</span>.<span class="pl-en">ToString</span>()] <span class="pl-k">=</span> <span class="pl-smi">strList</span>;
+
+        <span class="pl-k">return</span> <span class="pl-smi">TypeConstants</span>.<span class="pl-smi">EmptyTask</span>;
+    }
+}</pre></div>
+</div>

@@ -296,6 +296,70 @@ As `markdown` block only supports 2 usages its implementation is much simpler th
 {{ 'gfm/blocks/16.md' | githubMarkdown }}
 
 {{#markdown}}
+### keyvalues
+
+The `{{#keyvalues}}` block lets you define a key value dictionary in free-text which is useful in [Live Documents](/usecases/live-documents)
+for capturing a data structure like expenses in free-text, e.g:
+
+<pre>
+{{#keyvalues monthlyExpenses}}
+Rent            1000
+Internet        50
+Mobile          50
+Food            400
+Misc            200
+{{/keyvalues}}
+{{ monthlyExpenses | values | sum | to => totalExpenses }}
+</pre>
+
+By default it's delimited by the first space ' ', but if the first key column can contain spaces you can specify to use a different delimiter, e.g:
+
+<pre>
+{{#keyvalues monthlyRevenues ':'}}
+Salary:         4000
+App Royalties:  200
+{{/keyvalues}}
+</pre>
+
+The [KeyValuesBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/KeyValuesBlock.cs) 
+implementation is fairly straight forward where it passes the string body to `ParseKeyValueText()` method with an optional delimiter and
+assigns the results to the specified variable name:
+{{/markdown}}
+
+{{ 'gfm/blocks/21.md' | githubMarkdown }}
+
+<blockquote>new <a href="/docs/blocks#keyvalues">keyvalues</a> block is available from <a href="https://docs.servicestack.net/myget">v5.6.1 on MyGet</a></blockquote>
+
+{{#markdown}}
+### csv
+
+Similar to `keyvalues`, you can specify a multi-column inline data set using the `{{#csv}}` block, e.g:
+
+<div class="linq-preview {{ output }}">
+    <div class="template">
+        <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" rows="7"
+>{{#csv cars}}
+Tesla,Model S,79990
+Tesla,Model 3,38990
+Tesla,Model X,84990
+{{/csv}}
+{{ cars | map => { Make: it[0], Model: it[1], Cost: it[2] } | textdump }}
+Total Cost: {{ cars | sum => it[2] | currency }}</textarea>
+    </div>
+    <div class="result">
+        <div class="output" style="font-family: Monaco, Consolas"></div>
+    </div>
+</div> 
+
+The [CsvBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/CsvBlock.cs) 
+implementation is similar to `keyvalues` except passes the trimmed string body to `FromCsv` into a string List and assigns the result to the specified name:
+{{/markdown}}
+
+{{ 'gfm/blocks/22.md' | githubMarkdown }}
+
+<blockquote>new <a href="/docs/blocks#csv">csv</a> block is available from <a href="https://docs.servicestack.net/myget">v5.6.1 on MyGet</a></blockquote>
+
+{{#markdown}}
 ### partial
 
 The `{{#partial}}` block lets you create In Memory partials which is useful when working with partial filters like `selectPartial` as
