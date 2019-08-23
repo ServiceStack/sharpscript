@@ -65,15 +65,26 @@ For simplifying the one-time setup, it's easier to sign-in as super user:
 
 #### Configure Nginx
 
-You can make available under your preferred domain by adding an nginx virtual host by changing to:
+To configure your App quickly you can start with **nginx** and **supervisor** config templates using the [mix dotnet tool](https://docs.servicestack.net/mix-tool): 
+
+    $ web mix nginx supervisor-sharp -name redis
+
+Where after confirming, will write the config files to the appropriate locations:
+
+    Write files from 'nginx' https://gist.github.com/gistlyn/38a125eede8228ddf40651e2529a5c70 to:
+
+    /etc/nginx/sites-available/redis.web-app.io
+
+    Proceed? (n/Y):
+
+    Writing files from 'supervisor-sharp' https://gist.github.com/gistlyn/2db295508517a4eed59906320e95d98a to:
+    /etc/supervisor/conf.d/app.redis.conf
+
+Then to modify the virtual host configuration of the App, change into the nginx virtual host directory:
 
     $ cd /etc/nginx/sites-available/
 
-Then creating a Virtual Host configuration for your App, which you can start from using the mix `nginx` config template:
-
-    $ web mix nginx -name redis
-
-Then renaming the `redis.web-app.io` file to the domain you want it hosted on instead, e.g:
+and rename `redis.web-app.io` file to the domain you want it hosted on instead, e.g:
 
     $ mv redis.web-app.io redis.your-domain.com
 
@@ -81,7 +92,7 @@ You'll also need to rename the virtual host in the config file, which in vi you 
 
     :%s/redis.web-app.io/redis.your-domain.com/g
 
-Which should look something like:
+Which should now look something like:
 
     server {
         listen       80;
@@ -105,7 +116,7 @@ Which should look something like:
         }
     }
 
-You'll also need to update the port number if you want to run your .NET Core App on a custom port.
+You'll also need to update the port number if you want to run your .NET Core App on a different port.
 
 Now to enable the site in nginx, link it with:
 
@@ -119,22 +130,14 @@ And voila! your Gist Sharp App is now being served at **redis.your-domain.com**
 
 #### Configure Supervisor
 
-We can further harden the .NET Core App process by having it run under a managed [supervisord](http://supervisord.org/index.html) process.
-
-To do this [create a deploy User Account](https://sharpscript.net/docs/deploying-sharp-apps#setup-the-deploy-user-account) and give it
+We'll then configure [supervisord](http://supervisord.org/index.html) to further harden the .NET Core App process by having it run under a managed process,
+by [creating a deploy User Account](https://sharpscript.net/docs/deploying-sharp-apps#setup-the-deploy-user-account) and giving it
 permission to run the `supervisorctl` and `web` programs, then change directory to:
 
     $ cd /etc/supervisor/conf.d
 
-Then generate a supervisor configuration template with:
-
-    $ web mix supervisor-sharp -name redis
-
-Which should create 
-
-    $ app.redis.conf
-
-Which should be close to pre-populated with your App, you'll just need to change the port if you're using a custom port number:
+Where we can further modify the supervisor config file created in the mix tool, where in most cases you'll only need to change the port number if 
+you've selected a different port in your nginx virtual host:
 
     [program:app-redis]
     command=/home/deploy/.dotnet/tools/web run redis --release
@@ -148,11 +151,6 @@ Which should be close to pre-populated with your App, you'll just need to change
     stopsignal=INT
 
 > The --release flag overrides debug in app.settings so it's always run in release mode.
-
-If you don't have [mix](https://docs.servicestack.net/mix-tool) installed you can copy the above configuration and replace references of `redis` to 
-your app's name, which in vi you can do with:
-
-    :%s/redis/acme/g
 
 After reviewing the changes, tell supervisor to register and start the supervisor process with:
 
@@ -168,14 +166,13 @@ then restarting the supervisor managed process, in these 2 commands:
     $ web install redis
     $ supervisorctl restart app-redis 
 
-Which can also be deployed from the Windows Command Prompt using a remote SSH command by combining the above commands in a `deploy-spirals.sh` text file:
+Which can also be deployed from the Windows Command Prompt using a remote SSH command by combining the above commands in a `deploy-redis.sh` text file:
 
     ssh -t deploy@web-app.io "sudo /home/deploy/.dotnet/tools/web install redis && sudo supervisorctl restart app-redis"
 
 Where App updates can then be performed with a single WSL bash command from the Windows Command Prompt:
 
-    $ bash deploy-spirals.sh
-
+    $ bash deploy-redis.sh
 
 ### Customized App Settings
 
