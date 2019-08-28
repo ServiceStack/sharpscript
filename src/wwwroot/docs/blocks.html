@@ -23,10 +23,10 @@ making it easy to encapsulate reusable functionality and reduce boilerplate for 
 
 ## ServiceStack Blocks
 
- - [minifyjs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
- - [minifycss](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
- - [minifyhtml](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
- - [svg](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
+ - [minifyjs](#minifyjs)
+ - [minifycss](#minifycss)
+ - [minifyhtml](#minifyhtml)
+ - [svg](#svg)
 
 The syntax for blocks follows the familiar [handlebars block helpers](https://handlebarsjs.com/block_helpers.html) in both syntax and functionality.
 `#Script` also includes most of handlebars.js block helpers which are useful in a HTML template language whilst minimizing any porting efforts if 
@@ -398,21 +398,17 @@ assigns the results to the specified variable name:
 
 Similar to `keyvalues`, you can specify a multi-column inline data set using the `{{#csv}}` block, e.g:
 
-<div class="linq-preview {{ output }}">
-    <div class="template">
-        <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" rows="7"
->{{#csv cars}}
+{{/markdown}}
+
+{{ "live-template" | partial({ rows:7, template: "{{#csv cars}}
 Tesla,Model S,79990
 Tesla,Model 3,38990
 Tesla,Model X,84990
 {{/csv}}
 {{ cars | map => { Make: it[0], Model: it[1], Cost: it[2] } | htmldump }}
-Total Cost: {{ cars | sum => it[2] | currency }}</textarea>
-    </div>
-    <div class="result">
-        <div class="output" style="font-family: Monaco, Consolas"></div>
-    </div>
-</div> 
+Total Cost: {{ cars | sum => it[2] | currency }}" }) }}
+
+{{#markdown}}
 
 The [CsvBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/CsvBlock.cs) 
 implementation is similar to `keyvalues` except passes the trimmed string body to `FromCsv` into a string List and assigns the result to the specified name:
@@ -471,10 +467,95 @@ For a better illustration we can implement the same functionality above without 
 
 {{ 'gfm/blocks/19.md' | githubMarkdown }}
 
+<h3 id="servicestack-blocks">ServiceStack Blocks</h3>
+
+
+{{#markdown}}
+
+ServiceStack's Blocks are registered by default in [#Script Pages](/docs/sharp-pages) that can be registered in a new `ScriptContext`
+by adding the `ServiceStackScriptBlocks` plugin:
+
+    var context = new ScriptContext {
+        Plugins = {
+            new ServiceStackScriptBlocks(),
+        }
+    }.Init();
+
+### Mix in NUglify
+
+You can configure ServiceStack and `#Script` to use Nuglify's Advanced HTML, CSS, JS Minifiers using [mix](https://docs.servicestack.net/mix-tool) with:
+
+    $ mix nuglify 
+
+Which will add [Configure.Nuglify.cs](https://gist.github.com/gistlyn/4bdb79d21f199c22b8a86f032c186e2d) to your **HOST** project.
+
+To assist with debugging during development, **no minification** is applied when `DebugMode=true`.
+
+All minifier Blocks supports an additional `<name>` argument to store the captured output of the minifier block into, e.g:
+
+    {{#minifier capturedMinification}} ... {{/minifier}}
+    {{capturedMinification}}
+
+That also supports using the `appendTo` modifier to **concatenate** the minified output instead of replacing it, e.g:
+
+    {{#minifier appendTo capturedMinification}} ... {{/minifier}}
+    {{#minifier appendTo capturedMinification}} ... {{/minifier}}
+    {{capturedMinification}}
+
+### minifyjs
+
+Use the `minifyjs` block to minify inline JavaScript:
+
+{{/markdown}}
+
+{{ "live-template" | partial({ rows:6, template: "{{#minifyjs}}
+function add(left, right) {
+    return left + right;
+}
+add(1, 2);
+{{/minifyjs}}" }) }}
+
+{{#markdown}}
+### minifycss
+
+Use the `minifycss` block to minify inline CSS:
+
+{{/markdown}}
+
+{{ "live-template" | partial({ rows:5, template: "{{#minifycss}}
+body {
+    background-color: yellow;
+}
+{{/minifycss}}" }) }}
+
+{{#markdown}}
+### minifyhtml
+
+Use the `minifyhtml` block to minify HTML:
+
+{{/markdown}}
+
+{{ "live-template" | partial({ rows:8, template: "{{#minifyhtml capturedHtml}}
+<h1>
+    Title
+</h1>
+<p>
+    Content
+</p> <br />
+{{/minifyhtml}} {{capturedHtml}}" }) }}
+
+{{#markdown}}
+### svg
+
+Use the `svg` block in your `_init.html` Startup Script to [register SVG Images with ServiceStack](https://docs.servicestack.net/svg#registering-svgs-from-_inithtml).
+
+{{/markdown}}
+
+
 <h3 id="removing-blocks">Removing Blocks</h3>
 
 {{#markdown}}
-Like everything else in SharpScript, all built-in Blocks can be removed. To make it easy to remove groups of related blocks you can just remove the 
+Like everything else in `#Script`, all built-in Blocks can be removed. To make it easy to remove groups of related blocks you can just remove the 
 plugin that registered them using the `RemovePlugins()` API, e.g:
 {{/markdown}}
 

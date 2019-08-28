@@ -67,11 +67,15 @@ namespace SharpScript
         public async Task<string> Any(EvaluateScript request)
         {
             var context = new ScriptContext {
+                DebugMode = false,
                 ScriptMethods = {
                     new DbScripts(),
                     new AutoQueryScripts(),
                     new ServiceStackScripts(),
                     new CustomScriptMethods(),
+                },
+                Plugins = {
+                    new ServiceStackScriptBlocks(),
                 }
             };
             //Register any dependencies filters need:
