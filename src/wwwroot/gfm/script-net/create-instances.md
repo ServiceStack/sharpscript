@@ -39,7 +39,7 @@ A list of arguments can be passed to the `new` method to call the constructor wi
 ```
 
 However if there are multiple constructors with the same number of arguments, it will only use the constructor where all its argument Types
-match with the supplied arguments. Attempting to create an instance of the `Adder` class which only has constructors for `string` or`
+match with the supplied arguments. Attempting to create an instance of the `Adder` class which only has constructors for `string` or
 `double` will fail with an **Ambiguous Match Exception** when trying to create it with an `int`:
 
 ```js
@@ -108,12 +108,12 @@ Once you've created instance you can further populate it using the `set` method 
 with a JS Object literal, performing any auto-mapping conversions as needed:
 
 ```js
-'Ints'.new([1,2]).set({ C:3, D:4 })
-Constructor('Ints(int,int)')(1,2).set({ C:3, D:4 })
+'Ints'.new([1,2]).set({ C:3, D:4.0 })
+Constructor('Ints(int,int)')(1,2).set({ C:3, D:4.0 })
 ```
 
 As `set` returns the instance, it can be used within a chained expression:
 
 ```js
-instance.set({ C:3 }).set({ D:4 }).call('GetTotal')
+instance.set({ C:3 }).set({ D:4.0 }).call('GetTotal')
 ```

@@ -15,8 +15,8 @@
 <span class="pl-smi">adder3</span>.<span class="pl-c1">call</span>(<span class="pl-s"><span class="pl-pds">'</span>Add<span class="pl-pds">'</span></span>,[<span class="pl-c1">3.0</span>]) <span class="pl-c"><span class="pl-c">//</span>= 6.0</span></pre></div>
 <h3>
 <a id="user-content-method-resolution" class="anchor" href="#method-resolution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method Resolution</h3>
-<p>The same Resolution rules in <strong>Constructor Resolution</strong> also applies when calling methods where any ambiguous methods needs to be
-called with arguments containing the exact types (as above), or you can specify the argument types of the method you want to call,
+<p>The same Resolution rules in <strong>Constructor Resolution</strong> also applies when calling methods where any <strong>ambiguous methods</strong> needs to be
+called with arguments containing the <strong>exact types</strong> (as above), or you can specify the argument types of the method you want to call,
 in which case it will let you use the built-in Auto Mapping to call a method expecting a <code>double</code> with an <code>int</code> argument:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">adder3</span>.<span class="pl-c1">call</span>(<span class="pl-s"><span class="pl-pds">'</span>Add(double)<span class="pl-pds">'</span></span>,[<span class="pl-c1">3</span>])</pre></div>
 <h3>
@@ -36,7 +36,7 @@ in which case it will let you use the built-in Auto Mapping to call a method exp
 <h3>
 <a id="user-content-instance-methods" class="anchor" href="#instance-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instance Methods</h3>
 <p><code>Function</code> create delegates that lets you genericize the different types of method invocations in .NET, including instance methods,
-instance generic methods and <code>void</code> Action methods:</p>
+generic methods and <code>void</code> Action methods on an <strong>instance</strong>:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>InstanceLog<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>]) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> o
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>InstanceLog.Log<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log              <span class="pl-c"><span class="pl-c">//</span> instance void method</span>
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>InstanceLog.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs      <span class="pl-c"><span class="pl-c">//</span> instance method</span>
@@ -49,7 +49,7 @@ o <span class="pl-k">|</span> <span class="pl-en">genericLog</span>(<span class=
 <span class="pl-smi">o</span>.<span class="pl-en">allLogs</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> snapshotLogs</pre></div>
 <h3>
 <a id="user-content-static-type-methods" class="anchor" href="#static-type-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Type Methods</h3>
-<p>Examples of using <code>Function</code> to call static methods and static action methods on a static Type:</p>
+<p>As well as calling static methods and static <code>void</code> Action methods on a <strong>static Type</strong>:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Clear<span class="pl-pds">'</span></span>)()
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Log<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log                <span class="pl-c"><span class="pl-c">//</span> static void method</span>
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs        <span class="pl-c"><span class="pl-c">//</span> static method</span>
@@ -61,7 +61,7 @@ o <span class="pl-k">|</span> <span class="pl-en">genericLog</span>(<span class=
 <span class="pl-en">allLogs</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> snapshotLogs</pre></div>
 <h3>
 <a id="user-content-generic-static-type-methods" class="anchor" href="#generic-static-type-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generic Static Type Methods</h3>
-<p>Examples of using <code>Function</code> to call static methods and void action methods on a generic static Type:</p>
+<p>Including calling generic static methods on a <strong>generic static Type</strong>:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.Clear()<span class="pl-pds">'</span></span>)()
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.Log(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log      <span class="pl-c"><span class="pl-c">//</span> generic type static void method</span>
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs      <span class="pl-c"><span class="pl-c">//</span> generic type static method</span>

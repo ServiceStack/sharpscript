@@ -23,7 +23,7 @@ var context = new ScriptContext {
 
 All other Types (other than [.NET built-in types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/built-in-types-table)) 
 not registered in `ScriptTypes`, `ScriptAssemblies` or have their namespace defined in `ScriptNamespaces` will need to be referenced using
-their Full Type Name. This same Type resolution applies for all references of Types in `#Script`.
+their **Full Type Name**. This same Type resolution applies for all references of Types in `#Script`.
 
 #### Examples Configuration
 

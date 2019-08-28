@@ -21,8 +21,8 @@ adder3.call('Add',[3.0]) //= 6.0
 
 ### Method Resolution    
 
-The same Resolution rules in **Constructor Resolution** also applies when calling methods where any ambiguous methods needs to be
-called with arguments containing the exact types (as above), or you can specify the argument types of the method you want to call,
+The same Resolution rules in **Constructor Resolution** also applies when calling methods where any **ambiguous methods** needs to be
+called with arguments containing the **exact types** (as above), or you can specify the argument types of the method you want to call,
 in which case it will let you use the built-in Auto Mapping to call a method expecting a `double` with an `int` argument:
 
 ```js
@@ -59,7 +59,7 @@ Examples below uses classes in [ScriptTypes.cs](https://github.com/ServiceStack/
 ### Instance Methods
 
 `Function` create delegates that lets you genericize the different types of method invocations in .NET, including instance methods, 
-instance generic methods and `void` Action methods:
+generic methods and `void` Action methods on an **instance**:
 
 ```js
 'InstanceLog'.new(['A']) | to => o
@@ -76,7 +76,7 @@ o.allLogs() | to => snapshotLogs
 
 ### Static Type Methods
 
-Examples of using `Function` to call static methods and static action methods on a static Type:
+As well as calling static methods and static `void` Action methods on a **static Type**:
 
 ```js
 Function('StaticLog.Clear')()
@@ -92,7 +92,7 @@ allLogs() | to => snapshotLogs
 
 ### Generic Static Type Methods
 
-Examples of using `Function` to call static methods and void action methods on a generic static Type:
+Including calling generic static methods on a **generic static Type**:
 
 ```js
 Function('GenericStaticLog<string>.Clear()')()
