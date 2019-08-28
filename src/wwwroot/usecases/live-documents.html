@@ -17,7 +17,32 @@ order: 4
     }
 </style>
 
-<blockquote>new <a href="/docs/blocks#keyvalues">keyvalues</a> block is available from <a href="https://docs.servicestack.net/myget">v5.6.1 on MyGet</a></blockquote>
+<h3>csv</h3>
+
+<p>
+    Similar to <em>keyvalues</em>, you can specify a multi-column inline data set using the <em>#csv</em> block, e.g:    
+</p>
+
+<div class="linq-preview {{ output }}">
+    <div class="template">
+        <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" rows="7"
+>{{#raw}}{{#csv cars}}
+Tesla,Model S,79990
+Tesla,Model 3,38990
+Tesla,Model X,84990
+{{/csv}}
+{{ cars | map => { Make: it[0], Model: it[1], Cost: it[2] } | htmldump }}
+Total Cost: {{ cars | sum => it[2] | currency }}{{/raw}}</textarea>
+    </div>
+    <div class="result">
+        <div class="output" style="font-family: Monaco, Consolas"></div>
+    </div>
+</div> 
+
+<blockquote>
+    new <a href="/docs/blocks#keyvalues">keyvalues</a> and <a href="/docs/blocks#csv">csv</a>
+    blocks are available from <a href="https://docs.servicestack.net/myget">v5.6.1 on MyGet</a>
+</blockquote>
 
 <h3>Live Document Blog</h3>
 

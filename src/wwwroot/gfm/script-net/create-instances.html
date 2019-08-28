@@ -1,0 +1,68 @@
+<div class="gfm"><p>There are 3 different APIs for creating instances of Types:</p>
+<ul>
+<li>
+<code>new</code> - create instances from Type <strong>name</strong> with specified List of arguments</li>
+<li>
+<code>createInstance</code> - create instance of <strong>Type</strong> with specified List of arguments</li>
+<li>
+<code>Constructor</code> - create a Constructor <strong>delegate</strong> that can create instances via method invocation</li>
+</ul>
+<p>Built-in .NET Types and Types in <code>ScriptTypes</code>, <code>ScriptAssemblies</code> or <code>ScriptNamespaces</code> can be created using their Type Name,
+including generic Types:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>int<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>()
+<span class="pl-s"><span class="pl-pds">'</span>DateTime<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>()
+<span class="pl-s"><span class="pl-pds">'</span>Dictionary&lt;string,DateTime&gt;<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>()</pre></div>
+<p>Otherwise new instances of Types can be created using their <strong>full Type Name</strong>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>System.Int32<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>()
+<span class="pl-s"><span class="pl-pds">'</span>System.Text.StringBuilder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>()</pre></div>
+<p>A list of arguments can be passed to the <code>new</code> method to call the constructor with the specified arguments:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1</span>,<span class="pl-c1">2</span>])
+<span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1.0</span>])
+<span class="pl-s"><span class="pl-pds">'</span>KeyValuePair&lt;string,int&gt;<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>,<span class="pl-c1">1</span>])</pre></div>
+<h3>
+<a id="user-content-constructor-resolution" class="anchor" href="#constructor-resolution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Constructor Resolution</h3>
+<p><code>#Script</code> will use the constructor that matches the same number of specified arguments, when needed it uses
+<a href="https://docs.servicestack.net/auto-mapping" rel="nofollow">ServiceStack's Auto Mapping</a> to convert instances when their Types don't match, e.g:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1.0</span>,<span class="pl-c1">2.0</span>])
+<span class="pl-s"><span class="pl-pds">'</span>KeyValuePair&lt;char,double&gt;<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>,<span class="pl-c1">1</span>])</pre></div>
+<p>However if there are multiple constructors with the same number of arguments, it will only use the constructor where all its argument Types
+match with the supplied arguments. Attempting to create an instance of the <code>Adder</code> class which only has constructors for <code>string</code> or<code> </code>double<code>will fail with an **Ambiguous Match Exception** when trying to create it with an</code>int`:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1</span>])  <span class="pl-c"><span class="pl-c">//</span> FAIL: Ambiguous Constructor</span></pre></div>
+<p>In this case you'll need to convert the arguments so its Types matches one of the available constructors:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1.0</span>])
+<span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-smi">intArg</span>.<span class="pl-en">toDouble</span>()])
+<span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>])
+<span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>instance<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>]) <span class="pl-c"><span class="pl-c">//</span> or 'Adder'.new([instance.toString()]) </span></pre></div>
+<h3>
+<a id="user-content-constructor-function" class="anchor" href="#constructor-function" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Constructor function</h3>
+<p>Alternatively you can use the <code>Constructor</code> method to specify the constructor you want by specifying the argument types of the
+constructor you want to use, which will return a delegate that lets you call a method to create instances using that Type's constructor:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> doubleAdder
+<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> stringAdder</pre></div>
+<p>In this case you will be able to create instances of <code>Adder</code> using an <code>int</code> argument as the built-in automapping will convert it to
+the Argument Type of the Constructor you've chosen:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">doubleAdder</span>(<span class="pl-c1">1</span>)
+<span class="pl-en">stringAdder</span>(<span class="pl-c1">1</span>)
+
+<span class="pl-c"><span class="pl-c">//</span> equivalent to:</span>
+<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>)
+<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(string)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>)</pre></div>
+<p>As the Constructor Function returns a delegate you will be able to invoke it like a normal method where it can also be invoked as
+an extension method or inside a filter expression:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-c1">1</span>.<span class="pl-en">doubleAdder</span>()
+<span class="pl-c1">1</span> <span class="pl-k">|</span> <span class="pl-smi">doubleAdder</span></pre></div>
+<h3>
+<a id="user-content-createinstance" class="anchor" href="#createinstance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>createInstance</h3>
+<p>The <code>createInstance</code> is like <code>new</code> except it's used to create instances from a <code>Type</code> instead of its <code>string</code> Type Name:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>).<span class="pl-en">createInstance</span>([<span class="pl-c1">1</span>,<span class="pl-c1">2</span>])
+<span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder<span class="pl-pds">'</span></span>).<span class="pl-en">createInstance</span>([<span class="pl-c1">1.0</span>])
+<span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>KeyValuePair&lt;string,int&gt;<span class="pl-pds">'</span></span>).<span class="pl-en">createInstance</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>,<span class="pl-c1">1</span>])</pre></div>
+<h2>
+<a id="user-content-set" class="anchor" href="#set" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>set</h2>
+<p>Once you've created instance you can further populate it using the <code>set</code> method which will let you populate <strong>public properties</strong>
+with a JS Object literal, performing any auto-mapping conversions as needed:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1</span>,<span class="pl-c1">2</span>]).<span class="pl-c1">set</span>({ <span class="pl-c1">C</span><span class="pl-k">:</span><span class="pl-c1">3</span>, <span class="pl-c1">D</span><span class="pl-k">:</span><span class="pl-c1">4</span> })
+<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Ints(int,int)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>,<span class="pl-c1">2</span>).<span class="pl-c1">set</span>({ <span class="pl-c1">C</span><span class="pl-k">:</span><span class="pl-c1">3</span>, <span class="pl-c1">D</span><span class="pl-k">:</span><span class="pl-c1">4</span> })</pre></div>
+<p>As <code>set</code> returns the instance, it can be used within a chained expression:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">instance</span>.<span class="pl-c1">set</span>({ <span class="pl-c1">C</span><span class="pl-k">:</span><span class="pl-c1">3</span> }).<span class="pl-c1">set</span>({ <span class="pl-c1">D</span><span class="pl-k">:</span><span class="pl-c1">4</span> }).<span class="pl-c1">call</span>(<span class="pl-s"><span class="pl-pds">'</span>GetTotal<span class="pl-pds">'</span></span>)</pre></div>
+</div>

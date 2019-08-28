@@ -15,18 +15,18 @@
 * Misc            200
 /keyvalues
 
-monthlyRevenues | values | sum    | to => totalRevenues
-monthlyExpenses | values | sum    | to => totalExpenses
+monthlyRevenues | sum => it.Value | to => totalRevenues
+monthlyExpenses | sum => it.Value | to => totalExpenses
 (totalRevenues - totalExpenses)   | to => totalSavings
 ```
 Current Balance: <b>{{ balance | currency }}</b>
 
 Monthly Revenues:
-{{monthlyRevenues | toList | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
+{{monthlyRevenues | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
 Total            <b>{{ totalRevenues | currency }}</b>
 
 Monthly Expenses:
-{{monthlyExpenses | toList | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
+{{monthlyExpenses | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
 Total            <b>{{ totalExpenses | currency }}</b>
 
 Monthly Savings: <b>{{ totalSavings  | currency }}</b>

@@ -1,0 +1,105 @@
+<!--
+title: Scripting .NET Types
+order: 9
+-->
+
+{{#markdown}}
+
+> this page refers to features available in the latest [app](/netcore-windows-desktop) or [web](/web-tool) tools or **v5.6.1** of 
+[ServiceStack.Common on MyGet](https://docs.servicestack.net/myget)
+
+The recommended way to add functionality to your scripts is by [extending your ScriptContext](/docs/introduction#net-usage) 
+with arguments, scripts, blocks and transformers - encapsulating it in a well-defined scope akin to 
+[Vue Components](https://vuejs.org/v2/guide/components.html) where all functionality is clearly defined in a componentized
+design that promotes decoupling and reuse of testable components where the same environment can be easily simulated and 
+re-created to allow reuse of scripts in multiple contexts.
+
+> When scripting .NET Types or C# delegates directly it adds coupling to those Types making it harder to substitute and potentially 
+limits reuse where if the Types were defined in a Host project, it can prevent reuse in different Apps or Test projects,
+and Types defined in .NET Framework-only or .NET Core-only dll's can prohibit platform portability
+
+Although being able to Script .NET Types directly gives your Scripts greater capabilities and opens it up to a lot more use-cases that's 
+especially useful in predominantly #Script-heavy contexts like [Sharp Apps](/docs/sharp-apps) and [Shell Scripts](/docs/sharp-scripts)
+giving them maximum power that would otherwise require the usage of [Plugins](/docs/sharp-apps#plugins). 
+
+We can visualize the different scriptability options from the diagram below where
+by default scripts are limited to functionality [defined within their ScriptContext](/docs/introduction#net-usage), 
+whether to [limit access to specific Types and Assemblies](#script-assemblies-and-types) or whether to lift the escape hatch
+and [allow scripting of any .NET Types](#allowscriptingofalltypes).
+
+![](/assets/img/sandbox.svg)
+
+### Delegate Arguments
+
+In addition to [Script Methods](/docs/methods), you can also call delegates that are registered as arguments:
+
+{{/markdown}}
+
+{{ 'gfm/script-net/01.md' | githubMarkdown }}
+
+{{#markdown}}
+
+Which just like [user-defined functions](/docs/blocks#function) and other Script Methods can be called positionally or as an 
+[extension method](/docs/syntax#extension-methods):
+
+    fn(1,2)
+    1.fn(2)
+
+## Scripting .NET Types
+
+Scripting of .NET Types is only available to Script's executed within **trusted contexts** 
+like [#Script Pages](/docs/sharp-pages), [Sharp Apps](/docs/sharp-apps) and [Shell Scripts](/docs/sharp-scripts)
+that are registered with [Protected Scripts](/docs/protected-scripts). The different ways to allow scripting of .NET Types include:
+
+#### Script Assemblies and Types
+
+Using `ScriptTypes` to limit scriptability to **only specific Types**:
+
+{{/markdown}}
+
+{{ 'gfm/sandbox/04.md' | githubMarkdown }}
+
+{{#markdown}}
+
+#### AllowScriptingOfAllTypes
+
+To give your Scripts maximum accessibility where they're able to pierce the well-defined [ScriptContext sandbox](/docs/sandbox),
+you can set `AllowScriptingOfAllTypes` to allow scripting of **all .NET Types** available in loaded assemblies:
+
+{{/markdown}}
+
+{{ 'gfm/sandbox/05.md' | githubMarkdown }}
+
+{{#markdown}}
+
+`ScriptNamespaces` is used to include additional Lookup namespaces for resolving Types akin to C# `using` statements.
+
+Using `AllowScriptingOfAllTypes` also allows access to both public and **non-public** Types.
+
+## Scripting .NET APIs
+
+The following [Protected Scripts](/docs/protected-scripts) are all that's needed to create new instances, call methods and 
+populate instances of .NET Types, including generic Types and generic Methods but only a Type's **public** members can be accessed in `#Script`.
+
+{{/markdown}}
+
+{{ 'gfm/script-net/02.md' | githubMarkdown }}
+
+<h2>Type Resolution</h2>
+
+{{ 'gfm/script-net/type-resolution.md' | githubMarkdown }}
+
+<h2>Creating Instances</h2>
+
+{{ 'gfm/script-net/create-instances.md' | githubMarkdown }}
+
+<h2>Calling Methods</h2>
+
+{{ 'gfm/script-net/call-methods.md' | githubMarkdown }}
+
+{{#markdown}}
+
+{{/markdown}}
+
+
+{{ "doc-links" | partial({ order }) }}

@@ -40,6 +40,8 @@ namespace SharpScript
 
         public static void Log(string message) => sb.Append(message);
 
+        public static void Log<T>(string message) => sb.Append(typeof(T).Name + " " + message);
+
         public static string AllLogs() => sb.ToString();
 
         public static void Clear() => sb.Clear();

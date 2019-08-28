@@ -7,6 +7,27 @@ order: 7
 Script Blocks lets you define reusable statements that can be invoked with a new context allowing the creation custom iterators and helpers - 
 making it easy to encapsulate reusable functionality and reduce boilerplate for common functionality.
 
+## Default Blocks
+
+ - [noop](#noop)
+ - [with](#with)
+ - [if](#if)
+ - [raw](#raw)
+ - [function](#function)
+ - [capture](#capture)
+ - [markdown](#markdown)
+ - [keyvalues](#keyvalues)
+ - [csv](#csv)
+ - [partial](#partial)
+ - [html](#html)
+
+## ServiceStack Blocks
+
+ - [minifyjs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
+ - [minifycss](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
+ - [minifyhtml](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
+ - [svg](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs)
+
 The syntax for blocks follows the familiar [handlebars block helpers](https://handlebarsjs.com/block_helpers.html) in both syntax and functionality.
 `#Script` also includes most of handlebars.js block helpers which are useful in a HTML template language whilst minimizing any porting efforts if 
 needing to reuse existing JavaScript handlebars templates.
@@ -252,6 +273,48 @@ string contents directly to the OutputStream:
 {{ 'gfm/blocks/13.md' | githubMarkdown }}
 
 {{#markdown}}
+### function
+
+The `{{#function}}` block lets you define reusable functions in your page. Unlike other Script Blocks, the body of a function block
+is parsed as a [code block](/docs/syntax#code-blocks) where only the **return** value is used. Any output generated from executing the
+function is discarded. Use the [partial](#partial) block if you instead want to define reusable fragments.
+
+In its simplest form, defining a function requires the function name and a body that returns a value with the 
+[return](/docs/introduction#evaluate-return-values) method, e.g:
+{{/markdown}}
+
+{{ 'gfm/blocks/23.md' | githubMarkdown }}
+
+{{#markdown}}
+
+This creates a compiled delegate and assigns it to the pages scope where it can be invoked as a normal function, e.g:
+
+    hi()
+
+Functions can specify arguments using a JavaScript arguments list:
+{{/markdown}}
+
+{{ 'gfm/blocks/24.md' | githubMarkdown }}
+
+{{#markdown}}
+
+Where it can be called as normal function or as an [extension method](/docs/syntax#extension-methods):
+
+    calc(1,2)
+    1.calc(2)
+
+Functions can also be called recursively:
+{{/markdown}}
+
+{{ 'gfm/blocks/25.md' | githubMarkdown }}
+
+{{#markdown}}
+Although their limited to the configured [MaxStackDepth](/docs/sandbox#max-stack-depth).
+
+Source code for [FunctionBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/FunctionBlock.cs).
+
+> `function` block is available from [v5.6.1 on MyGet](https://docs.servicestack.net/myget)
+
 ### capture
 
 The `{{#capture}}` block is similar to the raw block except instead of using its raw text contents, it instead evaluates its contents and captures 
@@ -373,8 +436,8 @@ it lets you declare multiple partials within the same page, instead of requiring
 The purpose of the html blocks is to pack a suite of generically useful functionality commonly used when generating html. All html blocks
 inherit the same functionality with blocks registered for the most popular HTML elements, currently: 
 
-`ul`, `ol`, `li`, `div`, `p`, `form`, `input`, `select`, `option`, `textarea`, `button`, `table`, `tr`, `td`, `thead`, `tbody`, `tfoot`, 
-`dl`, `dt`, `dd`, `span`, `a`, `img`, `em`, `b`, `i`, `strong`.
+`script`, `style`, `link`, `meta`, `ul`, `ol`, `li`, `div`, `p`, `form`, `input`, `select`, `option`, `textarea`, `button`, 
+`table`, `tr`, `td`, `thead`, `tbody`, `tfoot`, `dl`, `dt`, `dd`, `span`, `a`, `img`, `em`, `b`, `i`, `strong`.
 
 Ultimately they reduce boilerplate, e.g. you can generate a menu list with a single block:
 

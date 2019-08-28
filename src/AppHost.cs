@@ -67,6 +67,13 @@ namespace SharpScript
                 Args = {
                     ["products"] = TemplateQueryData.Products
                 },
+                ScriptTypes = {
+                    typeof(Ints),
+                    typeof(Adder),
+                    typeof(StaticLog),
+                    typeof(InstanceLog),
+                    typeof(GenericStaticLog<>),
+                },
                 RenderExpressionExceptions = true,
                 MetadataDebugAdminRole = RoleNames.AllowAnon,
                 ExcludeFiltersNamed = { "dbExec" }

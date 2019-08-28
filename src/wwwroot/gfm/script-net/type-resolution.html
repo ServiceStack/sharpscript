@@ -1,0 +1,52 @@
+<div class="gfm"><p>If you've registered Types using either <code>ScriptTypes</code> or <code>ScriptAssemblies</code> than you'll be able to reference the Type using
+<strong>just the Type Name</strong>, unless multiple Types of the same name are registered in which case the <code>typeof()</code> will return the <strong>first Type</strong>
+registered, all other subsequent Types with the same Name will need to be referenced with their <strong>Full Name</strong>.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>MyType<span class="pl-pds">'</span></span>)
+<span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>My.Namespace.MyType<span class="pl-pds">'</span></span>)</pre></div>
+<p>When <code>AllowScriptingOfAllTypes=true</code> is enabled, you can use <code>ScriptNamespaces</code> to add Lookup Namespaces for resolving Types,
+which for #Script Pages, Sharp Apps and Sharp Scripts are pre-configured with:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-c"><span class="pl-c">//</span>...</span>
+    <span class="pl-smi">ScriptNamespaces</span> <span class="pl-k">=</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>System<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>System.Collections.Generic<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ServiceStack<span class="pl-pds">"</span></span>,
+    }
+}.<span class="pl-en">Init</span>();</pre></div>
+<p>All other Types (other than <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/built-in-types-table" rel="nofollow">.NET built-in types</a>)
+not registered in <code>ScriptTypes</code>, <code>ScriptAssemblies</code> or have their namespace defined in <code>ScriptNamespaces</code> will need to be referenced using
+their Full Type Name. This same Type resolution applies for all references of Types in <code>#Script</code>.</p>
+<h4>
+<a id="user-content-examples-configuration" class="anchor" href="#examples-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples Configuration</h4>
+<p>The examples below assumes a <code>ScriptContext</code> configured with:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> { <span class="pl-k">new</span> <span class="pl-en">ProtectedScripts</span>() },
+    <span class="pl-smi">AllowScriptingOfAllTypes</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+    <span class="pl-smi">ScriptNamespaces</span> <span class="pl-k">=</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>System<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>System.Collections.Generic<span class="pl-pds">"</span></span>,
+    },
+    <span class="pl-smi">ScriptTypes</span> <span class="pl-k">=</span> {
+        <span class="pl-k">typeof</span>(<span class="pl-en">Ints</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">Adder</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">StaticLog</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">InstanceLog</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">GenericStaticLog</span>&lt;&gt;),
+    },
+}.<span class="pl-en">Init</span>();</pre></div>
+<p>With the types for the above classes defined in <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs">ScriptTypes.cs</a>.
+This is the definition of the <code>Adder</code> class that's referenced frequently in the examples below:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Adder</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">String</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">double</span> <span class="pl-smi">Double</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+    <span class="pl-k">public</span> <span class="pl-en">Adder</span>(<span class="pl-k">string</span> <span class="pl-smi">str</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">String</span> <span class="pl-k">=</span> <span class="pl-smi">str</span>;
+    <span class="pl-k">public</span> <span class="pl-en">Adder</span>(<span class="pl-k">double</span> <span class="pl-smi">num</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">Double</span> <span class="pl-k">=</span> <span class="pl-smi">num</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">Add</span>(<span class="pl-k">string</span> <span class="pl-smi">str</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">String</span> <span class="pl-k">+=</span> <span class="pl-smi">str</span>;
+    <span class="pl-k">public</span> <span class="pl-k">double</span> <span class="pl-en">Add</span>(<span class="pl-k">double</span> <span class="pl-smi">num</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">Double</span> <span class="pl-k">+=</span> <span class="pl-smi">num</span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">string</span> <span class="pl-en">ToString</span>() <span class="pl-k">=&gt;</span> <span class="pl-smi">String</span> <span class="pl-k">!=</span> <span class="pl-c1">null</span> <span class="pl-k">?</span> <span class="pl-s"><span class="pl-pds">$"</span>string: {<span class="pl-smi">String</span>}<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">$"</span>double: {<span class="pl-smi">Double</span>}<span class="pl-pds">"</span></span>;
+}</pre></div>
+</div>

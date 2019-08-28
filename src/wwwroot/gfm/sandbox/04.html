@@ -1,0 +1,19 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> {
+        <span class="pl-k">new</span> <span class="pl-en">ProtectedScripts</span>()
+    },
+    <span class="pl-smi">ScriptTypes</span> <span class="pl-k">=</span> {
+        <span class="pl-k">typeof</span>(<span class="pl-en">MyType</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">MyType2</span>),
+    }
+}.<span class="pl-en">Init</span>();</pre></div>
+<p>Or you can use <code>ScriptAssemblies</code> to allow scripting of <strong>all Types within an Assembly</strong>:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> {
+        <span class="pl-k">new</span> <span class="pl-en">ProtectedScripts</span>()
+    },
+    <span class="pl-smi">ScriptAssemblies</span> <span class="pl-k">=</span> {
+        <span class="pl-k">typeof</span>(<span class="pl-en">MyType</span>).<span class="pl-smi">Assembly</span>,
+    }
+}.<span class="pl-en">Init</span>();</pre></div>
+</div>

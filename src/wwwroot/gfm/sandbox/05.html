@@ -1,0 +1,10 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> {
+        <span class="pl-k">new</span> <span class="pl-en">ProtectedScripts</span>()
+    },
+    <span class="pl-smi">AllowScriptingOfAllTypes</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+    <span class="pl-smi">ScriptNamespaces</span> <span class="pl-k">=</span> {
+        <span class="pl-k">typeof</span>(<span class="pl-en">MyType</span>).<span class="pl-smi">Namespace</span>,
+    }
+}.<span class="pl-en">Init</span>();</pre></div>
+</div>

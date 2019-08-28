@@ -1,6 +1,6 @@
 <!--
 title: Sandbox
-order: 28
+order: 29
 -->
 
 <p>
@@ -12,20 +12,95 @@ order: 28
 <h4>ScriptContext</h4>
 
 <p>
-    The only functionality a new <em>ScriptContext</em> instance has access to are the 
-    <a href="/docs/default-scripts">safe set of default scripts</a> and the <a href="/docs/transformers#htmlencode">htmlencode Filter Transformer</a>.
-    #Script can't call methods on instances or have any other way to invoke a method unless it's explicitly registered. 
+    By default the only functionality and objects <em>#Script</em> has access to is what's pre-configured within a new     
+    <em>ScriptContext</em> instance which has access to
+    <a href="/docs/default-scripts">Default Scripts</a>, <a href="/docs/html-scripts">HTML Scripts</a> and 
+    default <a href="/docs/blocks">Script Blocks</a>.
+    <em>#Script</em> can't call methods on instances or have any other way to invoke a method unless it's explicitly registered. 
 </p>
+
+<p>
+    To give additional functionality to your Scripts extend the <em>ScriptContext</em> that executes your script with additional:
+</p>
+
+<ul>
+    <li>
+        <a href="/docs/arguments">Arguments</a>
+    </li>
+    <li>
+        <a href="/docs/methods">Script Methods</a>
+    </li>
+    <li>
+        <a href="/docs/blocks">Script Blocks</a>
+    </li>
+    <li>
+        <a href="/docs/transformers">Filter Transformers</a>
+    </li>
+    <li>
+        <a href="/docs/script-plugins">Script Plugins</a>
+    </li>
+    <li>
+        <a href="/docs/page-formats">Page Formats</a>
+    </li>
+    <li>
+        <a href="/docs/plugins">Plugins</a>
+    </li>
+</ul>
+
+
+<img class="my-4" src="/assets/img/sandbox.svg">
+
+<h3>Protected Scripts</h3>
+
+<p>
+    When running in a trusted contexts like Server Scripts in <a href="/docs/sharp-pages">#Script Pages</a>, scripts have elevated
+    privileges with access to <a href="/docs/protected-scripts">Protected Scripts</a>, 
+    <a href="/docs/servicestack-scripts">ServiceStack and Info Scripts</a>, 
+    <a href="https://docs.servicestack.net/server-ui-controls">Bootstrap Scripts</a> and 
+    <a href="/docs/blocks#servicestack-blocks">ServiceStack Blocks</a>.  
+</p>
+
+<p>
+    <a href="/docs/protected-scripts">Protected Scripts</a> allows your Scripts to escape the default sandbox and create new instances
+    on existing .NET Types, populate them and call their methods as <a href="/docs/script-net">documented in Scripting .NET</a>. 
+    There are 2 levels of access available:
+</p>
+
+<h4>Script Assemblies and Types</h4>
+
+<p>
+    You can limit which Types are scriptable by specifying just the individual Types:
+</p>
+
+{{ 'gfm/sandbox/04.md' | githubMarkdown }}
+
+<h4>AllowScriptingOfAllTypes</h4>
+
+<p>
+    To give your Scripts maximum accessibility, you can give them access to all .NET Types in loaded assemblies:
+</p>
+
+{{ 'gfm/sandbox/05.md' | githubMarkdown }}
+
+<p>
+    Use <em>ScriptNamespaces</em> to include additional Lookup namespaces for resolving Types similar to C# <em>using</em> statements.
+</p>
+
+<p>
+    See <a href="/docs/script-net">Scripting .NET</a> for how to access .NET Types in <em>#Script</em>.
+</p>
+
+<h4>Running untrusted Scripts</h4>
 
 <p>
     If running a script from an untrusted source we recommend running them within a new <em>ScriptContext</em> instance so they're 
     kept isolated from any other <em>ScriptContext</em> instance. Context's are cheap to create, so there won't be a noticeable delay when 
     executing in a new instance but they're used to cache compiled lambda expressions which will need to be recreated if executing script
     in new ScriptContext instances. For improved performance you can instead have all untrusted templates use the same
-    ScriptContext instance that way they're able to reuse compiled expressions.
+    ScriptContext instance that way they're able to reuse existing caches and compiled expressions.
 </p>
 
-<h4 id="remove-default-scripts">Remove default scripts</h4>
+<h4 id="remove-default-scripts">Remove Default Scripts</h4>
 
 <p>
     If you want to start from a clean slate, the default scripts can be removed by clearing the <em>ScriptMethods</em> collection:
@@ -56,5 +131,14 @@ order: 28
 </p>
 
 {{ 'gfm/sandbox/03.md' | githubMarkdown }}
+
+<h4>Max Stack Depth</h4>
+
+<p>
+    To prevent <a href="/docs/blocks#function">user-defined functions</a> from causing out of memory Exceptions its execution is limited to
+    a Maximum Stack Depth which can be configured with:
+</p>
+
+<pre class="cs"><code>ScriptConfig.MaxStackDepth = 25; //default</code></pre>
 
 {{ "doc-links" | partial({ order }) }}
