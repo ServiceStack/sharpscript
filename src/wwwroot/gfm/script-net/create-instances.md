@@ -81,8 +81,15 @@ As the Constructor Function returns a delegate you will be able to invoke it lik
 an extension method or inside a filter expression:
 
 ```csharp
-1.doubleAdder()
-1 | doubleAdder
+Constructor('Uri(string)') | to => url
+
+url('http://example.org')
+'http://example.org'.url()
+'http://example.org' | url
+
+// equivalent to:
+'Uri'.new(['http://example.org'])
+Constructor('Uri(string)')('http://example.org')
 ```
 
 ### createInstance
