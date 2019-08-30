@@ -37,3 +37,4 @@ You can call generic methods by specifying the Generic Type in the method name:
 'Ints'.new([1,2]).call('GenericMethod<string>',['A'])
 ```
 
+`call` only invokes instance methods, to call static methods you'll need to use `Function`.

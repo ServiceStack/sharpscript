@@ -23,4 +23,5 @@ in which case it will let you use the built-in Auto Mapping to call a method exp
 <a id="user-content-generic-methods" class="anchor" href="#generic-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generic Methods</h3>
 <p>You can call generic methods by specifying the Generic Type in the method name:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-c1">1</span>,<span class="pl-c1">2</span>]).<span class="pl-c1">call</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericMethod&lt;string&gt;<span class="pl-pds">'</span></span>,[<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>])</pre></div>
+<p><code>call</code> only invokes instance methods, to call static methods you'll need to use <code>Function</code>.</p>
 </div>

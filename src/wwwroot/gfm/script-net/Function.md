@@ -1,5 +1,7 @@
-`call` only invokes instance methods, to call static methods you'll need to create a **delegate** of it first using the 
-`Function` method
+Function is a universal accessor for .NET Types where it can create a cached **delegate** to access Instance, Static and Generic Static Types - Including Nested Types (aka Inner Classes), Instance, Static and Generic Methods of those Types as well as their Instance and Static Properties, 
+Fields and Constants.
+
+As a simple example we'll use `Function` to create a delegate to call .NET's `System.Console.WriteLine(string)` static method:
 
 ```js
 Function('Console.WriteLine(string)') | to => writeln
@@ -13,7 +15,7 @@ writeln('A')
 Function('Console.WriteLine(string)')('A')
 ```
 
-Examples below uses classes in [ScriptTypes.cs](https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs).
+All Examples below uses classes defined in [ScriptTypes.cs](https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs).
 
 ### Instance Methods
 

@@ -1,11 +1,12 @@
-<div class="gfm"><p><code>call</code> only invokes instance methods, to call static methods you'll need to create a <strong>delegate</strong> of it first using the
-<code>Function</code> method</p>
+<div class="gfm"><p>Function is a universal accessor for .NET Types where it can create a cached <strong>delegate</strong> to access Instance, Static and Generic Static Types - Including Nested Types (aka Inner Classes), Instance, Static and Generic Methods of those Types as well as their Instance and Static Properties,
+Fields and Constants.</p>
+<p>As a simple example we'll use <code>Function</code> to create a delegate to call .NET's <code>System.Console.WriteLine(string)</code> static method:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>Console.WriteLine(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> writeln</pre></div>
 <p>Which lets you call it like a regular Script method:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-en">writeln</span>(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)
 <span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>.<span class="pl-c1">writeln</span>()
 <span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>Console.WriteLine(string)<span class="pl-pds">'</span></span>)(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)</pre></div>
-<p>Examples below uses classes in <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs">ScriptTypes.cs</a>.</p>
+<p>All Examples below uses classes defined in <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs">ScriptTypes.cs</a>.</p>
 <h3>
 <a id="user-content-instance-methods" class="anchor" href="#instance-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instance Methods</h3>
 <p><code>Function</code> create delegates that lets you genericize the different types of method invocations in .NET, including instance methods,
