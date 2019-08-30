@@ -1,0 +1,103 @@
+<div class="gfm"><p><code>call</code> only invokes instance methods, to call static methods you'll need to create a <strong>delegate</strong> of it first using the
+<code>Function</code> method</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>Console.WriteLine(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> writeln</pre></div>
+<p>Which lets you call it like a regular Script method:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">writeln</span>(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)
+<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>.<span class="pl-c1">writeln</span>()
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>Console.WriteLine(string)<span class="pl-pds">'</span></span>)(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)</pre></div>
+<p>Examples below uses classes in <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ScriptTypes.cs">ScriptTypes.cs</a>.</p>
+<h3>
+<a id="user-content-instance-methods" class="anchor" href="#instance-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instance Methods</h3>
+<p><code>Function</code> create delegates that lets you genericize the different types of method invocations in .NET, including instance methods,
+generic methods and <code>void</code> Action methods on an <strong>instance</strong>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">'</span>InstanceLog<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>([<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>]) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> o
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>InstanceLog.Log<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log              <span class="pl-c"><span class="pl-c">//</span> instance void method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>InstanceLog.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs      <span class="pl-c"><span class="pl-c">//</span> instance method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>InstanceLog.Log&lt;int&gt;<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> genericLog  <span class="pl-c"><span class="pl-c">//</span> instance generic method</span>
+
+<span class="pl-smi">o</span>.<span class="pl-en">log</span>(<span class="pl-s"><span class="pl-pds">'</span>B<span class="pl-pds">'</span></span>)
+<span class="pl-en">log</span>(o,<span class="pl-s"><span class="pl-pds">'</span>C<span class="pl-pds">'</span></span>)
+<span class="pl-smi">o</span>.<span class="pl-en">genericLog</span>(<span class="pl-c1">1</span>)
+o <span class="pl-k">|</span> <span class="pl-en">genericLog</span>(<span class="pl-c1">2</span>)    
+<span class="pl-smi">o</span>.<span class="pl-en">allLogs</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> snapshotLogs</pre></div>
+<h3>
+<a id="user-content-static-type-methods" class="anchor" href="#static-type-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Type Methods</h3>
+<p>As well as calling static methods and static <code>void</code> Action methods on a <strong>static Type</strong>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Clear<span class="pl-pds">'</span></span>)()
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Log<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log                <span class="pl-c"><span class="pl-c">//</span> static void method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs        <span class="pl-c"><span class="pl-c">//</span> static method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Log&lt;int&gt;<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> genericLog    <span class="pl-c"><span class="pl-c">//</span> static generic method</span>
+
+<span class="pl-en">log</span>(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)
+<span class="pl-s"><span class="pl-pds">'</span>B<span class="pl-pds">'</span></span>.<span class="pl-en">log</span>()
+<span class="pl-en">genericLog</span>(<span class="pl-s"><span class="pl-pds">'</span>C<span class="pl-pds">'</span></span>)
+<span class="pl-en">allLogs</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> snapshotLogs</pre></div>
+<h3>
+<a id="user-content-generic-static-type-methods" class="anchor" href="#generic-static-type-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generic Static Type Methods</h3>
+<p>Including calling generic static methods on a <strong>generic static Type</strong>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.Clear()<span class="pl-pds">'</span></span>)()
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.Log(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> log      <span class="pl-c"><span class="pl-c">//</span> generic type static void method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.AllLogs<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> allLogs      <span class="pl-c"><span class="pl-c">//</span> generic type static method</span>
+<span class="pl-c1">Function</span>(<span class="pl-s"><span class="pl-pds">'</span>GenericStaticLog&lt;string&gt;.Log&lt;int&gt;<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> genericLog  <span class="pl-c"><span class="pl-c">//</span> generic type generic static method</span>
+
+<span class="pl-en">log</span>(<span class="pl-s"><span class="pl-pds">'</span>A<span class="pl-pds">'</span></span>)
+<span class="pl-s"><span class="pl-pds">'</span>B<span class="pl-pds">'</span></span>.<span class="pl-en">log</span>()
+<span class="pl-en">genericLog</span>(<span class="pl-s"><span class="pl-pds">'</span>C<span class="pl-pds">'</span></span>)
+<span class="pl-en">allLogs</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> snapshotLogs</pre></div>
+<h3>
+<a id="user-content-f-alias" class="anchor" href="#f-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>F() alias</h3>
+<p>You can use the shorter <code>F()</code> alias to reduce syntax noise when writing #Script that heavily interops directly with .NET Classes.</p>
+<h3>
+<a id="user-content-instance-and-static-properties-fields-and-constants" class="anchor" href="#instance-and-static-properties-fields-and-constants" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instance and Static Properties, Fields and Constants</h3>
+<p>In addition to being able to create Delegates that genericize access to .NET Methods, it can also be used to create a delegate
+for accessing Instance and Static Properties, Fields and Constants including members of Inner Classes, e.g:</p>
+<p>Each of the members of the following Type definition:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">StaticLog</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Prop</span> { <span class="pl-k">get</span>; } <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Prop<span class="pl-pds">"</span></span>;
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Field</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Field<span class="pl-pds">"</span></span>;
+    <span class="pl-k">public</span> <span class="pl-k">const</span> <span class="pl-k">string</span> <span class="pl-smi">Const</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Const<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">InstanceProp</span> { <span class="pl-k">get</span>; } <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.InstanceProp<span class="pl-pds">"</span></span>;
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">InstanceField</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.InstanceField<span class="pl-pds">"</span></span>;
+
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Inner1</span>
+    {
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Prop1</span> { <span class="pl-k">get</span>; } <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Prop1<span class="pl-pds">"</span></span>;
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Field1</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Field1<span class="pl-pds">"</span></span>;
+        <span class="pl-k">public</span> <span class="pl-k">const</span> <span class="pl-k">string</span> <span class="pl-smi">Const1</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Const1<span class="pl-pds">"</span></span>;
+
+        <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">InstanceProp1</span> { <span class="pl-k">get</span>; } <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.InstanceProp1<span class="pl-pds">"</span></span>;
+        <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">InstanceField1</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.InstanceField1<span class="pl-pds">"</span></span>;
+
+        <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">Inner2</span>
+        {
+            <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Prop2</span> { <span class="pl-k">get</span>; } <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Inner2.Prop2<span class="pl-pds">"</span></span>;
+            <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">string</span> <span class="pl-smi">Field2</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Inner2.Field2<span class="pl-pds">"</span></span>;
+            <span class="pl-k">public</span> <span class="pl-k">const</span> <span class="pl-k">string</span> <span class="pl-smi">Const2</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>StaticLog.Inner1.Inner2.Const2<span class="pl-pds">"</span></span>;
+        }
+    }
+}</pre></div>
+<p>Can be accessed the same way, where you can use <code>Function</code> to create a zero-argument delegate for static members that can be immediately invoked,
+or a 1 argument Delegate for instance members.</p>
+<p>Examples below uses Function's shorter <code>F()</code> alias:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Prop<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Field<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Const<span class="pl-pds">'</span></span>)()
+
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Prop1<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Field1<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Const1<span class="pl-pds">'</span></span>)()
+
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Inner2.Prop2<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Inner2.Field2<span class="pl-pds">'</span></span>)()
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.Inner2.Const2<span class="pl-pds">'</span></span>)()
+
+<span class="pl-s"><span class="pl-pds">'</span>StaticLog<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> o
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.InstanceProp<span class="pl-pds">'</span></span>)(o)
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.InstanceField<span class="pl-pds">'</span></span>)(o)
+
+<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1<span class="pl-pds">'</span></span>.<span class="pl-en">new</span>() <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> o
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.InstanceProp1<span class="pl-pds">'</span></span>)(o)
+<span class="pl-en">F</span>(<span class="pl-s"><span class="pl-pds">'</span>StaticLog.Inner1.InstanceField1<span class="pl-pds">'</span></span>)(o)</pre></div>
+</div>

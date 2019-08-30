@@ -60,6 +60,11 @@ an extension method or inside a filter expression:</p>
 <span class="pl-s">'Uri'</span>.<span class="pl-en">new</span>([<span class="pl-s">'http://example.org'</span>])
 <span class="pl-en">Constructor</span>(<span class="pl-s">'Uri(string)'</span>)(<span class="pl-s">'http://example.org'</span>)</pre></div>
 <h3>
+<a id="user-content-c-alias" class="anchor" href="#c-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C() alias</h3>
+<p>To reduce syntax noise when needing to create a lot of constructors you can use the much shorter alias <code>C</code> instead of <code>Constructor</code>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">C</span>(<span class="pl-s"><span class="pl-pds">'</span>Uri(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> url
+<span class="pl-en">C</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>)</pre></div>
+<h3>
 <a id="user-content-createinstance" class="anchor" href="#createinstance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>createInstance</h3>
 <p>The <code>createInstance</code> is like <code>new</code> except it's used to create instances from a <code>Type</code> instead of its <code>string</code> Type Name:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">typeof</span>(<span class="pl-s"><span class="pl-pds">'</span>Ints<span class="pl-pds">'</span></span>).<span class="pl-en">createInstance</span>([<span class="pl-c1">1</span>,<span class="pl-c1">2</span>])

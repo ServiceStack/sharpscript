@@ -45,6 +45,30 @@ namespace SharpScript
         public static string AllLogs() => sb.ToString();
 
         public static void Clear() => sb.Clear();
+        
+        public static string Prop { get; } = "StaticLog.Prop";
+        public static string Field = "StaticLog.Field";
+        public const string Const = "StaticLog.Const";
+
+        public string InstanceProp { get; } = "StaticLog.InstanceProp";
+        public string InstanceField = "StaticLog.InstanceField";
+
+        public class Inner1
+        {
+            public static string Prop1 { get; } = "StaticLog.Inner1.Prop1";
+            public static string Field1 = "StaticLog.Inner1.Field1";
+            public const string Const1 = "StaticLog.Inner1.Const1";
+
+            public string InstanceProp1 { get; } = "StaticLog.Inner1.InstanceProp1";
+            public string InstanceField1 = "StaticLog.Inner1.InstanceField1";
+
+            public static class Inner2
+            {
+                public static string Prop2 { get; } = "StaticLog.Inner1.Inner2.Prop2";
+                public static string Field2 = "StaticLog.Inner1.Inner2.Field2";
+                public const string Const2 = "StaticLog.Inner1.Inner2.Const2";
+            }
+        }
     }
 
     public class InstanceLog

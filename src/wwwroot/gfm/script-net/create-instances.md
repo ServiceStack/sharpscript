@@ -92,6 +92,15 @@ url('http://example.org')
 Constructor('Uri(string)')('http://example.org')
 ```
 
+### C() alias
+
+To reduce syntax noise when needing to create a lot of constructors you can use the much shorter alias `C` instead of `Constructor`:
+
+```js
+C('Uri(string)') | to => url
+C('Adder(double)')(1)
+```
+
 ### createInstance
 
 The `createInstance` is like `new` except it's used to create instances from a `Type` instead of its `string` Type Name:

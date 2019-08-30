@@ -311,7 +311,7 @@ Functions can also be called recursively:
 {{#markdown}}
 Although their limited to the configured [MaxStackDepth](/docs/sandbox#max-stack-depth).
 
-Source code for [FunctionBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/FunctionBlock.cs).
+Source code for [FunctionScriptBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/FunctionScriptBlock.cs).
 
 > `function` block is available from [v5.6.1 on MyGet](https://docs.servicestack.net/myget)
 
@@ -384,7 +384,7 @@ App Royalties:  200
 {{/keyvalues}}
 </pre>
 
-The [KeyValuesBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/KeyValuesBlock.cs) 
+The [KeyValuesScriptBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/KeyValuesScriptBlock.cs) 
 implementation is fairly straight forward where it passes the string body to `ParseKeyValueText()` method with an optional delimiter and
 assigns the results to the specified variable name:
 {{/markdown}}
@@ -410,7 +410,7 @@ Total Cost: {{ cars | sum => it[2] | currency }}" }) }}
 
 {{#markdown}}
 
-The [CsvBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/CsvBlock.cs) 
+The [CsvScriptBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/CsvScriptBlock.cs) 
 implementation is similar to `keyvalues` except passes the trimmed string body to `FromCsv` into a string List and assigns the result to the specified name:
 {{/markdown}}
 
