@@ -35,8 +35,8 @@ order: 14
 
 {{ 'gfm/servicestack-scripts/01.md' | githubMarkdown }}
 
-{{ 'examples/sendtogateway-customers.html' | includeFile |> to => template }}
-{{ "live-template" | partial({ rows:11, template }) }}
+{{ 'examples/sendtogateway-customers.html' |> includeFile |> to => template }}
+{{ "live-template" |> partial({ rows:11, template }) }}
 
 <h3>execService</h3>
 
@@ -44,9 +44,9 @@ order: 14
     <em>execService</em> is a readable alternative to calling a service via <em>sendToGateway</em> without arguments, e.g:
 </p>
 
-<pre>{{#raw}}AUTH = {{ 'Authenticate' | execService({ ifErrorReturn: "null" }) | json }};
+<pre>{{#raw}}AUTH = {{ 'Authenticate' |> execService({ ifErrorReturn: "null" }) |> json }};
 
-AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }};{{/raw}}</pre>
+AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json }};{{/raw}}</pre>
 
 <h3>publishToGateway</h3>
 
@@ -113,8 +113,8 @@ AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }
     and other Querying related functionality:
 </p>
 
-{{ 'examples/sendToAutoQuery-data.html' | includeFile |> to => template }}
-{{ "live-template" | partial({ rows:6, template }) }}
+{{ 'examples/sendToAutoQuery-data.html' |> includeFile |> to => template }}
+{{ "live-template" |> partial({ rows:6, template }) }}
 
 <h3>AutoQuery RDBMS</h3>
 
@@ -163,8 +163,8 @@ AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }
     <a href="https://docs.servicestack.net/autoquery-rdbms#implicit-conventions">implicit conventions</a> as well:
 </p>
 
-{{ 'examples/sendToAutoQuery-rdms.html' | includeFile |> to => template }}
-{{ "live-template" | partial({ rows:6, template }) }}
+{{ 'examples/sendToAutoQuery-rdms.html' |> includeFile |> to => template }}
+{{ "live-template" |> partial({ rows:6, template }) }}
 
 <p>
     See the Scripts API Reference for the 
@@ -380,4 +380,4 @@ AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }
 
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

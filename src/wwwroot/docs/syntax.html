@@ -31,7 +31,7 @@ order: 3
     Like Vue/Angular Templates, only expressions inside mustaches are evaluated, whilst everything outside are emitted as-is:
 </p>
 
-{{ 'live-template' | partial({ template: "outside <i>{{ 'shout' | upper }}</i> text" }) }}
+{{ 'live-template' |> partial({ template: "outside <i>{{ 'shout' |> upper }}</i> text" }) }}
 
 <p>
     Which calls the <em>upper</em> default script method where the argument on the left-side of the "pipe" symbol is 
@@ -44,7 +44,7 @@ order: 3
     This can also be rewritten without the "pipe" symbol by calling the method with an argument instead:
 </p>
 
-{{ 'live-template' | partial({ template: "outside <i>{{ upper('shout') }}</i> text" }) }}
+{{ 'live-template' |> partial({ template: "outside <i>{{ upper('shout') }}</i> text" }) }}
 
 <h4>Methods can be chained</h4>
 
@@ -53,7 +53,7 @@ order: 3
     argument in the method on the right and the output of that is passed as the input of the next method in the chain and so on:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ 'shout' | upper | substring(2) | padRight(6, '_') | repeat(3) }}" }) }}
+{{ 'live-template' |> partial({ template: "{{ 'shout' |> upper |> substring(2) |> padRight(6, '_') |> repeat(3) }}" }) }}
 
 <p>
     Methods can also accept additional arguments which are passed starting from the 2nd argument since the first 
@@ -70,20 +70,20 @@ order: 3
     within templates and it will get converted into the most appropriate .NET Type, e.g:
 </p>
 
-{{ 'live-template' | partial({ rows: 8, template: "{{ null               | typeName }}
-{{ true               | typeName }}
-{{ 1                  | typeName }}
-{{ 1.1                | typeName }}
-{{ 'string'           | typeName }}
-{{ ['array', 'items'] | typeName }}
-{{ { key: 'value' }   | typeName }}
+{{ 'live-template' |> partial({ rows: 8, template: "{{ null               |> typeName }}
+{{ true               |> typeName }}
+{{ 1                  |> typeName }}
+{{ 1.1                |> typeName }}
+{{ 'string'           |> typeName }}
+{{ ['array', 'items'] |> typeName }}
+{{ { key: 'value' }   |> typeName }}
 " }) }}
 
 <p>
     ES6 Shorthand notation is also supported where you can use the argument name as its property name in a Dictionary:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ 'foo'    |> to => bar }}
+{{ 'live-template' |> partial({ template: "{{ 'foo'    |> to => bar }}
 {{ { bar }  |> to => obj }}
 {{ obj['bar'] }}" }) }}
 
@@ -93,7 +93,7 @@ order: 3
     Strings can be defined using single quotes, double quotes, prime quotes or backticks:
 </p>
 
-{{ 'live-template' | partial({ rows:4, template: "{{ \"double quotes\" }}
+{{ 'live-template' |> partial({ rows:4, template: "{{ \"double quotes\" }}
 {{ 'single quotes' }}
 {{ ′prime quotes′ }}
 {{ `backticks` }}" }) }}
@@ -107,9 +107,9 @@ order: 3
 Backticks strings implement <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">JavaScript's Template literals</a>
 which can be be used to embed expressions:
 
-{{ 'live-template' | partial({ rows:4, template: "{{ `Time is ${now}, expr= ${true ? pow(1+2,3) : ''}` }}
-Prime Quotes     {{ now.TimeOfDay | timeFormat(′h\\:mm\\:ss′) }}
-Template Literal {{ now.TimeOfDay | timeFormat(`h\\\\:mm\\\\:ss`) }}" }) }}
+{{ 'live-template' |> partial({ rows:4, template: "{{ `Time is ${now}, expr= ${true ? pow(1+2,3) : ''}` }}
+Prime Quotes     {{ now.TimeOfDay |> timeFormat(′h\\:mm\\:ss′) }}
+Template Literal {{ now.TimeOfDay |> timeFormat(`h\\\\:mm\\\\:ss`) }}" }) }}
 
 The example above also shows the difference in escaping where Template literals evaluate escaped characters whilst normal strings 
 leave <em>\</em> backspaces unescaped.
@@ -122,17 +122,17 @@ leave <em>\</em> backspaces unescaped.
     You can use fat arrows <em>=></em> immediately after methods to define lambda's with an implicit <em>(it => ...)</em> binding, e.g:
 </p>
 
-{{ 'live-template' | partial({ template: ′{{ [0,1,2,3,4,5]
+{{ 'live-template' |> partial({ template: ′{{ [0,1,2,3,4,5]
    |> where => it >= 3
-   |> map => it + 10 | join(`\n`) }}′ }) }}
+   |> map => it + 10 |> join(`\n`) }}′ }) }}
 
 <p>
     This is a shorthand for declaring lambda expressions with normal arrow expression syntax:
 </p>
 
-{{ 'live-template' | partial({ template: ′{{ [0,1,2,3,4,5]
-    | where(it => it >= 3)
-    | map(x => x + 10) | join(`\n`) }}′ }) }}
+{{ 'live-template' |> partial({ template: ′{{ [0,1,2,3,4,5]
+    |> where(it => it >= 3)
+    |> map(x => x + 10) |> join(`\n`) }}′ }) }}
  
 <p>
     Using normal lambda expression syntax lets you rename lambda parameters as seen in the <em>map(x => ...)</em> example.
@@ -147,13 +147,13 @@ leave <em>\</em> backspaces unescaped.
     you can write:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ [3,4,5] | select: { it | incrBy(10) }\\n }}" }) }}
+{{ 'live-template' |> partial({ template: "{{ [3,4,5] |> select: { it |> incrBy(10) }\\n }}" }) }}
 
 <p>
     and it will be rewritten into its equivalent and more verbose form of:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ [3,4,5] | select(′{{ it | incrBy(10) }}\\n′) }}" 
+{{ 'live-template' |> partial({ template: "{{ [3,4,5] |> select(′{{ it |> incrBy(10) }}\\n′) }}" 
 }) }}
 
 <h4>SQL-like Boolean Expressions</h4>
@@ -164,9 +164,9 @@ leave <em>\</em> backspaces unescaped.
     use the more human-friendly <em>and</em>, <em>or</em> and <em>=</em> alternatives:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ [0,1,2,3,4,5] 
+{{ 'live-template' |> partial({ template: "{{ [0,1,2,3,4,5] 
    |> where => (it = 2 or it = 3) and it.isOdd()
-   | join }}" }) }}
+   |> join }}" }) }}
 
 <h4>Include Raw Content Verbatim</h4>
 
@@ -174,7 +174,7 @@ Use <em>#raw</em> blocks to ignore evaluating expressions and emit content verba
 client Handlebars-like templating solution like Vue or Angular templates where expressions need to be evaluated 
 with JavaScript in the browser instead of on the Server with Templates:
 
-{{ 'live-template' | partial({ rows: 4, template: "{{#raw}}Hi {{ person.name }}, Welcome to {{ site.name }}!{{/raw}}
+{{ 'live-template' |> partial({ rows: 4, template: "{{#raw}}Hi {{ person.name }}, Welcome to {{ site.name }}!{{/raw}}
 
 {{#raw template}}Assign contents with {{ expressions }} into 'template' argument{{/raw}}
 Captured Argument: {{template}}" 
@@ -193,7 +193,7 @@ Captured Argument: {{template}}"
 
 <p>
     An alternative way to temporarily disable an expression is to prefix the expression with the <em>end</em> method to 
-    immediately short-circuit evaluation, e.g: <em>{{#raw}}{{ end | now | dateFormat }}{{/raw}}</em>
+    immediately short-circuit evaluation, e.g: <em>{{#raw}}{{ end | now |> dateFormat }}{{/raw}}</em>
 </p>
 
 <p>
@@ -406,4 +406,4 @@ more concise Template Expressions are evaluated `{{ 1 + 2 }}`.
 {{/markdown}}
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

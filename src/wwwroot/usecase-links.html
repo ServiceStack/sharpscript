@@ -1,7 +1,7 @@
 <div class="usecase-links">
 
-{{ order | prevUseCaseLink | select: <span>&#8592; <a href="{ it.Key }">{ it.Value }</a></span> }}
+{{ order |> prevUseCaseLink |> select: <span>&#8592; <a href="{ it.Key }">{ it.Value }</a></span> }}
 
-{{ order | nextUseCaseLink | select: <span style="float:right"><a href="{ it.Key }">{ it.Value }</a> &#8594;</span> }}
+{{ order |> nextUseCaseLink |> select: <span style="float:right"><a href="{ it.Key }">{ it.Value }</a> &#8594;</span> }}
 
 </div>

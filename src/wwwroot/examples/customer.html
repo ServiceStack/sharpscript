@@ -26,5 +26,5 @@ title: Customer Details
 
 <table class="table ">
 {{ Orders 
-   | select: <tr><td>{ it.OrderId }</td><td>{ it.OrderDate }</td><td>{ it.Total | currency }</td></tr> }}
+   |> select: <tr><td>{ it.OrderId }</td><td>{ it.OrderDate }</td><td>{ it.Total |> currency }</td></tr> }}
 </table>

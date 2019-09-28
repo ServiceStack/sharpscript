@@ -202,15 +202,15 @@ for the full API available. Here's <a href="https://developer.github.com/v3/gist
    })
    <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newGist }}
 
-{ <span class="pl-k">...</span>newGist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>new gist<span class="pl-pds">'</span></span> })</pre></div>
+{ <span class="pl-k">...</span>newGist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>new gist<span class="pl-pds">'</span></span> })</pre></div>
 <p>View Gist files and metadata example:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">gateway</span>.<span class="pl-en">githubGist</span>(gistId) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gist
 
-{ <span class="pl-k">...</span>gist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gist<span class="pl-pds">'</span></span> })
+{ <span class="pl-k">...</span>gist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gist<span class="pl-pds">'</span></span> })
 
 <span class="pl-s"><span class="pl-pds">`</span>#### Gist Files<span class="pl-pds">`</span></span>
 #each file <span class="pl-k">in</span> <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>.<span class="pl-smi">Keys</span>
-    <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>[file] <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> file })
+    <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>[file] <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> file })
 <span class="pl-k">/</span>each</pre></div>
 <p>Which renders the following GitHub Flavored Markdown output:</p>
 <table>

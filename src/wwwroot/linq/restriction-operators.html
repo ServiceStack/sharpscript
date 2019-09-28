@@ -3,7 +3,7 @@ title: Restriction Operators
 order: 1
 -->
 
-{{ "lang-select" | partial }}
+{{ "lang-select" |> partial }}
 
 <h3>linq1: Where - Simple 1</h3>
 
@@ -25,14 +25,14 @@ public void Linq1()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq01" }) }}
+{{ "linq-preview" |> partial({ example: "linq01" }) }}
 
 <p>
     Or can be written using different languages within the same <em>#Script</em> using 
     <a href="/docs/syntax#lang-blocks">Language Blocks and Expressions</a>:
 </p>
 
-{{ "linq-preview" | partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
+{{ "linq-preview" |> partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
 
 <h3>linq2: Where - Simple 2</h3>
 
@@ -54,7 +54,7 @@ public void Linq2()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq02" }) }}
+{{ "linq-preview" |> partial({ example: "linq02" }) }}
 
 <h3>linq3: Where - Simple 3</h3>
 
@@ -76,7 +76,7 @@ public void Linq3()
 } 
 </code></pre>
 
-{{ "linq-preview" | partial({ rows: 5, example: "linq03" }) }}
+{{ "linq-preview" |> partial({ rows: 5, example: "linq03" }) }}
 
 <h3>linq4: Where - Drilldown</h3>
 
@@ -102,7 +102,7 @@ public void Linq4()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ rows:7, example: "linq04" }) }}
+{{ "linq-preview" |> partial({ rows:7, example: "linq04" }) }}
 
 <h3>linq5: Where - Indexed</h3>
 
@@ -121,6 +121,6 @@ public void Linq5()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq05" }) }}
+{{ "linq-preview" |> partial({ example: "linq05" }) }}
 
-{{ "linq-links" | partial({ order }) }}
+{{ "linq-links" |> partial({ order }) }}

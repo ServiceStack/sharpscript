@@ -1,7 +1,7 @@
 <tr>
     <td>{{ it.Name }}</td>
     <td>{{ it.DriveType }} #{{ it.VolumeLabel }} ({{ it.DriveFormat }})</td>
-    <td>{{ it.AvailableFreeSpace | divide(1024) | format('n0') }} KB</td>
-    <td>{{ it.TotalFreeSpace | divide(1024) | format('n0') }} KB</td>
-    <td>{{ it.TotalSize | divide(1024) | format('n0') }} KB</td>
+    <td>{{ it.AvailableFreeSpace |> divide(1024) |> format('n0') }} KB</td>
+    <td>{{ it.TotalFreeSpace |> divide(1024) |> format('n0') }} KB</td>
+    <td>{{ it.TotalSize |> divide(1024) |> format('n0') }} KB</td>
 </tr>

@@ -11,7 +11,7 @@ order: 10
     literal:
 </p>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         page: 'page', 
         files: 
@@ -20,7 +20,7 @@ order: 10
 I am a Layout with page
 {{ page }}`,
             'page.html' : `I am a Page with a partial
-{{ 'my-partial' | partial({ arg: "from page" }) }}`,
+{{ 'my-partial' |> partial({ arg: "from page" }) }}`,
             'my-partial.html' : `I am a partial called with the scoped argument <b>{{ arg }}</b>
 Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
         } 
@@ -38,15 +38,15 @@ Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
     <div class="files">
         <section>
             <h5>customer.html</h5>
-            <textarea class="form-control" rows="3">{{ "code/linq04-customer.ss" | includeFile }}</textarea>
+            <textarea class="form-control" rows="3">{{ "code/linq04-customer.ss" |> includeFile }}</textarea>
         </section>
         <section>
             <h5>order.html</h5>
-            <textarea class="form-control" rows="3">{{ "code/linq04-order.ss" | includeFile }}</textarea>
+            <textarea class="form-control" rows="3">{{ "code/linq04-order.ss" |> includeFile }}</textarea>
         </section>
     </div>
     <div class="template">
-        <textarea class="form-control" rows="3">{{ "code/linq04-partials.ss" | includeFile }}</textarea>
+        <textarea class="form-control" rows="3">{{ "code/linq04-partials.ss" |> includeFile }}</textarea>
     </div>
     <div class="result">
         <div class="output"></div>
@@ -59,28 +59,28 @@ Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
     Partials can also be defined in-line with the <em>{{pass: #partial}}</em> block statement:
 </p>
 
-{{ 'live-template' | partial({ rows:13, template: `
+{{ 'live-template' |> partial({ rows:13, template: `
 {{#partial order}}
-  Order {{ it.OrderId }}: {{ it.OrderDate | dateFormat }}
+  Order {{ it.OrderId }}: {{ it.OrderDate |> dateFormat }}
 {{/partial}}
 {{#partial customer}}
-Customer {{ it.CustomerId }} {{ it.CompanyName | raw }}
-{{ it.Orders | selectPartial: order }}{{/partial}}
+Customer {{ it.CustomerId }} {{ it.CompanyName |> raw }}
+{{ it.Orders |> selectPartial: order }}{{/partial}}
 
 {{ customers |> where => it.Region = 'WA' |> to => waCustomers }}
  Customers from Washington and their orders:
- {{ waCustomers | selectPartial: customer }}` }) }}
+ {{ waCustomers |> selectPartial: customer }}` }) }}
 
 <blockquote>
     The <a href="/linq/restriction-operators#linq4-where---drilldown">linq 04</a> 
     example below shows how to implement this without partials using <em>{{pass: #each}}</em> statement blocks:
 </blockquote>
 
-{{ 'live-template' | partial({ rows:7, template: `Customers from Washington and their orders:
+{{ 'live-template' |> partial({ rows:7, template: `Customers from Washington and their orders:
 {{#each c in customers where c.Region == 'WA'}}
-Customer {{ c.CustomerId }} {{ c.CompanyName | raw }}
+Customer {{ c.CustomerId }} {{ c.CompanyName |> raw }}
 {{#each c.Orders}}
-    Order {{ OrderId }}: {{ OrderDate | dateFormat }}
+    Order {{ OrderId }}: {{ OrderDate |> dateFormat }}
 {{/each}}
 {{/each}}` }) }}
 
@@ -92,7 +92,7 @@ Customer {{ c.CustomerId }} {{ c.CompanyName | raw }}
     where partials in the root directory can be resolved without any specifying any folders:
 </p>
 
-<pre class="cs"><code>{{ pass: 'my-partial' | partial }}</code></pre>
+<pre class="cs"><code>{{ pass: 'my-partial' |> partial }}</code></pre>
 
 <h5>Cascading resolution</h5>
 
@@ -105,6 +105,6 @@ Customer {{ c.CustomerId }} {{ c.CompanyName | raw }}
     Otherwise you can specify the virtual path to the partial from the Virtual Files root, e.g:
 </p>
 
-<pre class="cs"><code>{{ pass: 'dir/subdir/my-partial' | partial }}</code></pre>
+<pre class="cs"><code>{{ pass: 'dir/subdir/my-partial' |> partial }}</code></pre>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

@@ -1,7 +1,7 @@
 <div class="gfm"><p>As an example, C#'s 101 LINQ examples <a href="https://sharpscript.net/linq/grouping-operators#linq43-groupby---nested" rel="nofollow">most complicated LINQ expression</a>
 can now be rewritten from its original source:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">customers</span> 
-   | <span class="pl-e"><span class="pl-v">map</span></span> =&gt; { 
+   |&gt; <span class="pl-e"><span class="pl-v">map</span></span> =&gt; { 
         <span class="pl-e"><span class="pl-v">CompanyName</span></span>: <span class="pl-e"><span class="pl-v">it.CompanyName</span></span>, 
         <span class="pl-e"><span class="pl-v">YearGroups</span></span>: <span class="pl-e"><span class="pl-v">map</span></span> (
             <span class="pl-e"><span class="pl-v">groupBy</span></span>(<span class="pl-e"><span class="pl-v">it.Orders</span></span>, <span class="pl-e"><span class="pl-v">it</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.OrderDate.Year</span></span>),
@@ -14,9 +14,9 @@ can now be rewritten from its original source:</p>
             }
         ) 
      }
-     | <span class="pl-e"><span class="pl-v">htmlDump</span></span> <span class="pl-c1">}}</span></pre></div>
+     |&gt; <span class="pl-e"><span class="pl-v">htmlDump</span></span> <span class="pl-c1">}}</span></pre></div>
 <p>to use extension methods which greatly improves its readability as its execution flow is now able to read from left-to-right:</p>
-<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">customers</span> | <span class="pl-e"><span class="pl-v">map</span></span> =&gt; { 
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">customers</span> |&gt; <span class="pl-e"><span class="pl-v">map</span></span> =&gt; { 
     <span class="pl-e"><span class="pl-v">CompanyName</span></span>: <span class="pl-e"><span class="pl-v">it.CompanyName</span></span>, 
     <span class="pl-e"><span class="pl-v">YearGroups</span></span>: <span class="pl-e"><span class="pl-v">it.Orders.groupBy</span></span>(<span class="pl-e"><span class="pl-v">it</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.OrderDate.Year</span></span>)<span class="pl-e"><span class="pl-v">.map</span></span>(<span class="pl-e"><span class="pl-v">yg</span></span> =&gt;
         { 
@@ -27,5 +27,5 @@ can now be rewritten from its original source:</p>
         }
       ) 
    }
-   | <span class="pl-e"><span class="pl-v">htmlDump</span></span> <span class="pl-c1">}}</span></pre></div>
+   |&gt; <span class="pl-e"><span class="pl-v">htmlDump</span></span> <span class="pl-c1">}}</span></pre></div>
 </div>

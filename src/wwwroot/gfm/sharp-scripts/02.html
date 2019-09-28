@@ -11,19 +11,19 @@
            <span class="pl-e"><span class="pl-v">INNER</span></span> <span class="pl-e"><span class="pl-v">JOIN</span></span>
            <span class="pl-e"><span class="pl-v">Shipper</span></span> <span class="pl-e"><span class="pl-v">s</span></span> <span class="pl-e"><span class="pl-v">ON</span></span> <span class="pl-e"><span class="pl-v">o.ShipVia</span></span> = <span class="pl-e"><span class="pl-v">s.Id</span></span>
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">o.Id</span></span> = @<span class="pl-e"><span class="pl-v">id</span></span>` 
-  | <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">order</span></span> <span class="pl-c1">}}</span>
+  |&gt; <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">order</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span><span class="pl-c1">#with</span> <span class="pl-v">order</span><span class="pl-c1">}}</span>
 
-<span class="pl-c1">{{</span> <span class="pl-v">order</span> | <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">caption</span></span>: <span class="pl-s"><span class="pl-pds">'</span>Order Details<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span> <span class="pl-v">order</span> |&gt; <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">caption</span></span>: <span class="pl-s"><span class="pl-pds">'</span>Order Details<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span> `<span class="pl-e"><span class="pl-v">SELECT</span></span> <span class="pl-e"><span class="pl-v">p.ProductName</span></span>, ${<span class="pl-e"><span class="pl-v">sqlCurrency</span></span>(<span class="pl-s"><span class="pl-pds">"</span>od.UnitPrice<span class="pl-pds">"</span></span>)} <span class="pl-e"><span class="pl-v">UnitPrice</span></span>, <span class="pl-e"><span class="pl-v">Quantity</span></span>, <span class="pl-e"><span class="pl-v">Discount</span></span>
       <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">OrderDetail</span></span> <span class="pl-e"><span class="pl-v">od</span></span>
            <span class="pl-e"><span class="pl-v">INNER</span></span> <span class="pl-e"><span class="pl-v">JOIN</span></span>
            <span class="pl-e"><span class="pl-v">Product</span></span> <span class="pl-e"><span class="pl-v">p</span></span> <span class="pl-e"><span class="pl-v">ON</span></span> <span class="pl-e"><span class="pl-v">od.ProductId</span></span> = <span class="pl-e"><span class="pl-v">p.Id</span></span>
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">OrderId</span></span> = @<span class="pl-e"><span class="pl-v">id</span></span>`
-    | <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
-    | <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">caption</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Line Items<span class="pl-pds">"</span></span> }) 
+    |&gt; <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
+    |&gt; <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">caption</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Line Items<span class="pl-pds">"</span></span> }) 
 <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span> `<span class="pl-e"><span class="pl-v">SELECT</span></span> ${<span class="pl-e"><span class="pl-v">sqlCurrency</span></span>(<span class="pl-s"><span class="pl-pds">"</span>(od.UnitPrice * Quantity)<span class="pl-pds">"</span></span>)} <span class="pl-e"><span class="pl-v">AS</span></span> <span class="pl-e"><span class="pl-v">OrderTotals</span></span> 
       <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">OrderDetail</span></span> <span class="pl-e"><span class="pl-v">od</span></span>
@@ -31,8 +31,8 @@
            <span class="pl-e"><span class="pl-v">Product</span></span> <span class="pl-e"><span class="pl-v">p</span></span> <span class="pl-e"><span class="pl-v">ON</span></span> <span class="pl-e"><span class="pl-v">od.ProductId</span></span> = <span class="pl-e"><span class="pl-v">p.Id</span></span>
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">OrderId</span></span> = @<span class="pl-e"><span class="pl-v">id</span></span> 
      <span class="pl-e"><span class="pl-v">ORDER</span></span> <span class="pl-e"><span class="pl-v">BY</span></span> <span class="pl-e"><span class="pl-v">1</span></span> <span class="pl-e"><span class="pl-v">DESC</span></span>`
-    | <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
-    | <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">rowNumbers</span></span>: <span class="pl-e"><span class="pl-v">false</span></span> }) <span class="pl-c1">}}</span>
+    |&gt; <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
+    |&gt; <span class="pl-e"><span class="pl-v">textDump</span></span>({ <span class="pl-e"><span class="pl-v">rowNumbers</span></span>: <span class="pl-e"><span class="pl-v">false</span></span> }) <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">else</span><span class="pl-c1">}}</span>
   <span class="pl-c1">{{</span> `<span class="pl-e"><span class="pl-v">There</span></span> <span class="pl-e"><span class="pl-v">is</span></span> <span class="pl-e"><span class="pl-v">no</span></span> <span class="pl-e"><span class="pl-v">Order</span></span> <span class="pl-e"><span class="pl-v">with</span></span> <span class="pl-e"><span class="pl-v">id</span></span>: ${<span class="pl-e"><span class="pl-v">id</span></span>}` <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">/with</span><span class="pl-c1">}}</span></pre></div>

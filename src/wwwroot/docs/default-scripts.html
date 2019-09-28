@@ -19,8 +19,8 @@ order: 11
     Script Methods with no arguments can be used in-place of an argument binding, <em>now</em> and <em>utcNow</em> are some examples of this:
 </p>
 
-{{ 'live-template' | partial({ template: "now: {{ now | dateFormat }}
-UTC now: {{ utcNow | dateFormat('o') }}" }) }}
+{{ 'live-template' |> partial({ template: "now: {{ now |> dateFormat }}
+UTC now: {{ utcNow |> dateFormat('o') }}" }) }}
 
 <p>
     Many methods have an implicit default format which can be overridden in the ScriptContext's <em>Args</em>, e.g
@@ -36,8 +36,8 @@ UTC now: {{ utcNow | dateFormat('o') }}" }) }}
     to emit raw HTML by adding the <em>raw</em> filter as the last filter in an expression:
 </p>
 
-{{ 'live-template' | partial({ template: "With encoding: {{ '<b>hi</b>' }}
-Without: {{ '<b>hi</b>' | raw }}" }) }}
+{{ 'live-template' |> partial({ template: "With encoding: {{ '<b>hi</b>' }}
+Without: {{ '<b>hi</b>' |> raw }}" }) }}
 
 <h4 id="arithmetic">Arithmetic</h4>
 
@@ -45,7 +45,7 @@ Without: {{ '<b>hi</b>' | raw }}" }) }}
     <em>#Script</em> supports the same arithmetic expressions as JavaScript:
 </p>
 
-{{ 'live-template' | partial({ rows: 7, template: "1 + 1 = {{ 1 + 1 }}
+{{ 'live-template' |> partial({ rows: 7, template: "1 + 1 = {{ 1 + 1 }}
 2 x 2 = {{ 2 * 2 }}
 3 - 3 = {{ 3 - 3 }} 
 4 / 4 = {{ 4 / 4 }}
@@ -63,10 +63,10 @@ Bitwise = {{ 3 & 1 }}, {{ (3 | 1) }}, {{ 3 ^ 1 }}, {{ 3 << 1 }}, {{ 3 >> 1 }}, {
     For those who prefer wordier descriptions, you can use the equivalent built-in methods:
 </p>
 
-{{ 'live-template' | partial({ rows: 5, template: "1 + 1 = {{ 1 | add(1) }} or {{ add(1,1) }} or {{ 1 | incr }} or {{ 1 | incrBy(1) }}
-2 x 2 = {{ 2 | mul(2) }} or {{ multiply(2,2) }}
-3 - 3 = {{ 3 | sub(3) }} or {{ subtract(3,3) }} or {{ 3 | decrBy(3) }} 
-4 / 4 = {{ 4 | div(4) }} or {{ divide(4,4) }}
+{{ 'live-template' |> partial({ rows: 5, template: "1 + 1 = {{ 1 |> add(1) }} or {{ add(1,1) }} or {{ 1 |> incr }} or {{ 1 |> incrBy(1) }}
+2 x 2 = {{ 2 |> mul(2) }} or {{ multiply(2,2) }}
+3 - 3 = {{ 3 |> sub(3) }} or {{ subtract(3,3) }} or {{ 3 |> decrBy(3) }} 
+4 / 4 = {{ 4 |> div(4) }} or {{ divide(4,4) }}
 3 % 2 = {{ 3 | mod(2) }} or {{ mod(3,2) }}" }) }}
 
 <p>
@@ -76,10 +76,10 @@ Bitwise = {{ 3 & 1 }}, {{ (3 | 1) }}, {{ 3 ^ 1 }}, {{ 3 << 1 }}, {{ 3 >> 1 }}, {
     To achieve the same result you'd need to execute them in their implied grouping explicitly:
 </p>
 
-{{ 'live-template' | partial({ rows:4, template: "1 - 2 + 3 * 4 / 5 = {{ 1 - 2 + 3 * 4 / 5 }}
+{{ 'live-template' |> partial({ rows:4, template: "1 - 2 + 3 * 4 / 5 = {{ 1 - 2 + 3 * 4 / 5 }}
 1 - 2 + 3 * 4 / 5 = {{ add(sub(1,2), div(mul(3,4), 5)) }}
 1 - 2 + 3 * 4 / 5 = {{ sub(1,2).add(mul(3,4).div(5)) }}
-((1 - 2 + 3) * 4) / 5 = {{ 1 | subtract(2) | add(3) | multiply(4) | divide(5) }}" }) }}
+((1 - 2 + 3) * 4) / 5 = {{ 1 |> subtract(2) |> add(3) |> multiply(4) |> divide(5) }}" }) }}
 
 <h4 id="math">Math</h4>
 
@@ -87,22 +87,22 @@ Bitwise = {{ 3 & 1 }}, {{ (3 | 1) }}, {{ 3 ^ 1 }}, {{ 3 << 1 }}, {{ 3 >> 1 }}, {
     Most <em>Math</em> APIs are available including <em>pi</em> and <em>e</em> constants:
 </p>
 
-{{ 'live-template' | partial({ template: "Circumference = {{ 2 * pi * 10 | round(5) }}
+{{ 'live-template' |> partial({ template: "Circumference = {{ 2 * pi * 10 |> round(5) }}
 &Sqrt; log<sub>10</sub> 10000  = {{ 10000 | log10 | sqrt }}
-Powers of 2      = {{ 10 | times |> map => `${(it + 1).pow(2)}` | join }}" }) }}
+Powers of 2      = {{ 10 |> times |> map => `${(it + 1).pow(2)}` |> join }}" }) }}
 
 <h4 id="date-functions">Date Functions</h4>
 
-{{ 'live-template' | partial({ rows: 10, template: "{{ now | addTicks(1) }}
-{{ now | addMilliseconds(1) }}
-{{ now | addSeconds(1) }}
-{{ now | addMinutes(1) }}
-{{ now | addHours(1) }}
-{{ now | addDays(1) }}
-{{ now | addMonths(1) }}
-{{ now | addYears(1) }}
-{{ '2001-01-01' | toDateTime }}, {{ date(2001,1,1) }}, {{ date(2001,1,1,1,1,1) }}
-{{ time(1,2,3,4) }}, {{ '02:03:04' | toTimeSpan }}, {{ time(2,3,4) }}" }) }}
+{{ 'live-template' |> partial({ rows: 10, template: "{{ now |> addTicks(1) }}
+{{ now |> addMilliseconds(1) }}
+{{ now |> addSeconds(1) }}
+{{ now |> addMinutes(1) }}
+{{ now |> addHours(1) }}
+{{ now |> addDays(1) }}
+{{ now |> addMonths(1) }}
+{{ now |> addYears(1) }}
+{{ '2001-01-01' |> toDateTime }}, {{ date(2001,1,1) }}, {{ date(2001,1,1,1,1,1) }}
+{{ time(1,2,3,4) }}, {{ '02:03:04' |> toTimeSpan }}, {{ time(2,3,4) }}" }) }}
 
 <h4 id="formatting">Formatting</h4>
 
@@ -110,10 +110,10 @@ Powers of 2      = {{ 10 | times |> map => `${(it + 1).pow(2)}` | join }}" }) }}
     Use format methods to customize how values are formatted:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: ′USD {{ 12.34 | currency }} GBP {{ 12.34 | currency('en-GB') }} EUR {{ 12.34 | currency('FR') }}
-Number: {{ 123.456 | format('0.##') }} Currency: {{ 123.456 | format('C') }}
-Date: {{ now | dateFormat('dddd, MMMM d, yyyy') }} default: {{ now | dateFormat }}
-Time: {{ now.TimeOfDay | timeFormat('h\\:mm') }} default: {{ now.TimeOfDay | timeFormat }}′ }) }}
+{{ 'live-template' |> partial({ rows: 4, template: ′USD {{12.34 |> currency}} GBP {{12.34 |> currency('en-GB')}} EUR {{12.34 |> currency('FR')}}
+Number: {{ 123.456 |> format('0.##') }} Currency: {{ 123.456 |> format('C') }}
+Date: {{ now |> dateFormat('dddd, MMMM d, yyyy') }} default: {{ now |> dateFormat }}
+Time: {{ now.TimeOfDay |> timeFormat('h\\:mm') }} default: {{ now.TimeOfDay |> timeFormat }}′ }) }}
 
 <p>
     When no format provided, the default ScriptConstant's formats are used:
@@ -132,49 +132,49 @@ Time: {{ now.TimeOfDay | timeFormat('h\\:mm') }} default: {{ now.TimeOfDay | tim
     As can be expected from a templating library there's a comprehensive set of string methods available:
 </p>
 
-{{ 'live-template' | partial({ rows: 13, template: "{{ 'upper' | upper }} and {{ 'LOWER' | lower }}
-{{ 'SubString'|substring(0,3) }} {{ 'SubString'|substring(3) }} {{ 'IsSafe'|substring(2,100) }}
-{{ 'SubStrEllipsis' | substringWithEllipsis(9) }} {{ 'SubStr' | substringWithEllipsis(3,3) }}
-{{ 'left:part' | leftPart(':') }} + {{ 'part:right' | rightPart(':') }}
-{{ 'last:left:part' | lastLeftPart(':') }} + {{ 'last:right:part' | lastRightPart(':') }}
-{{ 'split.on.first' | splitOnFirst('.') |join}} + {{ 'split.on.last' | splitOnLast('.') |join}}
-{{ 'split.these.words' | split('.') | get(1) }}, {{ 'replace this' | replace('this', 'that') }}
-{{ 'index.of' | indexOf('.') }} + {{ 'last.index.of' | lastIndexOf('.') }}
-{{ 'start' | appendLine | append('end') }}
+{{ 'live-template' |> partial({ rows: 13, template: "{{ 'upper' |> upper }} and {{ 'LOWER' | lower }}
+{{ 'SubString'|substring(0,3) }} {{'SubString'|substring(3)}} {{'IsSafe'|substring(2,100)}}
+{{ 'SubStrEllipsis' |> substringWithEllipsis(9) }} {{'SubStr' |> substringWithEllipsis(3,3)}}
+{{ 'left:part' |> leftPart(':') }} + {{ 'part:right' |> rightPart(':') }}
+{{ 'last:left:part' |> lastLeftPart(':') }} + {{ 'last:right:part' |> lastRightPart(':') }}
+{{ 'split.on.first' |> splitOnFirst('.')|>join}} + {{'split.on.last' |> splitOnLast('.')|>join}}
+{{ 'split.these.words' |> split('.') |> get(1)}}, {{'replace this' |> replace('this', 'that')}}
+{{ 'index.of' |> indexOf('.') }} + {{ 'last.index.of' |> lastIndexOf('.') }}
+{{ 'start' |> appendLine |> append('end') }}
 {{ 'in' + ' the ' + 'middle' }}
-{{ 'in the {0} of the {1} I go {2}' | fmt('middle','night','walking') }}
-{{ 'in the {0} of the {1} I go {2} in my {3}' | fmt(['middle','night','walking','sleep']) }}
-{{ 'in the ' | appendFmt('{0} of the {1} I go {2}', 'middle','night','walking') }}" }) }}
+{{ 'in the {0} of the {1} I go {2}' |> fmt('middle','night','walking') }}
+{{ 'in the {0} of the {1} I go {2} in my {3}' |> fmt(['middle','night','walking','sleep']) }}
+{{ 'in the ' |> appendFmt('{0} of the {1} I go {2}', 'middle','night','walking') }}" }) }}
 
 <h4 id="text-style">Text Style</h4>
 
-{{ 'live-template' | partial({ template: `{{ 'aVarName' | humanize }} and {{ 'AVarName' | splitCase }}
+{{ 'live-template' |> partial({ template: `{{ 'aVarName' | humanize }} and {{ 'AVarName' | splitCase }}
 {{ 'wAr aNd pEaCe' | titleCase }}
 {{ 'pascalCase' | pascalCase }} and {{ 'CamelCase' | camelCase }}` }) }}
 
 <h4 id="trimming-and-padding">Trimming and Padding</h4>
 
-{{ 'live-template' | partial({ template: "'{{ '  start  ' | trimStart }}', '{{ '  end  ' | trimEnd }}', '{{ '  both  ' | trim }}'
-'{{ 'left' | padLeft(10) }}', '{{ 'right' | padRight(10) }}'
-'{{ 'left' | padLeft(10,'_') }}', '{{ 'right' | padRight(10,'_') }}'" }) }}
+{{ 'live-template' |> partial({ template: "'{{ '  start  ' |> trimStart }}', '{{ '  end  ' |> trimEnd }}', '{{ '  both  ' |> trim }}'
+'{{ 'left' |> padLeft(10) }}', '{{ 'right' |> padRight(10) }}'
+'{{ 'left' |> padLeft(10,'_') }}', '{{ 'right' |> padRight(10,'_') }}'" }) }}
 
 <h4 id="url-handling">URL handling</h4>
 
-{{ 'live-template' | partial({ rows: 8, template: "{{ 'http://example.org' |> to => baseUrl }}
-{{ baseUrl | addPath('path') }}
-{{ baseUrl | addPaths(['path1', 'path2', 'path3']) }}
-{{ baseUrl | addQueryString({ a: 1, b: 2 }) }}
-{{ baseUrl | addQueryString({ a: 1, b: 2 }) | setQueryString({ a: 3 }) }}
-{{ baseUrl | addHashParams({ c: 3, d: 4 }) }}
-{{ baseUrl | addHashParams({ c: 3, d: 4 }) | setHashParams({ c: 5 }) }}
-{{ baseUrl | addPath('path') | addQueryString({ a: 1 }) | addHashParams({ b: 2 }) }}" }) }}
+{{ 'live-template' |> partial({ rows: 8, template: "{{ 'http://example.org' |> to => baseUrl }}
+{{ baseUrl |> addPath('path') }}
+{{ baseUrl |> addPaths(['path1', 'path2', 'path3']) }}
+{{ baseUrl |> addQueryString({ a: 1, b: 2 }) }}
+{{ baseUrl |> addQueryString({ a: 1, b: 2 }) |> setQueryString({ a: 3 }) }}
+{{ baseUrl |> addHashParams({ c: 3, d: 4 }) }}
+{{ baseUrl |> addHashParams({ c: 3, d: 4 }) |> setHashParams({ c: 5 }) }}
+{{ baseUrl |> addPath('path') |> addQueryString({ a: 1 }) |> addHashParams({ b: 2 }) }}" }) }}
 
 <h4 id="generation">Repeating, Ranges and Generation</h4>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ 3 | repeating('ABC ')  }} or {{ 'ABC ' | repeat(3) }}
-{{ 3 | itemsOf(2) | join }} or {{ 3 | itemsOf(2) | sum }}
-{{ 5 | times | select: {it}, }}
-{{ range(5) | select: {it}, }} {{ range(5,5) | select: {it}, }}" }) }}
+{{ 'live-template' |> partial({ rows: 4, template: "{{ 3 |> repeating('ABC ')  }} or {{ 'ABC ' |> repeat(3) }}
+{{ 3 |> itemsOf(2) |> join }} or {{ 3 |> itemsOf(2) |> sum }}
+{{ 5 |> times |> select: {it}, }}
+{{ range(5) |> select: {it}, }} {{ range(5,5) |> select: {it}, }}" }) }}
 
 <h4>Spacing</h4>
 
@@ -182,12 +182,12 @@ Time: {{ now.TimeOfDay | timeFormat('h\\:mm') }} default: {{ now.TimeOfDay | tim
     The following methods can be used to easily control the precise spacing in templates:
 </p>
 
-{{ 'live-template' | partial({ rows: 6, template: "{{ space }}1 space
+{{ 'live-template' |> partial({ rows: 6, template: "{{ space }}1 space
 {{ 3 | spaces }}3 spaces
 {{ indent }}1 indent
-{{ 3 | indents }}3 indents
+{{ 3 |> indents }}3 indents
 {{ newLine }}1 new line above
-{{ 3 | newLines }}3 new lines above" }) }}
+{{ 3 |> newLines }}3 new lines above" }) }}
 
 <blockquote>
     The default spacing used for indents <em>\t</em> can be overridden with the <em>Args[DefaultIndent]</em>.
@@ -199,23 +199,23 @@ Time: {{ now.TimeOfDay | timeFormat('h\\:mm') }} default: {{ now.TimeOfDay | tim
     These methods allow you to test for different conditions:
 </p>
 
-{{ 'live-template' | partial({ rows: 17, template: "ternary: {{ true ? 1 : 0 }}, {{ 1 + 1 > subtract(2, 1) ? 'YES' : 'NO' }}
+{{ 'live-template' |> partial({ rows: 17, template: "ternary: {{ true ? 1 : 0 }}, {{ 1 + 1 > subtract(2, 1) ? 'YES' : 'NO' }}
 or: {{ true || false }}, {{ false || false }}, {{ true | OR(true) }}
 and: {{ true && false }}, {{ false and false }}, {{ true | AND(true) }}
 exists: {{ null | exists }}, {{ 1 | exists }}, {{ unknownArg | exists }}
-equals: {{ 1 = 1 }}, {{ 1 == 1 }}, {{ 1 | equals(1) }}, {{ 'A' | equals('A') }}, {{ 1 | eq(1) }}
-notEquals: {{ 2 != 1 }}, {{ 2 | notEquals(1) }}, {{ 'A' | notEquals('A') }} or {{ 1 | not(1) }}
-greaterThan: {{ 1 > 1 }}, {{ 1 | greaterThan(1) }} or {{ 1 | gt(1) }}
-greaterEqual: {{ 1 >= 1 }}, {{ 1 | greaterThanEqual(1) }} or {{ 1 | gte(1) }}
-lessThan: {{ 1 < 1}}, {{ 1 | lessThan(1) }} or {{ 1 | lt(1) }}
-lessEqual: {{ 1 <= 1}}, {{ 1 | lessThanEqual(1) }} or {{ 2 | lte(1) }}
-isNull: {{ null == null }}, {{ null | isNull }}, {{ 1 | isNull }}, {{ 1 == null }}
-isNotNull: {{ null != null }} {{ null | isNotNull }}, {{ 1 | isNotNull }}, {{ 1 != null }}
-equivalentTo: {{ [1,2] | equivalentTo([1,2]) }}, {{ {a:1, b:2} | equivalentTo({a:1, b:2}) }}
-contains: {{ [1,2] | contains(1) }}, {{ [1,2] | contains(3) }}, {{ 'ABC' | contains('A') }}
-Even/Odd: {{ 1 | isEven }}, {{ 1 % 2 == 0 }}, {{ 1 | isOdd }}, {{ 1 % 2 == 1 }}
-counts: {{ [1,2] | length }}, {{ [1,2] | hasMinCount(1) }}, {{ [1,2] | hasMaxCount(1) }}
-starts/ends: {{ 'startsWith' | startsWith('start') }}, {{ 'endsWith' | endsWith('end') }}" }) }}
+equals: {{ 1 = 1 }}, {{ 1 == 1 }}, {{1 |> equals(1)}}, {{'A' |> equals('A')}}, {{1 |> eq(1)}}
+notEquals: {{ 2 != 1 }}, {{2 |> notEquals(1)}}, {{'A' |> notEquals('A')}} or {{1 |> not(1)}}
+greaterThan: {{ 1 > 1 }}, {{ 1 |> greaterThan(1) }} or {{ 1 |> gt(1) }}
+greaterEqual: {{ 1 >= 1 }}, {{ 1 |> greaterThanEqual(1) }} or {{ 1 |> gte(1) }}
+lessThan: {{ 1 < 1}}, {{ 1 |> lessThan(1) }} or {{ 1 |> lt(1) }}
+lessEqual: {{ 1 <= 1}}, {{ 1 |> lessThanEqual(1) }} or {{ 2 |> lte(1) }}
+isNull: {{ null == null }}, {{ null |> isNull }}, {{ 1 |> isNull }}, {{ 1 == null }}
+isNotNull: {{ null != null }} {{ null |> isNotNull }}, {{ 1 |> isNotNull }}, {{ 1 != null }}
+equivalentTo: {{ [1,2] |> equivalentTo([1,2]) }}, {{ {a:1, b:2} |> equivalentTo({a:1, b:2}) }}
+contains: {{ [1,2] |> contains(1) }}, {{ [1,2] |> contains(3) }}, {{ 'ABC' |> contains('A') }}
+Even/Odd: {{ 1 |> isEven }}, {{ 1 % 2 == 0 }}, {{ 1 |> isOdd }}, {{ 1 % 2 == 1 }}
+counts: {{ [1,2] | length }}, {{ [1,2] |> hasMinCount(1) }}, {{ [1,2] |> hasMaxCount(1) }}
+starts/ends: {{ 'startsWith' |> startsWith('start') }}, {{ 'endsWith' |> endsWith('end') }}" }) }}
 
 <h4 id="object-tests">Object Type Tests</h4>
 
@@ -223,18 +223,18 @@ starts/ends: {{ 'startsWith' | startsWith('start') }}, {{ 'endsWith' | endsWith(
     Methods to check the type of objects:
 </p>
 
-{{ 'live-template' | partial({ rows: 12, template: "Any Number: {{ 1 | isInteger }}, {{ 1 | toLong | isInteger }}, {{ 1.1 | isNumber }}
-Real Numbers: {{ 1.1 | isDouble }}, {{ 1.1 |toFloat| isFloat }}, {{ 1.1 |toDecimal| isDecimal }}
-ints: {{ 1 | isInt }}, {{ 1 | isLong }}, {{ 1 | toLong | isLong }}
-strings: {{ 'a' | isString }}, {{ 'a' | isChar }}, {{ 'a' | toChar | isChar }}
-bool: {{ false | isBool }}, 
-bytes: {{ 1 | toByte | isByte }}, {{ 'a' | toUtf8Bytes | isBytes }}
-chars: {{ 'abc' | toChars | isChars }}, {{ ['a','b','c'] | toChars | isChars }}
-enumerable: {{ [1] | isEnumerable }}, {{ {a:1} | isEnumerable }}, {{ 'abc' | isEnumerable }}
-list: {{ [1] | isList }}, {{ {a:1} | isList }}, {{ 'abc' | isList }}
-dictionary: {{ {a:1} | isDictionary }}, {{ [1] | isDictionary }}, {{ 'abc' | isDictionary }}
-object dict: {{ {a:1} | isObjectDictionary }}, {{ {'a':'b'} | isObjectDictionary }}
-value/ref type: {{ 1 | isValueType }}, {{ [] | isValueType }}, {{ [] | isClass }}" }) }}
+{{ 'live-template' |> partial({ rows: 12, template: "Any Number: {{ 1 |> isInteger }}, {{ 1 |> toLong |> isInteger }}, {{ 1.1 |> isNumber }}
+Real Numbers: {{ 1.1 |> isDouble }}, {{1.1 |toFloat|> isFloat}}, {{1.1 |toDecimal|> isDecimal}}
+ints: {{ 1 |> isInt }}, {{ 1 |> isLong }}, {{ 1 |> toLong |> isLong }}
+strings: {{ 'a' |> isString }}, {{ 'a' |> isChar }}, {{ 'a' |> toChar |> isChar }}
+bool: {{ false |> isBool }}, 
+bytes: {{ 1 |> toByte |> isByte }}, {{ 'a' |> toUtf8Bytes |> isBytes }}
+chars: {{ 'abc' |> toChars |> isChars }}, {{ ['a','b','c'] |> toChars |> isChars }}
+enumerable: {{ [1] |> isEnumerable }}, {{ {a:1} |> isEnumerable }}, {{ 'abc' |> isEnumerable }}
+list: {{ [1] |> isList }}, {{ {a:1} |> isList }}, {{ 'abc' |> isList }}
+dictionary: {{ {a:1} |> isDictionary }}, {{ [1] |> isDictionary }}, {{ 'abc' |> isDictionary }}
+object dict: {{ {a:1} |> isObjectDictionary }}, {{ {'a':'b'} |> isObjectDictionary }}
+value/ref type: {{ 1 |> isValueType }}, {{ [] |> isValueType }}, {{ [] |> isClass }}" }) }}
 
 <h4 id="object-conversions">Object Conversions</h4>
 
@@ -242,11 +242,11 @@ value/ref type: {{ 1 | isValueType }}, {{ [] | isValueType }}, {{ [] | isClass }
     Conversions and transformations between different types:
 </p>
 
-{{ 'live-template' | partial({ rows: 5, template: `toInt: {{ '1' | typeName }}, {{ '1' | toInt | typeName }}, {{ 1 | toDouble | typeName }}
-toChar: {{ ',' | typeName }},  {{ ',' | toChar |typeName }}, {{'true' | toBool | typeName }}
+{{ 'live-template' |> partial({ rows: 5, template: `toInt: {{ '1' |> typeName }}, {{ '1' |> toInt |> typeName }}, {{ 1 |> toDouble |> typeName }}
+toChar: {{',' |> typeName}},  {{',' |> toChar |> typeName}}, {{'true' |> toBool |> typeName}}
 {{ {a:1,b:2,c:'',d:null} |> to => o }}
-toKeys: {{ o | toKeys | join }}, toValues:  {{ o | toValues | join }}
-without: {{ o | withoutNullValues | toKeys|join }} / {{ o | withoutEmptyValues | toKeys| join }}` }) }}
+toKeys: {{ o |> toKeys |> join }}, toValues:  {{ o |> toValues |> join }}
+without: {{o |> withoutNullValues |> toKeys|>join}} / {{o |>withoutEmptyValues |>toKeys |>join}}` }) }}
 
 <h4 id="conditional-display">Conditional Display</h4>
 
@@ -254,27 +254,27 @@ without: {{ o | withoutNullValues | toKeys|join }} / {{ o | withoutEmptyValues |
     These methods can be used in combination with Conditional Test methods above to control what text is displayed:
 </p>
 
-{{ 'live-template' | partial({ rows: 11, template: "if: {{ 'Y' | if(true) }}, {{ 'Y' | if(false) | otherwise('N') }}, {{ 'Y' | if(1) }}
-when: {{ 'Y' | when(true) }}, {{ 'Y' | when(false) | otherwise('N') }}, {{ 'Y' | when(1) }}
-if!: {{ 'Y' | if(!true) | otherwise('N') }}, {{ 'Y' | if(!false) }}, {{ 'Y' | if(!1) }}
-ifNot: {{ 'Y' | ifNot(true) }}, {{ 'Y' | ifNot(false) }}, {{ 'Y' | ifNot(1) }}
-unless: {{ 'Y' | unless(true) }}, {{ 'Y' | unless(false) }}, {{ 'Y' | unless(1) }}
-otherwise: {{ null | otherwise('Y') }} or {{ 'even' | if(isEven(1)) | otherwise('odd') }}
-iif: {{ isEven(1) | iif('even', 'odd') }} or {{ iif(isEven(1), 'even', 'odd') }}
-ifFalsy: {{ 'F' | ifFalsy(false) }}, {{ 'F' | ifFalsy(0) }}, {{ 'F' | ifFalsy(null) }}
+{{ 'live-template' |> partial({ rows: 11, template: "if: {{ 'Y' |> if(true) }}, {{ 'Y' |> if(false) |> otherwise('N') }}, {{ 'Y' |> if(1) }}
+when: {{ 'Y' |> when(true) }}, {{ 'Y' |> when(false) |> otherwise('N') }}, {{ 'Y' |> when(1) }}
+if!: {{ 'Y' |> if(!true) |> otherwise('N') }}, {{ 'Y' |> if(!false) }}, {{ 'Y' |> if(!1) }}
+ifNot: {{ 'Y' |> ifNot(true) }}, {{ 'Y' |> ifNot(false) }}, {{ 'Y' |> ifNot(1) }}
+unless: {{ 'Y' |> unless(true) }}, {{ 'Y' |> unless(false) }}, {{ 'Y' |> unless(1) }}
+otherwise: {{ null |> otherwise('Y') }} or {{ 'even' |> if(isEven(1)) |> otherwise('odd') }}
+iif: {{ isEven(1) |> iif('even', 'odd') }} or {{ iif(isEven(1), 'even', 'odd') }}
+ifFalsy: {{ 'F' |> ifFalsy(false) }}, {{ 'F' |> ifFalsy(0) }}, {{ 'F' |> ifFalsy(null) }}
 falsy: {{ false | falsy('F') }}, {{ 0 | falsy('F') }}, {{ null | falsy(F) }}
-ifTruthy: {{ 'T' | ifTruthy(true) }}, {{ 'T' | ifTruthy(1) }}, {{ 'T' | ifTruthy(null) }}
+ifTruthy: {{ 'T' |> ifTruthy(true) }}, {{ 'T' |> ifTruthy(1) }}, {{ 'T' |> ifTruthy(null) }}
 truthy: {{ true | truthy('T') }}, {{ 1 | truthy('T') }}, {{ null | truthy('T') }}" }) }}
 
 <h4 id="content-handling">Content Handling</h4>
 
-{{ 'live-template' | partial({ rows: 7, template: `default: {{ title | default('A Title') }}
+{{ 'live-template' |> partial({ rows: 7, template: `default: {{ title |> default('A Title') }}
 {{ title != null ? title : 'A Title' }}
-{{ 'The Title' |> to => title }}{{ title | default('A Title') }} : {{ 1 | ifExists(title) }}
-{{ noArg }} : {{ noArg | ifExists }} : {{ 1 | ifNotExists(noArg) }} : {{ 1 | ifNo(noArg) }}
-{{ 'empty' | ifEmpty('') }} : {{ 'empty' | ifEmpty([]) }} : {{ 'empty' | ifEmpty([1]) }}
-{{ [1,2,3] |> to => nums }}{{ nums | join |> to => list }}
-{{ "nums {0}" | fmt(list) | ifNotEmpty(nums) }}{{ "nums {0}" | fmt(list) | ifNotEmpty([]) }}` }) }}
+{{ 'The Title' |> to => title }}{{ title |> default('A Title') }} : {{ 1 |> ifExists(title) }}
+{{ noArg }} : {{ noArg |> ifExists }} : {{ 1 |> ifNotExists(noArg) }} : {{ 1 |> ifNo(noArg) }}
+{{ 'empty' |> ifEmpty('') }} : {{ 'empty' |> ifEmpty([]) }} : {{ 'empty' |> ifEmpty([1]) }}
+{{ [1,2,3] |> to => nums }}{{ nums |> join |> to => list }}
+{{ "nums {0}" |> fmt(list) |> ifNotEmpty(nums) }}{{ "nums {0}" |> fmt(list) |> ifNotEmpty([]) }}` }) }}
 
 <h4 id="control-execution">Control Execution</h4>
 
@@ -288,18 +288,18 @@ truthy: {{ true | truthy('T') }}, {{ 1 | truthy('T') }}, {{ null | truthy('T') }
     for <em>use</em> that reads better when used at the end of an expression.
 </p>
 
-{{ 'live-template' | partial({ rows: 12, template: `always {{ 1 | end | default('unreachable') }}
-null {{ 1 | endIfNull }}/{{ null | endIfNull | default('N/A') }}
-empty {{ '' | endIfEmpty | default('N/A') }}/{{ [] | endIfEmpty | default('N/A') }}
-if {{ true | ifEnd | use(1) }}/{{ false | ifEnd | use(1) }}:{{ endIf(true) | show: 1 }}
-do {{ true | ifDo | select: 1 }}/{{ false | ifDo | select: 1 }}/{{ doIf(true) | show: 1 }}
-any {{ 5 | times | endIfAny('it = 4') | join }}/{{ 5 | times | endIfAny('it = 5') | join }}
-all {{ 5 | times | endIfAll('lt(it,4)') |join }}/{{ 5 | times | endIfAll('lt(it,5)') |join }}
-where {{ 1 | endWhere: isString(it) }}/{{ 'a' | endWhere: isString(it) }}
-useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 1, 2) |> to => arg }}{{ arg }}
-useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 3, 4) |> to => arg }}{{ arg }}
-useFormat {{ arg2 | endIfExists | useFormat('value', 'key={0}') |> to => arg2 }}{{ arg2 }}
-{{ noArg | end }} : {{ 1 | end }} : {{ 1 | incr | end }}` }) }}
+{{ 'live-template' |> partial({ rows: 12, template: `always {{ 1 |> end |> default('unreachable') }}
+null {{ 1 |> endIfNull }}/{{ null |> endIfNull |> default('N/A') }}
+empty {{ '' |> endIfEmpty |> default('N/A') }}/{{ [] |> endIfEmpty |> default('N/A') }}
+if {{ true |> ifEnd |> use(1) }}/{{ false |> ifEnd |> use(1) }}:{{ endIf(true) |> show: 1 }}
+do {{ true |> ifDo |> select: 1 }}/{{ false |> ifDo |> select: 1 }}
+any {{ 5 |> times |> endIfAny('it = 4') |> join }}/{{5 |> times |> endIfAny('it = 5') |> join}}
+all {{ 5 |> times |> endIfAll('lt(it,4)') |>join}}/{{5 |> times |> endIfAll('lt(it,5)') |>join}}
+where {{ 1 |> endWhere: isString(it) }}/{{ 'a' |> endWhere: isString(it) }}
+useFmt {{ arg |> endIfExists |> useFmt('{0} + {1}', 1, 2) |> to => arg }}{{ arg }}
+useFmt {{ arg |> endIfExists |> useFmt('{0} + {1}', 3, 4) |> to => arg }}{{ arg }}
+useFormat {{ arg2 |> endIfExists |> useFormat('value', 'key={0}') |> to => arg2 }}{{ arg2 }}
+{{ noArg |> end }} : {{ 1 |> end }} : {{ 1 |> incr |> end }}` }) }}
 
 <blockquote>
     You can also use <em>end</em> to discard return values of methods with side-effects, block methods, partials, etc.
@@ -311,8 +311,8 @@ useFormat {{ arg2 | endIfExists | useFormat('value', 'key={0}') |> to => arg2 }}
     execution with a new value if the condition is true:
 </p>
 
-{{ 'live-template' | partial({ rows: 2, template: `ifUse: {{ true | ifUse(1) }} / {{ false | ifUse(1) | default('unreachable') }}
-useIf: {{ 1 | useIf(true) }} / {{ 1 | useIf(false) | default('unreachable') }}` }) }}
+{{ 'live-template' |> partial({ rows: 2, template: `ifUse: {{ true |> ifUse(1) }} / {{ false |> ifUse(1) |> default('unreachable') }}
+useIf: {{ 1 |> useIf(true) }} / {{ 1 |> useIf(false) |> default('unreachable') }}` }) }}
 
 <p>
     There's also an 
@@ -322,8 +322,8 @@ useIf: {{ 1 | useIf(true) }} / {{ 1 | useIf(false) | default('unreachable') }}` 
     above with the inverse behavior, e.g:
 </p>
 
-{{ 'live-template' | partial({ rows: 3, template: `endIfEmpty: {{ a | endIfEmpty | show: a is not empty }}
-onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
+{{ 'live-template' |> partial({ rows: 3, template: `endIfEmpty: {{ a |> endIfEmpty |> show: a is not empty }}
+onlyIfEmpty: {{ a |> onlyIfEmpty |> show: a is empty }}` }) }}
 
 <h4 id="assignment">Assignment</h4>
 
@@ -331,11 +331,11 @@ onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
     You can create temporary arguments within a script scope or modify existing arguments with:
 </p>
 
-{{ 'live-template' | partial({ rows: 6, template: "{{ [1,2,3,4,5] |> to => numbers }}
-{{ numbers | join }}
-{{ numbers | do => assign('numbers[index]', it * it) }}
-{{ numbers | join }}
-{{ 5 | times | do => assign(`num${index}`, it) }}
+{{ 'live-template' |> partial({ rows: 6, template: "{{ [1,2,3,4,5] |> to => numbers }}
+{{ numbers |> join }}
+{{ numbers |> do => assign('numbers[index]', it * it) }}
+{{ numbers |> join }}
+{{ 5 |> times |> do => assign(`num${index}`, it) }}
 {{ num4 }}" }) }}
 
 <h4 id="let-bindings">Let Bindings and Scope Vars</h4>
@@ -344,33 +344,33 @@ onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
     Let bindings allow you to create scoped argument bindings from individual string expressions:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: ′{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
+{{ 'live-template' |> partial({ rows: 4, template: ′{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
 {{ scoreRecords 
    |> let => { name:it.name, score:it.score, personNum:index + 1 }
-   | select: {personNum}. {name} = {score}\n }}′ }) }}
+   |> select: {personNum}. {name} = {score}\n }}′ }) }}
 
 <p>
     <em>scopeVars</em> lets you create bindings from a Dictionary, List of KeyValuePair's or List of Dictionaries using the key 
     as the name of the argument binding and the value as its value:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
-{{ scoreRecords | scopeVars | select: {index + 1}. {name} = {score}\n }}" }) }}
+{{ 'live-template' |> partial({ template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
+{{ scoreRecords | scopeVars |> select: {index + 1}. {name} = {score}\n }}" }) }}
 
 <h4 id="querying-objects">Querying Objects</h4>
 
-{{ 'live-template' | partial({ rows: 5, template: `{{ [10,20,30,40,50] |> to => numbers }}
+{{ 'live-template' |> partial({ rows: 5, template: `{{ [10,20,30,40,50] |> to => numbers }}
 {{ { a:1, b:2, c:3 } |> to => letters }}
-Number at [3]: {{ numbers[3] }}, {{ numbers | get(3) }}
-Value of 'c': {{ letters['c'] }}, {{ letters.c }}, {{ letters | get('c') }}
+Number at [3]: {{ numbers[3] }}, {{ numbers |> get(3) }}
+Value of 'c': {{ letters['c'] }}, {{ letters.c }}, {{ letters |> get('c') }}
 Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
 
 <h4 id="member-expressions">Member Expressions</h4>
 
-{{ 'live-template' | partial({ rows: 4, template: `{{ [now] |> to => dates }}
+{{ 'live-template' |> partial({ rows: 4, template: `{{ [now] |> to => dates }}
 {{ round(dates[0].TimeOfDay.TotalHours, 3) }}
-{{ dates | get(0) | select: { it.TimeOfDay.TotalHours | round(3) } }}
-{{ [now.TimeOfDay][0].TotalHours | round(3) }}` }) }}
+{{ dates |> get(0) |> select: { it.TimeOfDay.TotalHours |> round(3) } }}
+{{ [now.TimeOfDay][0].TotalHours |> round(3) }}` }) }}
 
 <p>
     JavaScript member expressions are supported except for calling methods on instances as only registered methods can be invoked.
@@ -382,46 +382,46 @@ Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
     Use <em>map</em> when you want to transform each item into a different value:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ ['zero','one','two','three','four','five','six','seven','eight','nine'] |> to =>digits }}
+{{ 'live-template' |> partial({ rows: 4, template: "{{ ['zero','one','two','three','four','five','six','seven','eight','nine'] |> to =>digits }}
 {{ range(3) 
    |> map => it + 5
-   |> map => digits[it] | join(`\\n`) }}" }) }}
+   |> map => digits[it] |> join(`\\n`) }}" }) }}
 
 <p>
     It's also useful for transforming raw data sources into more manageable ones:
 </p>
 
-{{ 'live-template' | partial({ rows: 5, template: "{{ [[1,-2],[3,-4],[5,-6]] |> to =>coords }}
+{{ 'live-template' |> partial({ rows: 6, template: "{{ [[1,-2],[3,-4],[5,-6]] |> to =>coords }}
 {{ coords 
    |> map => { x: it[0], y: it[1] }
-   | scopeVars
-   |> map => `${index + 1}. (${x}, ${y})\n` | join('') }}" }) }}
+   |> scopeVars
+   |> map => `${index + 1}. (${x}, ${y})\\n` |> join('') }}" }) }}
 
 <p>
     Whilst these methods let you perform some other popular conversions:
 </p>
 
-{{ 'live-template' | partial({ rows: 8, template: "{{ 100 | toString | select: {it.Length} }}
-{{ { x:1, y:2 } | toList |> map => `${it.Key} = ${it.Value}` | join(', ') }}
-{{ range(5) | toArray |> to => numbers }}
-{{ numbers.Length | times | do => assign('numbers[index]', -numbers[index]) }}
-{{ numbers | join }}
+{{ 'live-template' |> partial({ rows: 8, template: "{{ 100 |> toString |> select: {it.Length} }}
+{{ { x:1, y:2 } |> toList |> map => `${it.Key} = ${it.Value}` |> join(', ') }}
+{{ range(5) |> toArray |> to => numbers }}
+{{ numbers.Length |> times |> do => assign('numbers[index]', -numbers[index]) }}
+{{ numbers |> join }}
 Bob's score: {{ [{name:'Alice',score:50},{name:'Bob',score:40}] 
-  | toDictionary => it.name |> map => it.Bob.score }}" }) }}
+  |> toDictionary => it.name |> map => it.Bob.score }}" }) }}
 
 <p>
     Use <em>parseKeyValueText</em> to convert a key/value string into a dictionary, you can then use 
     <em>values</em> and <em>keys</em> to extract the Dictionaries keys or values collection:
 </p>
 
-{{ 'live-template' | partial({ rows: 8, template: `{{'
+{{ 'live-template' |> partial({ rows: 8, template: `{{'
 Rent:      1000
 Internet:  50
 Mobile:    50
 Food:      400
 Misc:      200
-'| trim | parseKeyValueText(':') |> to => expenses }}
-Expenses: {{ expenses | values | sum | currency }}` }) }}
+'|> trim | parseKeyValueText(':') |> to => expenses }}
+Expenses: {{ expenses |> values |> sum |> currency }}` }) }}
 
 <h4 id="serialization">Serialization</h4>
 
@@ -429,8 +429,8 @@ Expenses: {{ expenses | values | sum | currency }}` }) }}
     Use the <em>json</em> method when you want to make your C# objects available to the client JavaScript page:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to =>model }}
-var coords = {{ model | json }};` }) }}
+{{ 'live-template' |> partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to =>model }}
+var coords = {{ model |> json }};` }) }}
 
 <h4 id="embed">Embedding in JavaScript</h4>
 
@@ -440,31 +440,31 @@ var coords = {{ model | json }};` }) }}
     JavaScript string variable:
 </p>
 
-{{ 'live-template' | partial({ rows: 9, template: ′{{ '[
+{{ 'live-template' |> partial({ rows: 9, template: ′{{ '[
     {"name":"Mc Donald\'s"}
 ]' |> to =>json }}
 var obj = {{ json }};
 var str = '{{ json | jsString }}';
 var str = {{ json | jsQuotedString }};
-var escapeSingle = '{{ "single' quote's" | escapeSingleQuotes }}';
-var escapeDouble = "{{ 'double" quote"s' | escapeDoubleQuotes }}"
-var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';′ }) }}
+var escapeSingle = '{{ "single' quote's" |> escapeSingleQuotes }}';
+var escapeDouble = "{{ 'double" quote"s' |> escapeDoubleQuotes }}"
+var escapeLines = '{{ "new" |> appendLine |> append("line") |> escapeNewLines }}';′ }) }}
 
 <p>
     The <a href="https://docs.servicestack.net/jsv-format">JSV Format</a> is great when you want a human-friendly output 
     of an object graph, you can also use <em>dump</em> if you want the JSV output indented:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to => model }}
-{{ model | jsv }}
-{{ model | dump }}` }) }}
+{{ 'live-template' |> partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to => model }}
+{{ model |> jsv }}
+{{ model |> dump }}` }) }}
 
 <p>
     If needed, the <em>csv</em> and <em>xml</em> serialization formats are also available:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{Name:'Alice',Score:50},{Name:'Bob',Score:40}] |> to =>scoreRecords }}
-{{ scoreRecords | csv }}` }) }}
+{{ 'live-template' |> partial({ template: `{{ [{Name:'Alice',Score:50},{Name:'Bob',Score:40}] |> to =>scoreRecords }}
+{{ scoreRecords |> csv }}` }) }}
 
 <h4 id="evalTemplate">Eval</h4>
 
@@ -479,7 +479,7 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';�
     E.g. you can evaluate dynamic Template Syntax which makes use of the <em>MarkdownScriptPlugin</em> plugin with:
 </p>
 
-<pre><code>{{#raw}}{{ content | evalTemplate({use:{plugins:'MarkdownScriptPlugin'}}) | raw }}{{/raw}}</code></pre>
+<pre><code>{{#raw}}{{ content |> evalTemplate({use:{plugins:'MarkdownScriptPlugin'}}) |> raw }}{{/raw}}</code></pre>
 
 <p>
     This method is used by the <a href="/docs/sharp-apis#user-content-preview-api-page">/preview.html API Page</a> to 
@@ -493,45 +493,45 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';�
     for each item in a collection:
 </p>
 
-{{ 'live-template' | partial({ rows: 7, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
+{{ 'live-template' |> partial({ rows: 7, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
 <b>map</b>
-<ol>{{ scoreRecords |> map => `<li>${it.name} = ${it.score}</li>` | join('') | raw }}</ol>
+<ol>{{ scoreRecords |> map => `<li>${it.name} = ${it.score}</li>` |> join('') |> raw }}</ol>
 <b>select</b>
-<ol>{{ scoreRecords | select: <li>{it.name} = {it.score}</li> }}</ol>
+<ol>{{ scoreRecords |> select: <li>{it.name} = {it.score}</li> }}</ol>
 <b>selectEach</b>
-<ol>{{ '<li> {{ it.name }} = {{ it.score }} </li>' | selectEach(scoreRecords) }}</ol>" }) }}
+<ol>{{ '<li> {{ it.name }} = {{ it.score }} </li>' |> selectEach(scoreRecords) }}</ol>" }) }}
 
 <p>
     Although a lot of times it's easier to use the <a href="/docs/blocks#each">each</a> Script Block to iterate over items:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
+{{ 'live-template' |> partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
 {{#each scoreRecords}}
   {{index+1}}. {{it.name}} = {{it.score}}
 {{/each}}" }) }}
 
 <p>If you instead need to iterate over a collection to perform side-effects without generating output you can use <em>forEach</em>:</p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
+{{ 'live-template' |> partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
 {{ [] |> to => scores }}
 {{scoreRecords.forEach((record, index) => scores.push(record.score))}}
-{{ scores | join}}" }) }}
+{{ scores |> join}}" }) }}
 
 
 <p>
     Use <em>step</em> if you want to iterate using a custom step function:
 </p>
 
-{{ 'live-template' | partial({ rows: 1, template: `{{ range(20) | step({ from: 10, by: 3 }) | join }}` }) }}
+{{ 'live-template' |> partial({ rows: 1, template: `{{ range(20) | step({ from: 10, by: 3 }) |> join }}` }) }}
 
 <h4 id="miscellaneous">Miscellaneous</h4>
 
 <p>Use <em>#raw</em> block method or <em>pass</em> to emit a Template Expression without evaluating it:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: `{{ pass: 'shout' | upper }}
+{{ 'live-template' |> partial({ rows: 4, template: `{{ pass: 'shout' |> upper }}
 {{#raw}}
-{{ 'shout' | upper }}
+{{ 'shout' |> upper }}
 {{/raw}}` }) }}
 
 <blockquote>
@@ -542,13 +542,13 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';�
     <em>of</em> will let you find values of a specified type:
 </p>
 
-{{ 'live-template' | partial({ rows: 1, template: `{{ ['A',1.1,2,3.3,true,null] | of({ type: 'Double' }) | join }}` }) }}
+{{ 'live-template' |> partial({ rows: 1, template: `{{ ['A',1.1,2,3.3,true,null] |> of({ type: 'Double' }) |> join }}` }) }}
 
 <p>
     You can use <em>appSetting</em> method to access the value of the ScriptContext's configured <a href="https://docs.servicestack.net/appsettings">AppSettings Provider</a>:
 </p>
 
-<pre class="cs"><code>{{ pass: 'websitePublicUrl' | appSetting }} </code></pre>
+<pre class="cs"><code>{{ pass: 'websitePublicUrl' |> appSetting }} </code></pre>
 
 <h4>Collections and Querying</h4>
 
@@ -563,4 +563,4 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';�
     <a href="/docs/scripts-reference?tab=default-scripts">full list of default scripts available</a>.
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

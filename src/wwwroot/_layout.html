@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <i hidden>{{ '/js/hot-loader.js' | ifDebugIncludeScript }}</i>
+    <i hidden>{{ '/js/hot-loader.js' |> ifDebugIncludeScript }}</i>
 
     <nav id="topnav" class="navbar navbar-light bg-faded">
         <a title="#Script" class="navbar-brand" href="/" style="width:220px;">
@@ -27,7 +27,7 @@
     
     <div id="body">
 
-        {{ "sidebar" | partial }}
+        {{ "sidebar" |> partial }}
 
         <div id="content">
             <h1>{{ title }}</h1>
@@ -60,7 +60,7 @@
         })
     </script>
             
-    {{ scripts | raw }}
+    {{ scripts |> raw }}
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7722718-15"></script>

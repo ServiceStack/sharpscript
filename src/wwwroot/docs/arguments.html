@@ -24,7 +24,7 @@ order: 5
     <em>&lt;!-- --&gt;</em> with each argument on a new line delimited by an (optional) colon, e.g:
 </p>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         rows: 7,
         page: 'page', 
@@ -64,7 +64,7 @@ page arg: <b>{{ arg }}</b>'
     Each template can also create their own arguments using the <em>assignTo</em> or <em>assign</em> filters, e.g:
 </p>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         rows: 7,
         page: 'page', 
@@ -91,4 +91,4 @@ page arg: <b>{{ arg }}</b>'
     These take precedence over all other arguments, but are only available within the scope that defines them.
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

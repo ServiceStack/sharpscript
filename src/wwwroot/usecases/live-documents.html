@@ -8,8 +8,8 @@ order: 4
     reactive live documents containing a mix of docs, processing and calculations like creating a personal budget:
 </p>
 
-{{ 'examples/monthly-budget.txt' | includeFile |> to => template }}
-{{ "live-template" | partial({ rows:36, template }) }}
+{{ 'examples/monthly-budget.txt' |> includeFile |> to => template }}
+{{ "live-template" |> partial({ rows:36, template }) }}
 
 <style>
     .output {
@@ -55,11 +55,11 @@ Total Cost: {{ cars |> sum => it[2] |> currency }}{{/raw}}</textarea>
 
 <h3>Embed Live Data from JSON APIs</h3>
 
-{{ 'examples/query-github.txt' | includeFile |> to => template }}
+{{ 'examples/query-github.txt' |> includeFile |> to => template }}
 
 <pre class="sh"><code>{{template}}</code></pre>
 
 <img src="/assets/img/query-github.png">
 
-{{ "usecase-links" | partial({ order }) }}
+{{ "usecase-links" |> partial({ order }) }}
 

@@ -6,7 +6,7 @@
         <h5>docs</h5>
         <ul>
             {{#each docLinks}}
-            <li {{ {active: matchesPathInfo(Key)} | htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
             {{/each}}
         </ul>
     </li>
@@ -15,7 +15,7 @@
         <h5>code</h5>
         <ul>
             {{#each codeLinks}}
-            <li {{ {active: matchesPathInfo(Key)} | htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
             {{/each}}
         </ul>
     </li>
@@ -24,7 +24,7 @@
         <h5>lisp</h5>
         <ul>
             {{#each lispLinks}}
-            <li {{ {active: matchesPathInfo(Key)} | htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
             {{/each}}
         </ul>
     </li>
@@ -33,7 +33,7 @@
         <h5>use cases</h5>
         <ul>
             {{#each useCaseLinks}}
-            <li {{ {active: matchesPathInfo(Key)} | htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
             {{/each}}
         </ul>
     </li>
@@ -42,7 +42,7 @@
         <h5>linq examples</h5>
         <ul>
             {{#each linqLinks}}
-            <li {{ {active: matchesPathInfo(Key)} | htmlClass }}><a href="{{ qs.lang ? `${Key}?lang=${qs.lang}` : Key }}">{{Value}}</a></li>
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{ qs.lang ? `${Key}?lang=${qs.lang}` : Key }}">{{Value}}</a></li>
             {{/each}}
         </ul>
     </li>

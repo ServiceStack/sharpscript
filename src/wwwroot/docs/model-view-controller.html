@@ -52,11 +52,11 @@ order: 28
 <div class="linq-preview">
     <div class="template">
         <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" 
-            rows="4">{{ "examples/select-customers.txt" | includeFile }}</textarea>
+            rows="4">{{ "examples/select-customers.txt" |> includeFile }}</textarea>
     </div>
     <div class="result">
         <div class="output"></div>
     </div>
 </div> 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

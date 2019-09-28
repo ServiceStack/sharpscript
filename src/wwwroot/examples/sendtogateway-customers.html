@@ -1,10 +1,10 @@
-{{ { customerId } | sendToGateway('QueryCustomers') | toResults | get(0) 
+{{ { customerId } |> sendToGateway('QueryCustomers') |> toResults |> get(0) 
    |> htmlDump({ caption: 'ALFKI' }) }}
 
-{{ { countryIn:['UK','Germany'], orderBy:'customerId',take:5 } | sendToGateway: QueryCustomers
-   | toResults | selectFields(['CustomerId', 'CompanyName', 'City'])
+{{ { countryIn:['UK','Germany'], orderBy:'customerId',take:5 } |> sendToGateway: QueryCustomers
+   |> toResults |> selectFields(['CustomerId', 'CompanyName', 'City'])
    |> htmlDump({ caption: 'Implicit AutoQuery Conventions' }) }}
 
-{{ { companyNameContains:'the',orderBy:'-Country,CustomerId' } | sendToGateway: QueryCustomers 
-   | toResults | selectFields: CustomerId, CompanyName, Country
+{{ { companyNameContains:'the',orderBy:'-Country,CustomerId' } |> sendToGateway: QueryCustomers 
+   |> toResults |> selectFields: CustomerId, CompanyName, Country
    |> htmlDump }}

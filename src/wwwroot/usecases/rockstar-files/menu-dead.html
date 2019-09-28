@@ -9,7 +9,7 @@
 <div class="menu">
     <ul>
         <li class="label"><b>Past Rockstars:</b></li>
-        {{ links | toList 
-           | select: <li class="{ 'active' | ifMatchesPathInfo(it.Key) }"><a href="{ it.Key }">{ it.Value }</a></li> }}
+        {{ links |> toList 
+           |> select: <li class="{ 'active' |> ifMatchesPathInfo(it.Key) }"><a href="{ it.Key }">{ it.Value }</a></li> }}
     </ul>                
 </div>

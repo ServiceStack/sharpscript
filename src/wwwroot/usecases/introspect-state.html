@@ -27,7 +27,7 @@ order: 5
     <div class="tab-content">
         <div class="tab-pane active" id="process-template" role="tabpanel">
             <textarea name="Page"
-             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/introspect.html' | includeFile }}</textarea>
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/introspect.html' |> includeFile }}</textarea>
         </div>
     </div>
 </form>
@@ -43,7 +43,7 @@ $('form').ajaxPreview({
         $("#output").html(r);
     } 
 })
-</script>` | raw |> to => scripts }}
+</script>` |> raw |> to => scripts }}
 
 <hr style="margin:20px 0">
 
@@ -92,4 +92,4 @@ $('form').ajaxPreview({
 <h4><a href="/metadata/debug">/metadata/debug</a></h4>
 
 
-{{ "usecase-links" | partial({ order }) }}
+{{ "usecase-links" |> partial({ order }) }}

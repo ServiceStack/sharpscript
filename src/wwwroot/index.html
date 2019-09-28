@@ -231,14 +231,14 @@ YouTube: <a href="https://youtu.be/GQvxyPHQjhM">youtu.be/GQvxyPHQjhM</a>
     preview here's a copy of the <a href="/linq/restriction-operators">first LINQ example</a> you can play with below:
 </p>
 
-{{ "linq-preview" | partial({ rows: 7, example: "linq01" }) }}
+{{ "linq-preview" |> partial({ rows: 7, example: "linq01" }) }}
 
 <p>
     Or can be written using different languages within the same <em>#Script</em> using
     <a href="/docs/syntax#lang-blocks">Language Blocks and Expressions</a>:
 </p>
 
-{{ "linq-preview" | partial({ rows: 11, example: "linq01-langs", lang:"template" }) }}
+{{ "linq-preview" |> partial({ rows: 11, example: "linq01-langs", lang:"template" }) }}
 
 <h5 id="language">Language</h5>
 
@@ -321,4 +321,4 @@ YouTube: <a href="https://youtu.be/GQvxyPHQjhM">youtu.be/GQvxyPHQjhM</a>
     ServiceStack Services.
 </p>
 
-{{ "doc-links" | partial({ order: 0 }) }}
+{{ "doc-links" |> partial({ order: 0 }) }}

@@ -1,7 +1,7 @@
 Type Examples
 
 {{#function info(o) }}
-   `${o.getType().typeQualifiedName()} '${o}'` | raw | return
+   `${o.getType().typeQualifiedName()} '${o}'` |> raw |> return
 {{/function}}
 
 ```code

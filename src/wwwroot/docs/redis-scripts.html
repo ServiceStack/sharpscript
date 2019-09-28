@@ -33,14 +33,14 @@ order: 16
     with <a href="https://redis.io/topics/rediscli">redis-cli</a>, e.g:
 </p>
 
-<pre class="cs"><code>{{ pass: 'GET foo' | redisCall }}</code></pre>
+<pre class="cs"><code>{{ pass: 'GET foo' |> redisCall }}</code></pre>
 
 <p>
     This works for most Redis commands but uses internal heuristics to determine where to split the command into the multiple arguments that 
     redis-server natively understands. A more deterministic usage which doesn't rely on any heuristics is to pass an array of arguments:
 </p>
 
-<pre class="cs"><code>{{ pass: ['GET', 'foo'] | redisCall }}</code></pre>
+<pre class="cs"><code>{{ pass: ['GET', 'foo'] |> redisCall }}</code></pre>
 
 <p>
     <em>redisCall</em> returns either a single <em>object</em> for redis commands returning single values or a List or nested List of
@@ -157,4 +157,4 @@ order: 16
 </p>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

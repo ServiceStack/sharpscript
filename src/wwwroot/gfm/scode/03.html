@@ -1,18 +1,18 @@
 <div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">//</span> render code statements</span>
-<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderCode</span>(<span class="pl-s"><span class="pl-pds">"</span>now | dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>); 
+<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderCode</span>(<span class="pl-s"><span class="pl-pds">"</span>now |&gt; dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>); 
 
 <span class="pl-c"><span class="pl-c">//</span> async</span>
-<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderCodeAsync</span>(<span class="pl-s"><span class="pl-pds">"</span>now | dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>); </pre></div>
+<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderCodeAsync</span>(<span class="pl-s"><span class="pl-pds">"</span>now |&gt; dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>); </pre></div>
 <p>These APIs match the high-level APIs for rendering normal <code>#Script</code>:</p>
-<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderScript</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ now | dateFormat('HH:mm:ss') }}<span class="pl-pds">"</span></span>); 
-<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderScriptAsync</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ now | dateFormat('HH:mm:ss') }}<span class="pl-pds">"</span></span>); </pre></div>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderScript</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ now |&gt; dateFormat('HH:mm:ss') }}<span class="pl-pds">"</span></span>); 
+<span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">context</span>.<span class="pl-en">RenderScriptAsync</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ now |&gt; dateFormat('HH:mm:ss') }}<span class="pl-pds">"</span></span>); </pre></div>
 <h3>
 <a id="user-content-finer-grained-control" class="anchor" href="#finer-grained-control" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Finer grained control</h3>
 <p>The high-level APIs above wraps the finer-grained functionality below which works by rendering a <code>SharpPage</code> configured with the <code>code</code>
 language in a <code>PageResult</code> that all languages use:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span>().<span class="pl-en">Init</span>();
-<span class="pl-k">var</span> <span class="pl-smi">dynamicPage</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">CodeSharpPage</span>(<span class="pl-s"><span class="pl-pds">"</span>now | dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>);           <span class="pl-c"><span class="pl-c">//</span> render code</span>
-<span class="pl-c"><span class="pl-c">//</span>var dynamicPage = context.SharpScriptPage("{{ now | dateFormat('HH:mm:ss') }}"); // render #Script</span>
+<span class="pl-k">var</span> <span class="pl-smi">dynamicPage</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-en">CodeSharpPage</span>(<span class="pl-s"><span class="pl-pds">"</span>now |&gt; dateFormat('HH:mm:ss')<span class="pl-pds">"</span></span>);           <span class="pl-c"><span class="pl-c">//</span> render code</span>
+<span class="pl-c"><span class="pl-c">//</span>var dynamicPage = context.SharpScriptPage("{{ now |&gt; dateFormat('HH:mm:ss') }}"); // render #Script</span>
 <span class="pl-k">var</span> <span class="pl-smi">output</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">PageResult</span>(<span class="pl-smi">dynamicPage</span>).<span class="pl-en">RenderScript</span>();
 
 <span class="pl-c"><span class="pl-c">//</span>async</span>

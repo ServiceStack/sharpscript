@@ -1,10 +1,10 @@
 {{ "h':'mm':'ss'.'FFF" |> to => fmtTime }}
 <tr>
     <td>{{ it.Id }}</td>
-    <td>{{ it.ProcessName | substringWithElipsis(15) }}</td>
-    <td>{{ it.TotalProcessorTime | timeFormat(fmtTime) }}</td>
-    <td>{{ it.UserProcessorTime | timeFormat(fmtTime) }}</td>
-    <td>{{ it.WorkingSet64 | divide(1024) | format('n0') }} KB</td>
-    <td>{{ it.PeakWorkingSet64 | divide(1024) | format('n0') }} KB</td>
+    <td>{{ it.ProcessName |> substringWithElipsis(15) }}</td>
+    <td>{{ it.TotalProcessorTime |> timeFormat(fmtTime) }}</td>
+    <td>{{ it.UserProcessorTime |> timeFormat(fmtTime) }}</td>
+    <td>{{ it.WorkingSet64 |> divide(1024) |> format('n0') }} KB</td>
+    <td>{{ it.PeakWorkingSet64 |> divide(1024) |> format('n0') }} KB</td>
     <td>{{ it.Threads.Count }}</td>
 </tr>

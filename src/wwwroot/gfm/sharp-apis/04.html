@@ -19,7 +19,7 @@
 <p>An API which returns the same wire response as above can be implemented in API Pages by creating a page at
 <a href="https://github.com/NetCoreWebApps/Blog/blob/master/hello/_name/index.html">/hello/_name/index.html</a>
 that includes the 1-liner:</p>
-<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } | <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
 <p>Which supports the same content negotiation as a ServiceStack Service where calling it in a browser will generate a
 <a href="https://docs.servicestack.net/html5reportformat" rel="nofollow">human-friendly HTML Page</a>:</p>
 <ul>
@@ -31,9 +31,9 @@ render the API response in the JSON Format:</p>
 <li><a href="http://blog.web-app.io/hello/World?format=json" rel="nofollow">/hello/World?format=json</a></li>
 </ul>
 <p>Alternatively you can force a JSON Response by specifying the Content Type in the return arguments:</p>
-<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } | <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">format</span></span>: <span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span> 
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">format</span></span>: <span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span> 
 // Equivalent to:
-<span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } | <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">contentType</span></span>: <span class="pl-s"><span class="pl-pds">'</span>application/json<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
+<span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">contentType</span></span>: <span class="pl-s"><span class="pl-pds">'</span>application/json<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 <p>More API examples showing the versatility of this feature is contained in the new <a href="http://blog.web-app.io" rel="nofollow">blog.web-app.io</a> which only uses
 Templates and Dynamic API Pages to implement all of its functionality.</p>
 <h3>
@@ -42,8 +42,8 @@ Templates and Dynamic API Pages to implement all of its functionality.</p>
 <p>Usage: /preview?content={templates}</p>
 </blockquote>
 <p>The <a href="https://github.com/NetCoreWebApps/blog/blob/master/preview.html">/preview.html</a> API page uses this to force a plain-text response with:</p>
-<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">content</span>  | <span class="pl-e"><span class="pl-v">evalTemplate</span></span>({<span class="pl-e"><span class="pl-v">use</span></span>:{<span class="pl-e"><span class="pl-v">plugins</span></span>:<span class="pl-s"><span class="pl-pds">'</span>MarkdownScriptPlugin<span class="pl-pds">'</span></span><span class="pl-c1">}}</span>) |> to =>response }}
-<span class="pl-c1">{{</span> <span class="pl-v">response</span> | <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">contentType</span></span>:<span class="pl-s"><span class="pl-pds">'</span>text/plain<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">content</span>  |&gt; <span class="pl-e"><span class="pl-v">evalTemplate</span></span>({<span class="pl-e"><span class="pl-v">use</span></span>:{<span class="pl-e"><span class="pl-v">plugins</span></span>:<span class="pl-s"><span class="pl-pds">'</span>MarkdownScriptPlugin<span class="pl-pds">'</span></span><span class="pl-c1">}}</span>) |&gt; to =&gt;response }}
+<span class="pl-c1">{{</span> <span class="pl-v">response</span> |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">contentType</span></span>:<span class="pl-s"><span class="pl-pds">'</span>text/plain<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 <p>The preview API above is what provides the new <a href="http://blog.web-app.io/" rel="nofollow">Blog Web App's</a> Live Preview feature where it will render any
 #Script provided in the <strong>content</strong> Query String or HTTP Post Form Data, e.g:</p>
 <ul>
@@ -64,8 +64,8 @@ the results:</p>
       <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">Post</span></span> <span class="pl-e"><span class="pl-v">p</span></span> <span class="pl-e"><span class="pl-v">INNER</span></span> <span class="pl-e"><span class="pl-v">JOIN</span></span> <span class="pl-e"><span class="pl-v">UserInfo</span></span> <span class="pl-e"><span class="pl-v">u</span></span> <span class="pl-e"><span class="pl-v">on</span></span> <span class="pl-e"><span class="pl-v">p.CreatedBy</span></span> = <span class="pl-e"><span class="pl-v">u.UserName</span></span> 
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">UserName</span></span> = @<span class="pl-e"><span class="pl-v">user</span></span> 
     <span class="pl-e"><span class="pl-v">ORDER</span></span> <span class="pl-e"><span class="pl-v">BY</span></span> <span class="pl-e"><span class="pl-v">p.Created</span></span> <span class="pl-e"><span class="pl-v">DESC</span></span>` 
-   | <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">user</span></span> })
-   | <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
+   |&gt; <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">user</span></span> })
+   |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
 <p>The <strong>user</strong> argument is populated as a result of dynamic route from the <code>_user</code> directory name which will let you view all
 <a href="http://blog.web-app.io/ServiceStack" rel="nofollow">@ServiceStack</a> posts with:</p>
 <ul>
@@ -90,11 +90,11 @@ the results:</p>
       <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">Post</span></span> <span class="pl-e"><span class="pl-v">p</span></span> <span class="pl-e"><span class="pl-v">INNER</span></span> <span class="pl-e"><span class="pl-v">JOIN</span></span> <span class="pl-e"><span class="pl-v">UserInfo</span></span> <span class="pl-e"><span class="pl-v">u</span></span> <span class="pl-e"><span class="pl-v">on</span></span> <span class="pl-e"><span class="pl-v">p.CreatedBy</span></span> = <span class="pl-e"><span class="pl-v">u.UserName</span></span> 
      <span class="pl-e"><span class="pl-v">WHERE</span></span> <span class="pl-e"><span class="pl-v">Slug</span></span> = @<span class="pl-e"><span class="pl-v">slug</span></span> 
      <span class="pl-e"><span class="pl-v">ORDER</span></span> <span class="pl-e"><span class="pl-v">BY</span></span> <span class="pl-e"><span class="pl-v">p.Created</span></span> <span class="pl-e"><span class="pl-v">DESC</span></span>` 
-   | <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">slug</span></span> })
-   | <span class="pl-e"><span class="pl-v">assignTo</span></span>: <span class="pl-e"><span class="pl-v">post</span></span> 
+   |&gt; <span class="pl-e"><span class="pl-v">dbSingle</span></span>({ <span class="pl-e"><span class="pl-v">slug</span></span> })
+   |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">post</span></span> 
 <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span> <span class="pl-v">post</span> ?? <span class="pl-e"><span class="pl-v">httpResult</span></span>({ <span class="pl-e"><span class="pl-v">status</span></span>:<span class="pl-e"><span class="pl-v">404</span></span>, <span class="pl-e"><span class="pl-v">statusDescription</span></span>:<span class="pl-s"><span class="pl-pds">'</span>Post was not found<span class="pl-pds">'</span></span> }) 
-   | <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
+   |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
 <p>The <code>httpResult</code> filter returns a ServiceStack <code>HttpResult</code> which allows for the following customizations:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-en">httpResult</span>({ 
   <span class="pl-smi">status</span>:            <span class="pl-c1">404</span>,
@@ -107,12 +107,12 @@ the results:</p>
 }) </pre></div>
 <p>Any other unknown arguments like <strong>'X-Powered-By'</strong> are returned as HTTP Response Headers.</p>
 <p>Returning the <code>httpResult</code> above behaves similarly to customizing a HTTP response using return arguments:</p>
-<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">post</span> | <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">format</span></span>:<span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>X-Powered-By<span class="pl-pds">'</span></span>:<span class="pl-s"><span class="pl-pds">'</span>#Script<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">post</span> |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">format</span></span>:<span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>X-Powered-By<span class="pl-pds">'</span></span>:<span class="pl-s"><span class="pl-pds">'</span>#Script<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 <p>Using the explicit <code>httpResult</code> filter is useful for returning a custom HTTP Response without a Response Body, e.g. the <strong>New Post</strong> page
 uses <code>httpFilter</code> to
 <a href="https://github.com/NetCoreWebApps/Blog/blob/e8bb7249192c5797348ced091ad5fd434db9a619/app/posts/new.html#L33">redirect back to the Users posts page</a>
 after they've successfully created a new Post:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">success</span><span class="pl-c1">}}</span>
-    <span class="pl-c1">{{</span> <span class="pl-v">httpResult</span>({ <span class="pl-e"><span class="pl-v">status</span></span>:<span class="pl-e"><span class="pl-v">301</span></span>, <span class="pl-e"><span class="pl-v">Location</span></span>:`/${<span class="pl-e"><span class="pl-v">userName</span></span>}` }) | <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span> <span class="pl-v">httpResult</span>({ <span class="pl-e"><span class="pl-v">status</span></span>:<span class="pl-e"><span class="pl-v">301</span></span>, <span class="pl-e"><span class="pl-v">Location</span></span>:`/${<span class="pl-e"><span class="pl-v">userName</span></span>}` }) |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span></pre></div>
 </div>

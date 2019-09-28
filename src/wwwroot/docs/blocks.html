@@ -256,7 +256,7 @@ Where any captured custom scripts are rendered at the
 <pre>
     &lt;script src="/assets/js/default.js"&gt;&lt;/script&gt;
 
-    {{ scripts | raw }}
+    {{ scripts |> raw }}
 
 &lt;/body&gt;
 &lt;/html&gt;
@@ -387,7 +387,7 @@ Mobile          50
 Food            400
 Misc            200
 {{/keyvalues}}
-{{ monthlyExpenses | values | sum |> to => totalExpenses }}
+{{ monthlyExpenses |> values |> sum |> to => totalExpenses }}
 </pre>
 
 By default it's delimited by the first space ' ', but if the first key column can contain spaces you can specify to use a different delimiter, e.g:
@@ -415,13 +415,13 @@ Similar to `keyvalues`, you can specify a multi-column inline data set using the
 
 {{/markdown}}
 
-{{ "live-template" | partial({ rows:7, template: "{{#csv cars}}
+{{ "live-template" |> partial({ rows:7, template: "{{#csv cars}}
 Tesla,Model S,79990
 Tesla,Model 3,38990
 Tesla,Model X,84990
 {{/csv}}
 {{ cars |> map => { Make: it[0], Model: it[1], Cost: it[2] } |> htmlDump }}
-Total Cost: {{ cars | sum => it[2] | currency }}" }) }}
+Total Cost: {{ cars |> sum => it[2] |> currency }}" }) }}
 
 {{#markdown}}
 
@@ -523,7 +523,7 @@ Use the `minifyjs` block to minify inline JavaScript:
 
 {{/markdown}}
 
-{{ "live-template" | partial({ rows:6, template: "{{#minifyjs}}
+{{ "live-template" |> partial({ rows:6, template: "{{#minifyjs}}
 function add(left, right) {
     return left + right;
 }
@@ -537,7 +537,7 @@ Use the `minifycss` block to minify inline CSS:
 
 {{/markdown}}
 
-{{ "live-template" | partial({ rows:5, template: "{{#minifycss}}
+{{ "live-template" |> partial({ rows:5, template: "{{#minifycss}}
 body {
     background-color: yellow;
 }
@@ -550,7 +550,7 @@ Use the `minifyhtml` block to minify HTML:
 
 {{/markdown}}
 
-{{ "live-template" | partial({ rows:8, template: "{{#minifyhtml capturedHtml}}
+{{ "live-template" |> partial({ rows:8, template: "{{#minifyhtml capturedHtml}}
 <h1>
     Title
 </h1>
@@ -576,4 +576,4 @@ plugin that registered them using the `RemovePlugins()` API, e.g:
 
 {{ 'gfm/blocks/20.md' | githubMarkdown }}
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

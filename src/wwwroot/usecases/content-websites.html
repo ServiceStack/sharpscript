@@ -56,10 +56,10 @@ title: Kurt Cobain
 
 <p>
     The declarative <em>{{ pass: page }}</em> is used to embed a page in a layout instead of the imperative <em>@RenderBody()</em>.
-    Likewise the syntax for partials changes to <em>{{ pass: "menu-alive" | partial }}</em> from <em>@Html.Partial("MenuAlive")</em>.
+    Likewise the syntax for partials changes to <em>{{ pass: "menu-alive" |> partial }}</em> from <em>@Html.Partial("MenuAlive")</em>.
     #Script Pages also alleviates the need for bespoke partials like <em>@Html.PartialMarkdown("Content")</em> as it can instead leverage the 
     flexibility of chaining existing filters to achieve the same result like
-    <em>{{ pass: "content.md" | includeFile | markdown }}</em>.
+    <em>{{ pass: "content.md" |> includeFile |> markdown }}</em>.
 </p>
 
 <p>
@@ -109,7 +109,7 @@ title: Kurt Cobain
     performance where you can embed remote url content, cache it for 1 minute and convert from markdown with:
 </p>
 
-<pre class="tpl"><code>{{ pass: url | includeUrlWithCache | markdown }}</code></pre>
+<pre class="tpl"><code>{{ pass: url |> includeUrlWithCache |> markdown }}</code></pre>
 
 <p>
     As seen in <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/wwwroot/usecases/rockstar-files/alive/grohl-url/index.html">/grohl-url/index.html</a>
@@ -118,4 +118,4 @@ title: Kurt Cobain
 
 <h4><a href="/usecases/rockstar-files/alive/grohl-url/">/rockstar-files/alive/grohl-url/</a></h4>
 
-{{ "usecase-links" | partial({ order }) }}
+{{ "usecase-links" |> partial({ order }) }}

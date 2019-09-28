@@ -90,7 +90,7 @@
 <a id="user-content-script-block-body" class="anchor" href="#script-block-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Block Body</h3>
 <p>The <code>Body</code> of the Script Block specifies how the body is evaluated. Script Blocks can be used in both <code>#Script</code> Template and
 <a href="/docs/syntax#language-blocks-and-expressions">Code Statement Blocks</a>.</p>
-<p>Below are examples of using a script block of each body type in both #Script template and code statement blocks:</p>
+<p>Below are examples of using a script block of each body type in both <code>#Script</code> template and code statement blocks:</p>
 <h3>
 <a id="user-content-default" class="anchor" href="#default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>default</h3>
 <p>If unspecified Script Blocks are evaluated within the language they're used within.
@@ -144,12 +144,12 @@ Tesla,Model X,84990
 <p>The contents of <strong>code</strong> Script Blocks are processed as JS Expression statements:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#function</span> <span class="pl-v">calc</span>(<span class="pl-e"><span class="pl-v">a</span></span>, <span class="pl-e"><span class="pl-v">b</span></span>) <span class="pl-c1">}}</span>
     a * b |&gt; to =&gt; c
-    a + b + c | return
+    a + b + c |&gt; return
 <span class="pl-c1">{{</span><span class="pl-c1">/function</span><span class="pl-c1">}}</span></pre></div>
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
 <span class="pl-s1">#<span class="pl-k">function</span> <span class="pl-en">calc</span>(<span class="pl-smi">a</span>, <span class="pl-smi">b</span>)</span>
 <span class="pl-s1">    a * b |&gt; to =&gt; c</span>
-<span class="pl-s1">    a + b + c | return</span>
+<span class="pl-s1">    a + b + c |&gt; return</span>
 <span class="pl-s1">/function </span>
 <span class="pl-s1">&lt;/script&gt;</span></pre></div>
 <h3>

@@ -1,5 +1,5 @@
 {{ { cityIn:['London','Madrid','Rio de Janeiro'], faxContains:'555' } 
-   | sendToAutoQuery: QueryCustomers
-   | toResults 
-   | selectFields: CustomerId, CompanyName, City, Fax
+   |> sendToAutoQuery: QueryCustomers
+   |> toResults 
+   |> selectFields: CustomerId, CompanyName, City, Fax
    |> htmlDump({ caption: 'Implicit AutoQuery Conventions' }) }}

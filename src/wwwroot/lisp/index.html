@@ -219,7 +219,7 @@ Lisp like all `#Script` languages are executed within a `ScriptContext` that def
 
 {{/markdown}}
 
-{{ "net-usage" | partial }}
+{{ "net-usage" |> partial }}
 
 {{ 'gfm/lisp/07.md' | githubMarkdown }}
 
@@ -450,7 +450,7 @@ Despite being implemented in different languages a `#Script` page containing mul
 
 {{/markdown}}
 
-{{ "linq-preview" | partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
+{{ "linq-preview" |> partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
 
 {{#markdown}}
 
@@ -482,7 +482,7 @@ outer page to access any Lisp symbols they need to be exported, e.g:
 
 {{/markdown}}
 
-{{ "live-template" | partial({ output:'no-scroll', rows:7, template: "{{ 2 |> toGlobal => pageResultArg }} 
+{{ "live-template" |> partial({ output:'no-scroll', rows:7, template: "{{ 2 |> toGlobal => pageResultArg }} 
 {{ 3 |> to => scopeArg }}
 ...lisp
 (export retVal (+ pageResultArg scopeArg) 

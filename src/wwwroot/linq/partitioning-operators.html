@@ -3,7 +3,7 @@ title: Partitioning Operators
 order: 3
 -->
 
-{{ "lang-select" | partial }}
+{{ "lang-select" |> partial }}
 
 <h3>linq20: Take - Simple</h3>
 
@@ -23,7 +23,7 @@ public void Linq20()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq20" }) }}
+{{ "linq-preview" |> partial({ example: "linq20" }) }}
 
 <h3>linq21: Take - Nested</h3>
 
@@ -47,7 +47,7 @@ public void Linq21()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ rows: 12, output: "html-lg", example: "linq21" }) }}
+{{ "linq-preview" |> partial({ rows: 12, output: "html-lg", example: "linq21" }) }}
 
 <h3>linq22: Skip - Simple</h3>
 
@@ -66,7 +66,7 @@ public void Linq22()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq22" }) }}
+{{ "linq-preview" |> partial({ example: "linq22" }) }}
 
 <h3>linq23: Skip - Nested</h3>
 
@@ -91,7 +91,7 @@ public void Linq23()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ rows: 11, output: "html-lg", example: "linq23" }) }}
+{{ "linq-preview" |> partial({ rows: 11, output: "html-lg", example: "linq23" }) }}
 
 <h3>linq24: TakeWhile - Simple</h3>
 
@@ -110,7 +110,7 @@ public void Linq24()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq24" }) }}
+{{ "linq-preview" |> partial({ example: "linq24" }) }}
 
 <h3>linq25: TakeWhile - Indexed</h3>
 
@@ -129,7 +129,7 @@ public void Linq25()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq25" }) }}
+{{ "linq-preview" |> partial({ example: "linq25" }) }}
 
 <h3>linq26: SkipWhile - Simple</h3>
 
@@ -148,7 +148,7 @@ public void Linq26()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq26" }) }}
+{{ "linq-preview" |> partial({ example: "linq26" }) }}
 
 <h3>linq27: SkipWhile - Indexed</h3>
 
@@ -167,6 +167,6 @@ public void Linq27()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq27" }) }}
+{{ "linq-preview" |> partial({ example: "linq27" }) }}
 
-{{ "linq-links" | partial({ order }) }}
+{{ "linq-links" |> partial({ order }) }}

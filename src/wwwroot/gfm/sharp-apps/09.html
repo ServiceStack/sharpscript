@@ -2,7 +2,7 @@
 &lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>connection-info<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
     {{ continueExecutingFiltersOnError }}
     {{#if Request.Verb == "POST" }}
-        {{ { host, port, db, password } | withoutEmptyValues | redisChangeConnection | end }}
+        {{ { host, port, db, password } |> withoutEmptyValues |> redisChangeConnection |> end }}
         {{#if lastErrorMessage }}
             &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>alert alert-danger<span class="pl-pds">"</span></span>&gt;{{lastErrorMessage}}&lt;/<span class="pl-ent">div</span>&gt;
         {{else}}

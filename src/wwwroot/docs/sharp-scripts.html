@@ -28,7 +28,7 @@ Some [protected script methods](/docs/protected-scripts) used to improve Usage i
 
 From this list, you're likely to use `sh` the most to execute arbitrary commands with:
 
-    cmd | sh
+    cmd |> sh
 
 > As with any `#Script` method, it can also be executed using the less natural forms of `cmd.sh()` or `sh(cmd)`
 
@@ -297,4 +297,4 @@ And because they're GitHub Flavored Markdown Tables they can be embedded directl
 </div>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

@@ -17,9 +17,9 @@ order: 6
 }
 </style>
 
-{{ 'examples/adhoc-query-db.html' | includeFile |> to => template }}
+{{ 'examples/adhoc-query-db.html' |> includeFile |> to => template }}
 
-{{ "live-template" | partial({ rows:15, template }) }}
+{{ "live-template" |> partial({ rows:15, template }) }}
 
 <blockquote>
     Tip: <em>textDump</em> generates <a href="https://help.github.com/en/articles/organizing-information-with-tables">GitHub Flavored Markdown tables</a>
@@ -69,4 +69,4 @@ order: 6
 
 {{ 'gfm/adhoc-querying/04.md' | githubMarkdown }}
 
-{{ "usecase-links" | partial({ order }) }}
+{{ "usecase-links" |> partial({ order }) }}

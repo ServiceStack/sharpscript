@@ -14,13 +14,13 @@ order: 12
     <em>headerStyle</em> can be any <a href="/docs/default-scripts#text-style">Text Style</a>
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] |> to => rockstars }}
+{{ 'live-template' |> partial({ template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] |> to => rockstars }}
 {{ rockstars |> htmlDump }}
 Uses defaults: {{ rockstars |> htmlDump({ headerTag: 'th', headerStyle: 'splitCase' }) }}` }) }}
 
 <h5>htmlDump customizations</h5>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] |> to => rockstars }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ [{FirstName: 'Kurt', Age: 27},{FirstName: 'Jimi', Age: 27}] |> to => rockstars }}
 {{ rockstars |> htmlDump({ className: "table table-striped", caption: "Rockstars" }) }}
 {{ [] |> htmlDump({ captionIfEmpty: "No Rockstars"}) }}` }) }}
 
@@ -29,13 +29,13 @@ Uses defaults: {{ rockstars |> htmlDump({ headerTag: 'th', headerStyle: 'splitCa
 <p>
     Helper method to simplify rendering a <em>class="..."</em> list on HTML elements, it accepts Dictionary of boolean flags, List of strings or string, e.g:
 </p>
-{{ 'live-template' | partial({ rows:7, template: `{{ 1 |> to => index }}
-Dictionary All: {{ {alt:isOdd(index), active:true} | htmlClass }}
-Dictionary One: {{ {alt:isEven(index), active:true} | htmlClass }}
-Dictionary None: {{ {alt:isEven(index), active:false} | htmlClass }}
-List: All {{ ['nav', !disclaimerAccepted? 'blur':'', isEven(index)? 'alt':''] | htmlClass }}
-String: {{ 'alt' | if(isOdd(index)) | htmlClass }}
-htmlClassList: {{ {alt:isOdd(index), active:true} | htmlClassList }}` }) }}
+{{ 'live-template' |> partial({ rows:7, template: `{{ 1 |> to => index }}
+Dictionary All: {{ {alt:isOdd(index), active:true} |> htmlClass }}
+Dictionary One: {{ {alt:isEven(index), active:true} |> htmlClass }}
+Dictionary None: {{ {alt:isEven(index), active:false} |> htmlClass }}
+List: All {{ ['nav', !disclaimerAccepted? 'blur':'', isEven(index)? 'alt':''] |> htmlClass }}
+String: {{ 'alt' |> if(isOdd(index)) |> htmlClass }}
+htmlClassList: {{ {alt:isOdd(index), active:true} |> htmlClassList }}` }) }}
 
 <p>
     Or use <em>htmlClassList</em> if you just want the list of classes.
@@ -48,10 +48,10 @@ htmlClassList: {{ {alt:isOdd(index), active:true} | htmlClassList }}` }) }}
     which will be rendered as HTML attributes. Keys with a boolean value will only render the attribute name if it's true 
     and htmlAttrs also supports common JS keyword overrides for <em>htmlFor</em> and <em>className</em>, e.g:
 </p>
-{{ 'live-template' | partial({ rows:4, template: `Normal Key/Value Pairs: <b>{{ {'data-index':1,id:'nav',title:'menu'} | htmlAttrs }}</b>
-Boolean Values: <b>{{ {selected:true, active:false} | htmlAttrs }}</b>
-Keyword Names: <b>{{ {for:'txtName', class:'lnk'} | htmlAttrs }}</b>
-Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} | htmlAttrs }}</b>` }) }}
+{{ 'live-template' |> partial({ rows:4, template: `Normal Key/Value Pairs: <b>{{ {'data-index':1,id:'nav',title:'menu'} |> htmlAttrs }}</b>
+Boolean Values: <b>{{ {selected:true, active:false} |> htmlAttrs }}</b>
+Keyword Names: <b>{{ {for:'txtName', class:'lnk'} |> htmlAttrs }}</b>
+Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} |> htmlAttrs }}</b>` }) }}
 
 <h4 id="htmlerror">htmlError</h4>
 
@@ -60,9 +60,9 @@ Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} | htmlAttrs }}</b>` })
     detailed view using the <em>htmlErrorDebug</em> method otherwise it's rendered using <em>htmlErrorMessage</em>.
 </p>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ 'the error' | throw({ assignError: 'ex' }) }}
-{{ ex | htmlError }}
-{{ ex | htmlError({ className: "alert alert-warning" }) }}` }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'the error' |> throw({ assignError: 'ex' }) }}
+{{ ex |> htmlError }}
+{{ ex |> htmlError({ className: "alert alert-warning" }) }}` }) }}
 
 <h4 id="htmlerrormessage">htmlErrorMessage</h4>
 
@@ -71,9 +71,9 @@ Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} | htmlAttrs }}</b>` })
     overridable with <b>className</b>:
 </p>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ 'the error' | throw({ assignError: 'ex' }) }}
-{{ ex | htmlErrorMessage }}
-{{ ex | htmlErrorMessage({ className: "alert alert-warning" }) }}` }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'the error' |> throw({ assignError: 'ex' }) }}
+{{ ex |> htmlErrorMessage }}
+{{ ex |> htmlErrorMessage({ className: "alert alert-warning" }) }}` }) }}
 
 <h4 id="htmlerrordebug">htmlErrorDebug</h4>
 
@@ -82,9 +82,9 @@ Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} | htmlAttrs }}</b>` })
     overridable with <b>className</b>:
 </p>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ 'the error' | throw({ assignError: 'ex' }) }}
-{{ ex | htmlErrorDebug }}
-{{ ex | htmlErrorDebug({ className: "alert alert-warning" }) }}` }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'the error' |> throw({ assignError: 'ex' }) }}
+{{ ex |> htmlErrorDebug }}
+{{ ex |> htmlErrorDebug({ className: "alert alert-warning" }) }}` }) }}
 
 <p>
     See the Scripts API Reference for the 
@@ -92,4 +92,4 @@ Special Cases: <b>{{ {htmlFor:'txtName', className:'lnk'} | htmlAttrs }}</b>` })
 </p>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

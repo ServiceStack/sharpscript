@@ -3,7 +3,7 @@ title: Query Execution
 order: 13
 -->
 
-{{ "lang-select" | partial }}
+{{ "lang-select" |> partial }}
 
 <h3>linq99: Deferred Execution</h3>
 
@@ -35,7 +35,7 @@ public void Linq99()
     executed in a chain like LINQ.
 </p>
 
-{{ "linq-preview" | partial({ example: "linq99" }) }}
+{{ "linq-preview" |> partial({ example: "linq99" }) }}
 
 <h3>linq100: Immediate Execution</h3>
 
@@ -62,7 +62,7 @@ public void Linq100()
 } 
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq100" }) }}
+{{ "linq-preview" |> partial({ example: "linq100" }) }}
 
 <h3>linq101: Query Reuse</h3>
 
@@ -100,7 +100,7 @@ public void Linq101()
 } 
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq101", rows: 12 }) }}
+{{ "linq-preview" |> partial({ example: "linq101", rows: 12 }) }}
 
 
-{{ "linq-links" | partial({ order }) }}
+{{ "linq-links" |> partial({ order }) }}

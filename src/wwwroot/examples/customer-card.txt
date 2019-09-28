@@ -1,1 +1,1 @@
-{{ 'customerCard' | partial({ customerId: "ALFKI" }) }}
+{{ 'customerCard' |> partial({ customerId: "ALFKI" }) }}

@@ -28,9 +28,9 @@
 <span class="pl-s1"></span>
 <span class="pl-s1">    {{#<span class="pl-k">if</span> debug}}</span>
 <span class="pl-s1">        {{ <span class="pl-en">range</span>(<span class="pl-c1">1</span>,<span class="pl-c1">5</span>) </span>
-<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-smi">where</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">it</span>.<span class="pl-en">isOdd</span>() </span>
-<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-smi">map</span> <span class="pl-k">=&gt;</span> it <span class="pl-k">*</span> it   </span>
-<span class="pl-s1">        <span class="pl-k">|</span> <span class="pl-en">join</span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">where</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">it</span>.<span class="pl-en">isOdd</span>() </span>
+<span class="pl-s1">        <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">map</span> <span class="pl-k">=&gt;</span> it <span class="pl-k">*</span> it   </span>
+<span class="pl-s1">        <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">join</span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)</span>
 <span class="pl-s1">        }}</span>
 <span class="pl-s1">    {{<span class="pl-k">/</span><span class="pl-k">if</span>}}</span>
 <span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
@@ -59,9 +59,9 @@ which transforms it to the normal <code>#Script</code> code:</p>
 <span class="pl-c1">{{</span> <span class="pl-v">1</span> + <span class="pl-e"><span class="pl-v">1</span></span> <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">debug</span><span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span> <span class="pl-v">range</span>(<span class="pl-e"><span class="pl-v">1</span></span>,<span class="pl-e"><span class="pl-v">5</span></span>)
-| <span class="pl-e"><span class="pl-v">where</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.isOdd</span></span>()
-| <span class="pl-e"><span class="pl-v">map</span></span> =&gt; <span class="pl-e"><span class="pl-v">it</span></span> * <span class="pl-e"><span class="pl-v">it</span></span>
-| <span class="pl-e"><span class="pl-v">join</span></span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)
+|&gt; <span class="pl-e"><span class="pl-v">where</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.isOdd</span></span>()
+|&gt; <span class="pl-e"><span class="pl-v">map</span></span> =&gt; <span class="pl-e"><span class="pl-v">it</span></span> * <span class="pl-e"><span class="pl-v">it</span></span>
+|&gt; <span class="pl-e"><span class="pl-v">join</span></span>(<span class="pl-s"><span class="pl-pds">'</span>,<span class="pl-pds">'</span></span>)
 <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span></pre></div>
 <p>The resulting output when executed is:</p>

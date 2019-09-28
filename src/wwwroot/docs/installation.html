@@ -49,7 +49,7 @@ $ dotnet tool update -g app</pre>
 
 {{ 'gfm/installation/01.md' | githubMarkdown }}
 
-{{ "live-template" | partial({ template: "The time is now: {{ now | dateFormat('HH:mm:ss') }}" }) }}
+{{ "live-template" |> partial({ template: "The time is now: {{ now |> dateFormat('HH:mm:ss') }}" }) }}
 
 <h4>Configure with ServiceStack</h4>
 
@@ -178,4 +178,4 @@ $ web new script ProjectName</pre></div>
     <li><a href="/docs/sharp-apps#blog">Blog</a> - A minimal, multi-user Twitter OAuth blogging platform that can create living, powerful pages</li>
 </ul>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

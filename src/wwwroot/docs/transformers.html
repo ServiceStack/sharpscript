@@ -65,7 +65,7 @@ order: 18
     which is useful when you want to HTML Encode a text file before embedding it in the page, e.g:
 </p>
 
-<pre class="cs"><code>{{ pass: "page.txt" | includeFile | htmlencode }}</code></pre>
+<pre class="cs"><code>{{ pass: "page.txt" |> includeFile |> htmlencode }}</code></pre>
 
 <h4 id="preprocessors">Preprocessor Code Transformations</h4>
 
@@ -100,4 +100,4 @@ We can see an example of how `code` blocks work from the example below:
 
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

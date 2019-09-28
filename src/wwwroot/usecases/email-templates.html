@@ -41,11 +41,11 @@ order: 3
     <div class="tab-content">
         <div class="tab-pane active" id="email-template" role="tabpanel">
             <textarea name="EmailTemplate" class="form-control"
-             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/email-template.txt' | includeFile }}</textarea>
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/email-template.txt' |> includeFile }}</textarea>
         </div>
         <div class="tab-pane" id="html-template" role="tabpanel">
             <textarea name="HtmlTemplate" class="form-control"
-             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/email-html-template.html' | includeFile }}</textarea>
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{{ 'examples/email-html-template.html' |> includeFile }}</textarea>
         </div>
     </div>
     <p>
@@ -77,7 +77,7 @@ $("FORM").ajaxPreview({
         $("#text-preview").html(r.textEmail);
     } 
 })
-</script>' | raw |> to => scripts }}
+</script>' |> raw |> to => scripts }}
 
 <hr style="margin:20px 0">
 
@@ -106,4 +106,4 @@ $("FORM").ajaxPreview({
     to make an ajax request on every text box change.
 </p>
 
-{{ "usecase-links" | partial({ order }) }}
+{{ "usecase-links" |> partial({ order }) }}

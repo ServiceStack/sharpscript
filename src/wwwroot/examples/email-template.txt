@@ -8,8 +8,8 @@ Thank you for shopping with us. We'll send a confirmation when your item ships.
 {{ customer.City }}, {{ customer.PostalCode }}, {{ customer.Country }}
 
 # Details:
-Order #{{ order.OrderId }} on {{ order.OrderDate | dateFormat('dd/MM/yyyy') }}
-Total: {{ order.Total | currency }}
+Order #{{ order.OrderId }} on {{ order.OrderDate |> dateFormat('dd/MM/yyyy') }}
+Total: {{ order.Total |> currency }}
 
 We hope to see you again soon.
 

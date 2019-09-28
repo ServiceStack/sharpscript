@@ -59,7 +59,7 @@ order: 2
     your Scripts have access to:
 </p>
 
-{{ "net-usage" | partial }}
+{{ "net-usage" |> partial }}
 
 <h3>Scripting .NET Types</h3>
 
@@ -96,7 +96,7 @@ order: 2
 
 <h4>Multi page Scripts</h4>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         page: 'page', 
         files: 
@@ -271,7 +271,7 @@ order: 2
     What does <em>#Script</em> do? lets step through the first filter:
 </p>
 
-{{ "live-template" | partial({ output:'no-scroll', rows:1, template: "{{ 'select url from quote where id= @id' | dbScalar({ id:1 }) | htmlLink }}" }) }}
+{{ "live-template" |> partial({ output:'no-scroll', rows:1, template: "{{ 'select url from quote where id= @id' |> dbScalar({ id:1 }) |> htmlLink }}" }) }}
 
 <p>
     What filter implementation gets called depends on which <a href="/docs/db-scripts">DB Scripts</a> is registered, if your RDBMS supports ADO.NET's 
@@ -299,7 +299,7 @@ order: 2
     avoids any buffering by asynchronously streaming the url content stream directly to the forward-only HTTP Response Stream:
 </p>
 
-<pre class="cs"><code>{{ pass: url | urlContents }}</code></pre>
+<pre class="cs"><code>{{ pass: url |> urlContents }}</code></pre>
 
 <p>
     <em>urlContents</em> is a <a href="/docs/methods#block-methods">Block Method</a> which instead of returning a value writes its 
@@ -311,7 +311,7 @@ order: 2
     and returns a Stream of HTML.
 </p>
 
-<pre class="cs"><code>{{ pass: url | urlContents | markdown }}</code></pre>
+<pre class="cs"><code>{{ pass: url |> urlContents |> markdown }}</code></pre>
 
 <h5>Same intent, different implementations</h5>
 <p>
@@ -320,7 +320,7 @@ order: 2
     and sets a value in the current scope before returning an empty Stream so nothing is written to the Response. 
 </p>
 
-<pre class="cs"><code>{{ pass: url | urlContents | markdown |> to => quote }}</code></pre>
+<pre class="cs"><code>{{ pass: url |> urlContents |> markdown |> to => quote }}</code></pre>
 
 <p>
     Once the streamed output is captured and assigned it goes back into becoming a normal argument that opens it up to be 
@@ -346,7 +346,7 @@ order: 2
     on subsequent requests.
 </p>
 
-<pre class="cs"><code>{{ pass: url | urlContentsWithCache | markdown }}</code></pre>
+<pre class="cs"><code>{{ pass: url |> urlContentsWithCache |> markdown }}</code></pre>
 
 <h4>Simplified Language</h4>
 
@@ -380,4 +380,4 @@ order: 2
     script method implementations or script source code.
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

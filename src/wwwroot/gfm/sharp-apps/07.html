@@ -1,7 +1,7 @@
 <div class="gfm"><div class="highlight highlight-text-html-handlebars"><pre>&lt;<span class="pl-ent">html</span>&gt;
 &lt;<span class="pl-ent">head</span>&gt;
 &lt;<span class="pl-ent">title</span>&gt;<span class="pl-c1">{{</span> <span class="pl-v">title</span> ?? <span class="pl-s"><span class="pl-pds">'</span>Redis Vue SharpApp<span class="pl-pds">'</span></span> <span class="pl-c1">}}</span>&lt;/<span class="pl-ent">title</span>&gt;
-&lt;<span class="pl-ent">i</span> hidden&gt;<span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">'</span>/js/hot-loader.js<span class="pl-pds">'</span></span> | <span class="pl-e"><span class="pl-v">ifDebugIncludeScript</span></span> <span class="pl-c1">}}</span>&lt;/<span class="pl-ent">i</span>&gt;
+&lt;<span class="pl-ent">i</span> hidden&gt;<span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">'</span>/js/hot-loader.js<span class="pl-pds">'</span></span> |&gt; <span class="pl-e"><span class="pl-v">ifDebugIncludeScript</span></span> <span class="pl-c1">}}</span>&lt;/<span class="pl-ent">i</span>&gt;
 
 ...
 &lt;<span class="pl-ent">link</span> <span class="pl-e"><span class="pl-e">rel</span>=</span><span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">href</span>=</span><span class="pl-s"><span class="pl-pds">"</span>../assets/css/bootstrap.css<span class="pl-pds">"</span></span>&gt;
@@ -13,10 +13,10 @@
     <span class="pl-c1">{{</span> <span class="pl-v">page</span> <span class="pl-c1">}}</span>
 
 <span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e"><span class="pl-e">src</span>=</span><span class="pl-s"><span class="pl-pds">"</span>../assets/js/html-utils.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e"><span class="pl-e">src</span>=</span><span class="pl-s"><span class="pl-pds">"</span>../assets/js/vue<span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">'</span>.min<span class="pl-pds">'</span></span> | <span class="pl-e"><span class="pl-v">if</span></span>(!<span class="pl-e"><span class="pl-v">debug</span></span>) <span class="pl-c1">}}</span>.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e"><span class="pl-e">src</span>=</span><span class="pl-s"><span class="pl-pds">"</span>../assets/js/vue<span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">'</span>.min<span class="pl-pds">'</span></span> |&gt; <span class="pl-e"><span class="pl-v">if</span></span>(!<span class="pl-e"><span class="pl-v">debug</span></span>) <span class="pl-c1">}}</span>.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e"><span class="pl-e">src</span>=</span><span class="pl-s"><span class="pl-pds">"</span>../assets/js/axios.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
     
-    <span class="pl-c1">{{</span> <span class="pl-v">scripts</span> | <span class="pl-e"><span class="pl-v">raw</span></span> <span class="pl-c1">}}</span> 
+    <span class="pl-c1">{{</span> <span class="pl-v">scripts</span> |&gt; <span class="pl-e"><span class="pl-v">raw</span></span> <span class="pl-c1">}}</span> 
 &lt;/<span class="pl-ent">body</span>&gt;
 &lt;/<span class="pl-ent">html</span>&gt;</pre></div>
 </div>

@@ -1,7 +1,7 @@
 <div class="live-pages" data-page="{{ page }}">
     <div class="files count-{{ files | count }}">
-{{ files | toList 
-   | select: <section><h5>{ it.Key }</h5><textarea class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="{ rows | otherwise(3) }">{ it.Value }</textarea></section>\n }}
+{{ files |> toList 
+   |> select: <section><h5>{ it.Key }</h5><textarea class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" rows="{ rows |> otherwise(3) }">{ it.Value }</textarea></section>\n }}
     </div>
     <div class="result">
         <div class="output"></div>

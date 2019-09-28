@@ -1,4 +1,4 @@
-{{ 'navLinks' | partial(
+{{ 'navLinks' |> partial(
     { 
         links: { 
             '/docs/model-view-controller': 'MVC', 

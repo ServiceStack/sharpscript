@@ -102,13 +102,13 @@ order: 26
     generated when embed the partial:
 </p>
 
-<pre class="cs"><code>{{ "examples/nav-links.txt" | includeFile }}</code></pre>
+<pre class="cs"><code>{{ "examples/nav-links.txt" |> includeFile }}</code></pre>
 
 <p>
     Which will generate the following links of progressive advanced features, with the link of the current page highlighted:
 </p>
 
-{{ 'navLinks' | partial(
+{{ 'navLinks' |> partial(
     { 
         links: { 
             '/docs/model-view-controller': 'MVC', 
@@ -132,13 +132,13 @@ order: 26
     dependency and existing Web App functionality, which can be called with:
 </p>
 
-<pre class="cs"><code>{{ "examples/customer-card.txt" | includeFile }}</code></pre>
+<pre class="cs"><code>{{ "examples/customer-card.txt" |> includeFile }}</code></pre>
 
 <p>
     To render a nice Customer Card snapshot:
 </p>
 
-{{ 'customerCard' | partial({ customerId: "ALFKI" }) }}
+{{ 'customerCard' |> partial({ customerId: "ALFKI" }) }}
 
 <h4>ServiceStack Code Pages</h4>
 
@@ -162,4 +162,4 @@ order: 26
 </p>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

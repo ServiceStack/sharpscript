@@ -31,13 +31,13 @@ order: 13
     Use <em>includeFile</em> to embed content directly within pages:
 </p>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         page: 'page', 
         files: 
         { 
             'page.html' : `I am a Page with a file
-{{ 'my-file.txt' | includeFile }}`,
+{{ 'my-file.txt' |> includeFile }}`,
             'my-file.txt' : `I am a text file`
         } 
     }) 
@@ -61,14 +61,14 @@ order: 13
     which you can cache without expiration using <em>includeFileWithCache</em> without arguments:
 </p>
 
-<pre class="cs">{{ pass: 'my-file.txt' | includeFileWithCache }}<code></code></pre>
+<pre class="cs">{{ pass: 'my-file.txt' |> includeFileWithCache }}<code></code></pre>
 
 <p>
     In which case it will use the <b>1 minute</b> default overridable in <em>Args[DefaultFileCacheExpiry]</em>    
     or if you want the content to be refreshed after 1hr you can use:
 </p>
 
-<pre class="cs">{{ pass(`'my-file.txt' | includeFileWithCache({ expiresInSecs: 3600 })`) }}<code></code></pre>
+<pre class="cs">{{ pass(`'my-file.txt' |> includeFileWithCache({ expiresInSecs: 3600 })`) }}<code></code></pre>
 
 <h4>includeUrl</h4>
 <div class="alias">urlContents</div>
@@ -77,13 +77,13 @@ order: 13
     You can also embed the contents of remote URLs in your page using <em>includeUrl</em>:
 </p>
 
-{{ "live-pages" | partial(
+{{ "live-pages" |> partial(
     {
         page: 'page', 
         files: 
         { 
             'page.html' : '{{ "https://raw.githubusercontent.com/ServiceStack/sharpscript/master/src" |> to => src }}
-{{ `${src}/wwwroot/examples/email-template.txt` | includeUrl }}'
+{{ `${src}/wwwroot/examples/email-template.txt` |> includeUrl }}'
         } 
     }) 
 }}
@@ -99,27 +99,27 @@ order: 13
 </p>
 
 {{#raw}}
-<pre class="cs"><code>{{ url | includeUrl({ accept: 'application/json' }) }}</code></pre>
-<pre class="cs"><code>{{ url | includeUrl({ dataType: 'json' }) }}</code></pre>
+<pre class="cs"><code>{{ url |> includeUrl({ accept: 'application/json' }) }}</code></pre>
+<pre class="cs"><code>{{ url |> includeUrl({ dataType: 'json' }) }}</code></pre>
 
 <p>
     Send data as <b>form-urlencoded</b> in a HTTP PUT Request with a <b>#Script</b> User-Agent:
 </p>
 
-<pre class="cs"><code>{{ url | includeUrl({ method:'PUT', data: { id: 1, name: 'foo' }, userAgent:"#Script" }) }}</code></pre>
+<pre class="cs"><code>{{ url |> includeUrl({ method:'PUT', data: { id: 1, name: 'foo' }, userAgent:"#Script" }) }}</code></pre>
 
 <p>
     Send data as JSON in a HTTP POST request and Accept JSON response:
 </p>
 
-<pre class="cs"><code>{{ url | includeUrl({ method: 'POST', data: { id: 1, name: 'foo' }, 
-                      accept: 'application/json', contentType: 'application/json' }) }}</code></pre>
+<pre class="cs"><code>{{ url |> includeUrl({ method: 'POST', data: { id: 1, name: 'foo' }, 
+                       accept: 'application/json', contentType: 'application/json' }) }}</code></pre>
 
 <p>
     Shorter version of above request:
 </p>
 
-<pre class="cs"><code>{{ url | includeUrl({ method:'POST', data: { id: 1, name: 'foo' }, dataType: 'json' }) }}</code></pre>
+<pre class="cs"><code>{{ url |> includeUrl({ method:'POST', data: { id: 1, name: 'foo' }, dataType: 'json' }) }}</code></pre>
 
 <p>
     Send data as CSV in a HTTP POST Request and Accept a CSV response:
@@ -137,14 +137,14 @@ order: 13
 </p>
 
 
-<pre class="cs">{{ url | includeUrlWithCache }}<code></code></pre>
+<pre class="cs">{{ url |> includeUrlWithCache }}<code></code></pre>
 
 <p>
     In which case it will use the <b>1 minute</b> default overridable in <em>Args[DefaultUrlCacheExpiry]</em>    
     or if you want to ensure that no more than 1 url request is made per hour for this url you can specify a custom expiry with:
 </p>
 
-<pre class="cs">{{ url | includeUrlWithCache({ expiresInSecs: 3600 }) }}<code></code></pre>
+<pre class="cs">{{ url |> includeUrlWithCache({ expiresInSecs: 3600 }) }}<code></code></pre>
 
 <h3 id="virtual-file-system-apis">Virtual File System APIs</h3>
 
@@ -160,4 +160,4 @@ order: 13
     <a href="/docs/scripts-reference?tab=ss-scripts">full list of ServiceStack scripts available</a>.
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

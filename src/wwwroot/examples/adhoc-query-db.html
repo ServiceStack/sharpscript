@@ -2,13 +2,13 @@
 {{ "select customerId,companyName,city,country from customer where country=@country"
    |> to => selectSql }}
 {{ selectSql }}
-{{ selectSql | dbSelect({ country: 'UK' }) | textDump({ caption:"HTML Results (select):" }) }}</pre><pre>
+{{ selectSql |> dbSelect({ country: 'UK' }) |> textDump({ caption:"HTML Results (select):" }) }}</pre><pre>
 {{ "select * from customer c join [order] o on c.customerId = o.customerId 
          order by total desc limit 1" |> to => singleSql }}{{ singleSql }}:
 
-{{ singleSql | dbSingle | textDump({ caption:"Text Results (single):" }) }}
+{{ singleSql |> dbSingle |> textDump({ caption:"Text Results (single):" }) }}
 </pre><pre>
 Object Value (scalar):
 {{ "select min(orderDate) from [order]" |> to => scalarSql }}
-{{ scalarSql }}: <b>{{ scalarSql | dbScalar | dateFormat }}</b>
+{{ scalarSql }}: <b>{{ scalarSql |> dbScalar |> dateFormat }}</b>
 </pre>

@@ -38,13 +38,13 @@ order: 4
     safe to embed in HTML, e.g:
 </p>
 
-{{ 'live-template' | partial({ rows: 1, template: "{{ '<b>hi</b>' }}" }) }}
+{{ 'live-template' |> partial({ rows: 1, template: "{{ '<b>hi</b>' }}" }) }}
 
 <p>
     You can use the <em>raw</em> default filter to skip HTML-encoding which will let you emit raw HTML as-is:
 </p>
 
-{{ 'live-template' | partial({ rows: 1, template: "{{ '<b>hi</b>' | raw }}" }) }}
+{{ 'live-template' |> partial({ rows: 1, template: "{{ '<b>hi</b>' |> raw }}" }) }}
 
 <blockquote>
     Inside filters you can return strings wrapped in a <em>new RawString(string)</em> or use the <em>ToRawString()</em> extension
@@ -71,4 +71,4 @@ order: 4
     Which now lets you resolve pages with a <b>.md</b> file extension who will use the behavior defined in <em>MarkdownPageFormat</em>.
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

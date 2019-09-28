@@ -270,8 +270,8 @@ $ web new script ProjectName</pre></div>
 
 {{#raw}}
 <pre>
-{{ 'menu' | partial }}          // Equivalent to:
-{{ '_menu-partial' | partial }}
+{{ 'menu' |> partial }}          // Equivalent to:
+{{ '_menu-partial' |> partial }}
 </pre>
 {{/raw}}
     
@@ -508,21 +508,21 @@ $ web new script ProjectName</pre></div>
     <em>markdown</em> filter to render markdown text to HTML:
 </p>
 
-<pre>{{#raw}}{{ `## Heading` | markdown }}{{/raw}}</pre>
+<pre>{{#raw}}{{ `## Heading` |> markdown }}{{/raw}}</pre>
 
 <p>
     This can be combined with other composable filters like <a href="/docs/protected-scripts#includefile">includeFile</a> to easily and 
     efficiently render markdown content maintained in a separate file:
 </p>
 
-<pre>{{#raw}}{{ 'doc.md' | includeFile | markdown }}{{/raw}}</pre>
+<pre>{{#raw}}{{ 'doc.md' |> includeFile |> markdown }}{{/raw}}</pre>
 
 <p>
   Or you could use <a href="/docs/protected-scripts#includeurlwithcache">includeUrlWithCache</a> to efficiently render markdown from an
   external URL:
 </p>
 
-<pre>{{#raw}}{{ url | includeUrlWithCache | markdown }}{{/raw}}</pre>
+<pre>{{#raw}}{{ url |> includeUrlWithCache |> markdown }}{{/raw}}</pre>
 
 <p>
   A popular way for embedding static markdown content inside a page is to use the <a href="/docs/blocks#markdown">markdown</a> script block
@@ -547,7 +547,7 @@ $ web new script ProjectName</pre></div>
   - {{i}}
 {{/each}}
 {{/capture}}
-{{ md | markdown }}
+{{ md |> markdown }}
 {{/raw}}</pre>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

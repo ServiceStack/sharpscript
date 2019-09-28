@@ -239,7 +239,7 @@ Usage: web open &lt;name&gt;</code></pre>
     easier to maintain by just adding an entry in the JavaScript object literal. The dynamic menu also takes care of highlighting the active menu item.
 </p>
 
-<pre class="cs"><code>{{ 'examples/webapps-menu.html' | includeFile }}</code></pre>
+<pre class="cs"><code>{{ 'examples/webapps-menu.html' |> includeFile }}</code></pre>
 
 <h4>Ideal for Web Designers and Content Authors</h4>
 
@@ -256,7 +256,7 @@ title: About Us
 
 <p>
     <em>#Script</em> syntax is also the ideal way to convey variable substitution, e.g: <em>&lt;title&gt;{{ pass: title }}&lt;/title&gt;</em> 
-    and even embedding a partial reads like english <em>{{ pass: 'menu' | partial }}</em> which is both intuitive and works well 
+    and even embedding a partial reads like english <em>{{ pass: 'menu' |> partial }}</em> which is both intuitive and works well 
     with GUI HTML designers.
 </p>
 
@@ -411,7 +411,7 @@ redis.connection localhost:6379</code></pre>
     Redis Vue avoids the complexity of adopting a npm build system by referencing Vue libraries as a simple script include:
 </p>
 
-<pre class="html"><code>&lt;script src="../assets/js/vue{{ pass: '.min' | if(!debug) }}.js"&gt;</script></code></pre>
+<pre class="html"><code>&lt;script src="../assets/js/vue{{ pass: '.min' |> if(!debug) }}.js"&gt;</script></code></pre>
 
 <p>
     Where it uses the more verbose and developer-friendly 
@@ -736,7 +736,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind-vfs/rockstars/alive/grohl/index.html">embedded files utilize caching</a>:
 </p>
 
-<pre class="tpl"><code>{{ pass: "content.md" | includeFileWithCache | markdown }}</code></pre>
+<pre class="tpl"><code>{{ pass: "content.md" |> includeFileWithCache |> markdown }}</code></pre>
 
 <p>
     The other difference is that each table and column has been quoted in "double-quotes" so that it works in PostgreSQL which
@@ -1105,9 +1105,7 @@ args.tags ['technology','marketing']</code></pre>
 
 {{#raw appendTo configExample}}<a href="{{blog.href}}">{{blog.name}}</a>{{/raw}}
 
-{{#raw}}{{#each tags}} <em>{{it}}</em> {{/each}}{{/raw}}
-
-<pre><code class="html">{{configExample}}</code></pre>
+<pre><code class="html">{{#raw}}{{#each tags}} <em>{{it}}</em> {{/each}}{{/raw}}<br>{{configExample}}</code></pre>
 
 <p>
     The alternative approach is to give each argument value a different name:
@@ -1117,4 +1115,4 @@ args.tags ['technology','marketing']</code></pre>
 args.blogHref /
 </code></pre>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

@@ -1,5 +1,5 @@
 {{ { UserName:'ServiceStack', NameStartsWith:'ServiceStack', OrderBy:'-Watchers_Count',take:10 } 
-   | sendToAutoQuery: QueryGitHubRepos
-   | toResults 
-   | selectFields: Name, Homepage, Language, Watchers_Count
+   |> sendToAutoQuery: QueryGitHubRepos
+   |> toResults 
+   |> selectFields: Name, Homepage, Language, Watchers_Count
    |> htmlDump({ caption: "Most popular ServiceStack repos starting with 'ServiceStack'" }) }}

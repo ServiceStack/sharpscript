@@ -4,8 +4,8 @@
     &lt;<span class="pl-ent">tbody</span>&gt;
     {{#each toList(redisInfo) }}
         &lt;<span class="pl-ent">tr</span>&gt;
-          &lt;<span class="pl-ent">th</span>&gt;{{ it.Key | replace('_',' ') }}&lt;/<span class="pl-ent">th</span>&gt;
-          &lt;<span class="pl-ent">td</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>{{it.Value}}<span class="pl-pds">"</span></span>&gt;{{ it.Value | substringWithEllipsis(32) }}&lt;/<span class="pl-ent">td</span>&gt;
+          &lt;<span class="pl-ent">th</span>&gt;{{ it.Key |&gt; replace('_',' ') }}&lt;/<span class="pl-ent">th</span>&gt;
+          &lt;<span class="pl-ent">td</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>{{it.Value}}<span class="pl-pds">"</span></span>&gt;{{ it.Value |&gt; substringWithEllipsis(32) }}&lt;/<span class="pl-ent">td</span>&gt;
         &lt;/<span class="pl-ent">tr</span>&gt;
     {{/each}}
     &lt;/<span class="pl-ent">tbody</span>&gt;

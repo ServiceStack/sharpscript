@@ -4,12 +4,12 @@ title: Quote of the Day
 
 <h3><a href="https://gist.githubusercontent.com/gistlyn/0ab7494dfbff78466ef622d501662027/raw/b3dd1e9f8e82c169a32829071aa7f761c6494843/quote.md">Before</a></h3>
 
-<p class="pre">{{ 'select url from quote where id= @id' | dbScalar({ qs.id }) | urlContents | htmlencode }}</p>
+<p class="pre">{{ 'select url from quote where id= @id' |> dbScalar({ qs.id }) |> urlContents |> htmlencode }}</p>
 
 <h3><a href="https://github.com/ServiceStack/sharpscript/blob/master/src/wwwroot/examples/quote.html">Code</a></h3>
 
-<pre class="cs"><code>{{ 'examples/quote.html' | includeFile }}</code></pre>
+<pre class="cs"><code>{{ 'examples/quote.html' |> includeFile }}</code></pre>
 
 <h3><a href="https://github.com/ServiceStack/sharpscript/blob/master/src/wwwroot/examples/qotd.html">After</a></h3>
 
-{{ 'examples/quote' | partial({ qs.id }) }}
+{{ 'examples/quote' |> partial({ qs.id }) }}

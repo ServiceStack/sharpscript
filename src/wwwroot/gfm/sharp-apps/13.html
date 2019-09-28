@@ -64,7 +64,7 @@ which will automatically reload your web page as it detects any file changes mad
 </code></pre>
 <p>Which saves generate DTOs for all your ServiceStack Services in <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/dtos.ts">dtos.ts</a> which can then be accessed in your TypeScript source code.</p>
 <p>If preferred you can instead develop Server APIs with API Pages, an example is included in <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/hello/_name.html">/client/hello/_name.html</a></p>
-<div class="highlight highlight-text-html-basic"><pre>{{ { result: `Hi ${name} from /hello/_name.html` } | return }}</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>{{ { result: `Hi ${name} from /hello/_name.html` } |&gt; return }}</pre></div>
 <p>Which as it uses the same data structure as the <code>Hello</code> Service above, can be called with ServiceStack's <code>JsonServiceClient</code> and generated TypeScript DTOs.</p>
 <p>The <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/index.ts">/client/index.ts</a> shows an example of this where initially the App calls  the C# <code>Hello</code> ServiceStack Service:</p>
 <div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> { <span class="pl-smi">client</span> } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./shared<span class="pl-pds">"</span></span>;

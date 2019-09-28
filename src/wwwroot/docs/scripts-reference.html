@@ -82,7 +82,7 @@ $("FORM").submit(function(){
 {{ 6 |> to => rows }}
 <div class="tab-content">
     <div class="tab-pane" id="default-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'DefaultScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'DefaultScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -90,7 +90,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="html-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'HtmlScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'HtmlScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -98,7 +98,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="protected-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'ProtectedScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'ProtectedScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -106,7 +106,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="info-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'InfoScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'InfoScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -114,7 +114,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="redis-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'RedisScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'RedisScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -122,7 +122,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="db-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'DbScriptsAsync' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'DbScriptsAsync' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -130,7 +130,7 @@ $("FORM").submit(function(){
 </table>` }) }}
     </div>
     <div class="tab-pane" id="ss-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'ServiceStackScripts' |> to => method }}
+{{ "live-template" |> partial({ rows, className, template:`{{ 'ServiceStackScripts' |> to => method }}
 {{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
           |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
@@ -140,4 +140,4 @@ $("FORM").submit(function(){
 </div>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

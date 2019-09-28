@@ -38,9 +38,9 @@ order: 21
     Output Stream, their return value is serialized in the requested Content-Type using the <em>return</em> method:
 </p>
 
-<pre class="cs"><code>{{#raw}}{{ response | return }}
-{{ response | return({ ... }) }}
-{{ httpResult({ ... }) | return }}
+<pre class="cs"><code>{{#raw}}{{ response |> return }}
+{{ response |> return({ ... }) }}
+{{ httpResult({ ... }) |> return }}
 {{/raw}}</code></pre>
 
 <p>
@@ -210,4 +210,4 @@ order: 21
 </p>
 
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

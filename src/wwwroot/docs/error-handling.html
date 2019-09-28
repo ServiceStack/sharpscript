@@ -16,16 +16,16 @@ order: 17
     argument using either the <em>assignError</em> method which will capture any subsequent Exceptions thrown on the page:
 </p>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ 'ex' | assignError }}
-{{ 'An error!' | throw }}
-{{ ex | select: { it.Message } }}` }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'ex' |> assignError }}
+{{ 'An error!' |> throw }}
+{{ ex |> select: { it.Message } }}` }) }}
 
 <p>
     Alternatively it can be specified on each call-site where it will capture the Exception thrown by the method:
 </p>
 
-{{ 'live-template' | partial({ rows:3, template: `{{ 'An error!' | throw({ assignError: 'ex' }) }}
-{{ ex | select: { it.Message } }}` }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'An error!' |> throw({ assignError: 'ex' }) }}
+{{ ex |> select: { it.Message } }}` }) }}
 
 <blockquote>
     An easy way to prettify errors in Web Pages is to use <a href="/docs/html-scripts#htmlerror">HTML Error Scripts</a>.
@@ -40,7 +40,7 @@ to specify a return value to use instead of throwing the Exception.
 E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Authenticate` Service is called from an unauthenticated Request, e.g:
 
     {{#script}}
-    AUTH = {{ 'Authenticate' | execService({ ifErrorReturn: "null" }) | json }};
+    AUTH = {{ 'Authenticate' |> execService({ ifErrorReturn: "null" }) |> json }};
     {{/script}}
 
 {{/markdown}}
@@ -67,14 +67,14 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
         <th>ifError</th>
         <td>
             Only execute the expression if there's an error: <br>
-            <em>{{ ifError | select: FAIL! { it.Message } }}</em>
+            <em>{{ ifError |> select: FAIL! { it.Message } }}</em>
         </td>
     </tr>
     <tr>
         <th>lastError</th>
         <td>
             Returns the last error on the page or <em>null</em> if there was no error, that's passed to the next method:<br>
-            <em>{{ lastError | ifExists | select: FAIL! { it.Message } }}</em>
+            <em>{{ lastError |> ifExists |> select: FAIL! { it.Message } }}</em>
         </td>
     </tr>
     <tr>
@@ -107,9 +107,9 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     We can also enable this behavior on a per-page basis using the <em>skipExecutingFiltersOnError</em> method:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ skipExecutingFiltersOnError }}
+{{ 'live-template' |> partial({ rows:5, template: `{{ skipExecutingFiltersOnError }}
 <h4>{{ 'Before Exception' }}</h4>
-{{ 'An error!' | throw }}
+{{ 'An error!' |> throw }}
 <h4>{{ 'After Exception' }}</h4>
 {{ htmlErrorMessage }}` }) }}
 
@@ -124,11 +124,11 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     control the execution of using the <em>ifNoError</em> or <em>ifError</em> methods:
 </p>
 
-{{ 'live-template' | partial({ rows:8, template: `{{ continueExecutingFiltersOnError }}
-<b style="color:green">{{ ifNoError | select: No Exception thrown yet! }}</b>
+{{ 'live-template' |> partial({ rows:8, template: `{{ continueExecutingFiltersOnError }}
+<b style="color:green">{{ ifNoError |> select: No Exception thrown yet! }}</b>
 <h4>{{ 'Before Exception' }}</h4>
-{{ 'An error!' | throw }}
-<b style="color:red">{{ ifError | select: There was an error! }}</b>
+{{ 'An error!' |> throw }}
+<b style="color:red">{{ ifError |> select: There was an error! }}</b>
 <h4>{{ 'After Exception' }}</h4>
 {{ htmlErrorDebug }}` }) }}
 
@@ -138,9 +138,9 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     The last Exception thrown are accessible using the <em>lastError*</em> methods:
 </p>
 
-{{ 'live-template' | partial({ rows:6, template: `{{ continueExecutingFiltersOnError }}
-{{ 'arg' | throwArgumentNullExceptionIf(true) }}
-<table class="table table-striped"><caption>{{ lastError | typeName }}</caption>
+{{ 'live-template' |> partial({ rows:6, template: `{{ continueExecutingFiltersOnError }}
+{{ 'arg' |> throwArgumentNullExceptionIf(true) }}
+<table class="table table-striped"><caption>{{ lastError |> typeName }}</caption>
 <tr><th>Last Error Message</th><td>{{ lastErrorMessage }}</td></tr>
 <tr><th>Last Error StackTrace</th><td>{{ lastErrorStackTrace }}</td></tr>
 </table>` }) }}
@@ -214,25 +214,25 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     <tbody>
     <tr>
         <th>throwIf</th>
-        <td>message | Exception | if(test)</td>
+        <td>message |> Exception |> if(test)</td>
     </tr>
     <tr>
         <th>throwArgumentNullExceptionIf</th>
-        <td>paramName | ArgumentNullException | if(test)</td>
+        <td>paramName |> ArgumentNullException |> if(test)</td>
     </tr>
     <tr>
         <th>ifthrow</th>
-        <td>if(test) | Exception(message)</td>
+        <td>if(test) |> Exception(message)</td>
     </tr>
     <tr>
         <th>ifThrowArgumentNullException</th>
-        <td>if(test) | ArgumentNullException(paramName)</td>
+        <td>if(test) |> ArgumentNullException(paramName)</td>
     </tr>
     <tr>
         <th>ifThrowArgumentException</th>
         <td>
-            if(test) | ArgumentException(message) <br> 
-            if(test) | ArgumentException(message, paramName) <br> 
+            if(test) |> ArgumentException(message) <br> 
+            if(test) |> ArgumentException(message, paramName) <br> 
         </td>
     </tr>
     </tbody>
@@ -245,21 +245,21 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     all the arguments meet the condition or return the Object Dictionary if all conditions are met:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ 1 |> to => one }}{{ 'bar' |> to => foo }}{{ '' |> to => empty }}
-{{ { one, foo, empty } | ensureAllArgsNotNull |> htmlDump({ caption: 'ensureAllArgsNotNull' }) }}
+{{ 'live-template' |> partial({ rows:5, template: `{{ 1 |> to => one }}{{ 'bar' |> to => foo }}{{ '' |> to => empty }}
+{{ {one,foo,empty} |> ensureAllArgsNotNull |> htmlDump({ caption: 'ensureAllArgsNotNull' }) }}
 ensureAllArgsNotEmpty:
-{{ { one, foo, empty } | ensureAllArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
-{{ ex | htmlErrorMessage }}` }) }}
+{{ {one,foo,empty} |> ensureAllArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
+{{ ex |> htmlErrorMessage }}` }) }}
 
 <p>
     The <em>ensureAny*</em> methods only requires one of the arguments meet the condition to return the Object Dictionary:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ '' |> to => empty }}
-{{ { foo, empty } | ensureAnyArgsNotNull |> htmlDump({ caption: 'ensureAnyArgsNotNull' }) }}
+{{ 'live-template' |> partial({ rows:5, template: `{{ '' |> to => empty }}
+{{ { foo, empty } |> ensureAnyArgsNotNull |> htmlDump({ caption: 'ensureAnyArgsNotNull' }) }}
 ensureAnyArgsNotEmpty:
-{{ { foo, empty } | ensureAnyArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
-{{ ex | htmlErrorMessage }}` }) }}
+{{ { foo, empty } |> ensureAnyArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
+{{ ex |> htmlErrorMessage }}` }) }}
 
 <h4>Fatal Exceptions</h4>
 
@@ -323,4 +323,4 @@ ensureAnyArgsNotEmpty:
     <a href="https://github.com/ServiceStack/ServiceStack/blob/master/tests/ServiceStack.WebHost.Endpoints.Tests/ScriptTests/ErrorHandlingTests.cs">ErrorHandlingTests.cs</a>
 </p>
 
-{{ "doc-links" | partial({ order }) }}
+{{ "doc-links" |> partial({ order }) }}

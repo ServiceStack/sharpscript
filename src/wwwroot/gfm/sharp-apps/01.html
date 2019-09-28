@@ -10,7 +10,7 @@
             <span class="pl-e"><span class="pl-v">Employee</span></span> <span class="pl-e"><span class="pl-v">e</span></span> <span class="pl-e"><span class="pl-v">on</span></span> <span class="pl-e"><span class="pl-v">o.EmployeeId</span></span> = <span class="pl-e"><span class="pl-v">e.Id</span></span>
         <span class="pl-e"><span class="pl-v">where</span></span> <span class="pl-e"><span class="pl-v">CustomerId</span></span> = @<span class="pl-e"><span class="pl-v">id</span></span>
         <span class="pl-e"><span class="pl-v">group</span></span> <span class="pl-e"><span class="pl-v">by</span></span> <span class="pl-e"><span class="pl-v">o.Id</span></span>, <span class="pl-e"><span class="pl-v">EmployeeId</span></span>, <span class="pl-e"><span class="pl-v">FirstName</span></span>, <span class="pl-e"><span class="pl-v">LastName</span></span>, <span class="pl-e"><span class="pl-v">OrderDate</span></span>, <span class="pl-e"><span class="pl-v">ShipCountry</span></span>, <span class="pl-e"><span class="pl-v">ShippedDate</span></span>`
-        | <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
+        |&gt; <span class="pl-e"><span class="pl-v">dbSelect</span></span>({ <span class="pl-e"><span class="pl-v">id</span></span> }) 
         |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">orders</span></span> <span class="pl-c1">}}</span>
 <span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span></pre></div>
 </div>

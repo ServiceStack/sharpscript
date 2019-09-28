@@ -85,7 +85,7 @@ Constructor('Uri(string)') |> to => url
 
 url('http://example.org')
 'http://example.org'.url()
-'http://example.org' | url
+'http://example.org' |> url
 
 // equivalent to:
 'Uri'.new(['http://example.org'])

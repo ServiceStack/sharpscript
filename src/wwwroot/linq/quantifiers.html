@@ -3,7 +3,7 @@ title: Quantifiers
 order: 10
 -->
 
-{{ "lang-select" | partial }}
+{{ "lang-select" |> partial }}
 
 <h3>linq67: Any - Simple</h3>
 
@@ -18,7 +18,7 @@ public void Linq67()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq67" }) }}
+{{ "linq-preview" |> partial({ example: "linq67" }) }}
 
 <h3>linq69: Any - Grouped</h3>
 
@@ -36,7 +36,7 @@ public void Linq69()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html", example: "linq69" }) }}
+{{ "linq-preview" |> partial({ output: "html", example: "linq69" }) }}
 
 <h3>linq70: All - Simple</h3>
 
@@ -51,7 +51,7 @@ public void Linq70()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq70" }) }}
+{{ "linq-preview" |> partial({ example: "linq70" }) }}
 
 <h3>linq72: All - Grouped</h3>
 
@@ -70,8 +70,8 @@ public void Linq72()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html", example: "linq72" }) }}
+{{ "linq-preview" |> partial({ output: "html", example: "linq72" }) }}
 
 
-{{ "linq-links" | partial({ order }) }}
+{{ "linq-links" |> partial({ order }) }}
 
