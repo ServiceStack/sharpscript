@@ -165,6 +165,22 @@ they're processed in the background by its configured [MQ Server](https://docs.s
 
 [![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-tcp-repl.gif)](https://youtu.be/HO523cFkDfk)
 
+### Password Protection 
+
+Since TCP Server effectively opens your remote Server up to being scripted you'll want to ensure the TCP Server is only accessible
+within a trusted network, effectively treating it the same as [Redis Security Model](https://redis.io/topics/security).
+
+A secure approach would be to leave the default of only binding to `IPAddress.Loopback` so only trusted users with SSH access will 
+be able to access it, which they'll still be able to access remotely via `Local PC > ssh > telnet 127.0.0.1 5005`.
+
+Just like [Redis AUTH](https://redis.io/commands/auth) you can also add password protection for an additional layer of Security:
+
+{{/markdown}}
+
+{{ 'gfm/lisp/12.md' | githubMarkdown }}
+
+{{#markdown}}
+
 #### Annotated Lisp TCP REPL Transcript
 
 {{/markdown}}
