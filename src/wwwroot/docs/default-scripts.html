@@ -89,7 +89,7 @@ Bitwise = {{ 3 & 1 }}, {{ (3 | 1) }}, {{ 3 ^ 1 }}, {{ 3 << 1 }}, {{ 3 >> 1 }}, {
 
 {{ 'live-template' | partial({ template: "Circumference = {{ 2 * pi * 10 | round(5) }}
 &Sqrt; log<sub>10</sub> 10000  = {{ 10000 | log10 | sqrt }}
-Powers of 2      = {{ 10 | times | map => `${(it + 1).pow(2)}` | join }}" }) }}
+Powers of 2      = {{ 10 | times |> map => `${(it + 1).pow(2)}` | join }}" }) }}
 
 <h4 id="date-functions">Date Functions</h4>
 
@@ -160,7 +160,7 @@ Time: {{ now.TimeOfDay | timeFormat('h\\:mm') }} default: {{ now.TimeOfDay | tim
 
 <h4 id="url-handling">URL handling</h4>
 
-{{ 'live-template' | partial({ rows: 8, template: "{{ 'http://example.org' | to => baseUrl }}
+{{ 'live-template' | partial({ rows: 8, template: "{{ 'http://example.org' |> to => baseUrl }}
 {{ baseUrl | addPath('path') }}
 {{ baseUrl | addPaths(['path1', 'path2', 'path3']) }}
 {{ baseUrl | addQueryString({ a: 1, b: 2 }) }}
@@ -244,7 +244,7 @@ value/ref type: {{ 1 | isValueType }}, {{ [] | isValueType }}, {{ [] | isClass }
 
 {{ 'live-template' | partial({ rows: 5, template: `toInt: {{ '1' | typeName }}, {{ '1' | toInt | typeName }}, {{ 1 | toDouble | typeName }}
 toChar: {{ ',' | typeName }},  {{ ',' | toChar |typeName }}, {{'true' | toBool | typeName }}
-{{ {a:1,b:2,c:'',d:null} | to => o }}
+{{ {a:1,b:2,c:'',d:null} |> to => o }}
 toKeys: {{ o | toKeys | join }}, toValues:  {{ o | toValues | join }}
 without: {{ o | withoutNullValues | toKeys|join }} / {{ o | withoutEmptyValues | toKeys| join }}` }) }}
 
@@ -270,10 +270,10 @@ truthy: {{ true | truthy('T') }}, {{ 1 | truthy('T') }}, {{ null | truthy('T') }
 
 {{ 'live-template' | partial({ rows: 7, template: `default: {{ title | default('A Title') }}
 {{ title != null ? title : 'A Title' }}
-{{ 'The Title' | to => title }}{{ title | default('A Title') }} : {{ 1 | ifExists(title) }}
+{{ 'The Title' |> to => title }}{{ title | default('A Title') }} : {{ 1 | ifExists(title) }}
 {{ noArg }} : {{ noArg | ifExists }} : {{ 1 | ifNotExists(noArg) }} : {{ 1 | ifNo(noArg) }}
 {{ 'empty' | ifEmpty('') }} : {{ 'empty' | ifEmpty([]) }} : {{ 'empty' | ifEmpty([1]) }}
-{{ [1,2,3] | to => nums }}{{ nums | join | to => list }}
+{{ [1,2,3] |> to => nums }}{{ nums | join |> to => list }}
 {{ "nums {0}" | fmt(list) | ifNotEmpty(nums) }}{{ "nums {0}" | fmt(list) | ifNotEmpty([]) }}` }) }}
 
 <h4 id="control-execution">Control Execution</h4>
@@ -296,9 +296,9 @@ do {{ true | ifDo | select: 1 }}/{{ false | ifDo | select: 1 }}/{{ doIf(true) | 
 any {{ 5 | times | endIfAny('it = 4') | join }}/{{ 5 | times | endIfAny('it = 5') | join }}
 all {{ 5 | times | endIfAll('lt(it,4)') |join }}/{{ 5 | times | endIfAll('lt(it,5)') |join }}
 where {{ 1 | endWhere: isString(it) }}/{{ 'a' | endWhere: isString(it) }}
-useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 1, 2) | to => arg }}{{ arg }}
-useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 3, 4) | to => arg }}{{ arg }}
-useFormat {{ arg2 | endIfExists | useFormat('value', 'key={0}') | to => arg2 }}{{ arg2 }}
+useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 1, 2) |> to => arg }}{{ arg }}
+useFmt {{ arg | endIfExists | useFmt('{0} + {1}', 3, 4) |> to => arg }}{{ arg }}
+useFormat {{ arg2 | endIfExists | useFormat('value', 'key={0}') |> to => arg2 }}{{ arg2 }}
 {{ noArg | end }} : {{ 1 | end }} : {{ 1 | incr | end }}` }) }}
 
 <blockquote>
@@ -331,7 +331,7 @@ onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
     You can create temporary arguments within a script scope or modify existing arguments with:
 </p>
 
-{{ 'live-template' | partial({ rows: 6, template: "{{ [1,2,3,4,5] | to => numbers }}
+{{ 'live-template' | partial({ rows: 6, template: "{{ [1,2,3,4,5] |> to => numbers }}
 {{ numbers | join }}
 {{ numbers | do => assign('numbers[index]', it * it) }}
 {{ numbers | join }}
@@ -344,9 +344,9 @@ onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
     Let bindings allow you to create scoped argument bindings from individual string expressions:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: â€²{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to =>scoreRecords }}
+{{ 'live-template' | partial({ rows: 4, template: â€²{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
 {{ scoreRecords 
-   | let => { name:it.name, score:it.score, personNum:index + 1 }
+   |> let => { name:it.name, score:it.score, personNum:index + 1 }
    | select: {personNum}. {name} = {score}\n }}â€² }) }}
 
 <p>
@@ -354,20 +354,20 @@ onlyIfEmpty: {{ a | onlyIfEmpty | show: a is empty }}` }) }}
     as the name of the argument binding and the value as its value:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to =>scoreRecords }}
+{{ 'live-template' | partial({ template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to =>scoreRecords }}
 {{ scoreRecords | scopeVars | select: {index + 1}. {name} = {score}\n }}" }) }}
 
 <h4 id="querying-objects">Querying Objects</h4>
 
-{{ 'live-template' | partial({ rows: 5, template: `{{ [10,20,30,40,50] | to => numbers }}
-{{ { a:1, b:2, c:3 } | to => letters }}
+{{ 'live-template' | partial({ rows: 5, template: `{{ [10,20,30,40,50] |> to => numbers }}
+{{ { a:1, b:2, c:3 } |> to => letters }}
 Number at [3]: {{ numbers[3] }}, {{ numbers | get(3) }}
 Value of 'c': {{ letters['c'] }}, {{ letters.c }}, {{ letters | get('c') }}
 Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
 
 <h4 id="member-expressions">Member Expressions</h4>
 
-{{ 'live-template' | partial({ rows: 4, template: `{{ [now] | to => dates }}
+{{ 'live-template' | partial({ rows: 4, template: `{{ [now] |> to => dates }}
 {{ round(dates[0].TimeOfDay.TotalHours, 3) }}
 {{ dates | get(0) | select: { it.TimeOfDay.TotalHours | round(3) } }}
 {{ [now.TimeOfDay][0].TotalHours | round(3) }}` }) }}
@@ -382,32 +382,32 @@ Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
     Use <em>map</em> when you want to transform each item into a different value:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ ['zero','one','two','three','four','five','six','seven','eight','nine'] | to =>digits }}
+{{ 'live-template' | partial({ rows: 4, template: "{{ ['zero','one','two','three','four','five','six','seven','eight','nine'] |> to =>digits }}
 {{ range(3) 
-   | map => it + 5
-   | map => digits[it] | join(`\\n`) }}" }) }}
+   |> map => it + 5
+   |> map => digits[it] | join(`\\n`) }}" }) }}
 
 <p>
     It's also useful for transforming raw data sources into more manageable ones:
 </p>
 
-{{ 'live-template' | partial({ rows: 5, template: "{{ [[1,-2],[3,-4],[5,-6]] | to =>coords }}
+{{ 'live-template' | partial({ rows: 5, template: "{{ [[1,-2],[3,-4],[5,-6]] |> to =>coords }}
 {{ coords 
-   | map => { x: it[0], y: it[1] }
+   |> map => { x: it[0], y: it[1] }
    | scopeVars
-   | map => `${index + 1}. (${x}, ${y})\n` | join('') }}" }) }}
+   |> map => `${index + 1}. (${x}, ${y})\n` | join('') }}" }) }}
 
 <p>
     Whilst these methods let you perform some other popular conversions:
 </p>
 
 {{ 'live-template' | partial({ rows: 8, template: "{{ 100 | toString | select: {it.Length} }}
-{{ { x:1, y:2 } | toList | map => `${it.Key} = ${it.Value}` | join(', ') }}
-{{ range(5) | toArray | to => numbers }}
+{{ { x:1, y:2 } | toList |> map => `${it.Key} = ${it.Value}` | join(', ') }}
+{{ range(5) | toArray |> to => numbers }}
 {{ numbers.Length | times | do => assign('numbers[index]', -numbers[index]) }}
 {{ numbers | join }}
 Bob's score: {{ [{name:'Alice',score:50},{name:'Bob',score:40}] 
-  | toDictionary => it.name | map => it.Bob.score }}" }) }}
+  | toDictionary => it.name |> map => it.Bob.score }}" }) }}
 
 <p>
     Use <em>parseKeyValueText</em> to convert a key/value string into a dictionary, you can then use 
@@ -420,7 +420,7 @@ Internet:  50
 Mobile:    50
 Food:      400
 Misc:      200
-'| trim | parseKeyValueText(':') | to => expenses }}
+'| trim | parseKeyValueText(':') |> to => expenses }}
 Expenses: {{ expenses | values | sum | currency }}` }) }}
 
 <h4 id="serialization">Serialization</h4>
@@ -429,7 +429,7 @@ Expenses: {{ expenses | values | sum | currency }}` }) }}
     Use the <em>json</em> method when you want to make your C# objects available to the client JavaScript page:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] | to =>model }}
+{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to =>model }}
 var coords = {{ model | json }};` }) }}
 
 <h4 id="embed">Embedding in JavaScript</h4>
@@ -442,7 +442,7 @@ var coords = {{ model | json }};` }) }}
 
 {{ 'live-template' | partial({ rows: 9, template: â€²{{ '[
     {"name":"Mc Donald\'s"}
-]' | to =>json }}
+]' |> to =>json }}
 var obj = {{ json }};
 var str = '{{ json | jsString }}';
 var str = {{ json | jsQuotedString }};
@@ -455,7 +455,7 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
     of an object graph, you can also use <em>dump</em> if you want the JSV output indented:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] | to => model }}
+{{ 'live-template' | partial({ template: `{{ [{x:1,y:2},{x:3,y:4}] |> to => model }}
 {{ model | jsv }}
 {{ model | dump }}` }) }}
 
@@ -463,7 +463,7 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
     If needed, the <em>csv</em> and <em>xml</em> serialization formats are also available:
 </p>
 
-{{ 'live-template' | partial({ template: `{{ [{Name:'Alice',Score:50},{Name:'Bob',Score:40}] | to =>scoreRecords }}
+{{ 'live-template' | partial({ template: `{{ [{Name:'Alice',Score:50},{Name:'Bob',Score:40}] |> to =>scoreRecords }}
 {{ scoreRecords | csv }}` }) }}
 
 <h4 id="evalTemplate">Eval</h4>
@@ -493,9 +493,9 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
     for each item in a collection:
 </p>
 
-{{ 'live-template' | partial({ rows: 7, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
+{{ 'live-template' | partial({ rows: 7, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
 <b>map</b>
-<ol>{{ scoreRecords | map => `<li>${it.name} = ${it.score}</li>` | join('') | raw }}</ol>
+<ol>{{ scoreRecords |> map => `<li>${it.name} = ${it.score}</li>` | join('') | raw }}</ol>
 <b>select</b>
 <ol>{{ scoreRecords | select: <li>{it.name} = {it.score}</li> }}</ol>
 <b>selectEach</b>
@@ -505,15 +505,15 @@ var escapeLines = '{{ "new" | appendLine | append("line") | escapeNewLines }}';â
     Although a lot of times it's easier to use the <a href="/docs/blocks#each">each</a> Script Block to iterate over items:
 </p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
+{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
 {{#each scoreRecords}}
   {{index+1}}. {{it.name}} = {{it.score}}
 {{/each}}" }) }}
 
 <p>If you instead need to iterate over a collection to perform side-effects without generating output you can use <em>forEach</em>:</p>
 
-{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] | to => scoreRecords }}
-{{ [] | to => scores }}
+{{ 'live-template' | partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
+{{ [] |> to => scores }}
 {{scoreRecords.forEach((record, index) => scores.push(record.score))}}
 {{ scores | join}}" }) }}
 

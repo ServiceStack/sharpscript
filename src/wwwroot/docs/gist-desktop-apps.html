@@ -349,12 +349,12 @@ The **blog** App uses this approach for creating its' database and populating it
         | dbExec
     }}
 
-    {{ dbScalar(`SELECT COUNT(*) FROM Post`) | to => postsCount }}
+    {{ dbScalar(`SELECT COUNT(*) FROM Post`) |> to => postsCount }}
 
     {{#if postsCount == 0 }}
 
-        {{ `datetime(CURRENT_TIMESTAMP,'localtime')` | to => sqlNow }}
-        {{ `ServiceStack`                            | to => user }}
+        {{ `datetime(CURRENT_TIMESTAMP,'localtime')` |> to => sqlNow }}
+        {{ `ServiceStack`                            |> to => user }}
 
         ========================
         Create ServiceStack User - Contains same info as if was @ServiceStack authenticated via Twitter
@@ -395,7 +395,7 @@ then in the init script it saves a copy to **northwind.sqlite** if it doesn't al
 
 #### [_init.html](https://gist.github.com/gistlyn/0148c87e154fb4731c7fa6219375d989#file-_init-html)
 
-    vfsFileSystem('.') | to => fs
+    vfsFileSystem('.') |> to => fs
 
     #if !fs.fileExists('northwind.sqlite') || fs.file('northwind.sqlite').Length == 0
         fs.writeFile('northwind.sqlite', file('northwind.readonly.sqlite'))

@@ -1,3 +1,3 @@
 {{ products 
-   | orderByDescending => it.UnitsInStock
-   | htmlDump }}
+   |> orderByDescending => it.UnitsInStock
+   |> htmlDump }}

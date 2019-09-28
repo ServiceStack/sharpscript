@@ -1,5 +1,5 @@
-{{ (lang ?? qs.lang) | to => lang }}
-{{ (lang == 'code' ? 'sc' : lang == 'lisp' ? 'l' : 'ss') | to => ext }}
+{{ (lang ?? qs.lang) |> to => lang }}
+{{ (lang == 'code' ? 'sc' : lang == 'lisp' ? 'l' : 'ss') |> to => ext }}
 
 <div class="linq-preview {{ output }}" data-lang="{{lang}}">
     <div class="template">

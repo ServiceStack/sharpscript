@@ -83,8 +83,8 @@ order: 3
     ES6 Shorthand notation is also supported where you can use the argument name as its property name in a Dictionary:
 </p>
 
-{{ 'live-template' | partial({ template: "{{ 'foo'    | to => bar }}
-{{ { bar }  | to => obj }}
+{{ 'live-template' | partial({ template: "{{ 'foo'    |> to => bar }}
+{{ { bar }  |> to => obj }}
 {{ obj['bar'] }}" }) }}
 
 <h4>Quotes</h4>
@@ -123,8 +123,8 @@ leave <em>\</em> backspaces unescaped.
 </p>
 
 {{ 'live-template' | partial({ template: ′{{ [0,1,2,3,4,5]
-   | where => it >= 3
-   | map => it + 10 | join(`\n`) }}′ }) }}
+   |> where => it >= 3
+   |> map => it + 10 | join(`\n`) }}′ }) }}
 
 <p>
     This is a shorthand for declaring lambda expressions with normal arrow expression syntax:
@@ -165,7 +165,7 @@ leave <em>\</em> backspaces unescaped.
 </p>
 
 {{ 'live-template' | partial({ template: "{{ [0,1,2,3,4,5] 
-   | where => (it = 2 or it = 3) and it.isOdd()
+   |> where => (it = 2 or it = 3) and it.isOdd()
    | join }}" }) }}
 
 <h4>Include Raw Content Verbatim</h4>

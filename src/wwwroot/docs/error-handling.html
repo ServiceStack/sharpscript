@@ -245,20 +245,20 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     all the arguments meet the condition or return the Object Dictionary if all conditions are met:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ 1 | to => one }}{{ 'bar' | to => foo }}{{ '' | to => empty }}
-{{ { one, foo, empty } | ensureAllArgsNotNull | htmlDump({ caption: 'ensureAllArgsNotNull' }) }}
+{{ 'live-template' | partial({ rows:5, template: `{{ 1 |> to => one }}{{ 'bar' |> to => foo }}{{ '' |> to => empty }}
+{{ { one, foo, empty } | ensureAllArgsNotNull |> htmlDump({ caption: 'ensureAllArgsNotNull' }) }}
 ensureAllArgsNotEmpty:
-{{ { one, foo, empty } | ensureAllArgsNotEmpty({ assignError:'ex' }) | htmlDump }}
+{{ { one, foo, empty } | ensureAllArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
 {{ ex | htmlErrorMessage }}` }) }}
 
 <p>
     The <em>ensureAny*</em> methods only requires one of the arguments meet the condition to return the Object Dictionary:
 </p>
 
-{{ 'live-template' | partial({ rows:5, template: `{{ '' | to => empty }}
-{{ { foo, empty } | ensureAnyArgsNotNull | htmlDump({ caption: 'ensureAnyArgsNotNull' }) }}
+{{ 'live-template' | partial({ rows:5, template: `{{ '' |> to => empty }}
+{{ { foo, empty } | ensureAnyArgsNotNull |> htmlDump({ caption: 'ensureAnyArgsNotNull' }) }}
 ensureAnyArgsNotEmpty:
-{{ { foo, empty } | ensureAnyArgsNotEmpty({ assignError:'ex' }) | htmlDump }}
+{{ { foo, empty } | ensureAnyArgsNotEmpty({ assignError:'ex' }) |> htmlDump }}
 {{ ex | htmlErrorMessage }}` }) }}
 
 <h4>Fatal Exceptions</h4>

@@ -1,1 +1,1 @@
-products | orderByDescending => it.UnitsInStock | htmlDump
+products |> orderByDescending => it.UnitsInStock |> htmlDump

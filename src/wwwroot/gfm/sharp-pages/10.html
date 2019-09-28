@@ -10,7 +10,7 @@
     | <span class="pl-e"><span class="pl-v">dbExec</span></span>
 <span class="pl-c1">}}</span>
 
-<span class="pl-c1">{{</span> <span class="pl-v">dbScalar</span>(`<span class="pl-e"><span class="pl-v">SELECT</span></span> <span class="pl-e"><span class="pl-v">COUNT</span></span>(*) <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">Post</span></span>`) | <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">postsCount</span></span> <span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span> <span class="pl-v">dbScalar</span>(`<span class="pl-e"><span class="pl-v">SELECT</span></span> <span class="pl-e"><span class="pl-v">COUNT</span></span>(*) <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">Post</span></span>`) |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">postsCount</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">postsCount</span> == <span class="pl-e"><span class="pl-v">0</span></span> <span class="pl-c1">}}</span>
 

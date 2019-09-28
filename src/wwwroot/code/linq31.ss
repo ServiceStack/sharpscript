@@ -1,4 +1,4 @@
-{{ ['aPPLE', 'AbAcUs', 'bRaNcH', 'BlUeBeRrY', 'ClOvEr', 'cHeRry'] | to => words }}
+{{ ['aPPLE', 'AbAcUs', 'bRaNcH', 'BlUeBeRrY', 'ClOvEr', 'cHeRry'] |> to => words }}
 {{ words 
-   | orderBy(o => o, { comparer }) 
-   | joinln }}
+   |> orderBy(o => o, { comparer }) 
+   |> joinln }}

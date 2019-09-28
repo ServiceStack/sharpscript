@@ -320,7 +320,7 @@ order: 2
     and sets a value in the current scope before returning an empty Stream so nothing is written to the Response. 
 </p>
 
-<pre class="cs"><code>{{ pass: url | urlContents | markdown | to => quote }}</code></pre>
+<pre class="cs"><code>{{ pass: url | urlContents | markdown |> to => quote }}</code></pre>
 
 <p>
     Once the streamed output is captured and assigned it goes back into becoming a normal argument that opens it up to be 

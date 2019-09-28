@@ -1,1 +1,1 @@
-10.itemsOf(7) | joinln
+10.itemsOf(7) |> joinln

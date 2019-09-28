@@ -1,6 +1,6 @@
-{{ [ 'cherry', 'apple', 'blueberry' ] | to => words }}
+{{ [ 'cherry', 'apple', 'blueberry' ] |> to => words }}
 The sorted word list:
 {{ words
-   | orderBy => it 
-   | toList 
-   | joinln }}
+   |> orderBy => it 
+   |> toList 
+   |> joinln }}

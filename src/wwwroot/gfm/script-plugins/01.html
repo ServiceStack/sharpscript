@@ -194,17 +194,17 @@ its contents:</p>
 <p>This is enabled by default in the <code>web</code> and <code>app</code> dotnet tools so they can be used in <code>#Script</code> <strong>.ss</strong> scripts.</p>
 <p>Checkout <a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Methods/GitHubScripts.cs">GitHubScripts.cs</a>
 for the full API available. Here's <a href="https://developer.github.com/v3/gists/#example">GitHub's Gist API</a> example of creating gists in <code>#Script</code>:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-en">githubGateway</span>(<span class="pl-s"><span class="pl-pds">'</span>GITHUB_GIST_TOKEN<span class="pl-pds">'</span></span>.<span class="pl-en">envVariable</span>()) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gateway
+<div class="highlight highlight-source-js"><pre><span class="pl-en">githubGateway</span>(<span class="pl-s"><span class="pl-pds">'</span>GITHUB_GIST_TOKEN<span class="pl-pds">'</span></span>.<span class="pl-en">envVariable</span>()) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gateway
 
 {{ <span class="pl-smi">gateway</span>.<span class="pl-en">githubCreateGist</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World Examples<span class="pl-pds">'</span></span>, {
      <span class="pl-s"><span class="pl-pds">'</span>hello_world_ruby.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span>   <span class="pl-s"><span class="pl-pds">'</span>Run `ruby hello_world.rb` to print Hello World<span class="pl-pds">'</span></span>,
      <span class="pl-s"><span class="pl-pds">'</span>hello_world_python.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Run `python hello_world.py` to print Hello World<span class="pl-pds">'</span></span>,
    })
-   <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newGist }}
+   <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newGist }}
 
 { <span class="pl-k">...</span>newGist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>new gist<span class="pl-pds">'</span></span> })</pre></div>
 <p>View Gist files and metadata example:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">gateway</span>.<span class="pl-en">githubGist</span>(gistId) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gist
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">gateway</span>.<span class="pl-en">githubGist</span>(gistId) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gist
 
 { <span class="pl-k">...</span>gist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gist<span class="pl-pds">'</span></span> })
 

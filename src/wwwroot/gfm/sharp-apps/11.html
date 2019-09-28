@@ -1,11 +1,11 @@
 <div class="gfm"><div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">command</span></span> } | <span class="pl-e"><span class="pl-v">ensureAllArgsNotEmpty</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span> [<span class="pl-s"><span class="pl-pds">'</span>flush<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>monitor<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>brpop<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>blpop<span class="pl-pds">'</span></span>] | <span class="pl-e"><span class="pl-v">any</span></span> =&gt; <span class="pl-e"><span class="pl-v">contains</span></span>(<span class="pl-e"><span class="pl-v">lower</span></span>(<span class="pl-e"><span class="pl-v">command</span></span>), <span class="pl-e"><span class="pl-v">it</span></span>)
-   | <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">illegalCommand</span></span> <span class="pl-c1">}}</span>
+   |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">illegalCommand</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span> <span class="pl-v">illegalCommand</span> ? <span class="pl-e"><span class="pl-v">throwArgumentException</span></span>(<span class="pl-s"><span class="pl-pds">'</span>Command is not allowed.<span class="pl-pds">'</span></span>) : <span class="pl-e"><span class="pl-v">null</span></span> <span class="pl-c1">}}</span>
 
-<span class="pl-c1">{{</span> <span class="pl-v">command</span>  | <span class="pl-e"><span class="pl-v">redisCall</span></span> | <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">contents</span></span> <span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span> <span class="pl-v">command</span>  | <span class="pl-e"><span class="pl-v">redisCall</span></span> |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">contents</span></span> <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span> <span class="pl-v">contents</span> | <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-s"><span class="pl-pds">'</span>Content-Type<span class="pl-pds">'</span></span>: <span class="pl-s"><span class="pl-pds">'</span>text/plain<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 </div>

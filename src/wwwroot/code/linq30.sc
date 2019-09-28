@@ -1,1 +1,1 @@
-products | orderBy => it.ProductName | htmlDump
+products |> orderBy => it.ProductName |> htmlDump

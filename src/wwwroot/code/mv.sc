@@ -1,4 +1,4 @@
-vfsFileSystem('.') | to => fs
+vfsFileSystem('.') |> to => fs
 
 #each f in fs.findFiles('linq*.txt')
     `copy ${f.Name} ${f.Name.lastLeftPart('.')}.sc` | sh

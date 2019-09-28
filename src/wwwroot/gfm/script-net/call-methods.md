@@ -8,14 +8,14 @@ Use the `call` and `Function` APIs to call methods on .NET Types:
 In its most simplest form you can invoke an instance method that doesn't have any arguments using just its name:
 
 ```js
-'Ints'.new([1,2]) | to => ints
+'Ints'.new([1,2]) |> to => ints
 ints.call('GetMethod')
 ```
 
 Any arguments can be specified in an arguments list:
 
 ```js
-'Adder'.new([1.0,2.0]) | to => adder3
+'Adder'.new([1.0,2.0]) |> to => adder3
 adder3.call('Add',[3.0]) //= 6.0
 ```
 

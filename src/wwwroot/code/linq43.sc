@@ -1,4 +1,4 @@
-{{ customers | map => { 
+{{ customers |> map => { 
     CompanyName: it.CompanyName, 
     YearGroups: it.Orders.groupBy(it => it.OrderDate.Year).map(yg =>
         { 
@@ -9,4 +9,4 @@
         }
       ) 
    }
-   | htmlDump }}
+   |> htmlDump }}

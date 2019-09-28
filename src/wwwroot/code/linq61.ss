@@ -1,2 +1,2 @@
-{{ [] | to => numbers }}
+{{ [] |> to => numbers }}
 {{ numbers.first() ?? 'null' }}

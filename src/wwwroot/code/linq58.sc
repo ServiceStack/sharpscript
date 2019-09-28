@@ -1,1 +1,1 @@
-products | where => it.ProductId = 12 | first | dump
+products |> where => it.ProductId = 12 |> first |> dump

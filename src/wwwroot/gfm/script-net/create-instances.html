@@ -38,8 +38,8 @@ match with the supplied arguments. Attempting to create an instance of the <code
 <a id="user-content-constructor-function" class="anchor" href="#constructor-function" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Constructor function</h3>
 <p>Alternatively you can use the <code>Constructor</code> method to specify the constructor you want by specifying the argument types of the
 constructor you want to use, which will return a delegate that lets you call a method to create instances using that Type's constructor:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> doubleAdder
-<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> stringAdder</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> doubleAdder
+<span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> stringAdder</pre></div>
 <p>In this case you will be able to create instances of <code>Adder</code> using an <code>int</code> argument as the built-in automapping will convert it to
 the Argument Type of the Constructor you've chosen:</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-en">doubleAdder</span>(<span class="pl-c1">1</span>)
@@ -50,7 +50,7 @@ the Argument Type of the Constructor you've chosen:</p>
 <span class="pl-en">Constructor</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(string)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>)</pre></div>
 <p>As the Constructor Function returns a delegate you will be able to invoke it like a normal method where it can also be invoked as
 an extension method or inside a filter expression:</p>
-<div class="highlight highlight-source-cs"><pre><span class="pl-en">Constructor</span>(<span class="pl-s">'Uri(string)'</span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">url</span>
+<div class="highlight highlight-source-cs"><pre><span class="pl-en">Constructor</span>(<span class="pl-s">'Uri(string)'</span>) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">url</span>
 
 <span class="pl-en">url</span>(<span class="pl-s">'http://example.org'</span>)
 <span class="pl-s">'http://example.org'</span>.<span class="pl-en">url</span>()
@@ -62,7 +62,7 @@ an extension method or inside a filter expression:</p>
 <h3>
 <a id="user-content-c-alias" class="anchor" href="#c-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C() alias</h3>
 <p>To reduce syntax noise when needing to create a lot of constructors you can use the much shorter alias <code>C</code> instead of <code>Constructor</code>:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-en">C</span>(<span class="pl-s"><span class="pl-pds">'</span>Uri(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> url
+<div class="highlight highlight-source-js"><pre><span class="pl-en">C</span>(<span class="pl-s"><span class="pl-pds">'</span>Uri(string)<span class="pl-pds">'</span></span>) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> url
 <span class="pl-en">C</span>(<span class="pl-s"><span class="pl-pds">'</span>Adder(double)<span class="pl-pds">'</span></span>)(<span class="pl-c1">1</span>)</pre></div>
 <h3>
 <a id="user-content-createinstance" class="anchor" href="#createinstance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>createInstance</h3>

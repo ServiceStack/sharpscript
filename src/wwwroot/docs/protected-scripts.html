@@ -82,7 +82,7 @@ order: 13
         page: 'page', 
         files: 
         { 
-            'page.html' : '{{ "https://raw.githubusercontent.com/ServiceStack/sharpscript/master/src" | to => src }}
+            'page.html' : '{{ "https://raw.githubusercontent.com/ServiceStack/sharpscript/master/src" |> to => src }}
 {{ `${src}/wwwroot/examples/email-template.txt` | includeUrl }}'
         } 
     }) 

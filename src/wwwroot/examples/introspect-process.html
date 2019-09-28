@@ -1,4 +1,4 @@
-{{ "h':'mm':'ss'.'FFF" | to => fmtTime }}
+{{ "h':'mm':'ss'.'FFF" |> to => fmtTime }}
 <tr>
     <td>{{ it.Id }}</td>
     <td>{{ it.ProcessName | substringWithElipsis(15) }}</td>

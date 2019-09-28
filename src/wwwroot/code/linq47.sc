@@ -1,2 +1,2 @@
 `Category names:`
-products | map => it.Category | distinct | joinln
+products |> map => it.Category |> distinct |> joinln

@@ -1,5 +1,5 @@
 Category names:
 {{ products 
-   | map => it.Category 
-   | distinct
-   | joinln }}
+   |> map => it.Category 
+   |> distinct
+   |> joinln }}

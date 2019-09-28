@@ -61,8 +61,8 @@ Alternatively you can use the `Constructor` method to specify the constructor yo
 constructor you want to use, which will return a delegate that lets you call a method to create instances using that Type's constructor:
 
 ```js
-Constructor('Adder(double)') | to => doubleAdder
-Constructor('Adder(string)') | to => stringAdder
+Constructor('Adder(double)') |> to => doubleAdder
+Constructor('Adder(string)') |> to => stringAdder
 ```
 
 In this case you will be able to create instances of `Adder` using an `int` argument as the built-in automapping will convert it to
@@ -81,7 +81,7 @@ As the Constructor Function returns a delegate you will be able to invoke it lik
 an extension method or inside a filter expression:
 
 ```csharp
-Constructor('Uri(string)') | to => url
+Constructor('Uri(string)') |> to => url
 
 url('http://example.org')
 'http://example.org'.url()
@@ -97,7 +97,7 @@ Constructor('Uri(string)')('http://example.org')
 To reduce syntax noise when needing to create a lot of constructors you can use the much shorter alias `C` instead of `Constructor`:
 
 ```js
-C('Uri(string)') | to => url
+C('Uri(string)') |> to => url
 C('Adder(double)')(1)
 ```
 

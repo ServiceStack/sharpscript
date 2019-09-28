@@ -1,3 +1,3 @@
 {{ products 
-   | orderBy => it.ProductName 
-   | htmlDump }}
+   |> orderBy => it.ProductName 
+   |> htmlDump }}

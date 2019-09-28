@@ -1,4 +1,4 @@
 {{ products 
-   | orderBy => it.Category
-   | thenByDescending => it.UnitPrice
-   | htmlDump }}
+   |> orderBy => it.Category
+   |> thenByDescending => it.UnitPrice
+   |> htmlDump }}

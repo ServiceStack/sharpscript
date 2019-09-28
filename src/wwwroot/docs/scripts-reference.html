@@ -79,60 +79,60 @@ $("FORM").submit(function(){
     }
 </style>
 
-{{ 6 | to => rows }}
+{{ 6 |> to => rows }}
 <div class="tab-content">
     <div class="tab-pane" id="default-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'DefaultScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'DefaultScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="html-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'HtmlScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'HtmlScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="protected-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'ProtectedScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'ProtectedScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="info-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'InfoScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'InfoScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="redis-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'RedisScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'RedisScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="db-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'DbScriptsAsync' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'DbScriptsAsync' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}
     </div>
     <div class="tab-pane" id="ss-scripts" role="tabpanel">
-{{ "live-template" | partial({ rows, className, template:`{{ 'ServiceStackScripts' | to => method }}
-{{ method | methodsAvailable | where => it.Name.lower().contains((nameContains ?? '').lower())
-          | to => methods }}
+{{ "live-template" | partial({ rows, className, template:`{{ 'ServiceStackScripts' |> to => method }}
+{{ method | methodsAvailable |> where => it.Name.lower().contains((nameContains ?? '').lower())
+          |> to => methods }}
 <table class="table table-striped"><caption>{{ method | methodLinkToSrc }}</caption>
 {{#each methods}}<tr><td>{{FirstParam}}</td><td>{{Body}}</td><td>{{Return}}</td></tr>{{/each}}
 </table>` }) }}

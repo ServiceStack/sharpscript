@@ -168,6 +168,6 @@ order: 6
     You can also capture the output of a Block Method and assign it to a normal argument by using the <em>assignTo</em> Block Method:
 </p>
 
-<pre class="cs"><code>{{ pass: 'doc.md' | includeFile | to => contents }}</code></pre>
+<pre class="cs"><code>{{ pass: 'doc.md' | includeFile |> to => contents }}</code></pre>
 
 {{ "doc-links" | partial({ order }) }}
