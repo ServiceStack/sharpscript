@@ -1,0 +1,80 @@
+<div class="gfm"><div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span> resolve `ITwitterUpdates` IOC dependency and assign it to `twitter`</span>
+(def twitter (resolve <span class="pl-s"><span class="pl-pds">"</span>ITwitterUpdates<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> view its concrete Type Name</span>
+(typeName twitter)
+
+<span class="pl-c"><span class="pl-c">;</span> view its method names </span>
+(joinln (methods twitter))
+
+<span class="pl-c"><span class="pl-c">;</span> view its method signatures </span>
+(joinln (methodTypes twitter))
+
+<span class="pl-c"><span class="pl-c">;</span> use it to send tweet from its @webstacks account</span>
+(.Tweet twitter <span class="pl-s"><span class="pl-pds">"</span>Who's using #Script Lisp? https://sharpscript.net/lisp<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> view all available scripts in #Script Lisp Library Index gist.github.com/3624b0373904cfb2fc7bb3c2cb9dc1a3</span>
+(gistindex)
+
+<span class="pl-c"><span class="pl-c">;</span> view the source code of the `parse-rss` library</span>
+(load-src <span class="pl-s"><span class="pl-pds">"</span>index:parse-rss<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> assign the XML contents of HN's RSS feed to `xml`</span>
+(def xml (urlContents <span class="pl-s"><span class="pl-pds">"</span>https://news.ycombinator.com/rss<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> preview its first 1000 chars</span>
+(subString xml <span class="pl-c1">0</span> <span class="pl-c1">1000</span>)
+
+<span class="pl-c"><span class="pl-c">;</span> use `parse-rss` to parse the RSS feed into a .NET Collection and assign it to `rss`</span>
+(def rss (parse-rss xml))
+
+<span class="pl-c"><span class="pl-c">;</span> view the `title`, `description` and the first `item` in the RSS feed:</span>
+(:title rss)
+(:description rss)
+(:<span class="pl-c1">0</span> (:items rss))
+
+<span class="pl-c"><span class="pl-c">;</span> view the links of all RSS feed items</span>
+(joinln (map :link (:items rss)))
+
+<span class="pl-c"><span class="pl-c">;</span> view the links and titles of the top 5 news items</span>
+(joinln (map :link (take <span class="pl-c1">5</span> (:items rss))))
+(joinln (map :title (take <span class="pl-c1">5</span> (:items rss))))
+
+<span class="pl-c"><span class="pl-c">;</span> construct a plain-text numbered list of the top 5 HN Links and assign it to `body`</span>
+(joinln (map-index #(str %<span class="pl-c1">2</span> (:title %<span class="pl-c1">1</span>)) (take <span class="pl-c1">5</span> (:items rss))))
+(joinln (map-index #(str (padLeft (<span class="pl-c1">1</span>+ %<span class="pl-c1">2</span>) <span class="pl-c1">2</span>) <span class="pl-s"><span class="pl-pds">"</span>. <span class="pl-pds">"</span></span> (:title %<span class="pl-c1">1</span>)) (take <span class="pl-c1">5</span> (:items rss))))
+(def body (joinln 
+    (map-index #(str (padLeft (<span class="pl-c1">1</span>+ %<span class="pl-c1">2</span>) <span class="pl-c1">2</span>) <span class="pl-s"><span class="pl-pds">"</span>. <span class="pl-pds">"</span></span> (:title %<span class="pl-c1">1</span>) <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span> (:link %<span class="pl-c1">1</span>) <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>) (take <span class="pl-c1">5</span> (:items rss)))))
+
+<span class="pl-c"><span class="pl-c">;</span> view all TechStacks PostgreSQL AWS RDS tables</span>
+(dbTableNames)
+(joinln dbTableNames)
+
+<span class="pl-c"><span class="pl-c">;</span> view the column names and definitions of the `technology` table</span>
+(joinln (dbColumnNames <span class="pl-s"><span class="pl-pds">"</span>technology<span class="pl-pds">"</span></span>))
+(joinln (dbColumns <span class="pl-s"><span class="pl-pds">"</span>technology<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> search for all `user` tables</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>*user*<span class="pl-pds">"</span></span> (dbTableNames))
+
+<span class="pl-c"><span class="pl-c">;</span> view how many Admin Users with Emails there are</span>
+(dbScalar <span class="pl-s"><span class="pl-pds">"</span>select count(email) from custom_user_auth where roles like '%Admin%'<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> assign the Admin Users email to the `emails` list</span>
+(def emails (map :email (dbSelect <span class="pl-s"><span class="pl-pds">"</span>select email from custom_user_auth where roles like '%Admin%'<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> search for all `operation` script methods</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>*operation*<span class="pl-pds">"</span></span> scriptMethods)
+
+<span class="pl-c"><span class="pl-c">;</span> search for all `email` Request DTOs</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>*email*<span class="pl-pds">"</span></span> metaAllOperationNames)
+
+<span class="pl-c"><span class="pl-c">;</span> view the properties available on the `SendEmail` Request DTO</span>
+(props (SendEmail.))
+
+<span class="pl-c"><span class="pl-c">;</span> search for all `publish` script methods that can publish messages</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>publish*<span class="pl-pds">"</span></span> scriptMethods)
+
+<span class="pl-c"><span class="pl-c">;</span> create and publish 5x `SendEmail` Request DTOs for processing by TechStacks configured MQ Server</span>
+(doseq (to emails) (publishMessage <span class="pl-s"><span class="pl-pds">"</span>SendEmail<span class="pl-pds">"</span></span> { :To to :Subject <span class="pl-s"><span class="pl-pds">"</span>Top 5 HN Links<span class="pl-pds">"</span></span> :Body body }))</pre></div>
+</div>

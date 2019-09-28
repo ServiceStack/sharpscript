@@ -9,6 +9,8 @@
 {
     <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">string</span> <span class="pl-smi">Name</span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>raw<span class="pl-pds">"</span></span>;
     
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-en">ScriptLanguage</span> <span class="pl-smi">Body</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">ScriptVerbatim</span>.<span class="pl-smi">Language</span>;
+
     <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">async</span> <span class="pl-en">Task</span> <span class="pl-en">WriteAsync</span>(
         <span class="pl-en">ScriptScopeContext</span> <span class="pl-smi">scope</span>, <span class="pl-en">PageBlockFragment</span> <span class="pl-smi">block</span>, <span class="pl-en">CancellationToken</span> <span class="pl-smi">token</span>)
     {

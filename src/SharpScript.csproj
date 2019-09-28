@@ -22,18 +22,18 @@
     <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.*" />
     <PackageReference Include="ServiceStack.Server" Version="5.*" /> 
     <PackageReference Include="ServiceStack.Api.OpenApi" Version="5.*" /> 
+  </ItemGroup>
 
-    <!-- <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack.OrmLite\src\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj" />
-
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Client\ServiceStack.Client.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack\ServiceStack.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Server\ServiceStack.Server.csproj" />
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Api.OpenApi\ServiceStack.Api.OpenApi.csproj" /> -->
+  <ItemGroup>
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.OrmLite\src\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Client\ServiceStack.Client.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Server\ServiceStack.Server.Source.csproj" />-->
+<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack\ServiceStack.Source.csproj" />-->
   </ItemGroup>
 
 </Project>

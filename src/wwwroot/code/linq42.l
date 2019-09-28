@@ -1,0 +1,1 @@
+(htmldump (map #(it {:category (.Key %), :products % }) (group-by :category products-list)))

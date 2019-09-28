@@ -1,7 +1,10 @@
-<div class="linq-preview {{ output }}">
+{{ (lang ?? qs.lang) | to => lang }}
+{{ (lang == 'code' ? 'sc' : lang == 'lisp' ? 'l' : 'ss') | to => ext }}
+
+<div class="linq-preview {{ output }}" data-lang="{{lang}}">
     <div class="template">
-        <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control" 
-            rows="{{ rows ?? 6 }}">{{ `code/${example}.txt` | includeFile }}</textarea>
+        <textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form-control"
+            rows="{{ rows ?? 6 }}">{{ `code/${example}.${ext}` | includeFile }}</textarea>
     </div>
     <div class="result">
         <div class="output"></div>

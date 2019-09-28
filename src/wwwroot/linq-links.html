@@ -1,7 +1,13 @@
 <div class="linq-links">
 
-{{ order | prevLinqLink | select: <span>&#8592; <a href="{ it.Key }">{ it.Value }</a></span> }}
 
-{{ order | nextLinqLink | select: <span style="float:right"><a href="{ it.Key }">{ it.Value }</a> &#8594;</span> }}
+{{#with order.prevLinqLink() }}
+    <span>&#8592; <a href="{{ qs.lang ? `${Key}?lang=${qs.lang}` : Key }}">{{ Value }}</a></span>
+{{/with}}
+    
+
+{{#with order.nextLinqLink() }}
+    <span style="float:right"><a href="{{ qs.lang ? `${Key}?lang=${qs.lang}` : Key }}">{{ Value }}</a> &#8594;</span>
+{{/with}}
 
 </div>

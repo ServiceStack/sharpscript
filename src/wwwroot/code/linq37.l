@@ -1,0 +1,1 @@
+(htmldump (order-by [ #(.Category %) { :key #(.UnitPrice %) :desc true } ] products-list))

@@ -56,6 +56,14 @@ AUTH = {{ {} | sendToGateway('Authenticate', { ifErrorReturn: "null" }) | json }
 
 {{ 'gfm/servicestack-scripts/02.md' | githubMarkdown }}
 
+<h3>publishMessage</h3>
+
+<p>
+    <em>publishMessage</em> is used for sending Request DTOs to be processed by the configured <a href="https://docs.servicestack.net/messaging">MQ Server</a>:
+</p>
+
+{{ 'gfm/servicestack-scripts/09.md' | githubMarkdown }}
+
 <h3 id="sendToAutoQuery-data">sendToAutoQuery</h3>
 
 <p>

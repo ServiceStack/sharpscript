@@ -67,4 +67,37 @@ order: 18
 
 <pre class="cs"><code>{{ pass: "page.txt" | includeFile | htmlencode }}</code></pre>
 
+<h4 id="preprocessors">Preprocessor Code Transformations</h4>
+
+{{#markdown}}
+Preprocessors allows you to perform source-code transformations before `#Script` evaluates it which is useful when you want to 
+convert any placeholder markers into HTML or `#Script` code at runtime, e.g. this feature could be used to replace translated text with the
+language that the App's configured with to use on Startup. 
+
+With this feature we can also change how [#Script's Language Block Feature](/docs/syntax#language-blocks-and-expressions) is implemented where
+we could instead use a [simple TransformCodeBlocks PreProcessor](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/ScriptPreprocessors.cs) 
+to process any `code` bocks by registering in the `Preprocessors` list:
+
+    var context = new ScriptContext {
+        Preprocessors = { ScriptPreprocessors.TransformCodeBlocks }
+    }.Init();
+
+There by overriding the existing implementation with the code transformation below:
+
+#### Code Transformation
+
+This preprocessor performs a basic transformation that assumes every statement is an expression and wraps them in an `{{...}}` 
+expression block, the exception are expressions which are already within an expression block which are ignored and you still
+need to use to wrap multi-line expressions in `code` blocks.
+
+The other transformation `code` blocks perform is collapsing new lines and trimming each line, this is so scripts which are primarily 
+structured and indented for readability aren't reflected in its text output. 
+
+We can see an example of how `code` blocks work from the example below:
+{{/markdown}}
+
+{{ 'gfm/syntax/06.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+
+
 {{ "doc-links" | partial({ order }) }}

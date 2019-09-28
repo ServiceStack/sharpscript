@@ -1,0 +1,5 @@
+(println "Customers from Washington and their orders:")
+(doseq (c (where #(= (.Region %) "WA") customers-list))
+    (println "Customer " (.CustomerId c) ": " (.CompanyName c) ": ")
+    (doseq (o (.Orders c))
+        (println "    Order " (.OrderId o) ": " (.OrderDate o)) ))

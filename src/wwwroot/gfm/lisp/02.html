@@ -1,0 +1,28 @@
+<div class="gfm"><div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span>&lt;!--</span>
+<span class="pl-c"><span class="pl-c">;</span> db sqlite</span>
+<span class="pl-c"><span class="pl-c">;</span> db.connection northwind.sqlite</span>
+<span class="pl-c"><span class="pl-c">;</span> files s3</span>
+<span class="pl-c"><span class="pl-c">;</span> files.config {AccessKey:$AWS_S3_ACCESS_KEY,SecretKey:$AWS_S3_SECRET_KEY,Region:us-east-1,Bucket:rockwind}</span>
+<span class="pl-c"><span class="pl-c">;</span>--&gt;</span>
+
+<span class="pl-c"><span class="pl-c">;</span> delete remove.txt file</span>
+(sh (str (<span class="pl-k">if</span> isWin <span class="pl-s"><span class="pl-pds">"</span>del<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>rm<span class="pl-pds">"</span></span>) <span class="pl-s"><span class="pl-pds">"</span> remove.txt<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> View all `northwind.sqlite` RDBMS Tables</span>
+(textDump (dbTableNames) { :caption <span class="pl-s"><span class="pl-pds">"</span>Northwind<span class="pl-pds">"</span></span> } )
+
+<span class="pl-c"><span class="pl-c">;</span> Display first `customer` row in Single Row View showing all Table Columns</span>
+(textDump (dbSelect <span class="pl-s"><span class="pl-pds">"</span>select * from customer limit 1<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> Display all Customers in London</span>
+(def city <span class="pl-s"><span class="pl-pds">"</span>London<span class="pl-pds">"</span></span>)
+(textDump (dbSelect <span class="pl-s"><span class="pl-pds">"</span>select Id, CompanyName, ContactName from customer where city = @city<span class="pl-pds">"</span></span> { :city city } ))
+
+<span class="pl-c"><span class="pl-c">;</span> View all root files and folders in configured S3 Virtual File Provider</span>
+(joinln (map #(str (.Name %) <span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>) (allRootDirectories vfsContent)))
+(joinln (map .Name (allRootFiles vfsContent)))
+
+<span class="pl-c"><span class="pl-c">;</span> Show first 10 *.png files in S3 VFS Provider</span>
+(def pattern (<span class="pl-k">or</span> (first ARGV) <span class="pl-s"><span class="pl-pds">"</span>*.png<span class="pl-pds">"</span></span>))
+(joinln (map .VirtualPath (take <span class="pl-c1">10</span> (findFiles vfsContent pattern))))</pre></div>
+</div>

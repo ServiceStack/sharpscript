@@ -1,0 +1,64 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
+    <span class="pl-smi">ScriptLanguages</span> <span class="pl-k">=</span> { <span class="pl-smi">ScriptLisp</span>.<span class="pl-smi">Language</span> },
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> { <span class="pl-k">new</span> <span class="pl-en">ProtectedScripts</span>() },
+};
+<span class="pl-smi">context</span>.<span class="pl-smi">VirtualFiles</span>.<span class="pl-en">WriteFile</span>(<span class="pl-s"><span class="pl-pds">"</span>lib1.l<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>(defn lib-calc [a b] (+ a b))<span class="pl-pds">"</span></span>);
+<span class="pl-smi">context</span>.<span class="pl-smi">VirtualFiles</span>.<span class="pl-en">WriteFile</span>(<span class="pl-s"><span class="pl-pds">"</span>/dir/lib2.l<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>(defn lib-calc [a b] (* a b))<span class="pl-pds">"</span></span>);
+<span class="pl-smi">context</span>.<span class="pl-en">Init</span>();</pre></div>
+<p>You can load these scripts by symbol name where it assumes a <code>.l</code> extension, by quoting the argument so
+Lisp doesn't try to evaluate it as an argument, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> 'lib1)
+
+(lib-calc <span class="pl-c1">4</span> <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">;</span>= 9</span></pre></div>
+<p>Alternatively you can specify the virtual path to the script. You can load multiple scripts with the same definitions,
+in Lisp this just updates the value assigned to the symbol name with the latest definition, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>lib1.l<span class="pl-pds">"</span></span>)
+
+(lib-calc <span class="pl-c1">4</span> <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">;</span>= 9</span>
+
+(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>/dir/lib2.l<span class="pl-pds">"</span></span>)
+
+(lib-calc <span class="pl-c1">4</span> <span class="pl-c1">5</span>) <span class="pl-c"><span class="pl-c">;</span>= 20</span></pre></div>
+<h3>
+<a id="user-content-import-scripts-from-urls" class="anchor" href="#import-scripts-from-urls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Import Scripts from URLs</h3>
+<p>Inspired by <a href="https://deno.land" rel="nofollow">Deno</a> you can also import remote scripts from URLs, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>https://example.org/lib.l<span class="pl-pds">"</span></span>)</pre></div>
+<h3>
+<a id="user-content-locally-cached" class="anchor" href="#locally-cached" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Locally Cached</h3>
+<p>Like <a href="https://deno.land/manual.html" rel="nofollow">Deno</a> all remote resources are cached after first use so after it's loaded once it only loads the locally cached
+version of the script (where it will still work in an airplane without an internet connection). This cache is maintained
+under a <code>.lisp</code> folder at your configured Virtual Files provider (that can be deleted to clear any caches).</p>
+<p>For Sharp Scripts or Apps using the <code>web</code> or <code>app</code> dotnet tools it's stored in its own cache folder that can be cleared with:</p>
+<pre><code>$ web --clean
+</code></pre>
+<h3>
+<a id="user-content-import-scripts-from-gists" class="anchor" href="#import-scripts-from-gists" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Import Scripts from Gists</h3>
+<p>There's also first-class support for gists which you can reference with <code>gist:&lt;gist-id&gt;</code>, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>gist:2f14d629ba1852ee55865607f1fa2c3e<span class="pl-pds">"</span></span>)</pre></div>
+<p>This will load all gist files in gist order, if you only to load a single file from a gist you can specify it with:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>gist:2f14d629ba1852ee55865607f1fa2c3e/lib1.l<span class="pl-pds">"</span></span>)</pre></div>
+<h3>
+<a id="user-content-script-lisp-library-index" class="anchor" href="#script-lisp-library-index" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Lisp Library Index</h3>
+<p>To provide human readable names to remote Lisp Scripts and a discoverable catalog where anyone can share their own scripts,
+you reference gists by name listed in the <a href="https://gist.github.com/gistlyn/3624b0373904cfb2fc7bb3c2cb9dc1a3">#Script Lisp Library Index</a>
+which is itself a self-documenting machine and human readable gist of named links to external gists maintained by their
+respective authors.</p>
+<p>Index library references can be loaded using the format <code>index:&lt;name&gt;</code>, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>index:lib-calc<span class="pl-pds">"</span></span>)</pre></div>
+<p>Which also support being able to reference individual gist files:</p>
+<div class="highlight highlight-source-lisp"><pre>(<span class="pl-c1">load</span> <span class="pl-s"><span class="pl-pds">"</span>index:lib-calc/lib1.l<span class="pl-pds">"</span></span>)</pre></div>
+<p>If you'd like to share your own Lisp Scripts with everyone and publish your library to the index, just add a link
+to your gist with your preferred name in the <a href="https://gist.github.com/gistlyn/3624b0373904cfb2fc7bb3c2cb9dc1a3">Gist Index Comments</a>.</p>
+<h3>
+<a id="user-content-viewing-script-source-code" class="anchor" href="#viewing-script-source-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Viewing Script Source Code</h3>
+<p>You can view the source code of any load script references with <code>load-src</code>, e.g:</p>
+<div class="highlight highlight-source-lisp"><pre>(load-src 'lib)
+(load-src <span class="pl-s"><span class="pl-pds">"</span>/dir/lib2.l<span class="pl-pds">"</span></span>)
+(load-src <span class="pl-s"><span class="pl-pds">"</span>https://example.org/lib.l<span class="pl-pds">"</span></span>)
+(load-src <span class="pl-s"><span class="pl-pds">"</span>gist:2f14d629ba1852ee55865607f1fa2c3e/lib1.l<span class="pl-pds">"</span></span>)
+(load-src <span class="pl-s"><span class="pl-pds">"</span>index:lib-calc<span class="pl-pds">"</span></span>)</pre></div>
+<h3>
+<a id="user-content-disable-remote-imports" class="anchor" href="#disable-remote-imports" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Disable Remote Imports</h3>
+<p>Should you wish, you can prevent anyone from loading remote scripts with:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">Lisp</span>.<span class="pl-smi">AllowLoadingRemoteScripts</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;</pre></div>
+</div>

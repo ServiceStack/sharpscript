@@ -1,0 +1,19 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-smi">LinqContext</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ScriptContext</span> {
+    <span class="pl-smi">ScriptLanguages</span> <span class="pl-k">=</span> { <span class="pl-smi">ScriptLisp</span>.<span class="pl-smi">Language</span> },
+    <span class="pl-smi">Args</span> <span class="pl-k">=</span> {
+        [<span class="pl-smi">ScriptConstants</span>.<span class="pl-smi">DefaultDateFormat</span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>yyyy/MM/dd<span class="pl-pds">"</span></span>,
+        [<span class="pl-s"><span class="pl-pds">"</span>products<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-smi">TemplateQueryData</span>.<span class="pl-smi">Products</span>,
+        [<span class="pl-s"><span class="pl-pds">"</span>products-list<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-smi">Lisp</span>.<span class="pl-en">ToCons</span>(<span class="pl-smi">TemplateQueryData</span>.<span class="pl-smi">Products</span>),
+        [<span class="pl-s"><span class="pl-pds">"</span>customers<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-smi">TemplateQueryData</span>.<span class="pl-smi">Customers</span>,
+        [<span class="pl-s"><span class="pl-pds">"</span>customers-list<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-smi">Lisp</span>.<span class="pl-en">ToCons</span>(<span class="pl-smi">TemplateQueryData</span>.<span class="pl-smi">Customers</span>),
+        [<span class="pl-s"><span class="pl-pds">"</span>comparer<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">CaseInsensitiveComparer</span>(),
+        [<span class="pl-s"><span class="pl-pds">"</span>anagramComparer<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AnagramEqualityComparer</span>(),
+    },
+    <span class="pl-c"><span class="pl-c">//</span> Enable access to .NET Types to Lisp</span>
+    <span class="pl-smi">ScriptTypes</span> <span class="pl-k">=</span> {
+        <span class="pl-k">typeof</span>(<span class="pl-en">DateTime</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">CaseInsensitiveComparer</span>),
+        <span class="pl-k">typeof</span>(<span class="pl-en">AnagramEqualityComparer</span>),
+    },
+};</pre></div>
+</div>

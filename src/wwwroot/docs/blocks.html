@@ -7,26 +7,13 @@ order: 7
 Script Blocks lets you define reusable statements that can be invoked with a new context allowing the creation custom iterators and helpers - 
 making it easy to encapsulate reusable functionality and reduce boilerplate for common functionality.
 
-## Default Blocks
+{{/markdown}}
 
- - [noop](#noop)
- - [with](#with)
- - [if](#if)
- - [raw](#raw)
- - [function](#function)
- - [capture](#capture)
- - [markdown](#markdown)
- - [keyvalues](#keyvalues)
- - [csv](#csv)
- - [partial](#partial)
- - [html](#html)
+{{ 'gfm/blocks/00.md' | githubMarkdown | convertScriptToCodeBlocks }}
 
-## ServiceStack Blocks
+{{#markdown}}
 
- - [minifyjs](#minifyjs)
- - [minifycss](#minifycss)
- - [minifyhtml](#minifyhtml)
- - [svg](#svg)
+### Syntax
 
 The syntax for blocks follows the familiar [handlebars block helpers](https://handlebarsjs.com/block_helpers.html) in both syntax and functionality.
 `#Script` also includes most of handlebars.js block helpers which are useful in a HTML template language whilst minimizing any porting efforts if 
@@ -162,12 +149,23 @@ It also evaluates any `block.ElseBlocks` statements which is **functionality ava
 ### if
 
 Since all blocks are able to execute any number of `{{else}}` statements by calling `base.WriteElseAsync()`, the implementation for 
-the `{{if}}` block ends up being even simpler which just needs to evaluate the argument to `bool`. 
+the `#if` block ends up being even simpler which just needs to evaluate the argument to `bool`. 
 
 If **true** it writes the body with `WriteBodyAsync()` otherwise it evaluates any `else` statements with `WriteElseAsync()`:
 {{/markdown}}
 
 {{ 'gfm/blocks/10.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### while
+    
+Similar to `#if`, the `#while` block takes a boolean expression, except it keeps evaluating its body until the expression evaluates to `false`.
+
+The implementation includes a safe-guard to ensure it doesn't exceed the configured `ScriptContext.MaxQuota` to avoid infinite recursion:
+{{/markdown}}
+
+{{ 'gfm/blocks/27.md' | githubMarkdown }}
 
 {{#markdown}}
 ### each
@@ -314,6 +312,23 @@ Although their limited to the configured [MaxStackDepth](/docs/sandbox#max-stack
 Source code for [FunctionScriptBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Blocks/FunctionScriptBlock.cs).
 
 > `function` block is available from [v5.6.1 on MyGet](https://docs.servicestack.net/myget)
+
+### defn
+
+Similar to `{{#function}}` above, the `{{#defn}}` script block lets you define a function using lisp. The resulting function is 
+exported as a C# delegate where it can be invoked like any other Script method. 
+    
+An equivalent `calc` and `fib` function in lisp looks like:
+
+{{/markdown}}
+
+{{ 'gfm/blocks/26.md' | githubMarkdown }}
+
+{{#markdown}}
+
+As in most Lisp expressions, the last expression executed is the implicit return value.
+
+> The `defn` Script Block is automatically registered when the [Lisp language is registered](/lisp/).
 
 ### capture
 

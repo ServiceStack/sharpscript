@@ -3,6 +3,8 @@ title: Restriction Operators
 order: 1
 -->
 
+{{ "lang-select" | partial }}
+
 <h3>linq1: Where - Simple 1</h3>
 
 <pre><code>//c#
@@ -26,10 +28,11 @@ public void Linq1()
 {{ "linq-preview" | partial({ example: "linq01" }) }}
 
 <p>
-    Or can be alternatively written using <a href="/docs/syntax#code-blocks">Code Blocks</a>:
+    Or can be written using different languages within the same <em>#Script</em> using 
+    <a href="/docs/syntax#lang-blocks">Language Blocks and Expressions</a>:
 </p>
 
-{{ "linq-preview" | partial({ rows:7, example: "linq01-code" }) }}
+{{ "linq-preview" | partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
 
 <h3>linq2: Where - Simple 2</h3>
 
@@ -73,7 +76,7 @@ public void Linq3()
 } 
 </code></pre>
 
-{{ "linq-preview" | partial({ rows: 4, example: "linq03" }) }}
+{{ "linq-preview" | partial({ rows: 5, example: "linq03" }) }}
 
 <h3>linq4: Where - Drilldown</h3>
 

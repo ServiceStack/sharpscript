@@ -17,7 +17,7 @@ namespace SharpScript
     public class AppHost : AppHostBase
     {
         public AppHost()
-            : base("#Script Pages", typeof(TemplateServices).Assembly) { }
+            : base("#Script Pages", typeof(ScriptServices).Assembly) { }
 
         public ScriptContext LinqContext;
 
@@ -57,12 +57,14 @@ namespace SharpScript
 
             var customFilters = new CustomScriptMethods();
             Plugins.Add(new SharpPagesFeature {
+                ScriptLanguages = { ScriptLisp.Language },
                 ScriptMethods = { 
                     customFilters,
                     new DbScriptsAsync()
                 },
                 FilterTransformers = {
                     ["convertScriptToCodeBlocks"] = GitHubMarkdownScripts.convertScriptToCodeBlocks,
+                    ["convertScriptToLispBlocks"] = GitHubMarkdownScripts.convertScriptToLispBlocks,
                 },
                 Args = {
                     ["products"] = TemplateQueryData.Products
@@ -92,12 +94,22 @@ namespace SharpScript
                     }
                 }
 
-                foreach (var file in files.GetDirectory("linq").GetAllMatchingFiles("*.html"))
+                foreach (var file in files.GetDirectory("scode").GetAllMatchingFiles("*.html"))
                 {
                     var page = feature.GetPage(file.VirtualPath).Init().Result;
                     if (page.Args.TryGetValue("order", out object order) && page.Args.TryGetValue("title", out object title))
                     {
-                        customFilters.LinqIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
+                        customFilters.CodeIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
+                    }
+                }
+
+
+                foreach (var file in files.GetDirectory("lisp").GetAllMatchingFiles("*.html"))
+                {
+                    var page = feature.GetPage(file.VirtualPath).Init().Result;
+                    if (page.Args.TryGetValue("order", out object order) && page.Args.TryGetValue("title", out object title))
+                    {
+                        customFilters.LispIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
                     }
                 }
 
@@ -110,15 +122,39 @@ namespace SharpScript
                     }
                 }
 
+                foreach (var file in files.GetDirectory("linq").GetAllMatchingFiles("*.html"))
+                {
+                    var page = feature.GetPage(file.VirtualPath).Init().Result;
+                    if (page.Args.TryGetValue("order", out object order) && page.Args.TryGetValue("title", out object title))
+                    {
+                        customFilters.LinqIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
+                    }
+                }
+
+                var protectedScriptNames = new HashSet<string>(ScriptMethodInfo.GetMethodsAvailable(typeof(ProtectedScripts)).Map(x => x.Name));
+
                 LinqContext = new ScriptContext {
+                    ScriptLanguages = { ScriptLisp.Language },
                     Args = {
                         [ScriptConstants.DefaultDateFormat] = "yyyy/MM/dd",
                         ["products"] = TemplateQueryData.Products,
+                        ["products-list"] = Lisp.ToCons(TemplateQueryData.Products),
                         ["customers"] = TemplateQueryData.Customers,
+                        ["customers-list"] = Lisp.ToCons(TemplateQueryData.Customers),
                         ["comparer"] = new CaseInsensitiveComparer(),
                         ["anagramComparer"] = new AnagramEqualityComparer(),
-                    }
-                }.Init();
+                    },
+                    ScriptTypes = {
+                        typeof(DateTime),
+                        typeof(CaseInsensitiveComparer),
+                        typeof(AnagramEqualityComparer),
+                    },
+                    ScriptMethods = {
+                        new ProtectedScripts()
+                    },
+                };
+                protectedScriptNames.Each(x => LinqContext.ExcludeFiltersNamed.Add(x));
+                LinqContext.Init();
             });
         }
 

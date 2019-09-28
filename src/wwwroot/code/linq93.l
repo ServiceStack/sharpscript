@@ -1,0 +1,6 @@
+(let ( (start-balance 100)
+       (attempted-withdrawls [20 10 40 50 10 70 30]) 
+       (end-balance) )
+    (setq end-balance (reduce (fn [balance cut] (if (> balance cut) (- balance cut) balance)) 
+                          attempted-withdrawls start-balance))
+    (println "Ending balance: " end-balance))

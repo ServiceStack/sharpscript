@@ -31,8 +31,8 @@ Tesla,Model S,79990
 Tesla,Model 3,38990
 Tesla,Model X,84990
 {{/csv}}
-{{ cars | map => { Make: it[0], Model: it[1], Cost: it[2] } | htmldump }}
-Total Cost: {{ cars | sum => it[2] | currency }}{{/raw}}</textarea>
+{{ cars |> map => { Make: it[0], Model: it[1], Cost: it[2] } |> htmldump }}
+Total Cost: {{ cars |> sum => it[2] |> currency }}{{/raw}}</textarea>
     </div>
     <div class="result">
         <div class="output" style="font-family: Monaco, Consolas"></div>

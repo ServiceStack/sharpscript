@@ -1,0 +1,14 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">if</span> (<span class="pl-smi">Config</span>.<span class="pl-smi">DebugMode</span>)
+{
+    <span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">LispReplTcpServer</span> {
+        <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> {
+            <span class="pl-k">new</span> <span class="pl-en">DbScripts</span>()
+        },
+        <span class="pl-smi">ScriptNamespaces</span> <span class="pl-k">=</span> {
+            <span class="pl-k">nameof</span>(<span class="pl-smi">TechStacks</span>),
+            <span class="pl-s"><span class="pl-pds">$"</span>{<span class="pl-k">nameof</span>(<span class="pl-smi">TechStacks</span>)}.{<span class="pl-k">nameof</span>(<span class="pl-smi">ServiceInterface</span>)}<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">$"</span>{<span class="pl-k">nameof</span>(<span class="pl-smi">TechStacks</span>)}.{<span class="pl-k">nameof</span>(<span class="pl-smi">ServiceModel</span>)}<span class="pl-pds">"</span></span>,
+        },
+    });
+}</pre></div>
+</div>

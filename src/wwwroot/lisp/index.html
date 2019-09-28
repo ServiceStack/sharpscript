@@ -1,0 +1,638 @@
+<!--
+title: #Script Lisp
+order: 0
+-->
+
+{{#markdown}}
+
+`#Script` is designed as a small, expressive and wrist-friendly dynamic scripting language that for maximimum familiarity
+is modelled after the world's most popular and ubiquitos scripting Language, JavaScript. Its minimal syntax was inspired 
+by other small but powerful languages which heavily utilizes functions instead of adopting a larger language grammar 
+defining different bespoke syntax for language constructs.
+
+Small Languages like Smalltalk, despite being one of the most influential languages in history, is famous for its minimal
+[syntax that fits on a post card](https://en.wikipedia.org/wiki/Smalltalk#Syntax). A language with arguably the
+best power to size ratio is [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) which the inventor of
+Smalltalk, Alan Kay has credited it as being
+the [greatest single programming language ever designed](https://en.wikiquote.org/wiki/Lisp_%28programming_language%29)
+after realizing: 
+
+> “the half page of code on the bottom of page 13… was Lisp in itself. These were 
+[“Maxwell’s Equations of Software!”](http://www.michaelnielsen.org/ddi/lisp-as-the-maxwells-equations-of-software/)
+
+[Lisp's unprecedented elegance and simplicity](http://languagelog.ldc.upenn.edu/myl/llog/jmc.pdf) spawned a [myraid of dialects](https://en.wikipedia.org/wiki/List_of_Lisp-family_programming_languages),
+some noteworthy implementations illustrating the beauty of its small size and expressive power is [lispy](http://norvig.com/lispy.html) by
+by [Peter Norvig](http://norvig.com) (Director of Google Research) that implements a Lisp interpreter in just **117 lines of Python 3 code** (inc. a REPL).
+
+Another compact dialect is [Zick Standard Lisp](https://github.com/zick/ZickStandardLisp) which [@zick](https://github.com/zick) 
+has implemented in **42 different languages** including a [recursive Lisp evaluator in Lisp](https://github.com/zick/ZickStandardLisp/blob/master/lisp.lsp)
+implemented in only **66 lines of code**.
+
+A more complete Lisp implementation in C# is the elegant [Nukata Lisp](https://github.com/nukata/lisp-in-cs) 
+by [SUZUKI Hisao](https://github.com/nukata) which is a 
+Common Lisp-like [Lisp-1](https://stackoverflow.com/q/4578574/85785) dialect with tail call optimization and partially hygienic macros, although
+has some notable limitations including a [small standard library](https://github.com/nukata/lisp-in-cs/blob/d4258ec4b5681b0854a0d464b708df9ae26bbe3c/lisp.cs#L1216-L1391), 
+only uses the `double` numeric type and doesn't include any .NET Scripting.
+
+### Script Lisp Overview
+
+[ScriptLisp](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/ScriptLanguage.Lisp.cs) is an
+enhanced version of [Nukata Lisp](https://github.com/nukata/lisp-in-cs) with a number of new features
+that reuses `#Script` existing scripting capabilities to provide seamless integration with both the rest of `#Script`
+(see [Language Blocks an Expressions](http://localhost:5000/docs/syntax#language-blocks-and-expressions))
+and .NET including [Scripting of .NET Types](/docs/script-net), support for all .NET numeric types and access to its comprehensive 
+library of over **1000+** [Script Methods](/docs/methods) - optimally designed for accessing .NET functionality from a dynamic language.
+
+To improve compatibility with existing Common Lisp source code it also implements most of the [Simplified Common Lisp Reference](http://jtra.cz/stuff/lisp/sclr/)
+as well as all missing functions required to implement C# LINQ 101 Examples in Lisp:
+
+<div class="text-center my-3">
+    <a href="/linq/restriction-operators?lang=lisp" class="btn btn-outline-primary btn-lg">Lisp LINQ Examples</a>
+</div>
+
+To improve readability and familiarity it also adopts a number of **Clojure** syntax for defining a 
+[data list and map](https://clojure.org/guides/learn/syntax#_literal_collections) literals, 
+[anonymous functions](https://clojure.org/guides/learn/functions#_anonymous_function_syntax), 
+syntax in [Java Interop](https://clojure.org/guides/learn/functions#_java_interop) for .NET Interop,
+[keyword syntax for indexing collections](https://clojure.org/guides/learn/hashed_colls#_field_accessors) and accessing index accessors
+and Clojure's popular shorter aliases for `fn`, `def`, `defn` - improving source-code compatibility with Clojure.
+
+### Lisp REPL
+
+In addition to being a 1st class language option in `#Script`, Lisp's dynamism and extensibility makes it particularly 
+well suited for explanatory programming and usage within a REPL which is now built into the latest 
+[web](https://docs.servicestack.net/web-tool) and [app](https://docs.servicestack.net/netcore-windows-desktop) dotnet tools 
+that you can update to the latest version with:
+
+    $ dotnet tool update -g web
+
+this will let you start an instant Lisp REPL with:  
+
+    $ web lisp
+
+The quick demo below shows the kind of exploratory programming available where you can query the `scriptMethods` available, 
+query an objects `props`, query the Lisp interpreter's global `symbols` table containing all its global state including all 
+defined lisp functions, macros and variables:
+
+> YouTube: [youtu.be/RR7yk6ReNnQ](https://youtu.be/RR7yk6ReNnQ)
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/web-lisp.gif)](https://youtu.be/RR7yk6ReNnQ)
+
+### Annotated REPL Walk through
+
+Here's an annotated version of the demo below which explains what each of the different expressions is doing.
+
+Just like [Sharp Scripts](/docs/sharp-scripts) and [Sharp Apps](/docs/sharp-apps) the Lisp REPL runs within the 
+[#Script Pages](/docs/sharp-pages) ScriptContext [sandbox](/docs/sandbox) that when run from a Sharp App folder, 
+starts a .NET Core App Server that simulates a fully configured .NET Core App. 
+In this case it's running in the [redis Sharp App](https://github.com/sharp-apps/redis) directory where it was able to access its static web assets
+as well as its redis-server connection configured in its [app.settings](https://github.com/sharp-apps/redis/blob/master/app.settings).
+
+{{/markdown}}
+
+{{ 'gfm/lisp/03.md' | githubMarkdown }}
+
+{{#markdown}}
+
+#### Enable features and access resources with app.settings
+
+You can configure the Lisp REPL with any of the resources and features that [Sharp Apps](/docs/sharp-apps) and 
+[Gist Desktop Apps](/docs/gist-desktop-apps) have access to, by creating a plain text `app.settings` file with all the 
+features and resources you want the Lisp REPL to have access to, e.g. this [Pure Cloud App app.settings](/docs/sharp-apps#pure-cloud-apps)
+allows the Lisp REPL to use [Database Scripts](/docs/db-scripts) against a AWS PostgreSQL RDS server and query remote 
+[S3 Virtual Files](https://docs.servicestack.net/virtual-file-system) using [Virtual File System APIs](/docs/protected-scripts#virtual-file-system-apis):
+
+    # Note: values prefixed with '$' are resolved from Environment Variables
+    name AWS S3 PostgreSQL Web App
+    db postgres
+    db.connection $AWS_RDS_POSTGRES
+    files s3
+    files.config {AccessKey:$AWS_S3_ACCESS_KEY,SecretKey:$AWS_S3_SECRET_KEY,Region:us-east-1,Bucket:rockwind}
+
+See the [plugins app.settings](/docs/sharp-apps#registering-servicestack-plugins) for examples of how to load and configure 
+[ServiceStack Plugins](https://docs.servicestack.net/plugins).
+
+### Lisp REPL TCP Server
+
+In addition to launching a Lisp REPL from the Console above, you can also open a Lisp REPL into any ServiceStack App 
+configured with the `LispReplTcpServer` ServiceStack plugin. This effectively opens a **"programmable gateway"** into any 
+ServiceStack App where it's able to perform live queries, access IOC dependencies, invoke internal Server functions and query
+the state of a running Server which like the [Debug Inspector](https://docs.servicestack.net/debugging#debug-inspector) 
+can provide invaluable insight when diagnosing issues on a remote server.
+
+To see it in action we'll enable it one of our production Apps [techstacks.io](https://techstacks.io) which as it's a 
+Vuetify SPA App is only configured with an empty `SharpPagesFeature` as it doesn't use any server-side scripting features.
+
+We'll enable it in `DebugMode` where we can enable by setting `DebugMode` in our App's `appsettings.Production.json` 
+which will launch a TCP Socket Server which by default is configured to listen to the **loopback** IP on port `5005`.
+
+{{/markdown}}
+
+{{ 'gfm/lisp/05.md' | githubMarkdown }}
+
+{{#markdown}}
+
+> [ScriptNamespaces](/docs/script-net#type-resolution) behaves like C#'s `using Namespace;` statement letting you reference Types 
+by `Name` instead of its fully-qualified Namespace.
+
+Whilst you can now connect to it with basic `telnet`, it's a much nicer experience to use it with the [rlwrap](https://linux.die.net/man/1/rlwrap)
+readline wrap utility which provides an enhanced experience with line editing, persistent history and completion.
+
+    $ sudo apt-get install rlwrap
+
+Then you can open a TCP Connection to connect to a new Lisp REPL with:
+
+    $ rlwrap telnet localhost 5005
+
+Where you now have full scriptability of the running server as allowed by [#Script Pages](/docs/sharp-pages) `SharpPagesFeature` which
+allows [scripting of all .NET Types](/docs/script-net#allowscriptingofalltypes) by default. 
+
+#### TechStacks TCP Lisp REPL Demo
+
+In this demo we'll explore some of the possibilities of scripting the live [techstacks.io](https://techstacks.io) Server where we can 
+`resolve` IOC dependencies to send out tweets using its registered `ITwitterUpdates` dependency, view the source and load a remote 
+[parse-rss](https://gist.github.com/gistlyn/3624b0373904cfb2fc7bb3c2cb9dc1a3) lisp function into the new Lisp interpreter attached to the TCP connection, 
+use it to parse [Hacker News RSS Feed](https://news.ycombinator.com/rss) into a .NET Collection where it can be more easily queried using its built-in functions
+which is used to construct an email body with **HN's current Top 5 links**. 
+
+It then uses [DB Scripts](/docs/db-scripts) to explore its configured AWS RDS PostgreSQL RDBMS, listing its DB tables and viewing its 
+column names and definitions before retrieving the Email addresses of all **Admin** users, sending them each an email with HN's Top 5 Links by 
+publishing **5x** `SendEmail` Request DTOs using the [publishMessage](/docs/servicestack-scripts#publishmessage) ServiceStack Script to where 
+they're processed in the background by its configured [MQ Server](https://docs.servicestack.net/messaging) that uses it to execute the 
+`SendEmail` ServiceStack Service where it uses its configured AWS SES SMTP Server to finally send out the Emails:
+
+> YouTube: [youtu.be/HO523cFkDfk](https://youtu.be/HO523cFkDfk)
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-tcp-repl.gif)](https://youtu.be/HO523cFkDfk)
+
+#### Annotated Lisp TCP REPL Transcript
+
+{{/markdown}}
+
+{{ 'gfm/lisp/06.md' | githubMarkdown }}
+
+
+{{#markdown}}
+
+### Run and watch Lisp Scripts
+
+The same [Sharp Scripts](/docs/sharp-scripts) functionality for `#Script` is also available to Lisp scripts where you can use the `web` and `app`
+dotnet tools to **run** and **watch** stand-alone Lisp scripts with the `.l` file extension, e.g: 
+
+    $ web run lisp.l
+    $ web watch lisp.l
+
+To clarify the behavioural differences between the Lisp REPL's above which uses the **same Lisp interpreter** to maintain state changes across each command, 
+the `watch` Script is run with a **new Lisp Interpreter** which starts with a **fresh** copy of the Global symbols table so any state changes after each 
+`Ctrl+S` save point is discarded.
+
+### Watch `lisp` scripts
+
+This quick demo illustrates the same functionality in [Sharp Scripts](/docs/sharp-scripts) is also available in `lisp` scripts 
+where it provides instant feedback whilst you develop in real-time:
+
+> YouTube: [youtu.be/rIgEP8ssikY](https://youtu.be/rIgEP8ssikY)
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-l.gif)](https://youtu.be/rIgEP8ssikY)
+
+### Annotated Lisp watch script
+{{/markdown}}
+
+{{ 'gfm/lisp/02.md' | githubMarkdown }}
+
+{{#markdown}}
+
+#### Page Arguments
+
+You can also use the same syntax for declaring any `app.settings` page arguments used in `#Script` and `code` Scripts:
+
+    <!--
+     db sqlite
+     db.connection northwind.sqlite
+    -->
+
+But for compatibility with any Lisp syntax highlighters and code editors they can also be prefixed with a `;` line comment as seen above.
+
+## Executing Lisp in .NET
+
+Lisp like all `#Script` languages are executed within a `ScriptContext` that defines all functionality available to them, i.e:
+
+{{/markdown}}
+
+{{ "net-usage" | partial }}
+
+{{ 'gfm/lisp/07.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### Evaluating Lisp Script Results
+
+If you instead wanted to access return values instead of its rendered output, use the `EvaluateLisp()` APIs:
+
+{{/markdown}}
+
+{{ 'gfm/lisp/08.md' | githubMarkdown }}
+
+{{#markdown}}
+
+## .NET Interop
+
+The syntax for .NET Interop is inspired directly from Clojure's syntax used for [Java Interop](https://clojure.org/reference/java_interop).
+See [Scripting .NET Type Resolution](/docs/script-net#type-resolution) for how to configure Types and imported Namespaces you want your 
+Lisp scripts to have access to.
+
+### Member Access
+
+The `'.'` prefix if for accessing an instance members which can be used for retrieving a properties public properties, fields and
+invoking instance methods, e.g:
+
+- **(.Property instance)**
+- **(.Field    instance)**
+- **(.Method   instance ...args)**
+
+### Indexer Access
+
+Use `':'` prefix for accessing a Types indexer or for indexing collections, e.g:
+
+- **(:key indexer)**
+- **(:"string key" dictionary)**
+- **(:n list)**
+- **(:n array)**
+- **(:n enumerable)**
+- **(:n indexer)**
+
+It can also be used to access an instance public Properties and Fields:
+
+- **(:Property instance)**
+- **(:Field    instance)**
+
+However for readability we recommend using `'.'` prefix above to convey instance member access.
+
+### Constructor Access
+
+Use `'.'` **suffix** for creating instances of Types:
+
+- **(Type. ...args)**
+- **(Namespace.Type. ...args)**
+
+You can also create instances using the [new script method](/docs/script-net#creating-instances), which as it accepts a 
+`string` Type Name can be used to create generic classes with multiple generic args, e.g:
+
+- **(new "Type" ...args)**
+- **(new "Type&lt;T1,T2,T3&gt;" ...args)**
+
+### Static Member Access
+
+Use the `'/'` separator to access a Type's static members or to invoke its static methods, e.g:
+
+- **(StaticType/Property)**
+- **(StaticType/Field)**
+- **(StaticType/Const)**
+- **(StaticType/Method ...args)**
+
+Use `'.'` dot notation for specifying the fully-qualified Type name or to reference its Inner classes, e.g:
+
+- **(Namespace.StaticType/Member)**
+- **(Namespace.StaticType.InnerType/Member)**
+
+### Script Methods
+
+Use `'/'` prefix to reference any Script Method registered in your `ScriptContext`:
+
+- **(/scriptMethod ...args)**
+
+Script Methods without arguments can be referenced as an [argument binding](/docs/default-scripts#as-bindings) 
+that when referenced as an argument (i.e. without brackets) are implicitly evaluated, in-effect making them a calculated property:
+
+- **/methodAsBinding**
+
+While a `'/'` prefix indicates a reference to a [script method](/docs/methods), for readability it can be excluded as when 
+there's no existing symbol defined in the Lisp interpreter's symbol table it will fallback to referencing a script method:
+
+- **(scriptMethod ...args)**
+- **methodAsBinding**
+
+This does mean that when there exists a `symbol` of the same name defined you will need to use the `'/'` prefix to reference a script method.
+
+### Generic Types
+
+All references above support referencing generic types and methods with a single generic Type argument, e.g:
+
+- **(StaticType/Method&lt;T&gt;)**
+- **(GenericStaticType&lt;T&gt;/Member)**
+- **(GenericStaticType&lt;T&gt;/Method&lt;T&gt;)**
+- **(GenericType&lt;T&gt;.)**
+
+As `','` is one of Lisp's few syntax tokens ([unquoting](http://www.lispworks.com/documentation/HyperSpec/Body/02_df.htm)) it prevents them
+from being able to use them to specify multiple generic arguments.
+
+Instead you'll need to use the [Constructor function](/docs/script-net#creating-instances) for referencing constructors with multiple generic
+arguments where you'll also need to specify the types of the exact constructor you want to call, e.g:
+
+- **(/C "Tuple&lt;String,int&gt;(String,int)")**
+
+The difference between the `/C` script method constructor function and Lisp's `C` function is that the script method only returns a reference
+to the constructor which you'll need to invoke with arguments to create an instance:
+
+- **((/C "Tuple&lt;String,int&gt;(String,int)") "A" 1)**
+
+Whilst Lisp's `C` function will auto-invoke the constructor function with the supplied arguments in a single expression:
+
+- **(C "Tuple&lt;String,int&gt;(String,int)" "A" 1)**
+
+Likewise when needing to invoke generic methods with multiple generic args you'll need to use [Function](/docs/script-net#function):
+
+- **((/F "Tuple.Create&lt;String,int&gt;(String,int)") "A" 1)**
+
+Or Script Lisp's `F` function for invoking a function reference in a single expression:
+
+- **(F "Tuple.Create&lt;String,int&gt;(String,int)" "A" 1)**
+
+For more examples and information see [Scripting .NET Types](/docs/script-net).
+
+### Property Setters
+
+You can populate multiple properties on an instance using the [set script method](/docs/script-net#user-content-set), e.g:
+
+- **(set instance { :Prop arg ... })**
+
+Alternatively properties can be set individually with:
+
+- **(.Prop instance arg)**
+
+### Lisp Lists vs .NET Collections
+
+A potential source of friction when interoperating with .NET is that Lisp Lists are [Cons Cells](https://cs.gmu.edu/~sean/lisp/cons/)
+so that a code or data list in Lisp, i.e:
+
+    '(1 2 3)
+    [1 2 3]
+    
+Is implemented as a Linked List of Cons cells:
+
+    (1 . (2 . (3 . null)))
+
+Which is what Lisp's core functions expect to operate on, namely:
+
+    car cdr caar cadr cdar cddr caaar caadr cadar caddr cdaar cdadr cddar cdddr append mapcar consp cons?
+    listp list? memq member assq assoc nreverse last nconc dolist dotimes mapcan mapc nthcdr nbutlast 
+
+These core Lisp functions can't be used against .NET collections directly, instead you can use 
+`(to-cons collection)` to convert a .NET `IEnumerable` collection into a cons list, e.g:
+
+    (cdr (to-cons netEnumerable))
+
+Should you need to do the inverse you can use `(to-list cons-list)` to convert a cons list to a .NET List, e.g:
+
+    (to-list (range 10))
+
+We've made Script Lisp's cons `Cell` an `IEnumerable` so that **all other built-in Lisp functions** can operate on both 
+cons cells and .NET Collections where instead of iterating a list with `(do-list)` you can use `(do-seq)` to iterate
+both .NET Collections and cons cells, e.g:
+
+    (do-seq (x collection) (println x) )
+
+### Annotated .NET Interop Example
+
+{{/markdown}}
+
+{{ 'gfm/lisp/09.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### Importing Global Scripts
+
+Importing scripts in Lisp is essentially a 2-stage process of parsing Lisp source code into an [SExpression](https://en.wikipedia.org/wiki/S-expression), 
+(basically Lisp's AST of tokenized elements captured in a [2-field Cons Cell](https://cs.gmu.edu/~sean/lisp/cons/)) then evaluating it in a 
+Lisp interpreter where any defined symbols are captured in its Symbols table.
+
+Lisp Script captures its "standard library" in a Global Interpreter which serves as the starting template for all other Lisp Interpreters 
+which starts with a copy of the Global symbols table which you can further populate with your own common functions using `Lisp.Import()`, e.g:
+
+{{/markdown}}
+
+{{ 'gfm/lisp/10.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### Loading Scripts
+
+Loading scripts within a Lisp script works similarly except they're only loaded into that Lisp interpreters symbol table, a new one
+of which is created in each new `PageResult`.
+
+Scripts loaded locally are loaded from the `ScriptContext` configured [Virtual Files Provider](https://docs.servicestack.net/virtual-file-system) 
+which for [#Script Pages](/docs/sharp-pages) `SharpPagesFeature` is configured to use the App's cascading virtual file sources. 
+
+A new `ScriptContext` starts with an empty [MemoryVirtualFiles](https://docs.servicestack.net/virtual-file-system#virtual-file-systems-available)
+which you can write files to with:
+
+{{/markdown}}
+
+{{ 'gfm/lisp/11.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### #Script Pages Integration
+
+Whilst Lisp is a small, powerfully expressive functional dynamic language it's not great for use as a templating language. 
+Whilst there have been [several attempts to create a HTML DSL in Lisp](https://www.cliki.net/HTML%20generator), nothing is better
+than having **no syntax** which is the default **Template mode** for `#Script` where it will emit everything that's not in a 
+Template or Language Expression as verbatim text.
+
+A nice USP of Script Lisp is that you're never forced into going "full Lisp", you can utilize `#Script` template expressions and
+[Script Blocks](/docs/blocks) handlebars syntax that provides the ideal DSL for usage in a Template Language for generating HTML
+and utilize your preferred `Lisp` or [Code](/scode/) Script Languages for any computational logic you want included in your page
+using [Language Blocks and Expressions](/docs/syntax#language-blocks-and-expressions).
+
+#### Implementation
+
+Despite being implemented in different languages a `#Script` page containing multiple languages, e.g:
+
+{{/markdown}}
+
+{{ "linq-preview" | partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
+
+{{#markdown}}
+
+Still only produces a **single page AST**, where when first loaded `#Script` parses the page contents as a contiguous
+`ReadOnlyMemory<char>` where page slices of any [Language Blocks and Expressions](/docs/syntax#language-blocks-and-expressions) 
+on the page are delegated to the `ScriptContext` registered `ScriptLanguages` for parsing which returns a fragment which is
+added to the pages AST:
+
+[![](/assets/img/multi-langs.svg)](/assets/img/multi-langs.svg)
+
+When executing the page, each language is responsible for rendering its own fragments which all write directly to the pages `OutputStream`
+to generate the pages output.
+
+The multi-languages support in `#Script` is designed to be extensible where everything about the language is encapsulated within its
+`ScriptLanguage` implementation so that if you omit its registration:
+
+    var context = new ScriptContext {
+    //    ScriptLanguages = { ScriptLisp.Language }
+    }.Init();
+
+Any language expressions and language blocks referencing it become inert and its source code emitted as plain-text.
+
+### Lisp Argument Scopes
+
+One differentiator between Lisp and [Code](/scode/) languages is that `code` utilizes the containing page current scope
+for all its argument references where as Lisp stores all its definitions within the Lisp interpreter symbol table
+attached to the `PageResult`, so whilst Lisp scripts can access arguments within the pages scope, in order for the 
+outer page to access any Lisp symbols they need to be exported, e.g:
+
+{{/markdown}}
+
+{{ "live-template" | partial({ output:'no-scroll', rows:7, template: "{{ 2 |> toGlobal => pageResultArg }} 
+{{ 3 |> to => scopeArg }}
+...lisp
+(export retVal (+ pageResultArg scopeArg) 
+        newVal 2)
+...
+Result: {{ retVal + newVal }}".replace('...','```') }) }}
+
+{{#markdown}}
+
+### Exporting Lisp Functions
+
+Lisp functions can also be exported for usage in the rest of the page by calling `(to-delegate lispFn)` to convert it 
+into a .NET Delegate, e.g:
+
+{{/markdown}}
+
+{{ "live-template" |> partial({ output:'no-scroll', rows:7, template: "
+{{ 1 |> to => scopeArg }}
+...lisp
+(def localArg 2)
+(def lispAdd  #(+ %1 %2 localArg))
+(export lispAdd (to-delegate lispAdd))
+...
+Result: {{ lispAdd(scopeArg, 3) }} or {{ scopeArg.lispAdd(3) }}".replace('...','```') }) }}
+
+{{#markdown}}
+
+Although an easier way to define functions in Lisp is to use the [defn Script Block](/docs/blocks#defn) which wraps
+this in a convenient syntax:
+
+{{/markdown}}
+
+{{ "live-template" |> partial({ output:'no-scroll', rows:12, template: "{{#defn calc [a, b] }}
+    (def c (* a b))
+    (+ a b c)
+{{/defn}}
+
+{{#defn fib [n] }}
+    (if (<= n 1)
+        n
+        (+ (fib (- n 1))
+           (fib (- n 2)) ))
+{{/defn}}
+calc: {{ calc(1,2) }}, fib: {{ 10.fib() }} ".replace('...','```') }) }}
+
+{{#markdown}}
+
+### Controlling Lisp output
+
+One of Lisp's famous traits is **everything is an expression** which is typically desired within a language, but may not 
+be what you want when generating output. E.g traditionally Lisp uses [setq](http://www.lispworks.com/documentation/HyperSpec/Body/s_setq.htm)
+to set a variable which also returns its value that `#Script` will emit as it automatically emits all statement return values. 
+
+You could use `def` which is an alias for `setq` which returns `null`, other options include wrapping all statements within an empty `let`
+expression where only the last expression is returned, or you could use a [Language Block Modifier](/docs/syntax#language-block-modifiers)
+to ignore the entire `lisp` block output and only export the result you want to be able to control precisely where to emit it:
+
+{{/markdown}}
+
+{{ "live-template" |> partial({ output:'no-scroll', rows:18, template: `
+<b>default:</b>
+...lisp
+(setq result (+ 1 1))
+(str "1 + 1 = " result)
+...
+<b>let:</b>
+...lisp
+(let ()
+    (setq result (+ 1 1))
+    (str "1 + 1 = " result))
+...
+<br><b>quiet block:</b>
+...lisp|q
+(setq result (+ 1 1))
+(export ret (str "1 + 1 = " result))
+...
+{{ ret }}
+`.replace('...','```') }) }}
+
+{{#markdown}}
+
+> can use either 'q', 'quiet' or 'mute' block modifier to ignore output
+
+Another way to generate output from Lisp is to use its built-in print functions below:
+
+ - **(print ...args)** - write all arguments to the `OutputStream`
+ - **(println ...args)** - write all arguments to the `OutputStream` followed by a **new line**
+ - **(printlns ...args)** - write all arguments to the `OutputStream` with a `' '` **space delimiter** followed by a **new line**
+ - **(pr ...args)** - same as `print` but **HTML encode** all arguments
+ - **(prn ...args)** - same as `println` but **HTML encode** all arguments
+ 
+## Learn #Script Lisp
+
+A great resource for learning Script Lisp is seeing it in action by seeing how to implement **C#'s 101 LINQ Examples in Lisp**:
+
+<div class="text-center my-3">
+    <a href="/linq/restriction-operators?lang=lisp" class="btn btn-outline-primary btn-lg">Lisp LINQ Examples</a>
+</div>
+
+### Explore APIs in real-time
+
+We can also take advantage of Lisp's dynamism and interactivity to explore APIs in real-time, a great way to do this is via
+a [watched Lisp script](#run-and-watch-lisp-scripts) on the side where it provides instant feedback after each `Ctrl+S` save point
+or a active [Lisp REPL](#lisp-repl).
+
+- **symbols** - List all symbols in Lisp interpreter - most symbols are named after [standard Lisp](http://www.lispworks.com/documentation/HyperSpec/Front/X_AllSym.htm)
+or [clojure functions](https://clojure.org/api/cheatsheet)
+- **(symbol-type symbol)** - Display the Symbol's Value Type
+- **scriptMethods** - List all available Script Method Names registered in `ScriptContext`
+- **scriptMethodTypes** - List all available Script Method Type information
+- **(joinln collection)** - Display the string output of each item in the collection on a separate line 
+- **(globln pattern collection)** - Only display lines matching the glob pattern
+- **(typeName instance)** - View the instance Type Name
+- **(props instance)** - Display the Property names of an Instance public properties
+- **(fields instance)** - Display the Field names of an Instance public fields
+- **(methods instance)** - Display the Method names of an Instance public methods
+- **(propTypes instance)** - Get the PropertyInfo[] of an Instance public properties
+- **(fieldTypes instance)** - Get the FieldInfo[] of an Instance public fields
+- **(methodTypes instance)** - Get the Script Method Infos of an Instance public methods
+- **(staticProps instance)** - Display the Property names of an Instance public static properties
+- **(staticFields instance)** - Display the Field names of an Instance public static fields
+- **(staticMethods instance)** - Display the Method names of an Instance public static methods
+- **(staticPropTypes instance)** - Get the PropertyInfo[] of an Instance public static properties
+- **(staticFieldTypes instance)** - Get the FieldInfo[] of an Instance public static fields
+- **(staticMethodTypes instance)** - Get the Script Method Infos of an Instance public static methods
+
+You can view the [Scripts API Reference](/docs/scripts-reference) and [Scripts Documentation](/docs/default-scripts)
+on this website to interactively explore the available APIs, we'll work on providing further interactive documentation
+for the built-in Lisp functions, in the mean-time the best resource are 
+[their implementation](https://github.com/ServiceStack/ServiceStack/blob/32185f14aaf93d768dda5673381aa0d2fdbe34b4/src/ServiceStack.Common/Script/ScriptLanguage.Lisp.cs#L3106-L3508).
+
+For reference, here's are a quick list of all built-in Lisp symbols:
+
+    - % * *gensym-counter* *version* / /= _append _nreverse + < <= = > >= 1- 1+ 1st 2nd 3rd abs all? and any? 
+    append apply assoc assoc-key assoc-value assq atom atom? average butlast C caaar caadr caar cadar caddr 
+    cadr car cdaar cdadr cdar cddar cdddr cddr cdr ceiling cons cons? consp cos count debug dec decf def 
+    defmacro defn defun dispose dolist doseq doseq-while dotimes dump dump-inline elt empty? end? endp 
+    enumerator enumeratorCurrent enumeratorNext eq eql equal error even? every every? exit exp expt F f++ 
+    false filter filter-index first flatmap flatten floor gensym glob globln group-by htmldump identity if 
+    inc incf instance? intern isqrt it last length let letrec list list? listp load load-src logand logior 
+    logxor lower-case make-symbol map mapc mapcan mapcar map-index map-where max member memq min mod nbutlast 
+    nconc new new-map next not not= nreverse nth nthcdr null number? odd? or order-by pop pr prin1 princ 
+    print println printlns prn prs push push-end random range reduce remove remove-if rest return reverse 
+    round rplaca rplacd second seq? setcar setcdr set-difference sets sin skip skip-while some some? sort 
+    sort-by sqrt str string string? string-downcase string-upcase subseq sum symbol-name symbol-type t take 
+    take-while tan terpri textdump third to-array to-cons to-delegate to-dictionary to-list true truncate 
+    union unless upper-case when where where-index while zero? zerop zip zip-where
+
+Common Lisp by convention uses a `*p` suffix for **predicate** functions but we prefer Clojure's (and Ruby's)
+more readable `*?` suffix convention, for source-code compatibility we include both for 
+[core Lisp predicts](http://jtra.cz/stuff/lisp/sclr/index.html) and just `*?` for others.
+
+{{/markdown}}

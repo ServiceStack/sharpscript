@@ -7,17 +7,7 @@ order: 0
     All LINQ Examples are executed using the same ScriptContext instance below:
 </p>
 
-<pre><code>
-    LinqContext = new ScriptContext {
-        Args = {
-            [ScriptConstants.DefaultDateFormat] = "yyyy/MM/dd",
-            ["products"] = TemplateQueryData.Products,
-            ["customers"] = TemplateQueryData.Customers,
-            ["comparer"] = new CaseInsensitiveComparer(),
-            ["anagramComparer"] = new AnagramEqualityComparer(),
-        }
-    }.Init();
-</code></pre>
+{{ 'gfm/linq/01.md' | githubMarkdown }}
 
 <p>
     Which makes available the <b>products</b> and <b>customer</b> data sources to each template, all other data 
@@ -33,5 +23,12 @@ order: 0
     The <em>Args[DefaultDateFormat]</em> changes the default format the <em>dateFormat</em> filter uses if none is provided.
 </p>
 
-{{ "linq-links" | partial({ order }) }}
+<p>
+    View the LINQ Examples in all of <em>#Script</em> Languages:
+</p>
 
+<div class="text-center pt-3">
+    <a href="/linq/restriction-operators" class="btn btn-outline-primary btn-lg">template</a>
+    <a href="/linq/restriction-operators?lang=code" class="btn btn-outline-primary btn-lg">code</a>
+    <a href="/linq/restriction-operators?lang=lisp" class="btn btn-outline-primary btn-lg">lisp</a>
+</div>

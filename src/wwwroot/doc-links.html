@@ -1,7 +1,12 @@
 <div class="doc-links">
 
-{{ order | prevDocLink | select: <span>&#8592; <a href="{ it.Key }">{ it.Value }</a></span> }}
+    {{#with order.prevDocLink() }}
+        <span>&#8592; <a href="{{ Key }}">{{ Value }}</a></span>
+    {{/with}}
 
-{{ order | nextDocLink | select: <span style="float:right"><a href="{ it.Key }">{ it.Value }</a> &#8594;</span> }}
+
+    {{#with order.nextDocLink() }}
+        <span style="float:right"><a href="{{ Key }}">{{ Value }}</a> &#8594;</span>
+    {{/with}}
 
 </div>

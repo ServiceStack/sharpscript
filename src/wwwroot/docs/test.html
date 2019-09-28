@@ -1,0 +1,9 @@
+{{ "live-pages" | partial({
+    page: 'page',
+    files:
+        {
+            '_layout.html': 'I am the Layout: <b>{{ page }}</b>',
+            'page.html' : 'I am the Page'
+        }
+    })
+}}

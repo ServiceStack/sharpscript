@@ -1,0 +1,110 @@
+<div class="gfm"><div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span> quick lisp test!</span>
+(+ <span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span>)
+
+<span class="pl-c"><span class="pl-c">;</span> List of ScriptMethodInfo that the ScriptContext running this Lisp Interpreter has access to</span>
+scriptMethods
+
+<span class="pl-c"><span class="pl-c">;</span> first script method</span>
+(:<span class="pl-c1">0</span> scriptMethods)
+
+<span class="pl-c"><span class="pl-c">;</span> show public properties of ScriptMethodInfo </span>
+(props (:<span class="pl-c1">0</span> scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> show 1 property per line</span>
+(joinln (props (:<span class="pl-c1">0</span> scriptMethods)))
+
+<span class="pl-c"><span class="pl-c">;</span> show both Property Type and Name</span>
+(joinln (propTypes (:<span class="pl-c1">0</span> scriptMethods)))
+
+<span class="pl-c"><span class="pl-c">;</span> view the Names of all avaialble script methods</span>
+(joinln (map .Name scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> view all script methods starting with 'a'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>a*<span class="pl-pds">"</span></span> (map .Name scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> view all script methods starting with 'env'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>env*<span class="pl-pds">"</span></span> (map .Name scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> print environment info about this machine seperated by spaces</span>
+(printlns envOSVersion envMachineName envFrameworkDescription envLogicalDrives)
+
+<span class="pl-c"><span class="pl-c">;</span> expand logical drives</span>
+(printlns envOSVersion envMachineName envFrameworkDescription <span class="pl-s"><span class="pl-pds">"</span>- drives:<span class="pl-pds">"</span></span> (join envLogicalDrives <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> view all current global symbols defined in this Lisp interpreter</span>
+symbols
+
+<span class="pl-c"><span class="pl-c">;</span> view all symbols starting with 'c'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>c*<span class="pl-pds">"</span></span> symbols)
+
+<span class="pl-c"><span class="pl-c">;</span> see how many symbols are defined in this interpreter</span>
+(count symbols)
+
+<span class="pl-c"><span class="pl-c">;</span> see how many script methods there are available</span>
+(count scriptMethods)
+
+<span class="pl-c"><span class="pl-c">;</span> view the method signature for all script methods starting with 'all'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>all*<span class="pl-pds">"</span></span> (map .Signature scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> count all files accessible from the configured ScriptContext</span>
+(count allFiles)
+
+<span class="pl-c"><span class="pl-c">;</span> view the public properties of the first IVirtualFile</span>
+(props (:<span class="pl-c1">0</span> allFiles))
+
+<span class="pl-c"><span class="pl-c">;</span> display the VirtualPath of all available files</span>
+(joinln (map .VirtualPath allFiles))
+
+<span class="pl-c"><span class="pl-c">;</span> display the method signature for all script methods starting with 'findFiles'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>findFiles*<span class="pl-pds">"</span></span> (map .Signature scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> see how many .html files are available to this App</span>
+(count (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> see how many .js files are available to this App</span>
+(count (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.js<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> show the VirtualPath of all .html files</span>
+(joinln (map .VirtualPath (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> view the VirtualPath's of the 1st and 2nd .html files</span>
+(:<span class="pl-c1">0</span> (map .VirtualPath (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>)))
+(:<span class="pl-c1">1</span> (map .VirtualPath (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> view the text file contents of the 1st and 2nd .html files</span>
+(fileTextContents (:<span class="pl-c1">0</span> (map .VirtualPath (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>))))
+(fileTextContents (:<span class="pl-c1">1</span> (map .VirtualPath (findFiles <span class="pl-s"><span class="pl-pds">"</span>*.html<span class="pl-pds">"</span></span>))))
+
+<span class="pl-c"><span class="pl-c">;</span> display the method signatures of all script methods starting with 'redis'</span>
+(globln <span class="pl-s"><span class="pl-pds">"</span>redis*<span class="pl-pds">"</span></span> (map .Signature scriptMethods))
+
+<span class="pl-c"><span class="pl-c">;</span> search for all Redis Keys starting with 'urn:' in the redis-server instances this App is configured with</span>
+(redisSearchKeys <span class="pl-s"><span class="pl-pds">"</span>urn:*<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> display the first redis search entry</span>
+(:<span class="pl-c1">0</span> (redisSearchKeys <span class="pl-s"><span class="pl-pds">"</span>urn:*<span class="pl-pds">"</span></span>))
+
+<span class="pl-c"><span class="pl-c">;</span> display the key names of all redis keys starting with 'urn:'</span>
+(joinln (map :id (redisSearchKeys <span class="pl-s"><span class="pl-pds">"</span>urn:*<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> find out the redis-server data type of the 'urn:tags' key</span>
+(redisCall <span class="pl-s"><span class="pl-pds">"</span>TYPE urn:tags<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> view all tags in the 'urn:tags' sorted set</span>
+(redisCall <span class="pl-s"><span class="pl-pds">"</span>ZRANGE urn:tags 0 -1<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> view the string contents of the 'urn:question:1' key</span>
+(redisCall <span class="pl-s"><span class="pl-pds">"</span>GET urn:question:1<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">;</span> parse the json contents of question 1 and display its tag names</span>
+(:Tags (parseJson (redisCall <span class="pl-s"><span class="pl-pds">"</span>GET urn:question:1<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> extract the 2nd tag of question 1</span>
+(:<span class="pl-c1">1</span> (:Tags (parseJson (redisCall <span class="pl-s"><span class="pl-pds">"</span>GET urn:question:1<span class="pl-pds">"</span></span>))))
+
+<span class="pl-c"><span class="pl-c">;</span> clear the Console screen</span>
+clear
+
+<span class="pl-c"><span class="pl-c">;</span> exit the Lisp REPL</span>
+quit</pre></div>
+</div>

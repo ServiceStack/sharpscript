@@ -3,6 +3,8 @@ title: Query Execution
 order: 13
 -->
 
+{{ "lang-select" | partial }}
+
 <h3>linq99: Deferred Execution</h3>
 
 <pre><code>//c#
@@ -97,11 +99,6 @@ public void Linq101()
     } 
 } 
 </code></pre>
-
-<p>
-    There is no query reuse in Templates, <em>lowNumbers</em> is assigned the result of the query instead of a reusable query.
-    But you can modify the contents of numbers as seen below:
-</p>
 
 {{ "linq-preview" | partial({ example: "linq101", rows: 12 }) }}
 

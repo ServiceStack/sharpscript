@@ -1,0 +1,79 @@
+<div class="gfm"><p>To see what this looks like in action here's an annotated simple real-world example that heavily utilizes .NET interop:</p>
+<div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span> define function and assign to `parse-rss` value in Lisp interpreters symbols table</span>
+(defn parse-rss [xml]
+    <span class="pl-c"><span class="pl-c">;</span> define local variables used within this scope</span>
+    (<span class="pl-k">let</span> ( (to) (doc) (channel) (items) (el) )
+        <span class="pl-c"><span class="pl-c">;</span> use XDocument.Parse() to parse xml string argument containing xml and assign to `doc`</span>
+        (def doc (System.Xml.Linq.XDocument/Parse xml))
+        <span class="pl-c"><span class="pl-c">;</span> create empty ObjectDictionary (wrapper for Dictionary&lt;string,object&gt;) and assign to `to`</span>
+        (def to  (ObjectDictionary.))
+        <span class="pl-c"><span class="pl-c">;</span> create empty List of ObjectDictionary and assign to `items`</span>
+        (def items (<span class="pl-c1">List</span>&lt;ObjectDictionary&gt;.))
+        <span class="pl-c"><span class="pl-c">;</span> descend into first &lt;channel&gt; XML element and assign to `channel`</span>
+        (def channel (first (.Descendants doc <span class="pl-s"><span class="pl-pds">"</span>channel<span class="pl-pds">"</span></span>)))
+        <span class="pl-c"><span class="pl-c">;</span> use `XLinqExtensions.FirstElement()` extension method to assign channels first XML element to `el`</span>
+        (def el  (XLinqExtensions/FirstElement channel))
+
+        <span class="pl-c"><span class="pl-c">;</span> iterate through all elements up to the first &lt;item&gt; and add them as top-level entries in `to`</span>
+        (while (<span class="pl-k">not</span>= (.LocalName (.Name el)) <span class="pl-s"><span class="pl-pds">"</span>item<span class="pl-pds">"</span></span>)
+            <span class="pl-c"><span class="pl-c">;</span> add current XML element name and value entry to `to`</span>
+            (.Add to (.LocalName (.Name el)) (.Value el))
+            <span class="pl-c"><span class="pl-c">;</span> move to next element using `XLinqExtensions.NextElement()` extension method</span>
+            (def el (XLinqExtensions/NextElement el)))
+
+        <span class="pl-c"><span class="pl-c">;</span> add all rss &lt;item&gt;'s to `items` list</span>
+        <span class="pl-c"><span class="pl-c">;</span> iterate through all `channel` child &lt;item&gt; XML elements</span>
+        (doseq (elItem (.Descendants channel <span class="pl-s"><span class="pl-pds">"</span>item<span class="pl-pds">"</span></span>))
+            <span class="pl-c"><span class="pl-c">;</span> create empty ObjectDictionary and assign to `item`</span>
+            (def item (ObjectDictionary.))
+            
+            <span class="pl-c"><span class="pl-c">;</span> use `XLinqExtensions.FirstElement()` to assign &lt;item&gt; first XML element to `el`</span>
+            (def el (XLinqExtensions/FirstElement elItem))
+            (while el
+                <span class="pl-c"><span class="pl-c">;</span> add current XML element name and value entry to `item`</span>
+                (.Add item (.LocalName (.Name el)) (.Value el))
+                <span class="pl-c"><span class="pl-c">;</span> move to next element using `XLinqExtensions.NextElement()` extension method</span>
+                (def el (XLinqExtensions/NextElement el)))
+
+            <span class="pl-c"><span class="pl-c">;</span> add `item` ObjectDictionary to `items` List</span>
+            (.Add items item))
+
+        <span class="pl-c"><span class="pl-c">;</span> add `items` ObjectDictionary List to `to` at key `items`</span>
+        (.Add to <span class="pl-s"><span class="pl-pds">"</span>items<span class="pl-pds">"</span></span> items)
+        <span class="pl-c"><span class="pl-c">;</span> return `to` ObjectDictionary</span>
+        to
+    )
+)</pre></div>
+<p>For comparison, this would be the equivalent implementation in C#:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-en">ObjectDictionary</span> <span class="pl-en">ParseRss</span>(<span class="pl-k">string</span> <span class="pl-smi">xml</span>)
+{
+    <span class="pl-k">var</span> <span class="pl-smi">to</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ObjectDictionary</span>();
+    <span class="pl-k">var</span> <span class="pl-smi">items</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">List</span>&lt;<span class="pl-en">ObjectDictionary</span>&gt;();
+
+    <span class="pl-k">var</span> <span class="pl-smi">doc</span> <span class="pl-k">=</span> <span class="pl-smi">XDocument</span>.<span class="pl-en">Parse</span>(<span class="pl-smi">xml</span>);
+    <span class="pl-k">var</span> <span class="pl-smi">channel</span> <span class="pl-k">=</span> <span class="pl-smi">doc</span>.<span class="pl-en">Descendants</span>(<span class="pl-s"><span class="pl-pds">"</span>channel<span class="pl-pds">"</span></span>).<span class="pl-en">First</span>();
+    <span class="pl-k">var</span> <span class="pl-smi">el</span> <span class="pl-k">=</span> <span class="pl-smi">channel</span>.<span class="pl-en">FirstElement</span>();
+    <span class="pl-k">while</span> (<span class="pl-smi">el</span>.<span class="pl-smi">Name</span> <span class="pl-k">!=</span> <span class="pl-s"><span class="pl-pds">"</span>item<span class="pl-pds">"</span></span>)
+    {
+        <span class="pl-smi">to</span>[<span class="pl-smi">el</span>.<span class="pl-smi">Name</span>.<span class="pl-smi">LocalName</span>] <span class="pl-k">=</span> <span class="pl-smi">el</span>.<span class="pl-smi">Value</span>;
+        <span class="pl-smi">el</span> <span class="pl-k">=</span> <span class="pl-smi">el</span>.<span class="pl-en">NextElement</span>();
+    }
+
+    <span class="pl-k">var</span> <span class="pl-smi">elItems</span> <span class="pl-k">=</span> <span class="pl-smi">channel</span>.<span class="pl-en">Descendants</span>(<span class="pl-s"><span class="pl-pds">"</span>item<span class="pl-pds">"</span></span>);
+    <span class="pl-k">foreach</span> (<span class="pl-k">var</span> <span class="pl-smi">elItem</span> <span class="pl-k">in</span> <span class="pl-smi">elItems</span>)
+    {
+        <span class="pl-k">var</span> <span class="pl-smi">item</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ObjectDictionary</span>();
+        <span class="pl-smi">el</span> <span class="pl-k">=</span> <span class="pl-smi">elItem</span>.<span class="pl-en">FirstElement</span>();
+        <span class="pl-k">while</span> (<span class="pl-smi">el</span> <span class="pl-k">!=</span> <span class="pl-c1">null</span>)
+        {
+            <span class="pl-smi">item</span>[<span class="pl-smi">el</span>.<span class="pl-smi">Name</span>.<span class="pl-smi">LocalName</span>] <span class="pl-k">=</span> <span class="pl-smi">el</span>.<span class="pl-smi">Value</span>;
+            <span class="pl-smi">el</span> <span class="pl-k">=</span> <span class="pl-smi">el</span>.<span class="pl-en">NextElement</span>();
+        }
+
+        <span class="pl-smi">items</span>.<span class="pl-en">Add</span>(<span class="pl-smi">item</span>);
+    }
+
+    <span class="pl-smi">to</span>[<span class="pl-s"><span class="pl-pds">"</span>items<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-smi">items</span>;
+    <span class="pl-k">return</span> <span class="pl-smi">to</span>;
+}</pre></div>
+</div>

@@ -1,0 +1,109 @@
+<!--
+title: #Script Code
+order: 0
+-->
+
+{{#markdown}}
+
+Code statements is an alternative language dialect which allows us to invert `#Script` from **"Template Mode"**
+where all text is emitted as-is with only Template Expressions `{{ ... }}` being evaluated and changed it to **"Code Mode"** where all code
+statements are evaluated as JS Expression statements.
+
+This is akin to Razor's statement blocks which inverts Razor's **mode** of emitting text to treating text inside statement blocks as code, e.g:
+
+{{/markdown}}
+
+{{ 'gfm/syntax/05.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+{{#markdown}}
+
+Which is useful in reducing boilerplate when you need to evaluate code blocks with 2+ or more lines without the distracting boilerplate of wrapping
+each expression within a `{{ ... }}` Template Expression.
+
+### Syntax
+
+Effectively you can think of **Code** Statements as `#Script` without template expressions since the code within a Template Expressions `{{ ... }}` 
+are both evaluated as JS Expressions. 
+
+One difference between them is that each line in a code statement block must be a complete expression, any expressions that spans multiple 
+lines need to be wrapped withing Template Expressions where-by the source code for both **Template** and **Code** blocks remain exactly the same, e.g:
+
+{{/markdown}}
+
+{{ 'gfm/scode/01.md' | githubMarkdown }}
+
+{{#markdown}}
+
+The difference between them is that whitespace and indentation in code statement blocks are inert whereas they're emitted in Templates
+so these examples are equivalent:
+
+{{/markdown}}
+
+{{ 'gfm/scode/02.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+<p>
+    Whilst <em>code</em> statements can effectively "#Script without Template Expressions", you can view the LINQ examples in each
+    to see how they compare:
+</p>
+
+<div class="text-center py-3">
+    <a href="/linq/restriction-operators?lang=code" class="btn btn-outline-primary btn-lg">Code LINQ Examples</a>
+    <span class="px-2"> vs </span>
+    <a href="/linq/restriction-operators" class="btn btn-outline-primary btn-lg">#Script LINQ Examples</a>
+</div>
+
+{{#markdown}}
+
+## Executing #Script Code in .NET
+
+All `#Script` languages are executed within a `ScriptContext` that defines all functionality available to them, i.e:
+
+{{/markdown}}
+
+{{ "net-usage" | partial }}
+
+{{#markdown}}
+
+But to render `code` statements you'd use `RenderCode` instead of `RenderScript`, e.g:
+
+{{/markdown}}
+
+{{ 'gfm/scode/03.md' | githubMarkdown }}
+
+{{#markdown}}
+
+### Evaluating Script Results
+
+If you instead wanted to access Script return values instead of the code rendered output you would use the `EvaluateCode()` APIs:
+
+{{/markdown}}
+
+{{ 'gfm/scode/04.md' | githubMarkdown }}
+
+{{#markdown}}
+
+## Scripting .NET Types
+
+All `#Script` languages have the same access to [Scripting .NET Types](/docs/script-net).
+
+## Code Scripts
+
+The same functionality in [Sharp Scripts](/docs/sharp-scripts) is also available in `#Script` Code, except instead of using the `*.ss` file 
+extension for executing `#Script` you'd use the `*.sc` file extension which will allow you to use the 
+[web](https://docs.servicestack.net/web-tool) and [app](/netcore-windows-desktop) dotnet tools to watch or run `code` scripts:
+
+    $ web run code.sc
+    $ web watch code.sc
+
+### Watch `code` scripts
+
+The same functionality in [Sharp Scripts](/docs/sharp-scripts) is also available in `code` scripts which provides instant feedback
+whilst you develop in real-time:
+
+    $ web watch code.sc
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/code-sc.gif)](https://youtu.be/TQPOZ0kVpw4)
+
+> YouTube: [youtu.be/TQPOZ0kVpw4](https://youtu.be/TQPOZ0kVpw4)
+{{/markdown}}
+

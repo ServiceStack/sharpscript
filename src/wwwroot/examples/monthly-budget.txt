@@ -1,36 +1,36 @@
 ```code
-11200             | to => balance
-3                 | to => projectedMonths
+11200             |> to => balance
+3                 |> to => projectedMonths
 
 #keyvalues monthlyRevenues ':'
-* Salary:         4000
-* App Royalties:  200
+  Salary:         4000
+  App Royalties:  200
 /keyvalues
 
 #keyvalues monthlyExpenses
-* Rent            1000
-* Internet        50
-* Mobile          50
-* Food            400
-* Misc            200
+  Rent            1000
+  Internet        50
+  Mobile          50
+  Food            400
+  Misc            200
 /keyvalues
 
-monthlyRevenues | sum => it.Value | to => totalRevenues
-monthlyExpenses | sum => it.Value | to => totalExpenses
-(totalRevenues - totalExpenses)   | to => totalSavings
+monthlyRevenues |> sum => it.Value |> to => totalRevenues
+monthlyExpenses |> sum => it.Value |> to => totalExpenses
+(totalRevenues - totalExpenses)    |> to => totalSavings
 ```
-Current Balance: <b>{{ balance | currency }}</b>
+Current Balance: <b>{{ balance |> currency }}</b>
 
 Monthly Revenues:
-{{monthlyRevenues | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
-Total            <b>{{ totalRevenues | currency }}</b>
+{{monthlyRevenues |> select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
+Total            <b>{{ totalRevenues |> currency }}</b>
 
 Monthly Expenses:
-{{monthlyExpenses | select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
-Total            <b>{{ totalExpenses | currency }}</b>
+{{monthlyExpenses |> select: {it.Key.padRight(16)} {it.Value.currency()}\n }}
+Total            <b>{{ totalExpenses |> currency }}</b>
 
-Monthly Savings: <b>{{ totalSavings  | currency }}</b>
+Monthly Savings: <b>{{ totalSavings  |> currency }}</b>
 
 Projected Cash Position:
-{{projectedMonths.times() | map => index + 1 | map => 
-`${now.addMonths(it).dateFormat()}       ${(it * totalSavings + balance).currency()}`| joinln}}
+{{projectedMonths.times() |> map => index + 1 |> map => 
+`${now.addMonths(it).dateFormat()}       ${(it * totalSavings + balance).currency()}`|> joinln}}

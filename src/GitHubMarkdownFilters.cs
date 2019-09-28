@@ -35,11 +35,27 @@ namespace SharpScript
         {
             var html = await renderedHtmlMarkdownBlock.ReadToEndAsync();
             html = html.Replace("&lt;<span class=\"pl-ent\">script</span>&gt;",
-                                "<span class=\"pl-en\">```code</span>")
-                       .Replace("&lt;/<span class=\"pl-ent\">script</span>&gt;",
-                                "<span class=\"pl-en\">```</span>")
-                       .Replace("<span class=\"pl-s1\"><span class=\"pl-k\">&lt;</span><span class=\"pl-k\">/</span>script<span class=\"pl-k\">&gt;</span></span>",
-                                "<span class=\"pl-en\">```</span>");
+                    "<span class=\"pl-en\">```code</span>")
+                .Replace("&lt;/<span class=\"pl-ent\">script</span>&gt;",
+                    "<span class=\"pl-en\">```</span>")
+                .Replace("<span class=\"pl-s1\"><span class=\"pl-k\">&lt;</span><span class=\"pl-k\">/</span>script<span class=\"pl-k\">&gt;</span></span>",
+                    "<span class=\"pl-en\">```</span>")
+                .Replace("<span class=\"pl-s1\">&lt;/script&gt;</span>",
+                    "<span class=\"pl-en\">```</span>");
+            return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
+        }
+        
+        public static async Task<Stream> convertScriptToLispBlocks(Stream renderedHtmlMarkdownBlock)
+        {
+            var html = await renderedHtmlMarkdownBlock.ReadToEndAsync();
+            html = html.Replace("&lt;<span class=\"pl-ent\">script</span>&gt;",
+                    "<span class=\"pl-en\">```lisp</span>")
+                .Replace("&lt;/<span class=\"pl-ent\">script</span>&gt;",
+                    "<span class=\"pl-en\">```</span>")
+                .Replace("<span class=\"pl-s1\"><span class=\"pl-k\">&lt;</span><span class=\"pl-k\">/</span>script<span class=\"pl-k\">&gt;</span></span>",
+                    "<span class=\"pl-en\">```</span>")
+                .Replace("<span class=\"pl-s1\">&lt;/script&gt;</span>",
+                    "<span class=\"pl-en\">```</span>");
             return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
         }
 

@@ -1,0 +1,1 @@
+products | orderBy => it.Category | thenByDescending => it.UnitPrice | htmlDump

@@ -1,0 +1,168 @@
+<div class="gfm"><h2>
+<a id="user-content-default-blocks" class="anchor" href="#default-blocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Default Blocks</h2>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#noop">noop</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#with">with</a></td>
+<td>default</td>
+</tr>
+<tr>
+<td><a href="#if">if</a></td>
+<td>default</td>
+</tr>
+<tr>
+<td><a href="#while">while</a></td>
+<td>default</td>
+</tr>
+<tr>
+<td><a href="#raw">raw</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#function">function</a></td>
+<td>code</td>
+</tr>
+<tr>
+<td><a href="#defn">defn</a></td>
+<td>lisp</td>
+</tr>
+<tr>
+<td><a href="#capture">capture</a></td>
+<td>template</td>
+</tr>
+<tr>
+<td><a href="#markdown">markdown</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#csv">csv</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#partial">partial</a></td>
+<td>template</td>
+</tr>
+<tr>
+<td><a href="#html">html</a></td>
+<td>template</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="user-content-servicestack-blocks" class="anchor" href="#servicestack-blocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ServiceStack Blocks</h2>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#minifyjs">minifyjs</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#minifycss">minifycss</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#minifyhtml">minifyhtml</a></td>
+<td>verbatim</td>
+</tr>
+<tr>
+<td><a href="#svg">svg</a></td>
+<td>template</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-script-block-body" class="anchor" href="#script-block-body" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Script Block Body</h3>
+<p>The <code>Body</code> of the Script Block specifies how the body is evaluated. Script Blocks can be used in both <code>#Script</code> Template and
+<a href="/docs/syntax#language-blocks-and-expressions">Code Statement Blocks</a>.</p>
+<p>Below are examples of using a script block of each body type in both #Script template and code statement blocks:</p>
+<h3>
+<a id="user-content-default" class="anchor" href="#default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>default</h3>
+<p>If unspecified Script Blocks are evaluated within the language they're used within.
+By default <code>#Script</code> pages use <strong>template</strong> expression handlebars syntax:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">test.isEven</span>() <span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span><span class="pl-v">test</span><span class="pl-c1">}}</span> is even
+<span class="pl-c1">{{</span><span class="pl-c1">else</span><span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span><span class="pl-v">test</span><span class="pl-c1">}}</span> is odd
+<span class="pl-c1">{{</span><span class="pl-c1">/if</span><span class="pl-c1">}}</span></pre></div>
+<p>Whilst in Code Statement Blocks the body is executed as JS Expressions, which requires using
+<a href="/docs/syntax#quotes">quoted strings or template literals</a> for any text you want to emit, e.g:</p>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">#<span class="pl-k">if</span> <span class="pl-smi">test</span>.<span class="pl-en">isEven</span>()</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>test<span class="pl-pse">}</span></span> is even<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-k">else</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span>test<span class="pl-pse">}</span></span> is odd<span class="pl-pds">`</span></span></span>
+<span class="pl-s1"><span class="pl-k">/</span><span class="pl-k">if</span></span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<h3>
+<a id="user-content-verbatim" class="anchor" href="#verbatim" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>verbatim</h3>
+<p>The contents of <strong>verbatim</strong> script blocks are unprocessed and evaluated as raw text by the script block:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#csv</span> <span class="pl-v">cars</span><span class="pl-c1">}}</span>
+Tesla,Model S,79990
+Tesla,Model 3,38990
+Tesla,Model X,84990
+<span class="pl-c1">{{</span><span class="pl-c1">/csv</span><span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">#csv cars</span>
+<span class="pl-s1">Tesla,Model <span class="pl-c1">S</span>,<span class="pl-c1">79990</span></span>
+<span class="pl-s1">Tesla,Model <span class="pl-c1">3</span>,<span class="pl-c1">38990</span></span>
+<span class="pl-s1">Tesla,Model <span class="pl-c1">X</span>,<span class="pl-c1">84990</span></span>
+<span class="pl-s1"><span class="pl-k">/</span>csv</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<h3>
+<a id="user-content-template" class="anchor" href="#template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>template</h3>
+<p>The contents of <strong>template</strong> Script Blocks are processed using Template Expression syntax:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#capture</span> <span class="pl-v">out</span><span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span><span class="pl-c1">#each</span> <span class="pl-v">range</span>(<span class="pl-e"><span class="pl-v">3</span></span>)<span class="pl-c1">}}</span>
+    - <span class="pl-c1">{{</span><span class="pl-v">it</span> + <span class="pl-e"><span class="pl-v">1</span></span><span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span><span class="pl-c1">/each</span><span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">/capture</span><span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">#capture out</span>
+<span class="pl-s1">    {{#each <span class="pl-en">range</span>(<span class="pl-c1">3</span>)}}</span>
+<span class="pl-s1">    <span class="pl-k">-</span> {{it <span class="pl-k">+</span> <span class="pl-c1">1</span>}}</span>
+<span class="pl-s1">    {{<span class="pl-k">/</span>each}}</span>
+<span class="pl-s1"><span class="pl-k">/</span>capture</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<h3>
+<a id="user-content-code" class="anchor" href="#code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>code</h3>
+<p>The contents of <strong>code</strong> Script Blocks are processed as JS Expression statements:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#function</span> <span class="pl-v">calc</span>(<span class="pl-e"><span class="pl-v">a</span></span>, <span class="pl-e"><span class="pl-v">b</span></span>) <span class="pl-c1">}}</span>
+    a * b | to =&gt; c
+    a + b + c | return
+<span class="pl-c1">{{</span><span class="pl-c1">/function</span><span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">#<span class="pl-k">function</span> <span class="pl-en">calc</span>(<span class="pl-smi">a</span>, <span class="pl-smi">b</span>)</span>
+<span class="pl-s1">    a * b | to =&gt; c</span>
+<span class="pl-s1">    a + b + c | return</span>
+<span class="pl-s1">/function </span>
+<span class="pl-s1">&lt;/script&gt;</span></pre></div>
+<h3>
+<a id="user-content-lisp" class="anchor" href="#lisp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>lisp</h3>
+<p>Finally the contents of <strong>lisp</strong> Script Blocks is processed by <a href="/lisp/">#Script Lisp</a>:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#defn</span> <span class="pl-v">calc</span> [<span class="pl-e"><span class="pl-v">a</span></span>, <span class="pl-e"><span class="pl-v">b</span></span>] <span class="pl-c1">}}</span>
+    (def c (* a b))
+    (+ a b c)
+<span class="pl-c1">{{</span><span class="pl-c1">/defn</span><span class="pl-c1">}}</span></pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span>&gt;<span class="pl-s1"></span>
+<span class="pl-s1">#defn calc [a, b]</span>
+<span class="pl-s1">    (def <span class="pl-en">c</span> (<span class="pl-k">*</span> a b))</span>
+<span class="pl-s1">    (<span class="pl-k">+</span> a b c)</span>
+<span class="pl-s1"><span class="pl-k">/</span>defn</span>
+<span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</div>

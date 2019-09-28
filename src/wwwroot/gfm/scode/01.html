@@ -1,0 +1,5 @@
+<div class="gfm"><div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">products</span>
+    | <span class="pl-e"><span class="pl-v">groupBy</span></span> =&gt; <span class="pl-e"><span class="pl-v">it.Category</span></span>
+    | <span class="pl-e"><span class="pl-v">map</span></span> =&gt; { <span class="pl-e"><span class="pl-v">Category</span></span>: <span class="pl-e"><span class="pl-v">it.Key</span></span>, <span class="pl-e"><span class="pl-v">MostExpensivePrice</span></span>: <span class="pl-e"><span class="pl-v">it.max</span></span>(<span class="pl-e"><span class="pl-v">p</span></span> =&gt; <span class="pl-e"><span class="pl-v">p.UnitPrice</span></span>) }
+    | <span class="pl-e"><span class="pl-v">htmlDump</span></span> <span class="pl-c1">}}</span></pre></div>
+</div>

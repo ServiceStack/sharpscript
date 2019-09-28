@@ -1,3 +1,26 @@
+$('.lang-select').each(function(){
+    var qs = queryStringParams();
+    var lang = qs['lang'] || 'template';
+    var el = $(this);
+    el.find("input[type=radio]").on("change", function(){
+        qs['lang'] = this.id === 'template' ? null : this.id;
+        var url = location.href.split('?')[0];
+        for (var k in qs) {
+            if (!qs[k]) continue;
+            url += url.indexOf('?' >= 0) ? "?" : "&";
+            url += k + "=" + encodeURIComponent(qs[k]);
+        }
+        location.href = url;
+    });
+    el.find("input[type=radio]").each(function() {
+        this.checked = this.id === lang;
+        if (this.checked)
+            $(this).parents("label").addClass('active');
+        else
+            $(this).parents("label").removeClass('active');
+    })
+})
+
 $(".live-pages").each(function(){
 
     var el = $(this)
@@ -52,6 +75,7 @@ $(".linq-preview").each(function(){
     var files = {}
 
     var el = $(this)
+    var lang = $(this).data('lang');
     el.find("textarea").on("input", function(){
         var files = {}
 
@@ -61,11 +85,12 @@ $(".linq-preview").each(function(){
             files[name] = contents
         })
 
-        var request = { template: el.find(".template textarea").val(), files: files }
+        var request = { code: el.find(".template textarea").val(), files: files }
+        var qsLang = lang ? "?lang=" + lang : "";
 
         $.ajax({
             type: "POST",
-            url: "/linq/eval",
+            url: "/linq/eval" + qsLang,
             data: JSON.stringify(request),
             contentType: "application/json",
             dataType: "html"

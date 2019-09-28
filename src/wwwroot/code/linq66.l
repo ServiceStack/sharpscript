@@ -1,0 +1,1 @@
+(doseq (n (/repeat 7 10)) (println n))

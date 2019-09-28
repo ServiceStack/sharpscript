@@ -1,0 +1,1 @@
+(htmldump (reverse (sort-by .UnitsInStock products-list)))

@@ -15,8 +15,10 @@ namespace SharpScript
     public class CustomScriptMethods : ScriptMethods
     {
         public Dictionary<int, KeyValuePair<string, string>> DocsIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
-        public Dictionary<int, KeyValuePair<string, string>> LinqIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
+        public Dictionary<int, KeyValuePair<string, string>> CodeIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
+        public Dictionary<int, KeyValuePair<string, string>> LispIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
         public Dictionary<int, KeyValuePair<string, string>> UseCasesIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
+        public Dictionary<int, KeyValuePair<string, string>> LinqIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
 
         public object prevDocLink(int order)
         {
@@ -32,16 +34,30 @@ namespace SharpScript
             return null;
         }
 
-        public object prevLinqLink(int order)
+        public object prevCodeLink(int order)
         {
-            if (LinqIndex.TryGetValue(order - 1, out KeyValuePair<string,string> entry))
+            if (CodeIndex.TryGetValue(order - 1, out KeyValuePair<string,string> entry))
                 return entry;
             return null;
         }
 
-        public object nextLinqLink(int order)
+        public object nextCodeLink(int order)
         {
-            if (LinqIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
+            if (CodeIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
+        public object prevLispLink(int order)
+        {
+            if (LispIndex.TryGetValue(order - 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
+        public object nextLispLink(int order)
+        {
+            if (LispIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
                 return entry;
             return null;
         }
@@ -60,14 +76,33 @@ namespace SharpScript
             return null;
         }
 
+        public object prevLinqLink(int order)
+        {
+            if (LinqIndex.TryGetValue(order - 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
+        public object nextLinqLink(int order)
+        {
+            if (LinqIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
         List<KeyValuePair<string,string>> sortedDocLinks;
         public object docLinks() => sortedDocLinks ?? (sortedDocLinks = sortLinks(DocsIndex));
 
+        List<KeyValuePair<string,string>> sortedCodeLinks;
+        public object codeLinks() => sortedCodeLinks ?? (sortedCodeLinks = sortLinks(CodeIndex));
+        List<KeyValuePair<string,string>> sortedLispLinks;
+        public object lispLinks() => sortedLispLinks ?? (sortedLispLinks = sortLinks(LispIndex));
+
+        List<KeyValuePair<string,string>> sortedUseCaseLinks;
+        public object useCaseLinks() => sortedUseCaseLinks ?? (sortedUseCaseLinks = sortLinks(UseCasesIndex));
+
         List<KeyValuePair<string,string>> sortedLinqLinks;
         public object linqLinks() => sortedLinqLinks ?? (sortedLinqLinks = sortLinks(LinqIndex));
-
-        List<KeyValuePair<string,string>> sorteUseCaseLinks;
-        public object useCaseLinks() => sorteUseCaseLinks ?? (sorteUseCaseLinks = sortLinks(UseCasesIndex));
 
         public List<KeyValuePair<string,string>> sortLinks(Dictionary<int, KeyValuePair<string,string>> links)
         {
@@ -153,9 +188,19 @@ namespace SharpScript
             return new RawString($"<a href='{url}'>{type.Name}.cs</a>");
         }
 
-        public ScriptMethodInfo[] methodsAvailable(string name)
+        public ScriptMethodInfo[] methodsAvailable(string name) => ScriptMethodInfo.GetMethodsAvailable(GetFilterType(name));
+    }
+
+    public class ScriptMethodInfo
+    {
+        public string Name { get; set; }
+        public string FirstParam { get; set; }
+        public string ReturnType { get; set; }
+        public int ParamCount { get; set; }
+        public string[] RemainingParams { get; set; }
+
+        public static ScriptMethodInfo[] GetMethodsAvailable(Type filterType)
         {
-            var filterType = GetFilterType(name);
             var filters = filterType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
             var to = filters
                 .OrderBy(x => x.Name)
@@ -166,15 +211,6 @@ namespace SharpScript
 
             return to.ToArray();
         }
-    }
-
-    public class ScriptMethodInfo
-    {
-        public string Name { get; set; }
-        public string FirstParam { get; set; }
-        public string ReturnType { get; set; }
-        public int ParamCount { get; set; }
-        public string[] RemainingParams { get; set; }
 
         public static ScriptMethodInfo Create(MethodInfo mi)
         {

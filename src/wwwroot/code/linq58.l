@@ -1,0 +1,1 @@
+(dump (first (where #(= (.ProductId %) 12) products-list)))

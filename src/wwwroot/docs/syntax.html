@@ -312,12 +312,14 @@ Most JS Array methods are supported, including the latest additions from ES2019:
  - `values`
 
 
-### Code Blocks
+<a name="lang-blocks"></a>
+## Language Blocks and Expressions
 
-We've caught a glimpse of the `code` blocks feature in the JavaScript Array Example above which dramatically reduces
-the boilerplate that would've otherwise been needed should each statement have been needed to be wrapped in a template expression.
+We've caught a glimpse using language blocks with the `code` JavaScript Array Example above which allows us to invert `#Script` from **"Template Mode"**
+where all text is emitted as-is with only code within Template Expressions `{{ ... }}` are evaluated and changed it to **"Code Mode"** where all code
+is evaluated a code expression.
 
-They're akin to Razor's statement blocks which inverts Razor's **mode** of emitting text to treating text inside statement blocks as code, e.g:
+This is akin to Razor's statement blocks which inverts Razor's **mode** of emitting text to treating text inside statement blocks as code, e.g:
 
 {{/markdown}}
 
@@ -325,26 +327,83 @@ They're akin to Razor's statement blocks which inverts Razor's **mode** of emitt
 
 {{#markdown}}
 
-The entire **code** feature is implemented within a
-[simple TransformCodeBlocks PreProcessor](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/ScriptPreprocessors.cs) 
-that's pre-configured by default and so can be removed by clearing the `Preprocessors` List:
+Which is useful in reducing boilerplate when you need to evaluate code blocks with 2+ or more lines without the distracting boilerplate of wrapping
+each expression within a `{{ ... }}` Template Expression.
 
-    var context = new ScriptContext();
-    context.Preprocessors.Clear();
+### Languages
 
-#### Preprocessor Code Transformations
+Refer to the languages page to learn about alternative languages you can use within Language Blocks and Expressions:
 
-It performs a basic transformation that assumes every statement is an expression and wraps them in an `{{...}}` 
-expression block, the exception are expressions which are already within an expression block which are ignored and you still
-need to use to wrap multi-line expressions in `code` blocks.
+ - [#Script Code](/scode/) - use `code` language identifier
+ - [#Script Lisp](/lisp/) - use `lisp` language identifier
 
-The other transformation `code` blocks perform is collapsing new lines and trimming each line, this is so scripts which are primarily 
-structured and indented for readability aren't reflected in its text output. 
+### Language Blocks
 
-We can see an example of how `code` blocks work from the example below:
+`code` fragments are executed using `#Script` language blocks in the format:
+
+    ```<lang>
+
+    ```
+
+Where `#Script` will parse the statement body with the language registered in its ScriptContext's `ScriptLanguages` collection that's pre-registered
+with `ScriptCode.Language` which is used to process `code` block statements, e.g:
+
 {{/markdown}}
 
-{{ 'gfm/syntax/06.md' | githubMarkdown | convertScriptToCodeBlocks }}
+{{ 'gfm/syntax/07.md' | githubMarkdown | convertScriptToCodeBlocks }}
+
+<p>
+    Code Statement Blocks are evaluated within the same scope so any arguments that are assigned are also accessible within the containing page
+    as seen above.
+</p>
+    
+<h4 id="lisp-language">Evaluate Lisp</h4>
+
+<p>
+    You can use language blocks to embed and evaluate any of the languages registered in your <em>ScriptContext</em>, e,g. to evaluate
+    <a href="/lisp">#Script Lisp</a> register it in your <em>ScriptContext</em> or <em>SharpPagesFeature</em>:
+</p>
+
+{{ 'gfm/lisp/01.md' | githubMarkdown }}
+    
+<p>
+    Where it will let you use Language Blocks to evaluate LISP code within <em>#Script</em>:
+</p>
+
+{{ 'gfm/syntax/08.md' | githubMarkdown | convertScriptToLispBlocks }}
+
+{{#markdown}}
+
+Unlike `code` blocks, Lisp evaluates its code using its own Symbols table, it's able to reference arguments not in its Global symbols 
+by resolving them from the containing scope, but in order for the outer `#Script` to access its local bindings they need
+to be exported as seen above which registers the value of its `local-arg` value into the `result` argument. 
+    
+#### Language Block Modifiers
+
+You can provide any additional modifiers to language blocks by specifying them after them after the `|` operator, languages
+can use these modifiers to change how it evaluates the script. By default the only modifiers the built-in languages support are `|quiet`
+and its shorter `|mute` and `|q` aliases which you can use to discard any output from being rendered within the page.
+    
+If you use Lisp's [setq special form](http://www.lispworks.com/documentation/HyperSpec/Body/s_setq.htm) to assign a variable, 
+that value is also returned which would be rendered in the page, you can ignore this output by using one of the above modifiers, e.g:
+    
+{{/markdown}}
+
+{{ 'gfm/syntax/09.md' | githubMarkdown | convertScriptToLispBlocks }}
+
+{{#markdown}}
+### Language Expressions
+    
+If you wanted to instead embed an expression in a different language instead of executing an entire statement block,
+you can embed them within Language Expressions `{|<lang> ... |}`, e.g:
+{{/markdown}}
+
+{{ 'gfm/syntax/10.md' | githubMarkdown }}
+
+{{#markdown}}
+You could also use them to evaluate `code` expressions, e.g. `{|code 1 + 2 |}`, but that's also how `#Script`
+more concise Template Expressions are evaluated `{{ 1 + 2 }}`.   
+{{/markdown}}
 
 
 {{ "doc-links" | partial({ order }) }}

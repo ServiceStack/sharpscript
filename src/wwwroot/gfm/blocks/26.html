@@ -1,0 +1,16 @@
+<div class="gfm"><div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#defn</span> <span class="pl-v">calc</span> [<span class="pl-e"><span class="pl-v">a</span></span>, <span class="pl-e"><span class="pl-v">b</span></span>] <span class="pl-c1">}}</span>
+    (def c (* a b))
+    (+ a b c)
+<span class="pl-c1">{{</span><span class="pl-c1">/defn</span><span class="pl-c1">}}</span>
+
+calc: <span class="pl-c1">{{</span> <span class="pl-v">calc</span>(<span class="pl-e"><span class="pl-v">1</span></span>,<span class="pl-e"><span class="pl-v">2</span></span>) <span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span><span class="pl-c1">#defn</span> <span class="pl-v">fib</span> [<span class="pl-e"><span class="pl-v">n</span></span>] <span class="pl-c1">}}</span>
+    (if (<span class="pl-ii">&lt;</span>= n 1)
+        n
+        (+ (fib (- n 1))
+           (fib (- n 2)) ))
+<span class="pl-c1">{{</span><span class="pl-c1">/defn</span><span class="pl-c1">}}</span>
+
+fib: <span class="pl-c1">{{</span> <span class="pl-v">10.fib</span>() <span class="pl-c1">}}</span> </pre></div>
+</div>

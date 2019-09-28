@@ -12,7 +12,8 @@ namespace SharpScript
     [Route("/linq/eval")]
     public class EvaluateLinq : IReturn<string>
     {
-        public string Template { get; set; }
+        public string Code { get; set; }
+        public string Lang { get; set; }
         public Dictionary<string,string> Files { get; set; }
     }
 
@@ -28,12 +29,18 @@ namespace SharpScript
                 context.VirtualFiles.WriteFile(entry.Key, entry.Value);
             }
 
-            var pageResult = new PageResult(context.OneTimePage(request.Template));
+            var page = request.Lang == "code"
+                ? context.CodeSharpPage(request.Code)
+                : request.Lang == "lisp"
+                    ? context.LispSharpPage(request.Code)
+                    : context.OneTimePage(request.Code);
+
+            var pageResult = new PageResult(page);
             return await pageResult.RenderToStringAsync();
         }
     }
  
-    public class AnagramEqualityComparer : IEqualityComparer<string> 
+    public class AnagramEqualityComparer : IEqualityComparer<string>, IEqualityComparer<object>
     {
         public bool Equals(string x, string y) => GetCanonicalString(x) == GetCanonicalString(y);
         public int GetHashCode(string obj) => GetCanonicalString(obj).GetHashCode();
@@ -43,6 +50,10 @@ namespace SharpScript
             Array.Sort(wordChars);
             return new string(wordChars);
         }
+
+        public bool Equals(object x, object y) => Equals((string) x, (string) y);
+
+        public int GetHashCode(object obj) => GetHashCode((string)obj);
     }
 
     public class Customer

@@ -3,6 +3,8 @@ title: Projection Operators
 order: 2
 -->
 
+{{ "lang-select" | partial }}
+
 <h3>linq6: Select - Simple 1</h3>
 
 <pre><code>//c#
@@ -106,7 +108,7 @@ public void Linq10()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq10" }) }}
+{{ "linq-preview" | partial({ rows:7, example: "linq10" }) }}
 
 <h3>linq11: Select - Anonymous Types 3</h3>
 
@@ -128,7 +130,7 @@ public void Linq11()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq11" }) }}
+{{ "linq-preview" | partial({ rows:8, example: "linq11" }) }}
 
 <h3>linq12: Select - Indexed</h3>
 
@@ -194,7 +196,7 @@ public void Linq14()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq14", rows: 8 }) }}
+{{ "linq-preview" | partial({ example: "linq14", rows:8 }) }}
 
 <h3>linq15: SelectMany - Compound from 2</h3>
 
@@ -213,7 +215,7 @@ public void Linq15()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html-lg", example: "linq15" }) }}
+{{ "linq-preview" | partial({ rows:8, output: "html-lg", example: "linq15" }) }}
 
 <h3>linq16: SelectMany - Compound from 3</h3>
 
@@ -232,7 +234,7 @@ public void Linq16()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html-lg", example: "linq16" }) }}
+{{ "linq-preview" | partial({ rows:9, output: "html-lg", example: "linq16" }) }}
 
 <h3>linq17: SelectMany - from Assignment</h3>
 
@@ -251,7 +253,7 @@ public void Linq17()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html-lg", example: "linq17" }) }}
+{{ "linq-preview" | partial({ rows:9, output: "html-lg", example: "linq17" }) }}
 
 <h3>linq18: SelectMany - Multiple from</h3>
 
@@ -273,7 +275,7 @@ public void Linq18()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ output: "html-lg", example: "linq18", rows: 8 }) }}
+{{ "linq-preview" | partial({ output: "html-lg", example: "linq18", rows: 10 }) }}
 
 <h3>linq19: SelectMany - Indexed</h3>
 
@@ -292,6 +294,6 @@ public void Linq19()
 }
 </code></pre>
 
-{{ "linq-preview" | partial({ example: "linq19" }) }}
+{{ "linq-preview" | partial({ rows:7, example: "linq19" }) }}
 
 {{ "linq-links" | partial({ order }) }}
