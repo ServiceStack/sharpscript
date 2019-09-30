@@ -10,13 +10,29 @@ order: 6
 
 <p>
     The only methods registered by default are the <a href="/docs/default-scripts">Default Scripts</a>
-    containing a comprehensive suite of scripts useful within #Script Pages or custom Scripting environments and 
+    containing a comprehensive suite of scripts useful within <a href="/docs/sharp-pages">#Script Pages</a> or custom Scripting environments and 
     <a href="/docs/html-scripts">HTML Scripts</a>. 
     There's nothing special about these script methods other than they're pre-registered by default, your scripts have access to the same 
     APIs and functionality and can do anything that built-in scripts can do. 
 </p>
 
-<h5 id="shadowing">Shadowing Methods</h5>
+<h3>Delegate Arguments</h3>
+
+<p>
+    In addition to Script Methods, <em>#Script</em> also lets you call delegates registered as arguments:
+</p>
+
+{{ 'gfm/script-net/01.md' | githubMarkdown }}
+
+<p>
+    Which just like <a href="/docs/blocks#function">user-defined functions</a> and other Script Methods can be called positionally or as an
+    <a href="/docs/syntax#extension-methods">extension method</a>:
+</p>
+
+<pre><code>fn(1,2)
+1.fn(2)</code></pre>
+
+<h4 id="shadowing">Shadowing Methods</h4>
 
 <p>
     You can easily override default script methods with the same name and arguments by inserting them at the start of the <em>ScriptMethods</em> list:
@@ -24,7 +40,7 @@ order: 6
 
 {{ 'gfm/methods/01.md' | githubMarkdown }}
 
-<h5 id="removing">Removing Default Scripts</h5>
+<h4 id="removing">Removing Default Scripts</h4>
 
 <p>
     Or if you want to start from a clean slate, the default scripts can be removed by clearing the collection:

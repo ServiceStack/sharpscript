@@ -5,14 +5,14 @@ order: 0
 
 {{#markdown}}
 
-`#Script` is designed as a small, expressive and wrist-friendly dynamic scripting language that for maximimum familiarity
-is modelled after the world's most popular and ubiquitos scripting Language, JavaScript. Its minimal syntax was inspired 
+`#Script` is designed as a small, expressive and wrist-friendly dynamic scripting language that for maximum familiarity
+is modelled after the world's most popular and ubiquitous scripting Language, JavaScript. Its minimal syntax was inspired 
 by other small but powerful languages which heavily utilizes functions instead of adopting a larger language grammar 
 defining different bespoke syntax for language constructs.
 
 Small Languages like Smalltalk, despite being one of the most influential languages in history, is famous for its minimal
-[syntax that fits on a post card](https://en.wikipedia.org/wiki/Smalltalk#Syntax). A language with arguably the
-best power to size ratio is [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) which the inventor of
+[syntax that fits on a post card](https://en.wikipedia.org/wiki/Smalltalk#Syntax). A language with arguably better power 
+to size ratio is [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) which the inventor of
 Smalltalk, Alan Kay has credited it as being
 the [greatest single programming language ever designed](https://en.wikiquote.org/wiki/Lisp_%28programming_language%29)
 after realizing: 
@@ -20,7 +20,7 @@ after realizing:
 > “the half page of code on the bottom of page 13… was Lisp in itself. These were 
 [“Maxwell’s Equations of Software!”](http://www.michaelnielsen.org/ddi/lisp-as-the-maxwells-equations-of-software/)
 
-[Lisp's unprecedented elegance and simplicity](http://languagelog.ldc.upenn.edu/myl/llog/jmc.pdf) spawned a [myraid of dialects](https://en.wikipedia.org/wiki/List_of_Lisp-family_programming_languages),
+[Lisp's unprecedented elegance and simplicity](http://languagelog.ldc.upenn.edu/myl/llog/jmc.pdf) spawned a [myriad of dialects](https://en.wikipedia.org/wiki/List_of_Lisp-family_programming_languages),
 some noteworthy implementations illustrating the beauty of its small size and expressive power is [lispy](http://norvig.com/lispy.html) by
 by [Peter Norvig](http://norvig.com) (Director of Google Research) that implements a Lisp interpreter in just **117 lines of Python 3 code** (inc. a REPL).
 
@@ -32,7 +32,7 @@ A more complete Lisp implementation in C# is the elegant [Nukata Lisp](https://g
 by [SUZUKI Hisao](https://github.com/nukata) which is a 
 Common Lisp-like [Lisp-1](https://stackoverflow.com/q/4578574/85785) dialect with tail call optimization and partially hygienic macros, although
 has some notable limitations including a [small standard library](https://github.com/nukata/lisp-in-cs/blob/d4258ec4b5681b0854a0d464b708df9ae26bbe3c/lisp.cs#L1216-L1391), 
-only uses the `double` numeric type and doesn't include any .NET Scripting.
+only uses the `double` numeric type and doesn't contain .NET Scripting support.
 
 ### Script Lisp Overview
 
@@ -60,13 +60,17 @@ and Clojure's popular shorter aliases for `fn`, `def`, `defn` - improving source
 ### Lisp REPL
 
 In addition to being a 1st class language option in `#Script`, Lisp's dynamism and extensibility makes it particularly 
-well suited for explanatory programming and usage within a REPL which is now built into the latest 
+well suited for explanatory programming whose access via a REPL is now built into the latest 
 [web](https://docs.servicestack.net/web-tool) and [app](https://docs.servicestack.net/netcore-windows-desktop) dotnet tools 
-that you can update to the latest version with:
+which can be quickly installed in any Windows, macOS or Linux OS (with [.NET Core](https://dotnet.microsoft.com/download/dotnet-core/3.0)) with: 
+
+    $ dotnet tool install -g web
+
+Or if you have a previous version installed, update to the latest version with:
 
     $ dotnet tool update -g web
 
-this will let you start an instant Lisp REPL with:  
+Where you'll then be able to bring up an instant Lisp REPL with:  
 
     $ web lisp
 

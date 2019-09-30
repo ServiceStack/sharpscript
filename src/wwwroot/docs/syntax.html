@@ -403,6 +403,36 @@ you can embed them within Language Expressions `{|<lang> ... |}`, e.g:
 {{#markdown}}
 You could also use them to evaluate `code` expressions, e.g. `{|code 1 + 2 |}`, but that's also how `#Script`
 more concise Template Expressions are evaluated `{{ 1 + 2 }}`.   
+
+### Multi-language support
+
+Despite being implemented in different languages a `#Script` page containing multiple languages, e.g:
+
+{{/markdown}}
+
+{{ "linq-preview" |> partial({ rows:11, example: "linq01-langs", lang: 'template' }) }}
+
+{{#markdown}}
+
+Still only produces a **single page AST**, where when first loaded `#Script` parses the page contents as a contiguous
+`ReadOnlyMemory<char>` where page slices of any [Language Blocks and Expressions](/docs/syntax#language-blocks-and-expressions) 
+on the page are delegated to the `ScriptContext` registered `ScriptLanguages` for parsing which returns a fragment which is
+added to the pages AST:
+
+[![](/assets/img/multi-langs.svg)](/assets/img/multi-langs.svg)
+
+When executing the page, each language is responsible for rendering its own fragments which all write directly to the pages `OutputStream`
+to generate the pages output.
+
+The multi-languages support in `#Script` is designed to be extensible where everything about the language is encapsulated within its
+`ScriptLanguage` implementation so that if you omit its registration:
+
+    var context = new ScriptContext {
+    //    ScriptLanguages = { ScriptLisp.Language }
+    }.Init();
+
+Any language expressions and language blocks referencing it become inert and its source code emitted as plain-text.
+
 {{/markdown}}
 
 

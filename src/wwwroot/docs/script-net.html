@@ -1,13 +1,9 @@
 <!--
-title: Scripting .NET Types
+title: Scripting .NET
 order: 9
 -->
 
 {{#markdown}}
-
-> this page refers to features available in the latest [app](https://docs.servicestack.net/netcore-windows-desktop) or 
-[web](https://docs.servicestack.net/web-tool) tools or **v5.6.1** of 
-[ServiceStack.Common on MyGet](https://docs.servicestack.net/myget)
 
 The recommended way to add functionality to your scripts is by [extending your ScriptContext](/docs/introduction#net-usage) 
 with arguments, scripts, blocks and transformers - encapsulating it in a well-defined scope akin to 
@@ -29,24 +25,6 @@ whether to [limit access to specific Types and Assemblies](#script-assemblies-an
 and [allow scripting of any .NET Types](#allowscriptingofalltypes).
 
 ![](/assets/img/sandbox.svg)
-
-### Delegate Arguments
-
-In addition to [Script Methods](/docs/methods), you can also call delegates that are registered as arguments:
-
-{{/markdown}}
-
-{{ 'gfm/script-net/01.md' | githubMarkdown }}
-
-{{#markdown}}
-
-Which just like [user-defined functions](/docs/blocks#function) and other Script Methods can be called positionally or as an 
-[extension method](/docs/syntax#extension-methods):
-
-    fn(1,2)
-    1.fn(2)
-
-## Scripting .NET Types
 
 Scripting of .NET Types is only available to Script's executed within **trusted contexts** 
 like [#Script Pages](/docs/sharp-pages), [Sharp Apps](/docs/sharp-apps) and [Shell Scripts](/docs/sharp-scripts)
@@ -101,10 +79,6 @@ populate instances of .NET Types, including generic types and generic methods.
 <h2>Function</h2>
 
 {{ 'gfm/script-net/Function.md' | githubMarkdown }}
-
-{{#markdown}}
-
-{{/markdown}}
 
 
 {{ "doc-links" |> partial({ order }) }}
