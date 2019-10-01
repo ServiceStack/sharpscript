@@ -7,7 +7,7 @@ RUN dotnet restore
 
 # copy everything else and build app
 COPY src/. ./
-WORKDIR /app/
+WORKDIR /app
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
