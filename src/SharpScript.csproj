@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>SharpScript</AssemblyName>
     <PackageId>SharpScript</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.*" />
     <PackageReference Include="System.IO.FileSystem.DriveInfo" Version="4.3.*" />
     <PackageReference Include="NUglify" Version="1.5.13" />
