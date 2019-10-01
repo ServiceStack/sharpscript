@@ -24,16 +24,4 @@
     <PackageReference Include="ServiceStack.Api.OpenApi" Version="5.*" /> 
   </ItemGroup>
 
-  <ItemGroup>
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.OrmLite\src\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Client\ServiceStack.Client.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack.Server\ServiceStack.Server.Source.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\Source\ServiceStack\src\ServiceStack\ServiceStack.Source.csproj" />-->
-  </ItemGroup>
-
 </Project>

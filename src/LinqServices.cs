@@ -51,7 +51,7 @@ namespace SharpScript
             return new string(wordChars);
         }
 
-        public bool Equals(object x, object y) => Equals((string) x, (string) y);
+        public new bool Equals(object x, object y) => Equals((string) x, (string) y);
 
         public int GetHashCode(object obj) => GetHashCode((string)obj);
     }
