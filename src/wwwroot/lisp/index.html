@@ -78,9 +78,8 @@ The quick demo below shows the kind of exploratory programming available where y
 query an objects `props`, query the Lisp interpreter's global `symbols` table containing all its global state including all 
 defined lisp functions, macros and variables:
 
-> YouTube: [youtu.be/RR7yk6ReNnQ](https://youtu.be/RR7yk6ReNnQ)
-
-[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/web-lisp.gif)](https://youtu.be/RR7yk6ReNnQ)
+<iframe width="896" height="525" src="https://www.youtube.com/embed/RR7yk6ReNnQ" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Annotated REPL Walk through
 
@@ -165,9 +164,9 @@ publishing **5x** `SendEmail` Request DTOs using the [publishMessage](/docs/serv
 they're processed in the background by its configured [MQ Server](https://docs.servicestack.net/messaging) that uses it to execute the 
 `SendEmail` ServiceStack Service where it uses its configured AWS SES SMTP Server to finally send out the Emails:
 
-> YouTube: [youtu.be/HO523cFkDfk](https://youtu.be/HO523cFkDfk)
 
-[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-tcp-repl.gif)](https://youtu.be/HO523cFkDfk)
+<iframe width="896" height="525" src="https://www.youtube.com/embed/HO523cFkDfk" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Password Protection 
 
@@ -211,9 +210,8 @@ the `watch` Script is run with a **new Lisp Interpreter** which starts with a **
 This quick demo illustrates the same functionality in [Sharp Scripts](/docs/sharp-scripts) is also available in `lisp` scripts 
 where it provides instant feedback whilst you develop in real-time:
 
-> YouTube: [youtu.be/rIgEP8ssikY](https://youtu.be/rIgEP8ssikY)
-
-[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-l.gif)](https://youtu.be/rIgEP8ssikY)
+<iframe width="896" height="525" src="https://www.youtube.com/embed/rIgEP8ssikY" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Annotated Lisp watch script
 {{/markdown}}
@@ -656,3 +654,6 @@ more readable `*?` suffix convention, for source-code compatibility we include b
 [core Lisp predicts](http://jtra.cz/stuff/lisp/sclr/index.html) and just `*?` for others.
 
 {{/markdown}}
+
+
+{{ "lisp-links" |> partial({ order }) }}

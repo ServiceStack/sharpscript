@@ -1,0 +1,44 @@
+<div class="gfm"><div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span> test Lisp REPL</span>
+(println <span class="pl-s"><span class="pl-pds">"</span>Hi from #Script Lisp! <span class="pl-pds">"</span></span> (+ <span class="pl-c1">1</span> <span class="pl-c1">2</span> <span class="pl-c1">3</span>))
+
+<span class="pl-c"><span class="pl-c">;</span> set the color of the gameObject's first Renderer Material</span>
+(color (.material (.GetComponentInChildren&lt;Renderer&gt; gameObject)) (Color/cyan))
+
+<span class="pl-c"><span class="pl-c">;</span> set the colors of all gameObject's Renderer's Material </span>
+(map #(color (.material %) (Color/cyan)) (.GetComponentsInChildren&lt;Renderer&gt; gameObject))
+
+<span class="pl-c"><span class="pl-c">;</span> create a "Cube" GameObject and assign its Renderer to 'R'</span>
+(def R (.GetComponent&lt;Renderer&gt; (GameObject/CreatePrimitive <span class="pl-s"><span class="pl-pds">"</span>Cube<span class="pl-pds">"</span></span>)))
+
+<span class="pl-c"><span class="pl-c">;</span> modify the position of the cube</span>
+(position (transform R) (Vector3. <span class="pl-c1">15</span> <span class="pl-c1">3</span> <span class="pl-c1">3</span>))
+(position (transform R) (Vector3. <span class="pl-c1">13</span> <span class="pl-c1">1</span> <span class="pl-c1">5</span>))
+
+<span class="pl-c"><span class="pl-c">;</span> change the color of the cube's Material to grey</span>
+(color (.material R) (Color/grey))
+
+<span class="pl-c"><span class="pl-c">;</span> scale the cube to 150% of its size</span>
+(localScale (transform R) (Vector3. <span class="pl-c1">1.5</span> <span class="pl-c1">1.5</span> <span class="pl-c1">1.5</span>))
+
+<span class="pl-c"><span class="pl-c">;</span> change the color of the cube's Material to blue</span>
+(color (.material R) (Color/blue))
+
+<span class="pl-c"><span class="pl-c">;</span> create 3 "Sphere" GameObject's and assign to 'spheres'</span>
+(def spheres (map #(GameObject/CreatePrimitive <span class="pl-s"><span class="pl-pds">"</span>Sphere<span class="pl-pds">"</span></span>) (range <span class="pl-c1">3</span>)))
+<span class="pl-c"><span class="pl-c">;</span> assign the spheres Renderers to 'SR'</span>
+(def SR (map #(.GetComponent&lt;Renderer&gt; %) spheres))
+
+<span class="pl-c"><span class="pl-c">;</span> move the position of all 3 spheres</span>
+(map-index #(position (transform %<span class="pl-c1">1</span>) (Vector3. (+ (* %<span class="pl-c1">2</span> <span class="pl-c1">2</span>) <span class="pl-c1">13</span>) <span class="pl-c1">4</span> <span class="pl-c1">4</span>)) SR)
+(map-index #(position (transform %<span class="pl-c1">1</span>) (Vector3. (+ (* %<span class="pl-c1">2</span> <span class="pl-c1">2</span>) <span class="pl-c1">13</span>) <span class="pl-c1">3</span> <span class="pl-c1">3</span>)) SR)
+
+<span class="pl-c"><span class="pl-c">;</span> change the color of each sphere to a different color</span>
+(def colors [(Color/green) (Color/yellow) (Color/red)])
+(map-index #(color (.material %<span class="pl-c1">1</span>) (nth colors %<span class="pl-c1">2</span>)) SR)
+
+<span class="pl-c"><span class="pl-c">;</span> scale all spheres to 150% of its size</span>
+(map #(localScale (transform %) (Vector3. <span class="pl-c1">1.5</span> <span class="pl-c1">1.5</span> <span class="pl-c1">1.5</span>)) SR)
+
+<span class="pl-c"><span class="pl-c">;</span> add Rigidbody to all spheeres putting it under control of Unity's physics engine and giving it gravity</span>
+(def SRB (map #(.AddComponent&lt;Rigidbody&gt; %) spheres))</pre></div>
+</div>
