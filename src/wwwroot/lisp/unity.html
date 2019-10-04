@@ -5,10 +5,10 @@ order: 1
 
 {{#markdown}}
 
-As `#Script` is a clean embeddable scripting language with few dependencies and 
-[cascading Reflection Utils](https://docs.servicestack.net/reflection-utils#fast-reflection-apis) that utilizes the
-fastest implementation dependent on target platform, it's able to add scripting to most C#/.NET platforms that support 
-either .NET Framework or .NET Standard 2.0 target frameworks.
+As `#Script` is a clean embeddable scripting language with no compilation, few dependencies and a 
+[cascading Reflection Utils](https://docs.servicestack.net/reflection-utils#fast-reflection-apis) for utilizing the
+fastest implementation capable per target platform, it's able to add scripting to most C#/.NET platforms supporting 
+**.NET Framework** or **.NET Standard 2.0** target frameworks (e.g. .NET Core/Mono).
 
 One of C#'s popular target platforms that's appealing to extend via scripting is the [Unity Game Engine](https://unity.com)
 which will allow you by-pass the slow dev iteration cycles by allowing you to rapidly prototype a scene, or dynamically
@@ -19,8 +19,8 @@ To showcase Lisp's scriptability in Unity we've added an in-game REPL to script 
 <iframe width="896" height="525" src="https://www.youtube.com/embed/WmzI-5L0hJk" frameborder="0" 
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-This demo is just a copy of [Unity's Karting First Project Template](https://learn.unity.com/project/karting-template) with
-scripting support added. We'll go through how to add scripting support below. For reference a copy of this project has been published to:
+This demo is just running a copy of [Unity's Karting MyFirstGame Project Template](https://learn.unity.com/project/karting-template) with
+scripting support added. We'll go through how to add scripting support below. For reference, a copy of this project has been published to:
 
  - [github.com/ServiceStack/script-unity](https://github.com/ServiceStack/script-unity)
 
