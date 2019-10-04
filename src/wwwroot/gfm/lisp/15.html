@@ -4,7 +4,7 @@
         [<span class="pl-en">FreeFunction</span>(<span class="pl-s"><span class="pl-pds">"</span>GetTransform<span class="pl-pds">"</span></span>, <span class="pl-en">HasExplicitThis</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>, <span class="pl-en">ThrowsException</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>), 
             <span class="pl-en">MethodImpl</span>(<span class="pl-smi">MethodImplOptions</span>.<span class="pl-smi">InternalCall</span>)] <span class="pl-k">get</span>; }
 }</pre></div>
-<p>In these cases we require adding our own .NET <a href="/docs/methods">Script Method</a> wrapper API which Scripts should access instead:</p>
+<p>In these cases we require adding our own .NET <a href="/docs/methods">Script Method</a> wrapper API which Scripts can access instead:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">UnityScripts</span> : <span class="pl-en">ScriptMethods</span>
 {
     <span class="pl-k">public</span> <span class="pl-en">Transform</span> <span class="pl-en">transform</span>(<span class="pl-en">Component</span> <span class="pl-smi">c</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">c</span>.<span class="pl-smi">transform</span>;
@@ -13,7 +13,7 @@
 }</pre></div>
 <p>To maximize API familiarity we use the same name for the script method getters/setters, e.g:</p>
 <div class="highlight highlight-source-lisp"><pre>(transform instance)</pre></div>
-<p>As it just requires stripping the <code>.</code> prefix from normal Lisp member access:</p>
+<p>Which just requires stripping the <code>.</code> prefix from normal instance member access:</p>
 <div class="highlight highlight-source-lisp"><pre>(.transform instance)</pre></div>
 <p>Normal .NET Properties like <code>material</code>:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Renderer</span> : <span class="pl-en">Component</span>
@@ -32,6 +32,6 @@
         }
     }
 }</pre></div>
-<p>will be able to be accessed using normal member instance notation, e.g:</p>
+<p>Will be able to be accessed using normal member instance notation directly, e.g:</p>
 <div class="highlight highlight-source-lisp"><pre>(.material instance)</pre></div>
 </div>

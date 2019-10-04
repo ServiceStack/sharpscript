@@ -19,14 +19,14 @@ To showcase Lisp's scriptability in Unity we've added an in-game REPL to script 
 <iframe width="896" height="525" src="https://www.youtube.com/embed/WmzI-5L0hJk" frameborder="0" 
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-This is just a copy of [Unity's Karting First Project Template](https://learn.unity.com/project/karting-template) with
-scripting support, we'll go through how scripting support was added below. For reference a copy of this project has been published to:
+This demo is just a copy of [Unity's Karting First Project Template](https://learn.unity.com/project/karting-template) with
+scripting support added. We'll go through how to add scripting support below. For reference a copy of this project has been published to:
 
  - [github.com/ServiceStack/script-unity](https://github.com/ServiceStack/script-unity)
 
 ### Add ServiceStack.Common .dll's to your project
 
-We've followed the
+Follow the
 [Using .NET 4.x in Unity](https://docs.microsoft.com/en-us/visualstudio/cross-platform/unity-scripting-upgrade?view=vs-2019) guide
 to add .NET .dll's to a unity project which requires adding the binaries from the [ServiceStack.Common](https://www.nuget.org/packages/ServiceStack.Common)
 NuGet package and all its dependencies to your projects plugins folder and a 
@@ -36,13 +36,13 @@ LINQ Expression Reflection support in Unity's [bytecode stripping](https://docs.
  - [/Assets/link.xml](https://github.com/ServiceStack/script-unity/blob/master/MyFirstGame/Assets/link.xml)
  - [/Assets/Plugins](https://github.com/ServiceStack/script-unity/tree/master/MyFirstGame/Assets/Plugins)
 
-To simplify downloading, a copy of **ServiceStack.Common** .dll's and all its dependencies is available from:
+To simplify downloading NuGet packages independently, a copy of **ServiceStack.Common** .dll's and all its dependencies is available from:
 
  - [/dist/ServiceStack.Common.zip](https://github.com/ServiceStack/script-unity/raw/master/dist/ServiceStack.Common.zip)
 
 ### Add REPL InputField and Text UI Objects  
 
-Add the REPL UI `InputField` Control for capturing Lisp script input and a `Text` label for displaying REPL output: 
+Add the REPL UI `InputField` Control for capturing Lisp script **input** and a `Text` label for displaying REPL **output**: 
 
 [![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-unity-inputfield.png)](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-unity-inputfield.png)
 
@@ -50,7 +50,7 @@ Modify `InputField` by increasing the **height** and **width** of the control an
 
 [![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-unity-inputfield-props.png)](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/lisp-unity-inputfield-props.png)
 
-The positioning of each control can also be updated from the Scene's UI editor.
+> The positioning of each control can also be updated using Drag and Drop from Unity's Scene UI editor.
 
 ### Add New C# Script to your GameObject
 
@@ -70,15 +70,15 @@ In `void Start()` you'll want to initialize any one-off initialization tasks lik
 creating the `Lisp.Interpreter` that will be used to evaluate code within the Lisp REPL as well as storing references
 to the current `gameObject`, `InputField` and `Text` UI controls.
 
-`Update()` is where to put your scripts runtime logic which gets called once per frame. We listen out for the `Ctrl+Enter`
+`Update()` is where to put your scripts runtime logic which gets called once per frame. Here we listen out for the `Ctrl+Enter`
 shortcut key combination to trigger evaluating the Lisp source code that's in the `InputField` text field. `lastScript`
 is maintained to prevent multiple evaluations as `Update()` can be called multiple times with the same keyboard combination.
 
-The same `Lisp.Interpreter` instance is used for each evaluation which maintains any state defined from previous iterations.
+The same `Lisp.Interpreter` instance is used for each evaluation which maintains any state defined from previous evaluations.
 
 ### Unity Script Methods
 
-Unfortunately Lisp can't access all of Unity's APIs directly as it doesn't appear you can access Unity's native API wrappers
+Unfortunately Lisp can't access all of Unity's APIs directly where it doesn't appear you can access Unity's native API wrappers
 from reflection, e.g:
 {{/markdown}}
 
