@@ -1,0 +1,12 @@
+<div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">SharpPagesFeature</span> {
+    <span class="pl-smi">Args</span> <span class="pl-k">=</span> { ... },              <span class="pl-c"><span class="pl-c">//</span> Global Arguments available to all Scripts, Pages, Partials, etc</span>
+    <span class="pl-smi">ScriptMethods</span> <span class="pl-k">=</span> { ... },     <span class="pl-c"><span class="pl-c">//</span> Additional Methods</span>
+    <span class="pl-smi">ScriptBlocks</span> <span class="pl-k">=</span> { ... },      <span class="pl-c"><span class="pl-c">//</span> Additional Script Blocks </span>
+    <span class="pl-smi">FilterTransformers</span> <span class="pl-k">=</span> { .. }, <span class="pl-c"><span class="pl-c">//</span> Additional Stream Transformers</span>
+    <span class="pl-smi">PageFormats</span> <span class="pl-k">=</span> { ... },       <span class="pl-c"><span class="pl-c">//</span> Additional Text Document Formats</span>
+    <span class="pl-smi">Plugins</span> <span class="pl-k">=</span> { ... },           <span class="pl-c"><span class="pl-c">//</span> Encapsulated Features e.g. Markdown, Protected or ServiceStack Features</span>
+
+    <span class="pl-smi">ScanTypes</span> <span class="pl-k">=</span> { ... },         <span class="pl-c"><span class="pl-c">//</span> Auto register Methods, Blocks and Code Page Types</span>
+    <span class="pl-smi">ScanAssemblies</span> <span class="pl-k">=</span> { ... },    <span class="pl-c"><span class="pl-c">//</span> Auto register all Methods, Blocks and Code Page Types in Assembly</span>
+});</pre></div>
+</div>

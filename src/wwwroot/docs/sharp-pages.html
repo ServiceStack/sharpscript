@@ -42,9 +42,18 @@ order: 20
     <li>Registers a Request Handler which enables all requests <b>.html</b> pages to be handled by #Script Pages</li>
 </ul>
 
-<p>If preferred, you can change which <b>.html</b> extension gets handled by #Script Pages with:</p>
+<p>If preferred, you can change which <b>.html</b> extension gets handled by <em>#Script</em> Pages with:</p>
 
 {{ 'gfm/sharp-pages/02.md' | githubMarkdown }}
+
+<h4 id="extend">Register additional functionality</h4>
+
+<p>
+    The same APIs for <a href="/docs/introduction#net-usage">extending a ScriptContext</a> is also how to extend 
+    <em>SharpPagesFeature</em> to enable additional functionality in your <em>#Script</em> Pages:
+</p>
+
+{{ 'gfm/sharp-pages/14.md' | githubMarkdown }}
 
 <h4 id="runs-everywhere">Runs Everywhere</h4>
 
