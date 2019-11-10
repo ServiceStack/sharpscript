@@ -186,8 +186,8 @@ order: 2
 
 <p>
     It's also pure at the code-level where it doesn't have any coupling to concrete dependencies, components or static classes. Default script methods
-    doesn't mutate any external state and returns an expression forcing a more readable and declarative
-    programming-style that's easier to quickly determine the subject of expressions and the states that need to be met for methods to be executed.
+    don't mutate any external state and return an expression. This forces a more readable and declarative
+    programming-style, one where it is easier to quickly determine the subject of expressions and the states that need to be met for methods to be executed.
     Conceptually scripts are "evaluated" in that they take in arguments, methods and script pages as inputs and evaluates them to an output stream.
     They're highly testable by design where the same environment used to create the context can easily be re-created in Unit tests,
     including simulating pages in a File System using its In Memory Virtual File System.
