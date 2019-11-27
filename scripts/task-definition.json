@@ -27,6 +27,10 @@
                 {
                     "name": "LETSENCRYPT_EMAIL",
                     "value": "${LETSENCRYPT_EMAIL}"
+                },
+                {
+                    "name": "HSTS",
+                    "value": "off"
                 }
             ]
         }
