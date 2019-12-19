@@ -20,11 +20,13 @@ order: 17
 {{ 'An error!' |> throw }}
 {{ ex |> select: { it.Message } }}` }) }}
 
+<h3 id="catcherror">catchError</h3>
+
 <p>
-    Alternatively it can be specified on each call-site where it will capture the Exception thrown by the method:
+    Alternatively you can specify `catchError` at each call-site where it will capture the Exception thrown by the method:
 </p>
 
-{{ 'live-template' |> partial({ rows:3, template: `{{ 'An error!' |> throw({ assignError: 'ex' }) }}
+{{ 'live-template' |> partial({ rows:3, template: `{{ 'An error!' |> throw({ catchError: 'ex' }) }}
 {{ ex |> select: { it.Message } }}` }) }}
 
 <blockquote>

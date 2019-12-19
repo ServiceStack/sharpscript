@@ -186,4 +186,34 @@ order: 6
 
 <pre class="cs"><code>{{ pass: 'doc.md' |> includeFile |> to => contents }}</code></pre>
 
+<h4 id="async">Async support</h4>
+
+{{ 'gfm/methods/13.md' | githubMarkdown }}
+
+<h4>Implementing Method Exceptions</h4>
+
+<p>
+    In order for your own Method Exceptions to participate in the above Script Error Handling they'll need to be wrapped in an
+    <em>StopFilterExecutionException</em> including both the Script's <em>scope</em> and an optional <b>options</b> object 
+    which is used to check if the <em>assignError</em> binding was provided so it can automatically populate it with the Exception.
+</p>
+
+<p>
+    The easiest way to Implement Exception handling in methods is to call a managed function which catches all Exceptions and 
+    throws them in a <em>StopFilterExecutionException</em> as seen in OrmLite's 
+    <a href="https://github.com/ServiceStack/ServiceStack.OrmLite/blob/master/src/ServiceStack.OrmLite/DbScripts.cs">DbScripts</a>:
+</p>
+
+{{ 'gfm/error-handling/03.md' | githubMarkdown }}
+
+<p>
+    The overloads are so the methods can be called without specifying any method options.
+</p>
+
+<p>
+    For more examples of different error handling features and strategies checkout:
+    <a href="https://github.com/ServiceStack/ServiceStack/blob/master/tests/ServiceStack.WebHost.Endpoints.Tests/ScriptTests/ErrorHandlingTests.cs">ErrorHandlingTests.cs</a>
+</p>
+
+
 {{ "doc-links" |> partial({ order }) }}
