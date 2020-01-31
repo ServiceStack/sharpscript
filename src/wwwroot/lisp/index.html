@@ -72,7 +72,7 @@ Or if you have a previous version installed, update to the latest version with:
 
 Where you'll then be able to bring up an instant Lisp REPL with:  
 
-    $ web lisp
+    $ x lisp
 
 The quick demo below shows the kind of exploratory programming available where you can query the `scriptMethods` available, 
 query an objects `props`, query the Lisp interpreter's global `symbols` table containing all its global state including all 
@@ -198,8 +198,8 @@ Just like [Redis AUTH](https://redis.io/commands/auth) you can also add password
 The same [Sharp Scripts](/docs/sharp-scripts) functionality for `#Script` is also available to Lisp scripts where you can use the `web` and `app`
 dotnet tools to **run** and **watch** stand-alone Lisp scripts with the `.l` file extension, e.g: 
 
-    $ web run lisp.l
-    $ web watch lisp.l
+    $ x run lisp.l
+    $ x watch lisp.l
 
 To clarify the behavioural differences between the Lisp REPL's above which uses the **same Lisp interpreter** to maintain state changes across each command, 
 the `watch` Script is run with a **new Lisp Interpreter** which starts with a **fresh** copy of the Global symbols table so any state changes after each 

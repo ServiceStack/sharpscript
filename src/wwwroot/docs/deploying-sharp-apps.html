@@ -16,13 +16,13 @@ support for Gist publishing.
 
 All that's required is to run the App on your server with `web open <app>`, e.g. to run `redis` Gist App:
 
-    $ web open redis
+    $ x open redis
 
 Which runs on port `5000` by default, you can run it under your preferred domain by configuring nginx below.
 
 Or to "install" the Gist App (without launching it with "open") so it can be run offline locally:
 
-    $ web install redis
+    $ x install redis
     
 ## Deploying Sharp Apps to Ubuntu
 
@@ -67,7 +67,7 @@ For simplifying the one-time setup, it's easier to sign-in as super user:
 
 To configure your App quickly you can start with **nginx** and **supervisor** config templates using the [mix dotnet tool](https://docs.servicestack.net/mix-tool): 
 
-    $ web mix nginx supervisor-sharp -name redis
+    $ x mix nginx supervisor-sharp -name redis
 
 Where after confirming, will write the config files to the appropriate locations:
 
@@ -163,7 +163,7 @@ Where your website will now be up and running under a managed process at: **redi
 Now that's everything's configured, deploying app updates are easily done by installing the app again (which downloads the latest version),
 then restarting the supervisor managed process, in these 2 commands:
 
-    $ web install redis
+    $ x install redis
     $ supervisorctl restart app-redis 
 
 Which can also be deployed from the Windows Command Prompt using a remote SSH command by combining the above commands in a `deploy-redis.sh` text file:

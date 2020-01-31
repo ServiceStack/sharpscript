@@ -87,7 +87,7 @@ which is used to update all library dependencies of the [Vue and React "lite" Pr
 
 Running without any arguments:
 
-    $ web run libraries.ss
+    $ x run libraries.ss
 
 will update both React and Vue dependencies:
 
@@ -96,7 +96,7 @@ will update both React and Vue dependencies:
 
 Alternatively it can be limited to updating a single Framework dependencies with:
 
-    $ web run libraries.ss vue-lite-lib
+    $ x run libraries.ss vue-lite-lib
 
 The [web dotnet tool](https://docs.servicestack.net/web-new) also includes the capability of both **executing** `#Script` scripts as well
 as **watching** scripts to enable a [live visual REPL](#live-script-with-web-watch) with instant real-time feedback that makes it perfect
@@ -114,9 +114,9 @@ which is run with `web run {script}`:
 {{#markdown}}
 Which can be run with the `web` tool:
 
-    $ dotnet tool install --global web 
+    $ dotnet tool install --global x 
 
-    $ web run wwwroot/_bundle.ss
+    $ x run wwwroot/_bundle.ss
 
 Which will create the production bundles, minify all already non-minified bundles and write them to disk with the paths written visible in the 
 `#Script` *_bundle.ss* output:
@@ -148,7 +148,7 @@ like all Tables and Row counts in managed AWS RDS Instances or Search for static
 You can use `$NAME` to move confidential information out of public scripts where it will be replaced with Environment 
 Variables. Then run the script as normal and optionally provide a pattern for files you want to search for:
 
-    $ web run script-aws.ss *.jpg
+    $ x run script-aws.ss *.jpg
 
 Where it displays a dashboard of activity from your AWS resources: containing all Tables with their Row Counts, 
 adhoc queries like your last 5 Orders, The Root files and Folders available in your S3 Bucket and any matching resources 
@@ -215,7 +215,7 @@ What's even nicer than the fast feedback of running adhoc scripts? Is the instan
 
 To watch a script just replace `run` with `watch`:
 
-    $ web watch script-aws.ss *.jpg
+    $ x watch script-aws.ss *.jpg
 
 [![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/sharpscript/watch-aws-azure.gif)](https://youtu.be/GQvxyPHQjhM)
 
@@ -239,7 +239,7 @@ and Nuglify's advanced compression using our new `minifyjs` and `minifycss` [Scr
 {{#markdown}}
 Then run with:
 
-    $ web watch livepad.ss
+    $ x watch livepad.ss
 
 Which starts a live watched session that re-renders itself on save, initially with:
 {{/markdown}}
@@ -265,7 +265,7 @@ Scripts can use the built-in [Database Scripts](/docs/db-scripts) to be able to 
 The above script generates a static HTML page can be invoked with **any number of named arguments** after the script name, in this case it
 generates a report for Northwind Order **#10643**, saves it to `10643.html` and opens it in the OS's default browser:
 
-    $ web run script.html -id 10643 > 10643.html && start 10643.html
+    $ x run script.html -id 10643 > 10643.html && start 10643.html
 
 Which looks like:
 
@@ -283,7 +283,7 @@ channels you can replace `htmlDump` with `textDump` where it will instead output
 {{#markdown}}
 As the output is human-readable we can view directly it without a browser:
 
-    $ web run script.ss -id 10643 
+    $ x run script.ss -id 10643 
 
 Which will output:
 {{/markdown}}
