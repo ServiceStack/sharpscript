@@ -1,13 +1,13 @@
-<div class="gfm"><div class="highlight highlight-source-dockerfile"><pre><span class="pl-k">FROM</span> microsoft/dotnet:2.1-sdk AS build-env
+<div class="gfm"><div class="highlight highlight-source-dockerfile"><pre><span class="pl-k">FROM</span> mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 <span class="pl-k">COPY</span> app /app
 <span class="pl-k">WORKDIR</span> /app
-<span class="pl-k">RUN</span> dotnet tool install -g web
+<span class="pl-k">RUN</span> dotnet tool install -g x
 
 <span class="pl-c"><span class="pl-c">#</span> Build runtime image</span>
-<span class="pl-k">FROM</span> microsoft/dotnet:2.1-aspnetcore-runtime
+<span class="pl-k">FROM</span> mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 <span class="pl-k">WORKDIR</span> /app
-<span class="pl-k">COPY</span> --from=build-env /app app
-<span class="pl-k">COPY</span> --from=build-env /root/.dotnet/tools tools
+<span class="pl-k">COPY</span> --from=build /app app
+<span class="pl-k">COPY</span> --from=build /root/.dotnet/tools tools
 <span class="pl-k">ENV</span> ASPNETCORE_URLS http://*:5000
-<span class="pl-k">ENTRYPOINT</span> [<span class="pl-s">"/app/tools/web"</span>, <span class="pl-s">"app/app.settings"</span>]</pre></div>
+<span class="pl-k">ENTRYPOINT</span> [<span class="pl-s">"/app/tools/x"</span>, <span class="pl-s">"app/app.settings"</span>]</pre></div>
 </div>

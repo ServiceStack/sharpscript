@@ -8,7 +8,7 @@ order: 25
 
 As Sharp Apps are just .NET Core Web Apps, the same App can be run within a [Chromium Desktop App](/docs/gist-desktop-apps) with 
 [app](https://docs.servicestack.net/netcore-windows-desktop), cross-platform on Windows, macOS or Linux with 
-[web](https://docs.servicestack.net/web-tool) in the preferred browser or hosted on a server where it's accessible to everyone with an internet connection.
+[x](https://docs.servicestack.net/dotnet-tool) in the preferred browser or hosted on a server where it's accessible to everyone with an internet connection.
 
 Not only does not needing to compile Sharp Apps dramatically simplify App development but it also dramatically simplifies 
 App deployment where you can **completely skip all CI and build steps** as there's nothing to build or deploy with the built-in
@@ -51,13 +51,13 @@ prompting for a password:
 
     # Allow members of group sudo to execute any command
     %sudo   ALL=(ALL:ALL) ALL
-    %deploy ALL=NOPASSWD: /usr/bin/supervisorctl, /home/deploy/.dotnet/tools/web
+    %deploy ALL=NOPASSWD: /usr/bin/supervisorctl, /home/deploy/.dotnet/tools/x
 
 > In vi type `i` to start editing a file and `ESC` to quit edit mode and `:wq` to save your changes before exiting.
 
-#### Install the dotnet `web` tool:
+#### Install the dotnet `x` tool:
 
-    $ dotnet tool install -g web
+    $ dotnet tool install -g x
 
 For simplifying the one-time setup, it's easier to sign-in as super user:
 

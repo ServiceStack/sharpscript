@@ -55,12 +55,12 @@ order: 23
 <h2>Getting Started</h2>
 
 <p>
-    All Sharp Apps can be run either as .NET Core Web Apps by installing the <em>web</em> dotnet tool:
+    All Sharp Apps can be run either as .NET Core Web Apps by installing the <em>x</em> dotnet tool:
 </p>
 
-<pre class="sh"><code>$ dotnet tool install -g web</code></pre>
+<pre class="sh"><code>$ dotnet tool install -g x</code></pre>
 
-Then you can run <em>web open</em> to see which apps are available to install:
+Then you can run <em>x open</em> to see which apps are available to install:
 
 <pre class="sh"><code>$ x open</code></pre>
 
@@ -202,7 +202,7 @@ Usage: web open &lt;name&gt;</code></pre>
 <p>
     If needed, it includes an optional <a href="https://github.com/NetCoreTemplates/parcel-webapp#server">server</a>
     component containing any C# extensions needed that's automatically built and deployed to the app's <em>/plugins</em> folder when started. 
-    This enables an extensibile .NET Core Web App with an integrated Parcel bundler to enable building sophisticated JavaScript
+    This enables an extensible .NET Core Web App with an integrated Parcel bundler to enable building sophisticated JavaScript
     Apps out-of-the-box within a live development environment.
 </p>
 
@@ -306,7 +306,7 @@ webRoot ~/../bare</code></pre>
 <p>
     For the Redis Browser Web App, we wanted to implement an App that was an ideal candidate for a Single Page App but constrain ourselves
     to do all HTML rendering on the server and have each interaction request a full-page reload to see how a traditional server-generated
-    Web App feels like with the performance of .NET Core 2.1 and <em>#Script</em>. We're pleasantly surprised with the result as when 
+    Web App feels like with the performance of .NET Core 3.1 and <em>#Script</em>. We're pleasantly surprised with the result as when 
     the App is run locally the responsiveness is effectively indistinguishable from an Ajax App. When hosted on the Internet 
     there is a sub-second delay which causes a noticeable flicker but it still retains a pleasant UX that's faster than most websites.
 </p>
@@ -598,7 +598,7 @@ redis.connection localhost:6379</code></pre>
 <h4>Multi platform configurations</h4>
 
 <p>
-    In addition to being a .NET Core 2.1 App that runs flawlessly cross-platform on Windows, Linux and OSX, Sharp Apps can also support 
+    In addition to being a .NET Core 3.1 App that runs flawlessly cross-platform on Windows, Linux and OSX, Sharp Apps can also support 
     multiple RDBMS's and <a href="https://docs.servicestack.net/virtual-file-system">Virtual File Systems</a> using just configuration.
 </p>
 
@@ -791,9 +791,9 @@ defaultFileCacheExpirySecs     60</code></pre>
 
 <p>
     With all files being sourced from S3 and the App configured to use AWS RDS PostgreSQL, the AWS settings is an example of 
-    a <b>Pure Cloud App</b> where the entire App is hosted on managed cloud services that's decoupled from the .NET Core 2.1 binary 
+    a <b>Pure Cloud App</b> where the entire App is hosted on managed cloud services that's decoupled from the .NET Core 3.1 binary 
     that runs it that for the most part won't require redeploying the Web App binary unless making configuration changes or 
-    upgrading the <a href="https://docs.servicestack.net/web-tool">web</a> dotnet tool
+    upgrading the <a href="https://docs.servicestack.net/dotnet-tool">x</a> dotnet tool
     as any App changes can just be uploaded straight to S3 which changes reflected within the
     <em>checkForModifiedPagesAfterSecs</em> setting, which tells the Web App how long to wait before checking for file changes
     whilst <em>defaultFileCacheExpirySecs</em> specifies how long to cache files like <em>content.md</em> for.
@@ -856,7 +856,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     <a href="https://docs.servicestack.net/validation">Validators</a>, etc.
     contained within <b>.dll's</b> or <b>.exe's</b> dropped in a Sharp App's 
     <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/plugins/plugins">/plugins</a> folder which are auto-registered 
-    on startup. The source code for all plugins used in this App were built from the .NET Core 2.1 projects in the
+    on startup. The source code for all plugins used in this App were built from the .NET Core 3.1 projects in the
     <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/example-plugins">/example-plugins</a> folder. The 
     <a href="http://plugins.web-app.io">plugins.web-app.io</a> Sharp App below walks through examples of using Custom Filters, 
     Services and Validators:
@@ -979,7 +979,7 @@ CustomPlugin { ShowProcessLinks: true }
 <h4>Develop back-end using .NET IDE's</h4>
 
 <p>
-    For <a href="http://chat.web-app.io">chat.web-app.io</a> we've taken a copy of the existing .NET Core 2.1 
+    For <a href="http://chat.web-app.io">chat.web-app.io</a> we've taken a copy of the existing .NET Core 3.1 
     <a href="https://github.com/NetCoreApps/Chat">Chat App</a> and moved its C# code to
     <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/example-plugins/Chat">/example-plugins/Chat</a>
     and its files to <a href="https://github.com/sharp-apps/Chat/tree/master/app">/apps/chat</a> 
