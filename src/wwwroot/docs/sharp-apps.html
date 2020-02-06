@@ -768,11 +768,11 @@ defaultFileCacheExpirySecs     60</code></pre>
 
 <h4 id="pure-cloud-apps">Pure Cloud Apps</h4>
 
-<h5><a href="https://github.com/sharp-apps/rockwind-aws/blob/master/app.settings">rockwind-aws/app.settings</a></h5>
+<h5><a href="https://github.com/sharp-apps/rockwind-aws/blob/master/app/app.settings">rockwind-aws/app/app.settings</a></h5>
 
 <p>
     The AWS settings shows an example of this where every external resource 
-    <a href="http://rockwind-aws.web-app.io">rockwind-aws.web-app.io</a> has been replaced with a direct reference to the 
+    rockwind-aws.web-app.io has been replaced with a direct reference to the 
     asset on the S3 bucket:
 </p>
 
@@ -803,14 +803,14 @@ defaultFileCacheExpirySecs     60</code></pre>
 
 <p>
     Deployments are also greatly simplified as all that's needed is to deploy the WebApp binary and app.settings of your Cloud App,
-    e.g. here's the DockerFile for <a href="http://rockwind-aws.web-app.io">rockwind-aws.web-app.io</a> - deployed to AWS ECS 
+    e.g. here's the DockerFile for rockwind-aws.web-app.io - deployed to AWS ECS 
     using the deployment scripts in <a href="https://github.com/sharp-apps/rockwind-aws">rockwind-aws</a> and following our 
     <a href="https://docs.servicestack.net/deploy-netcore-docker-aws-ecs">.NET Core Docker Deployment Guideline</a>:
 </p>
 
 {{ 'gfm/sharp-apps/03.md' | githubMarkdown }}
 
-<h5><a href="https://github.com/sharp-apps/rockwind-azure/blob/master/app.settings">rockwind-azure/app.settings</a></h5>
+<h5><a href="https://github.com/sharp-apps/rockwind-azure/blob/master/app/app.settings">rockwind-azure/app/app.settings</a></h5>
 
 <p>
     We can also create Azure Cloud Apps in the same we've done for AWS above, which runs the same 
