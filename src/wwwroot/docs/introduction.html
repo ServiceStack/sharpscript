@@ -19,14 +19,14 @@ order: 2
     To render the pages we first create and initialize a <em>ScriptContext</em>
 </p>
 
-{{ 'gfm/introduction/01.md' | githubMarkdown }}
+{{ 'gfm/introduction/01.md' |> githubMarkdown }}
 
 <p>
     The ScriptContext is the sandbox where all scripts are executed within, everything your script has access to and generates 
     is maintained within the ScriptContext. Once initialize you can start using it to evaluate scripts which you can do with:
 </p>
 
-{{ 'gfm/introduction/02.md' | githubMarkdown }}
+{{ 'gfm/introduction/02.md' |> githubMarkdown }}
 
 <p>
     Scripts only have access to script methods, blocks and arguments defined within its Context, which for an empty Context are
@@ -40,7 +40,7 @@ order: 2
     Behind the scenes this creates a dynamic page with your Script and uses the <em>PageResult</em> to render it to a string:
 </p>
 
-{{ 'gfm/introduction/09.md' | githubMarkdown }}
+{{ 'gfm/introduction/09.md' |> githubMarkdown }}
 
 <h4 id="evaluate-return-values">Evaluating Scripts with return values</h4>
 
@@ -49,7 +49,7 @@ order: 2
     which can be accessed using the <em>Evaluate()</em> API:
 </p>
 
-{{ 'gfm/introduction/10.md' | githubMarkdown }}
+{{ 'gfm/introduction/10.md' |> githubMarkdown }}
 
 
 <h3 id="net-usage">Usage in .NET</h3>
@@ -77,7 +77,7 @@ order: 2
     <a href="/docs/code-pages">Code Pages</a>:
 </p>
 
-{{ 'gfm/methods/07.md' | githubMarkdown }}
+{{ 'gfm/methods/07.md' |> githubMarkdown }}
 
 <p>
     When the <em>ScriptContext</em> is initialized it will go through each Type and create an autowired instance of each Type
@@ -88,7 +88,7 @@ order: 2
     An alternative to registering a single Type is to register an entire Assembly, e.g:    
 </p>
 
-{{ 'gfm/methods/08.md' | githubMarkdown }}
+{{ 'gfm/methods/08.md' |> githubMarkdown }}
 
 <p>
     Where it will search each Type in the Assembly for Script Methods and automatically register them.
@@ -114,32 +114,32 @@ order: 2
     File System by default that we can programmatically populate:
 </p>
 
-{{ 'gfm/introduction/03.md' | githubMarkdown }}
+{{ 'gfm/introduction/03.md' |> githubMarkdown }}
     
 <p>
     Pages are rendered using a <em>PageResult</em> essentially a rendering context that needs to be provided the Page to render:
 </p>
 
-{{ 'gfm/introduction/04.md' | githubMarkdown }}
+{{ 'gfm/introduction/04.md' |> githubMarkdown }}
 
 <p>
     The script page output can then be asynchronously rendered to any Stream:
 </p>
 
-{{ 'gfm/introduction/05.md' | githubMarkdown }}
+{{ 'gfm/introduction/05.md' |> githubMarkdown }}
 
 <p>
     Or to access the output as a string you can use the convenience extension method:
 </p>
 
-{{ 'gfm/introduction/06.md' | githubMarkdown }}
+{{ 'gfm/introduction/06.md' |> githubMarkdown }}
 
 <p>
     All I/O within #Script is non-blocking, but if you're evaluating an adhoc script or using the default In Memory Virtual FileSystem 
     there's no I/O so you can safely block to get the generated output with:
 </p>
 
-{{ 'gfm/introduction/07.md' | githubMarkdown }}
+{{ 'gfm/introduction/07.md' |> githubMarkdown }}
 
 <p>
     Both APIs returns the result you see in the Live Example above.
@@ -251,7 +251,7 @@ order: 2
     As an example let's analyze the script below:
 </p>
 
-{{ 'gfm/introduction/08.md' | githubMarkdown }}
+{{ 'gfm/introduction/08.md' |> githubMarkdown }}
 
 <p>
     The intent of <em>#Script</em> code should be clear even if it's the first time reading it. From left-to-right we can deduce that it

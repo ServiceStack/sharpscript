@@ -27,7 +27,7 @@ We'll start with creating the `noop` block (short for "no operation") which func
 from the rendered page:
 {{/markdown}}
 
-{{ 'gfm/blocks/01.md' | githubMarkdown }}
+{{ 'gfm/blocks/01.md' |> githubMarkdown }}
 
 {{#markdown}}
 The `noop` block is also the smallest implementation possible which needs to inherit `ScriptBlock` class, overrides the `Name` getter with 
@@ -35,7 +35,7 @@ the name of the block and implements the `WriteAsync()` method which for the noo
 to the Output Stream, resulting in its inner contents being ignored:
 {{/markdown}}
 
-{{ 'gfm/blocks/02.md' | githubMarkdown }}
+{{ 'gfm/blocks/02.md' |> githubMarkdown }}
 
 {{#markdown}}
 All Block's are executed with 3 parameters:
@@ -52,7 +52,7 @@ The same flexible registration options for [Registering Script Methods](/docs/me
 where if it wasn't already built-in, `NoopScriptBlock` could be registered by adding it to the `ScriptBlocks` collection:
 {{/markdown}}
 
-{{ 'gfm/blocks/03.md' | githubMarkdown }}
+{{ 'gfm/blocks/03.md' |> githubMarkdown }}
 
 <h5 id="scan-types">Autowired using ScriptContext IOC</h5>
 
@@ -61,14 +61,14 @@ Autowired instances of script blocks and methods can also be created using Scrip
 registered IOC dependencies by registering them in the `ScanTypes` collection: 
 {{/markdown}}
 
-{{ 'gfm/blocks/04.md' | githubMarkdown }}
+{{ 'gfm/blocks/04.md' |> githubMarkdown }}
 
 {{#markdown}}
 When the `ScriptContext` is initialized it will go through each Type and create an autowired instance of each Type and register them in the 
 `ScriptBlocks` collection. An alternative to registering individual Types is to register an entire Assembly, e.g:
 {{/markdown}}
 
-{{ 'gfm/blocks/05.md' | githubMarkdown }}
+{{ 'gfm/blocks/05.md' |> githubMarkdown }}
 
 {{#markdown}}
 Where it automatically registers any Script Blocks or Methods contained in the Assembly where the `MyBlock` Type is defined.
@@ -89,7 +89,7 @@ Which calls the `base.WriteBodyAsync()` method to evaluate and write the Block's
 `ScriptScopeContext`:
 {{/markdown}}
 
-{{ 'gfm/blocks/06.md' | githubMarkdown }}
+{{ 'gfm/blocks/06.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### with
@@ -118,14 +118,14 @@ If the argument evaluates to an object it calls the `ToObjectDictionary()` exten
 then creates a new scope with each property added as arguments and then evaluates the block's Body contents with the new scope:
 {{/markdown}}
 
-{{ 'gfm/blocks/07.md' | githubMarkdown }}
+{{ 'gfm/blocks/07.md' |> githubMarkdown }}
 
 {{#markdown}}
 To better highlight how this works, a non-cached version of `GetJsExpressionAndEvaluate()` involves parsing the Argument string into 
 an AST Token then evaluating it with the current scope:
 {{/markdown}}
 
-{{ 'gfm/blocks/08.md' | githubMarkdown }}
+{{ 'gfm/blocks/08.md' |> githubMarkdown }}
 
 {{#markdown}}
 The `ParseJsExpression()` extension method is able to parse virtually any [JavaScript Expression](/docs/expression-viewer) into an AST tree
@@ -143,7 +143,7 @@ It also evaluates any `block.ElseBlocks` statements which is **functionality ava
 **else/else if** statements when the main template isn't rendered, e.g. in this case when the `with` block is called with a `null` argument:
 {{/markdown}}
 
-{{ 'gfm/blocks/09.md' | githubMarkdown }}
+{{ 'gfm/blocks/09.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### if
@@ -154,7 +154,7 @@ the `#if` block ends up being even simpler which just needs to evaluate the argu
 If **true** it writes the body with `WriteBodyAsync()` otherwise it evaluates any `else` statements with `WriteElseAsync()`:
 {{/markdown}}
 
-{{ 'gfm/blocks/10.md' | githubMarkdown }}
+{{ 'gfm/blocks/10.md' |> githubMarkdown }}
 
 {{#markdown}}
 
@@ -165,7 +165,7 @@ Similar to `#if`, the `#while` block takes a boolean expression, except it keeps
 The implementation includes a safe-guard to ensure it doesn't exceed the configured `ScriptContext.MaxQuota` to avoid infinite recursion:
 {{/markdown}}
 
-{{ 'gfm/blocks/27.md' | githubMarkdown }}
+{{ 'gfm/blocks/27.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### each
@@ -176,7 +176,7 @@ elements **properties**, a conventional `it` binding for the element and an `ind
 index of each element:
 {{/markdown}}
 
-{{ 'gfm/blocks/11.md' | githubMarkdown }}
+{{ 'gfm/blocks/11.md' |> githubMarkdown }}
 
 {{#markdown}}
 Despite its terse implementation, the above Script Block can be used to iterate over any expression that evaluates to a collection, 
@@ -189,7 +189,7 @@ has a larger implementation to support its richer feature-set where it also incl
 maximum expressiveness whilst utilizing expression caching to ensure any complex argument expressions are only parsed once.
 {{/markdown}}
 
-{{ 'gfm/blocks/12.md' | githubMarkdown }}
+{{ 'gfm/blocks/12.md' |> githubMarkdown }}
 
 {{#markdown}}
 By using `ParseJsExpression()` to parse expressions after each "LINQ modifier", `each` supports evaluating complex JavaScript expressions in each 
@@ -268,7 +268,7 @@ below which inspects the `block.Argument` to determine whether it should capture
 string contents directly to the OutputStream:
 {{/markdown}}
 
-{{ 'gfm/blocks/13.md' | githubMarkdown }}
+{{ 'gfm/blocks/13.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### function
@@ -281,7 +281,7 @@ In its simplest form, defining a function requires the function name and a body 
 [return](/docs/introduction#evaluate-return-values) method, e.g:
 {{/markdown}}
 
-{{ 'gfm/blocks/23.md' | githubMarkdown }}
+{{ 'gfm/blocks/23.md' |> githubMarkdown }}
 
 {{#markdown}}
 
@@ -292,7 +292,7 @@ This creates a compiled delegate and assigns it to the pages scope where it can 
 Functions can specify arguments using a JavaScript arguments list:
 {{/markdown}}
 
-{{ 'gfm/blocks/24.md' | githubMarkdown }}
+{{ 'gfm/blocks/24.md' |> githubMarkdown }}
 
 {{#markdown}}
 
@@ -304,7 +304,7 @@ Where it can be called as normal function or as an [extension method](/docs/synt
 Functions can also be called recursively:
 {{/markdown}}
 
-{{ 'gfm/blocks/25.md' | githubMarkdown }}
+{{ 'gfm/blocks/25.md' |> githubMarkdown }}
 
 {{#markdown}}
 Although their limited to the configured [MaxStackDepth](/docs/sandbox#max-stack-depth).
@@ -320,7 +320,7 @@ An equivalent `calc` and `fib` function in lisp looks like:
 
 {{/markdown}}
 
-{{ 'gfm/blocks/26.md' | githubMarkdown }}
+{{ 'gfm/blocks/26.md' |> githubMarkdown }}
 
 {{#markdown}}
 
@@ -335,13 +335,13 @@ the output. It also supports evaluating the contents with scoped arguments where
 scoped arguments that the block is executed with:
 {{/markdown}}
 
-{{ 'gfm/blocks/14.md' | githubMarkdown }}
+{{ 'gfm/blocks/14.md' |> githubMarkdown }}
 
 {{#markdown}}
 With this we can dynamically generate some markdown, capture its contents and convert the resulting markdown to html using the `markdown` Filter transformer:
 {{/markdown}}
 
-{{ 'gfm/blocks/15.md' | githubMarkdown }}
+{{ 'gfm/blocks/15.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### markdown
@@ -369,7 +369,7 @@ makes extensive use of markdown.
 As `markdown` block only supports 2 usages its implementation is much simpler than the `capture` block above:
 {{/markdown}}
 
-{{ 'gfm/blocks/16.md' | githubMarkdown }}
+{{ 'gfm/blocks/16.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### keyvalues
@@ -402,7 +402,7 @@ implementation is fairly straight forward where it passes the string body to `Pa
 assigns the results to the specified variable name:
 {{/markdown}}
 
-{{ 'gfm/blocks/21.md' | githubMarkdown }}
+{{ 'gfm/blocks/21.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### csv
@@ -425,7 +425,7 @@ The [CsvScriptBlock.cs](https://github.com/ServiceStack/ServiceStack/blob/master
 implementation is similar to `keyvalues` except passes the trimmed string body to `FromCsv` into a string List and assigns the result to the specified name:
 {{/markdown}}
 
-{{ 'gfm/blocks/22.md' | githubMarkdown }}
+{{ 'gfm/blocks/22.md' |> githubMarkdown }}
 
 {{#markdown}}
 ### partial
@@ -455,7 +455,7 @@ Ultimately they reduce boilerplate, e.g. you can generate a menu list with a sin
 A more advanced example showcasing many of its different features is contained in the example below:
 {{/markdown}}
 
-{{ 'gfm/blocks/18.md' | githubMarkdown }}
+{{ 'gfm/blocks/18.md' |> githubMarkdown }}
 
 {{#markdown}}
 This example utilizes many of the features in html blocks, namely:
@@ -474,7 +474,7 @@ if its true otherwise all other html attribute's names and values are emitted as
 For a better illustration we can implement the same functionality above without using any html blocks:
 {{/markdown}}
 
-{{ 'gfm/blocks/19.md' | githubMarkdown }}
+{{ 'gfm/blocks/19.md' |> githubMarkdown }}
 
 <h3 id="servicestack-blocks">ServiceStack Blocks</h3>
 
@@ -568,6 +568,6 @@ Like everything else in `#Script`, all built-in Blocks can be removed. To make i
 plugin that registered them using the `RemovePlugins()` API, e.g:
 {{/markdown}}
 
-{{ 'gfm/blocks/20.md' | githubMarkdown }}
+{{ 'gfm/blocks/20.md' |> githubMarkdown }}
 
 {{ "doc-links" |> partial({ order }) }}

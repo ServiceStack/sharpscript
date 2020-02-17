@@ -15,7 +15,7 @@ order: 5
     Essentially this can be thought of as where global variables are maintained, anything defined here is available to every page, partial, method, block, etc:
 </p>
 
-{{ 'gfm/arguments/01.md' | githubMarkdown }}
+{{ 'gfm/arguments/01.md' |> githubMarkdown }}
 
 <h4>Page Arguments</h4>
 
@@ -56,7 +56,7 @@ page arg: <b>{{ arg }}</b>'
     Arguments can also be defined in the <em>PageResult</em> context that renders the page, this takes precedence over the above:
 </p>
 
-{{ 'gfm/arguments/02.md' | githubMarkdown }}
+{{ 'gfm/arguments/02.md' |> githubMarkdown }}
 
 <h4>Scoped Arguments</h4>
 

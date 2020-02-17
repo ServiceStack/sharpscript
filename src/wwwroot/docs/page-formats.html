@@ -16,7 +16,7 @@ order: 4
 
 <h3>HTML Page Format</h3>
 
-{{ 'gfm/page-formats/01.md' | githubMarkdown }}
+{{ 'gfm/page-formats/01.md' |> githubMarkdown }}
 
 <p>
     The <em>HtmlPageFormat</em> is used to specify: 
@@ -57,7 +57,7 @@ order: 4
     By contrast here is what the <em>MarkdownPageFormat</em> looks like which is able to use most of the default implementations:
 </p>
 
-{{ 'gfm/page-formats/02.md' | githubMarkdown }}
+{{ 'gfm/page-formats/02.md' |> githubMarkdown }}
 
 <h3>Registering a new PageFormat</h3>
 
@@ -65,7 +65,7 @@ order: 4
     To register a new Page Format you just need to add it to the ScriptContext's PageFormat collection:
 </p>
 
-{{ 'gfm/page-formats/03.md' | githubMarkdown }}
+{{ 'gfm/page-formats/03.md' |> githubMarkdown }}
 
 <p>
     Which now lets you resolve pages with a <b>.md</b> file extension who will use the behavior defined in <em>MarkdownPageFormat</em>.

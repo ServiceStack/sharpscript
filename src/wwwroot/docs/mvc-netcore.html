@@ -8,7 +8,7 @@ order: 27
     with the <em>SharpPagesFeature</em> plugin enabled:
 </p>
 
-{{ 'gfm/mvc-netcore/01.md' | githubMarkdown }}
+{{ 'gfm/mvc-netcore/01.md' |> githubMarkdown }}
 
 <p>
     This let you use the <a href="/docs/sharp-pages">#Script Pages</a> and <a href="/docs/code-pages">Sharp Code Pages</a> features
@@ -23,7 +23,7 @@ order: 27
     <em>ToMvcResult()</em> extension method to wrap it in an MVC ActionResult, e.g:
 </p>
 
-{{ 'gfm/mvc-netcore/02.md' | githubMarkdown }}
+{{ 'gfm/mvc-netcore/02.md' |> githubMarkdown }}
 
 <p>
     This has the same effect as it has in a ServiceStack Service where the <em>PageResult</em> sets the Content-Type 
@@ -38,13 +38,13 @@ order: 27
     where any dependencies registered in <em>Configure(IServiceCollection)</em> are available to both ASP.NET Core and ServiceStack, e.g:
 </p>
 
-{{ 'gfm/mvc-netcore/03.md' | githubMarkdown }}
+{{ 'gfm/mvc-netcore/03.md' |> githubMarkdown }}
 
 <p>
     This will then let you access <em>ISharpPages</em> as a normal dependency in your MVC Controller:
 </p>
 
-{{ 'gfm/mvc-netcore/04.md' | githubMarkdown }}
+{{ 'gfm/mvc-netcore/04.md' |> githubMarkdown }}
 
 <h4>Using #Script without a ServiceStack AppHost</h4>
 
@@ -54,7 +54,7 @@ order: 27
     its Virtual File System to point to the <em>WebRootPath</em> and you can start returning PageResult's as above:
 </p>
 
-{{ 'gfm/mvc-netcore/05.md' | githubMarkdown }}
+{{ 'gfm/mvc-netcore/05.md' |> githubMarkdown }}
 
 <p>
     Checkout the <a href="https://github.com/NetCoreApps/MvcTemplates">NetCoreApps/MvcTemplates</a> repository for a 
@@ -79,7 +79,7 @@ order: 27
     you can use Constructor Injection to access the <em>ISharpPages</em> dependency:
 </p>
 
-{{ 'gfm/mvc-aspnet/01.md' | githubMarkdown }}
+{{ 'gfm/mvc-aspnet/01.md' |> githubMarkdown }}
 
 <h4>ASP.NET MVC + Templates Demo</h4>
 

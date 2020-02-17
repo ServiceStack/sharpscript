@@ -9,7 +9,7 @@ order: 18
     of a Transformer which converts Markdown Input and returns a Stream of HTML output:
 </p>
 
-{{ 'gfm/transformers/01.md' | githubMarkdown }}
+{{ 'gfm/transformers/01.md' |> githubMarkdown }}
 
 <h4 id="output-transformers">Output Transformers</h4>
 
@@ -18,11 +18,11 @@ order: 18
     and <b>page</b> both contain markdown, e.g:
 </p>
 
-{{ 'gfm/transformers/02.md' | githubMarkdown }}
+{{ 'gfm/transformers/02.md' |> githubMarkdown }}
 
 <h5>PageResult with Output Transformer</h5>
 
-{{ 'gfm/transformers/03.md' | githubMarkdown }}
+{{ 'gfm/transformers/03.md' |> githubMarkdown }}
 
 <p>
     After the Script is evaluated it's entire output gets passed into the chain of OutputTransformers defined, which in this case will
@@ -37,11 +37,11 @@ order: 18
     Markdown and the <b>_layout</b> was already in HTML, e.g:
 </p>
 
-{{ 'gfm/transformers/04.md' | githubMarkdown }}
+{{ 'gfm/transformers/04.md' |> githubMarkdown }}
 
 <h5>PageResult with Page Transformer</h5>
 
-{{ 'gfm/transformers/05.md' | githubMarkdown }}
+{{ 'gfm/transformers/05.md' |> githubMarkdown }}
 
 <h4 id="filter-transformers">Filter Transformers</h4>
 
@@ -52,11 +52,11 @@ order: 18
     your Scripts under, e.g:
 </p>
 
-{{ 'gfm/transformers/06.md' | githubMarkdown }}
+{{ 'gfm/transformers/06.md' |> githubMarkdown }}
 
 <h5>PageResult with Filter Transformer</h5>
 
-{{ 'gfm/transformers/07.md' | githubMarkdown }}
+{{ 'gfm/transformers/07.md' |> githubMarkdown }}
 
 <h4 id="htmlencode">htmlencode</h4>
 

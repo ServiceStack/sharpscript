@@ -10,7 +10,7 @@ order: 15
     and register it in your IOC:
 </p>
 
-{{ 'gfm/db-scripts/01.md' | githubMarkdown }}
+{{ 'gfm/db-scripts/01.md' |> githubMarkdown }}
 
 <p>
     Then to enable register either
@@ -20,7 +20,7 @@ order: 15
     to avoid the <i>pseudo async</i> overhead of wrapping synchronous results in <em>Task</em> results.
 </p>
 
-{{ 'gfm/db-scripts/02.md' | githubMarkdown }}
+{{ 'gfm/db-scripts/02.md' |> githubMarkdown }}
 
 <p>
     Now your templates will have access to the <a href="/docs/scripts-reference?tab=db-scripts">available DB Scripts</a>
@@ -51,7 +51,7 @@ order: 15
     You can also specify to use a different DB connection using the <em>namedConnection</em> and <em>connectionString</em> arguments:
 </p>
 
-{{ 'gfm/db-scripts/03.md' | githubMarkdown }}
+{{ 'gfm/db-scripts/03.md' |> githubMarkdown }}
 
 <h3>DB Filter Examples</h3>
 

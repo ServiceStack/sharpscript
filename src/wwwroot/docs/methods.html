@@ -22,7 +22,7 @@ order: 6
     In addition to Script Methods, <em>#Script</em> also lets you call delegates registered as arguments:
 </p>
 
-{{ 'gfm/script-net/01.md' | githubMarkdown }}
+{{ 'gfm/script-net/01.md' |> githubMarkdown }}
 
 <p>
     Which just like <a href="/docs/blocks#function">user-defined functions</a> and other Script Methods can be called positionally or as an
@@ -38,7 +38,7 @@ order: 6
     You can easily override default script methods with the same name and arguments by inserting them at the start of the <em>ScriptMethods</em> list:
 </p>
 
-{{ 'gfm/methods/01.md' | githubMarkdown }}
+{{ 'gfm/methods/01.md' |> githubMarkdown }}
 
 <h4 id="removing">Removing Default Scripts</h4>
 
@@ -46,7 +46,7 @@ order: 6
     Or if you want to start from a clean slate, the default scripts can be removed by clearing the collection:
 </p>
 
-{{ 'gfm/methods/02.md' | githubMarkdown }}
+{{ 'gfm/methods/02.md' |> githubMarkdown }}
 
 <h4>What are Script Methods?</h4>
 
@@ -54,7 +54,7 @@ order: 6
     Script methods are just C# public instance methods from a class that inherits from <em>ScriptMethods</em>, e.g:
 </p>
 
-{{ 'gfm/methods/03.md' | githubMarkdown }}
+{{ 'gfm/methods/03.md' |> githubMarkdown }}
 
 <h4 id="registering-methods">Registering Methods</h4>
 
@@ -68,11 +68,11 @@ order: 6
     Methods can be registered by adding them to the <em>context.ScriptMethods</em> collection directly:
 </p>
 
-{{ 'gfm/methods/04.md' | githubMarkdown }}
+{{ 'gfm/methods/04.md' |> githubMarkdown }}
 
 <p>That can now be called with:</p>
 
-{{ 'gfm/methods/05.md' | githubMarkdown }}
+{{ 'gfm/methods/05.md' |> githubMarkdown }}
 
 <p>
     This also shows that Scripts are initialized and have access to the <em>ScriptContext</em> through the <em>Context</em> property.
@@ -84,7 +84,7 @@ order: 6
     If you only want to use a custom script in a single Page, it can be registered on the <em>PageResult</em> that renders it instead:
 </p>
 
-{{ 'gfm/methods/06.md' | githubMarkdown }}
+{{ 'gfm/methods/06.md' |> githubMarkdown }}
 
 <h5>Autowired using ScriptContext IOC</h5>
 
@@ -94,7 +94,7 @@ order: 6
     should be Autowired by either adding it to the <em>ScanTypes</em> collection:
 </p>
 
-{{ 'gfm/methods/07.md' | githubMarkdown }}
+{{ 'gfm/methods/07.md' |> githubMarkdown }}
 
 <p>
     When the <em>ScriptContext</em> is initialized it will go through each Type and create an autowired instance of each Type
@@ -102,7 +102,7 @@ order: 6
     an entire Assembly, e.g:
 </p>
 
-{{ 'gfm/methods/08.md' | githubMarkdown }}
+{{ 'gfm/methods/08.md' |> githubMarkdown }}
 
 <p>
     Where it will search each Type in the Assembly for Script Methods and automatically register them.
@@ -116,7 +116,7 @@ order: 6
     inserting your ScriptMethods as the first item in the collection, e.g:
 </p>
 
-{{ 'gfm/methods/09.md' | githubMarkdown }}
+{{ 'gfm/methods/09.md' |> githubMarkdown }}
 
 <h4>Auto coercion into Method argument Types</h4>
 
@@ -129,7 +129,7 @@ order: 6
     Types and any Numeric Type into any other Numeric Type which is how, despite only accepting doubles: 
 </p>
 
-{{ 'gfm/methods/10.md' | githubMarkdown }}
+{{ 'gfm/methods/10.md' |> githubMarkdown }}
 
 <p>
     <em>squared</em> can also be used with any other .NET Numeric Type, e.g: <em>byte</em>, <em>int</em>, <em>long</em>, <em>decimal</em>, etc.
@@ -144,7 +144,7 @@ order: 6
     can be used to access arguments in the current scope or add new ones as done by the <em>assignTo</em> method:
 </p>
 
-{{ 'gfm/methods/11.md' | githubMarkdown }}
+{{ 'gfm/methods/11.md' |> githubMarkdown }}
 
 <h4 id="block-methods">Block Methods</h4>
 
@@ -154,7 +154,7 @@ order: 6
     <em>ScriptScopeContext</em> OutputStream as seem with the implementation of the <em>includeFile</em> protected scripts:
 </p>
 
-{{ 'gfm/methods/12.md' | githubMarkdown }}
+{{ 'gfm/methods/12.md' |> githubMarkdown }}
 
 <blockquote>
     For maximum performance all default script methods which perform any I/O use Block Methods to write directly to the OutputStream 
@@ -188,7 +188,7 @@ order: 6
 
 <h4 id="async">Async support</h4>
 
-{{ 'gfm/methods/13.md' | githubMarkdown }}
+{{ 'gfm/methods/13.md' |> githubMarkdown }}
 
 <h4>Implementing Method Exceptions</h4>
 
@@ -204,7 +204,7 @@ order: 6
     <a href="https://github.com/ServiceStack/ServiceStack.OrmLite/blob/master/src/ServiceStack.OrmLite/DbScripts.cs">DbScripts</a>:
 </p>
 
-{{ 'gfm/error-handling/03.md' | githubMarkdown }}
+{{ 'gfm/error-handling/03.md' |> githubMarkdown }}
 
 <p>
     The overloads are so the methods can be called without specifying any method options.

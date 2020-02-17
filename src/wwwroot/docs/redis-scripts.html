@@ -11,14 +11,14 @@ order: 16
     in the IOC:
 </p>
 
-{{ 'gfm/redis-scripts/01.md' | githubMarkdown }}
+{{ 'gfm/redis-scripts/01.md' |> githubMarkdown }}
 
 <p>
     Then to enable in your scripts register 
     <a href="https://github.com/ServiceStack/ServiceStack.Redis/blob/master/src/ServiceStack.Redis/RedisScripts.cs">RedisScripts</a>:
 </p>
 
-{{ 'gfm/redis-scripts/02.md' | githubMarkdown }}
+{{ 'gfm/redis-scripts/02.md' |> githubMarkdown }}
 
 <p>
     Your scripts are now able to use the <a href="/docs/scripts-reference?tab=redis-scripts">available Redis Scripts</a>.
@@ -61,7 +61,7 @@ order: 16
     to populate the results with metadata. Results are returned in a typed <em>List&lt;RedisSearchResult&gt;</em>:
 </p>
 
-{{ 'gfm/redis-scripts/03.md' | githubMarkdown }}
+{{ 'gfm/redis-scripts/03.md' |> githubMarkdown }}
 
 <h4 id="redisSearchKeysAsJson">redisSearchKeysAsJson</h4>
 

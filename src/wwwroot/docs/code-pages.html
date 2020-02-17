@@ -41,7 +41,7 @@ order: 26
 
 <h4><a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ProductsPage.cs">ProductsPage.cs</a></h4>
 
-{{ 'gfm/code-pages/01.md' | githubMarkdown }}
+{{ 'gfm/code-pages/01.md' |> githubMarkdown }}
 
 <p>
     Where with just this implementation, it can now be called by navigating to its virtualPath: 
@@ -67,7 +67,7 @@ order: 26
 
 <h4><a href="https://github.com/ServiceStack/sharpscript/blob/master/src/ProductServices.cs">ProductServices.cs</a></h4>
 
-{{ 'gfm/code-pages/02.md' | githubMarkdown }}
+{{ 'gfm/code-pages/02.md' |> githubMarkdown }}
 
 <p>
     Which can be called with <b>/products/view</b> to display exactly the same content as calling ProductsPage directly, but instead uses 
@@ -81,7 +81,7 @@ order: 26
     and injecting the <em>IRequest</em> manually:
 </p>
 
-{{ 'gfm/code-pages/03.md' | githubMarkdown }}
+{{ 'gfm/code-pages/03.md' |> githubMarkdown }}
 
 <h4>Code Pages as Partials</h4>
 
@@ -125,7 +125,7 @@ order: 26
 
 <h4 id="code-page-partials"><a href="https://github.com/ServiceStack/sharpscript/blob/master/src/CodePagePartials.cs">CodePagePartials.cs</a></h4>
 
-{{ 'gfm/code-pages/04.md' | githubMarkdown }}
+{{ 'gfm/code-pages/04.md' |> githubMarkdown }}
 
 <p>
     The <em>customerCard</em> partial shows another example where Code Pages are useful where they're able to access any IOC 
@@ -154,7 +154,7 @@ order: 26
     the <em>PathInfo</em> argument and <em>CustomerCardPartial</em> has direct access to the configured database:
 </p>
 
-{{ 'gfm/code-pages/05.md' | githubMarkdown }}
+{{ 'gfm/code-pages/05.md' |> githubMarkdown }}
 
 <p>
     Since they have access to the same functionality ServiceStack Services do, ServiceStackCodePage's can provide

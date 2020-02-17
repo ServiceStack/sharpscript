@@ -33,7 +33,7 @@ order: 14
     <a href="https://docs.servicestack.net/autoquery-rdbms">AutoQuery RDBMS Service</a>, its entire implementation is below:
 </p>
 
-{{ 'gfm/servicestack-scripts/01.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/01.md' |> githubMarkdown }}
 
 {{ 'examples/sendtogateway-customers.html' |> includeFile |> to => template }}
 {{ "live-template" |> partial({ rows:11, template }) }}
@@ -54,7 +54,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     <em>publishToGateway</em> is for sending OneWay requests with side-effects to <em>IReturnVoid</em> Services, e.g:
 </p>
 
-{{ 'gfm/servicestack-scripts/02.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/02.md' |> githubMarkdown }}
 
 <h3>publishMessage</h3>
 
@@ -62,7 +62,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     <em>publishMessage</em> is used for sending Request DTOs to be processed by the configured <a href="https://docs.servicestack.net/messaging">MQ Server</a>:
 </p>
 
-{{ 'gfm/servicestack-scripts/09.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/09.md' |> githubMarkdown }}
 
 <h3 id="sendToAutoQuery-data">sendToAutoQuery</h3>
 
@@ -92,7 +92,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     for any AutoQuery Data DTOs that query <em>GithubRepo</em> data sources: 
 </p>
 
-{{ 'gfm/servicestack-scripts/03.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/03.md' |> githubMarkdown }}
 
 <p>
     This registration also specifies to cache the response of the <em>GetGithubRepos</em> Service in the registered 
@@ -103,7 +103,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     it calls which combines a number of GitHub API calls to fetch all Repo's for a GitHub User or Organization:
 </p>
 
-{{ 'gfm/servicestack-scripts/04.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/04.md' |> githubMarkdown }}
 
 <p>
     That's all that's required to be able to query GitHub's User and Organization APIs, since they're just normal ServiceStack Services
@@ -126,20 +126,20 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     which can then be registered in the IOC with:
 </p>
 
-{{ 'gfm/servicestack-scripts/05.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/05.md' |> githubMarkdown }}
     
 <p>
     AutoQuery can then be enabled by registering the <em>AutoQueryFeature</em> plugin:
 </p>
 
-{{ 'gfm/servicestack-scripts/06.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/06.md' |> githubMarkdown }}
 
 <p>
     Which will let you start developing <a href="https://docs.servicestack.net/autoquery-rdbms">AutoQuery Services</a>.
     To then let your Scripts call AutoQuery Services directly, register the <em>AutoQueryScripts</em>:
 </p>
 
-{{ 'gfm/servicestack-scripts/07.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/07.md' |> githubMarkdown }}
 
 <h4 id="sendToAutoQuery-rdbms">sendToAutoQuery</h4>
 
@@ -155,7 +155,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     <a href="/docs/servicestack-scripts#sendtogateway">sendToGateway</a> uses:
 </p>
 
-{{ 'gfm/servicestack-scripts/08.md' | githubMarkdown }}
+{{ 'gfm/servicestack-scripts/08.md' |> githubMarkdown }}
 
 <p>
     But instead of being limited by explicit properties on the Request DTO 
@@ -181,7 +181,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     are pre-registered in ServiceStack's <em>SharpPagesFeature</em>. You can make them available in a <em>ScriptContext</em> with:
 </p>
 
-{{ 'gfm/info-scripts/01.md' | githubMarkdown }}
+{{ 'gfm/info-scripts/01.md' |> githubMarkdown }}
 
 <table class="table table-striped">
     <thead>
@@ -311,14 +311,14 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     The Service can also be available when not in <b>DebugMode</b> by enabling it with:
 </p>
 
-{{ 'gfm/info-scripts/02.md' | githubMarkdown }}
+{{ 'gfm/info-scripts/02.md' |> githubMarkdown }}
 
 <p>
     This registers the Service but limits it to Users with the <em>Admin</em> role, alternatively you configure an 
     <a href="https://docs.servicestack.net/debugging#authsecret">Admin Secret Key</a>:
 </p>
 
-{{ 'gfm/info-scripts/03.md' | githubMarkdown }}
+{{ 'gfm/info-scripts/03.md' |> githubMarkdown }}
 
 <p>
     Which will let you access it by appending the authsecret to the querystring: 
@@ -329,7 +329,7 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
     Alternatively if preferred you can make the Debug Inspector Service available to all users with:
 </p>
 
-{{ 'gfm/info-scripts/04.md' | githubMarkdown }}
+{{ 'gfm/info-scripts/04.md' |> githubMarkdown }}
 
 <p>
     Which is the configuration used in this .NET Core App which makes the Debug Inspector Service accessible to everyone:

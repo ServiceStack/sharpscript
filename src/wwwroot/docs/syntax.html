@@ -38,7 +38,7 @@ order: 3
     passed as the first argument to the upper method which is implemented as:
 </p>
 
-{{ 'gfm/syntax/01.md' | githubMarkdown }}
+{{ 'gfm/syntax/01.md' |> githubMarkdown }}
 
 <p>
     This can also be rewritten without the "pipe" symbol by calling the method with an argument instead:
@@ -61,7 +61,7 @@ order: 3
     <em>padRight</em> default scripts:
 </p>
 
-{{ 'gfm/syntax/02.md' | githubMarkdown }}
+{{ 'gfm/syntax/02.md' |> githubMarkdown }}
 
 <h4 id="javascript-literals">JavaScript literal notation</h4>
 
@@ -222,7 +222,7 @@ into the more readable form using the same methods as extension methods off the 
 
 {{/markdown}}
 
-{{ 'gfm/syntax/04.md' | githubMarkdown }}
+{{ 'gfm/syntax/04.md' |> githubMarkdown }}
 
 {{#markdown}}
 
@@ -364,7 +364,7 @@ with `ScriptCode.Language` which is used to process `code` block statements, e.g
     <a href="/lisp">#Script Lisp</a> register it in your <em>ScriptContext</em> or <em>SharpPagesFeature</em>:
 </p>
 
-{{ 'gfm/lisp/01.md' | githubMarkdown }}
+{{ 'gfm/lisp/01.md' |> githubMarkdown }}
     
 <p>
     Where it will let you use Language Blocks to evaluate LISP code within <em>#Script</em>:
@@ -398,7 +398,7 @@ If you wanted to instead embed an expression in a different language instead of 
 you can embed them within Language Expressions `{|<lang> ... |}`, e.g:
 {{/markdown}}
 
-{{ 'gfm/syntax/10.md' | githubMarkdown }}
+{{ 'gfm/syntax/10.md' |> githubMarkdown }}
 
 {{#markdown}}
 You could also use them to evaluate `code` expressions, e.g. `{|code 1 + 2 |}`, but that's also how `#Script`

@@ -55,7 +55,7 @@ E.g. this can be used to catch the `Unauthorized` Exception thrown when the `Aut
     it's default is configured to:
 </p>
 
-{{ 'gfm/error-handling/01.md' | githubMarkdown }}
+{{ 'gfm/error-handling/01.md' |> githubMarkdown }}
 
 <p>
     Which instead captures any unhandled Exceptions in <em>PageResult.LastFilterError</em> and continues rendering the page except
@@ -287,7 +287,7 @@ ensureAnyArgsNotEmpty:
     in the template expression where they occurred with:
 </p>
 
-{{ 'gfm/error-handling/02.md' | githubMarkdown }}
+{{ 'gfm/error-handling/02.md' |> githubMarkdown }}
     
 <p>
     The <em>OnExpressionException</em> can also suppress Exceptions from being displayed by capturing any naked Exception Types registered in 
@@ -314,7 +314,7 @@ ensureAnyArgsNotEmpty:
     <a href="https://github.com/ServiceStack/ServiceStack.OrmLite/blob/master/src/ServiceStack.OrmLite/DbScripts.cs">DbScripts</a>:
 </p>
 
-{{ 'gfm/error-handling/03.md' | githubMarkdown }}
+{{ 'gfm/error-handling/03.md' |> githubMarkdown }}
 
 <p>
     The overloads are so the methods can be called without specifying any method options.

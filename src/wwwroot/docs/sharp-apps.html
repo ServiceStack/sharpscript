@@ -286,7 +286,7 @@ webRoot ~/../bare</code></pre>
     <a href="https://github.com/NetCoreTemplates/parcel-webapp">NetCoreTemplates/parcel-webapp</a>
 </div>
 
-{{ 'gfm/sharp-apps/13.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/13.md' |> githubMarkdown }}
 
 <h2>Example Sharp Apps</h2>
 
@@ -405,7 +405,7 @@ redis.connection localhost:6379</code></pre>
     HTML <em>&lt;body/&gt;</em>, after the page's blocking script dependencies:
 </p>
 
-{{ 'gfm/sharp-apps/07.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/07.md' |> githubMarkdown }}
 
 <p>
     Redis Vue avoids the complexity of adopting a npm build system by referencing Vue libraries as a simple script include:
@@ -429,7 +429,7 @@ redis.connection localhost:6379</code></pre>
     app, <em>#Script</em> is leveraged to generate the body of the <em>&lt;redis-info/&gt;</em> Component on the initial home page render:
 </p>
 
-{{ 'gfm/sharp-apps/08.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/08.md' |> githubMarkdown }}
 
 <p>
     This technique increases the time to first paint by being able to render the initial Vue page without waiting for an Ajax call response
@@ -445,7 +445,7 @@ redis.connection localhost:6379</code></pre>
     current connection info:
 </p>
 
-{{ 'gfm/sharp-apps/09.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/09.md' |> githubMarkdown }}
 
 <h4>Vue Ajax Server APIs</h4>
 
@@ -460,7 +460,7 @@ redis.connection localhost:6379</code></pre>
     Called when searching for Redis keys where the query is forwarded to the <em>redisSearchKeys</em> filter:
 </p>
 
-{{ 'gfm/sharp-apps/10.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/10.md' |> githubMarkdown }}
 
 <h5><a href="https://github.com/sharp-apps/Redis/blob/master/api/call.html">call.html</a></h5>
 
@@ -469,7 +469,7 @@ redis.connection localhost:6379</code></pre>
     plain-text HTTP Response:
 </p>
 
-{{ 'gfm/sharp-apps/11.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/11.md' |> githubMarkdown }}
 
 <p>
     The benefits of using API Pages instead of a normal C# Service is being able to retain Web App's productive development workflow
@@ -529,7 +529,7 @@ redis.connection localhost:6379</code></pre>
     API Page below:
 </p>
 
-{{ 'gfm/sharp-apis/02.md' | githubMarkdown }}
+{{ 'gfm/sharp-apis/02.md' |> githubMarkdown }}
 
 <p>
     Is all the code needed to generate the following API endpoints:
@@ -705,7 +705,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     contains a good example containing a number of things to watch out for:
 </p>
 
-{{ 'gfm/sharp-apps/01.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/01.md' |> githubMarkdown }}
 
 <p>
     Use <em>sqlConcat</em> to concatenate strings using the RDBMS-specific SQL for the configured database. Likewise
@@ -756,7 +756,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     but then ServiceStack effectively becomes a proxy where it has to call the remote Storage Service for each requested download.
 </p>
 
-{{ 'gfm/sharp-apps/02.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/02.md' |> githubMarkdown }}
 
 <p>
     ServiceStack asynchronously writes each file to the Response Stream with the last <em>Last-Modified</em> HTTP Header to 
@@ -808,7 +808,7 @@ defaultFileCacheExpirySecs     60</code></pre>
     <a href="https://docs.servicestack.net/deploy-netcore-docker-aws-ecs">.NET Core Docker Deployment Guideline</a>:
 </p>
 
-{{ 'gfm/sharp-apps/03.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/03.md' |> githubMarkdown }}
 
 <h5><a href="https://github.com/sharp-apps/rockwind-azure/blob/master/app/app.settings">rockwind-azure/app/app.settings</a></h5>
 
@@ -887,7 +887,7 @@ ValidationFeature { ScanAppHostAssemblies: true }
     populate the Plugin at registration, e.g the config above is equivalent to:
 </p>
 
-{{ 'gfm/sharp-apps/04.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/04.md' |> githubMarkdown }}
 
 <h4>Custom Plugin</h4>
 
@@ -897,7 +897,7 @@ ValidationFeature { ScanAppHostAssemblies: true }
     <a href="http://plugins.web-app.io/metadata">/metadata</a> Page:
 </p>
 
-{{ 'gfm/sharp-apps/05.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/05.md' |> githubMarkdown }}
 
 <p>
     Where as it was first registered in the list will appear before any links registered by other plugins:
@@ -949,7 +949,7 @@ CustomPlugin { ShowProcessLinks: true }
     registering a <em>StartupDep</em> dependency which is used by its <em>StartupServices</em> at runtime:
 </p>
 
-{{ 'gfm/sharp-apps/12.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/12.md' |> githubMarkdown }}
 
 <h3>ServiceStack Ecosystem</h3>
 
@@ -1000,7 +1000,7 @@ CustomPlugin { ShowProcessLinks: true }
 
 <h4>Chat AppHost</h4>
 
-{{ 'gfm/sharp-apps/06.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/06.md' |> githubMarkdown }}
 
 <h5>Reusing Web App's app.setting and files</h5>
 
@@ -1046,7 +1046,7 @@ oauth.github.ClientSecret 42c8db8d0ca72a0ef202e0c197d1377670c990f4
     <a href="https://github.com/sharp-apps/Blog">sharp-apps/Blog</a>
 </div>
 
-{{ 'gfm/sharp-apps/14.md' | githubMarkdown }}
+{{ 'gfm/sharp-apps/14.md' |> githubMarkdown }}
 
 <h3 id="customizable-auth-providers">Customizable Auth Providers</h3>
 

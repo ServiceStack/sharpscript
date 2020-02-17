@@ -15,7 +15,7 @@ is a good example of this which registers a markdown
 [markdown Block](/docs/blocks#markdown):
 {{/markdown}}
 
-{{ 'gfm/api-reference/03.md' | githubMarkdown }}
+{{ 'gfm/api-reference/03.md' |> githubMarkdown }}
 
 {{#markdown}}
 #### Removing Plugins
@@ -23,7 +23,7 @@ is a good example of this which registers a markdown
 When needed any default plugins can be removed with the `RemovePlugins()` API:
 {{/markdown}}
 
-{{ 'gfm/blocks/20.md' | githubMarkdown }}
+{{ 'gfm/blocks/20.md' |> githubMarkdown }}
 
 {{#markdown}}
 #### Advanced plugin registration
@@ -46,7 +46,7 @@ executed before plugins are registered or implement `IScriptPluginAfter` for exe
     shown below that can be overridden by replacing their default value in the ScriptContext's <em>Args</em> collection:
 </p>
 
-{{ 'gfm/api-reference/01.md' | githubMarkdown }}
+{{ 'gfm/api-reference/01.md' |> githubMarkdown }}
 
 <h4>Args</h4>
 
@@ -62,7 +62,7 @@ executed before plugins are registered or implement `IScriptPluginAfter` for exe
     <em>VirtualFiles</em> collection from an external source, e.g:
 </p>
 
-{{ 'gfm/api-reference/02.md' | githubMarkdown }}
+{{ 'gfm/api-reference/02.md' |> githubMarkdown }}
 
 <p>
     Alternatively if you want to enable access to an entire sub directory you can replace the Virtual Files with a 

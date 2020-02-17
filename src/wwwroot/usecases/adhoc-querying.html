@@ -37,7 +37,7 @@ order: 6
     to your <em>ScriptContext</em> and register its required <em>IDbConnectionFactory</em> dependency in its IOC, e.g. for SQL Server:
 </p>
 
-{{ 'gfm/adhoc-querying/01.md' | githubMarkdown }}
+{{ 'gfm/adhoc-querying/01.md' |> githubMarkdown }}
 
 <blockquote>
     If using ServiceStack's <em>SharpPagesFeature</em> it's Container has already been reassigned to use 
@@ -53,7 +53,7 @@ order: 6
     ideally configure it to use a <b>Read Only</b> connection, e.g. for SQLite:
 </p>
 
-{{ 'gfm/adhoc-querying/02.md' | githubMarkdown }}
+{{ 'gfm/adhoc-querying/02.md' |> githubMarkdown }}
 
 <h4>Populating the database</h4>
 
@@ -63,10 +63,10 @@ order: 6
     where it re-uses the LINQ data sources to create and populate an In Memory SQLite database on Startup:
 </p>
 
-{{ 'gfm/adhoc-querying/03.md' | githubMarkdown }}
+{{ 'gfm/adhoc-querying/03.md' |> githubMarkdown }}
 
 <h4 id="order-report-example">Order Report Example</h4>
 
-{{ 'gfm/adhoc-querying/04.md' | githubMarkdown }}
+{{ 'gfm/adhoc-querying/04.md' |> githubMarkdown }}
 
 {{ "usecase-links" |> partial({ order }) }}

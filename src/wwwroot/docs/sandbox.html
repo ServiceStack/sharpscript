@@ -72,7 +72,7 @@ order: 29
     You can limit which Types are scriptable by specifying just the individual Types:
 </p>
 
-{{ 'gfm/sandbox/04.md' | githubMarkdown }}
+{{ 'gfm/sandbox/04.md' |> githubMarkdown }}
 
 <h4>AllowScriptingOfAllTypes</h4>
 
@@ -80,7 +80,7 @@ order: 29
     To give your Scripts maximum accessibility, you can give them access to all .NET Types in loaded assemblies:
 </p>
 
-{{ 'gfm/sandbox/05.md' | githubMarkdown }}
+{{ 'gfm/sandbox/05.md' |> githubMarkdown }}
 
 <p>
     Use <em>ScriptNamespaces</em> to include additional Lookup namespaces for resolving Types similar to C# <em>using</em> statements.
@@ -106,7 +106,7 @@ order: 29
     If you want to start from a clean slate, the default scripts can be removed by clearing the <em>ScriptMethods</em> collection:
 </p>
 
-{{ 'gfm/sandbox/01.md' | githubMarkdown }}
+{{ 'gfm/sandbox/01.md' |> githubMarkdown }}
 
 <h4 id="disable-filters">Disabling adhoc Filters</h4>
 
@@ -115,7 +115,7 @@ order: 29
     by adding to the <em>ExcludeFiltersNamed</em> collection:
 </p>
 
-{{ 'gfm/sandbox/02.md' | githubMarkdown }}
+{{ 'gfm/sandbox/02.md' |> githubMarkdown }}
 
 <blockquote>
     Script Methods can also be disabled on an individual <em>PageResult</em> by populating its <em>ExcludeFiltersNamed</em> collection.
@@ -130,7 +130,7 @@ order: 29
     that can generate instances are limited to a <em>MaxQuota</em> of <b>10000</b> iterations. This quota can be modified with:    
 </p>
 
-{{ 'gfm/sandbox/03.md' | githubMarkdown }}
+{{ 'gfm/sandbox/03.md' |> githubMarkdown }}
 
 <h4>Max Stack Depth</h4>
 

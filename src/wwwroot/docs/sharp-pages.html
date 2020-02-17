@@ -20,7 +20,7 @@ order: 20
     To enable #Script Pages in ServiceStack you just need to register the <em>SharpPagesFeature</em> plugin:
 </p>
 
-{{ 'gfm/sharp-pages/01.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/01.md' |> githubMarkdown }}
 
 <p>
     <em>SharpPagesFeature</em> is a subclass of <em>ScriptContext</em> which defines the context on which all ServiceStack 
@@ -44,7 +44,7 @@ order: 20
 
 <p>If preferred, you can change which <b>.html</b> extension gets handled by <em>#Script</em> Pages with:</p>
 
-{{ 'gfm/sharp-pages/02.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/02.md' |> githubMarkdown }}
 
 <h4 id="extend">Register additional functionality</h4>
 
@@ -53,7 +53,7 @@ order: 20
     <em>SharpPagesFeature</em> to enable additional functionality in your <em>#Script</em> Pages:
 </p>
 
-{{ 'gfm/sharp-pages/14.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/14.md' |> githubMarkdown }}
 
 <h4 id="runs-everywhere">Runs Everywhere</h4>
 
@@ -312,7 +312,7 @@ $ x new script ProjectName</pre></div>
     You can specify which view all Services should use to render their responses by using the <em>[DefaultView]</em> Request Filter Attribute:
 </p>
 
-{{ 'gfm/sharp-pages/12.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/12.md' |> githubMarkdown }}
 
 <h3 id="viewpage-htmlresult">Specify View with custom <em>HttpResult</em></h3>
 
@@ -321,7 +321,7 @@ $ x new script ProjectName</pre></div>
     decorated response in custom <em>HttpResult</em> with the <em>View</em> or <em>Template</em> you want the Service rendered in , e.g:
 </p>
 
-{{ 'gfm/sharp-pages/09.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/09.md' |> githubMarkdown }}
 
 <h3 id="custom-pageresult">Return Custom PageResult</h3>
 
@@ -331,7 +331,7 @@ $ x new script ProjectName</pre></div>
   <a href="/docs/model-view-controller">Model View Controller</a>:
 </p>
 
-{{ 'gfm/model-view-controller/02.md' | githubMarkdown }}
+{{ 'gfm/model-view-controller/02.md' |> githubMarkdown }}
 
 <h3 id="ClientCanSwapTemplates">Allow Views to be specified on the QueryString</h3>
 
@@ -340,7 +340,7 @@ $ x new script ProjectName</pre></div>
     e.g: <em>?View=CustomPage&Template=_custom-layout</em>
 </p>
 
-{{ 'gfm/sharp-pages/13.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/13.md' |> githubMarkdown }}
 
 <p>
     Additional examples of dynamically specifying the View and Template are available in 
@@ -386,14 +386,14 @@ $ x new script ProjectName</pre></div>
     a different layout in their pages metadata header, e.g:
 </p>
 
-{{ 'gfm/sharp-pages/03.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/03.md' |> githubMarkdown }}
 
 <p>
     Where it instead embed the page using the closest <b>mobile-layout.html</b> it can find, starting from the Page's directory.
     If your pages are instead embedded in the different folder you can request it directly from the root dir:
 </p>
 
-{{ 'gfm/sharp-pages/04.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/04.md' |> githubMarkdown }}
 
 <h4>Request Variables</h4>
 
@@ -424,7 +424,7 @@ $ x new script ProjectName</pre></div>
     <a href="https://github.com/ServiceStack/sharpscript/blob/master/src/wwwroot/sidebar.html">sidebar.html</a>:
 </p>
 
-{{ 'gfm/sharp-pages/05.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/05.md' |> githubMarkdown }}
 
 <h3 id="init-pages">Init Pages</h3>
 
@@ -439,7 +439,7 @@ $ x new script ProjectName</pre></div>
     <em>UserInfo</em> and <em>Posts</em> Tables and initial data, e.g:
 </p>
 
-{{ 'gfm/sharp-pages/10.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/10.md' |> githubMarkdown }}
 
 <h4>Ignoring Pages</h4>
 
@@ -447,11 +447,11 @@ $ x new script ProjectName</pre></div>
     You can ignore #Script from evaluating static <b>.html</b> files with the following page arguments:
 </p>
 
-{{ 'gfm/sharp-pages/06.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/06.md' |> githubMarkdown }}
 
-{{ 'gfm/sharp-pages/07.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/07.md' |> githubMarkdown }}
 
-{{ 'gfm/sharp-pages/08.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/08.md' |> githubMarkdown }}
 
 <blockquote>
     Complete <b>.html</b> pages starting with <em>&lt;!DOCTYPE HTML&gt;</em> or <em>&lt;html</em> have their layouts ignored by default.
@@ -500,7 +500,7 @@ $ x new script ProjectName</pre></div>
     but can be changed with:
 </p>
 
-{{ 'gfm/sharp-pages/11.md' | githubMarkdown }}
+{{ 'gfm/sharp-pages/11.md' |> githubMarkdown }}
 
 <h3>ServiceStack Scripts</h3>
 
