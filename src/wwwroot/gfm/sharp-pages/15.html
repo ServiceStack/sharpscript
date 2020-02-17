@@ -1,0 +1,262 @@
+<div class="gfm"><p>The <code>#Script</code> Pages UI Controls are utilized in new <a href="/docs/sharp-pages#net-core-script-pages-project">#Script Pages project templates</a> and
+the <a href="https://docs.servicestack.net/world-validation#server-rendered-html-uis" rel="nofollow">World Validation</a> Application:</p>
+<h3>
+<a id="user-content-ui-component-list" class="anchor" href="#ui-component-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UI Component List</h3>
+<p>Currently the component libraries include common Bootstrap UI Form Controls and Navigation Components:</p>
+<div>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>validationSummary</td>
+<td>Show validation summary error message unless there's an error in specified fields</td>
+</tr>
+<tr>
+<td>validationSuccess</td>
+<td>Display a "Success Alert Box"</td>
+</tr>
+<tr>
+<td>formInput</td>
+<td>Display a <code>&lt;input type="text"/&gt;</code> UI Control</td>
+</tr>
+<tr>
+<td>formTextarea</td>
+<td>Display a <code>&lt;textarea/&gt;</code> UI Control</td>
+</tr>
+<tr>
+<td>formSelect</td>
+<td>Display a <code>&lt;select/&gt;</code> UI Control</td>
+</tr>
+<tr>
+<td>formInput({type:'checkbox'})</td>
+<td>Display a <code>&lt;input type="checkbox"/&gt;</code> UI Control</td>
+</tr>
+<tr>
+<td>htmlHiddenInputs</td>
+<td>Emit HTML <code>&lt;input type="hidden"/&gt;</code> field for each specified Key/Value pair entry</td>
+</tr>
+<tr>
+<td>svgImage</td>
+<td>Return <code>&lt;svg/&gt;</code> markup for the named image</td>
+</tr>
+<tr>
+<td>nav</td>
+<td>Display a list of NavItem's</td>
+</tr>
+<tr>
+<td>navbar</td>
+<td>Display the <code>navbar</code> main menu</td>
+</tr>
+<tr>
+<td>navLink</td>
+<td>Display a <code>nav-link</code> nav-item</td>
+</tr>
+<tr>
+<td>navButtonGroup</td>
+<td>Display a list of NavItem's <code>btn-group</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>
+<a id="user-content-bootstrap-ui-form-controls" class="anchor" href="#bootstrap-ui-form-controls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bootstrap UI Form Controls</h3>
+<p>The Bootstrap UI form controls include built-in support for validation where they can render validation errors from ServiceStack's
+<code>ResponseStatus</code> object, e.g the <a href="https://docs.servicestack.net/world-validation#login-page" rel="nofollow">Login Page</a> in World Validation:</p>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span>/auth/credentials<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-lg-4<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ ['userName','password'] |&gt; validationSummary({class:'alert alert-warning'}) }}
+        {{ { continue: qs.continue ?? '/server/', errorView:'/server/login' } |&gt; htmlHiddenInputs }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'userName'} 
+           |&gt; formInput({label:'Email',help:'Email you signed up with',size:'lg'}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'password',type:'password'} 
+           |&gt; formInput({label:'Password',help:'6 characters or more',size:'lg',preserveValue:false}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'rememberMe',type:'checkbox',checked:true} |&gt; formInput({label:'Remember Me'}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">button</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>submit<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-lg btn-primary<span class="pl-pds">"</span></span>&gt;Login&lt;/<span class="pl-ent">button</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>lnk<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>/server/register<span class="pl-pds">"</span></span>&gt;Register New User&lt;/<span class="pl-ent">a</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+<h2>
+<a id="user-content-login-page-ui" class="anchor" href="#login-page-ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Login Page UI</h2>
+<p>The Login Page contains a standard Bootstrap Username/Password form with labels, placeholders and help text, which initially looks like:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/login-validation.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/login-validation.png" alt="" style="max-width:100%;"></a></p>
+<p>What it looks like after submitting an empty form with Server Exception Errors rendered against their respective fields:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/login-validation-failed.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/login-validation-failed.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-form-control-properties" class="anchor" href="#form-control-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Control Properties</h3>
+<p>The <code>#Script</code> properties uses <strong>camelCase</strong> names and JS Object literals.
+The first (aka target) argument is for attributes you want to add to the HTML <code>&lt;input/&gt;</code> Element
+whilst the 2nd Argument is used to customize any of its other high-level features, e.g:</p>
+<div class="highlight highlight-text-html-basic"><pre>{{ htmlAttrs |&gt; controlName(inputOptions) }}</pre></div>
+<p>The <code>inputOptions</code> available map to <strong>camelCase</strong> properties on the typed <code>InputOptions</code> class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-c"><span class="pl-c">///</span> High-level Input options for rendering HTML Input controls</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">InputOptions</span>
+{
+    <span class="pl-c"><span class="pl-c">///</span> Display the Control inline </span>
+    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">Inline</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Label for the control</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">Label</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Class for Label</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">LabelClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Override the class on the error message (default: invalid-feedback)</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ErrorClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+    <span class="pl-c"><span class="pl-c">///</span> Small Help Text displayed with the control</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">Help</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Bootstrap Size of the Control: sm, lg</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">Size</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Multiple Value Data Source for Checkboxes, Radio boxes and Select Controls </span>
+    <span class="pl-k">public</span> <span class="pl-k">object</span> <span class="pl-smi">Values</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+    <span class="pl-c"><span class="pl-c">///</span> Typed setter of Multi Input Values</span>
+    <span class="pl-k">public</span> <span class="pl-en">IEnumerable</span>&lt;<span class="pl-en">KeyValuePair</span>&lt;<span class="pl-k">string</span>, <span class="pl-k">string</span>&gt;&gt; <span class="pl-smi">InputValues</span>
+    {
+        <span class="pl-k">set</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">Values</span> <span class="pl-k">=</span> <span class="pl-smi">value</span>;
+    }
+
+    <span class="pl-c"><span class="pl-c">///</span> Whether to preserve value state after post back</span>
+    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">PreserveValue</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+
+    <span class="pl-c"><span class="pl-c">///</span> Whether to show Error Message associated with this control</span>
+    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-smi">ShowErrors</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; } <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+}</pre></div>
+<h3>
+<a id="user-content-contacts-page" class="anchor" href="#contacts-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contacts Page</h3>
+<p>The <a href="https://docs.servicestack.net/world-validation#contacts-page" rel="nofollow">Contacts Page</a> shows a more complete example with a number of different UI Controls.</p>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span>/contacts<span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>col-lg-4<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ 'title,name,color,age,filmGenres,agree' |&gt; validationSummary }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'title',type:'radio'} |&gt; formInput({values:contactTitles,inline:true}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'name',placeholder:'Name'} |&gt; formInput({label:'Full Name',help:'Your first and last name'}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'color',class:'col-4'}
+           |&gt; formSelect({label:'Favorite color',values:{'', ...contactColors}}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'filmGenres',type:'checkbox'} 
+          |&gt; formInput({label:'Favorite Film Genres',values:contactGenres,help:"choose one or more"}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'age',type:'number',min:13,placeholder:'Age',class:'col-3'} |&gt; formInput }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        {{ {id:'agree',type:'checkbox'} |&gt; formInput({label:'Agree to terms and conditions'}) }}
+    &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-group<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-primary<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>submit<span class="pl-pds">"</span></span>&gt;Add Contact&lt;/<span class="pl-ent">button</span>&gt;
+        &lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>/server/contacts/<span class="pl-pds">"</span></span>&gt;reset&lt;/<span class="pl-ent">a</span>&gt;
+    &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+<p>These Server UI Controls provide auto Validation Form Binding for any validation rules specified on the <code>CreateContact</code> Validator:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">CreateContactValidator</span> : <span class="pl-en">AbstractValidator</span>&lt;<span class="pl-en">CreateContact</span>&gt;
+{
+    <span class="pl-k">public</span> <span class="pl-en">CreateContactValidator</span>()
+    {
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">r</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">r</span>.<span class="pl-smi">Title</span>).<span class="pl-en">NotEqual</span>(<span class="pl-smi">Title</span>.<span class="pl-smi">Unspecified</span>).<span class="pl-en">WithMessage</span>(<span class="pl-s"><span class="pl-pds">"</span>Please choose a title<span class="pl-pds">"</span></span>);
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">r</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">r</span>.<span class="pl-smi">Name</span>).<span class="pl-en">NotEmpty</span>();
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">r</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">r</span>.<span class="pl-smi">Color</span>).<span class="pl-en">Must</span>(<span class="pl-smi">x</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">x</span>.<span class="pl-en">IsValidColor</span>()).<span class="pl-en">WithMessage</span>(<span class="pl-s"><span class="pl-pds">"</span>Must be a valid color<span class="pl-pds">"</span></span>);
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">r</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">r</span>.<span class="pl-smi">FilmGenres</span>).<span class="pl-en">NotEmpty</span>().<span class="pl-en">WithMessage</span>(<span class="pl-s"><span class="pl-pds">"</span>Please select at least 1 genre<span class="pl-pds">"</span></span>);
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">r</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">r</span>.<span class="pl-smi">Age</span>).<span class="pl-en">GreaterThan</span>(<span class="pl-c1">13</span>).<span class="pl-en">WithMessage</span>(<span class="pl-s"><span class="pl-pds">"</span>Contacts must be older than 13<span class="pl-pds">"</span></span>);
+        <span class="pl-en">RuleFor</span>(<span class="pl-smi">x</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">x</span>.<span class="pl-smi">Agree</span>).<span class="pl-en">Equal</span>(<span class="pl-c1">true</span>).<span class="pl-en">WithMessage</span>(<span class="pl-s"><span class="pl-pds">"</span>You must agree before submitting<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+<p>As well as any <code>ArgumentException</code> thrown within the Service Implementation:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">object</span> <span class="pl-en">Any</span>(<span class="pl-en">CreateContact</span> <span class="pl-smi">request</span>) 
+{
+    <span class="pl-k">var</span> <span class="pl-smi">newContact</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-en">ConvertTo</span>&lt;<span class="pl-k">Data</span>.<span class="pl-en">Contact</span>&gt;();
+    <span class="pl-smi">newContact</span>.<span class="pl-smi">Id</span> <span class="pl-k">=</span> <span class="pl-smi">Interlocked</span>.<span class="pl-en">Increment</span>(<span class="pl-k">ref</span> <span class="pl-smi">Counter</span>);
+    <span class="pl-smi">newContact</span>.<span class="pl-smi">UserAuthId</span> <span class="pl-k">=</span> <span class="pl-k">this</span>.<span class="pl-en">GetUserId</span>();
+    <span class="pl-smi">newContact</span>.<span class="pl-smi">CreatedDate</span> <span class="pl-k">=</span> <span class="pl-smi">newContact</span>.<span class="pl-smi">ModifiedDate</span> <span class="pl-k">=</span> <span class="pl-smi">DateTime</span>.<span class="pl-smi">UtcNow</span>;
+
+    <span class="pl-k">var</span> <span class="pl-smi">contacts</span> <span class="pl-k">=</span> <span class="pl-smi">Contacts</span>.<span class="pl-smi">Values</span>.<span class="pl-en">ToList</span>();
+    <span class="pl-k">var</span> <span class="pl-smi">alreadyExists</span> <span class="pl-k">=</span> <span class="pl-smi">contacts</span>.<span class="pl-en">Any</span>(<span class="pl-smi">x</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">x</span>.<span class="pl-smi">UserAuthId</span> <span class="pl-k">==</span> <span class="pl-smi">newContact</span>.<span class="pl-smi">UserAuthId</span> <span class="pl-k">&amp;&amp;</span> <span class="pl-smi">x</span>.<span class="pl-smi">Name</span> <span class="pl-k">==</span> <span class="pl-smi">request</span>.<span class="pl-smi">Name</span>);
+    <span class="pl-k">if</span> (<span class="pl-smi">alreadyExists</span>)
+        <span class="pl-k">throw</span> <span class="pl-k">new</span> <span class="pl-en">ArgumentException</span>(<span class="pl-s"><span class="pl-pds">$"</span>You already have contact named '{<span class="pl-smi">request</span>.<span class="pl-smi">Name</span>}'<span class="pl-pds">"</span></span>,<span class="pl-k">nameof</span>(<span class="pl-smi">request</span>.<span class="pl-smi">Name</span>));
+    
+    <span class="pl-smi">Contacts</span>[<span class="pl-smi">newContact</span>.<span class="pl-smi">Id</span>] <span class="pl-k">=</span> <span class="pl-smi">newContact</span>;
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">CreateContactResponse</span> { <span class="pl-smi">Result</span> <span class="pl-k">=</span> <span class="pl-smi">newContact</span>.<span class="pl-en">ConvertTo</span>&lt;<span class="pl-en">Contact</span>&gt;() };
+}</pre></div>
+<h2>
+<a id="user-content-contacts-page-ui" class="anchor" href="#contacts-page-ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contacts Page UI</h2>
+<p>The Contacts Page is representative of a more complex page that utilizes a variety of different form controls where the same page is also responsible
+for rendering the list of existing contacts:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/contacts-validation.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/contacts-validation.png" alt="" style="max-width:100%;"></a></p>
+<p>Here's an example of what a partially submitted invalid form looks like:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/contacts-validation-failed.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/apps/Validation/contacts-validation-failed.png" alt="" style="max-width:100%;"></a></p>
+<p>To view the complete implementation in context checkout <a href="https://docs.servicestack.net/world-validation#server-implementation" rel="nofollow">World Validation Server Implementation</a>.</p>
+<h2>
+<a id="user-content-navigation-controls" class="anchor" href="#navigation-controls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navigation Controls</h2>
+<p>The Server Navigation Controls are used to render your Apps <a href="https://docs.servicestack.net/navigation#navbar" rel="nofollow">Unified Navigation</a>
+where you can render the <code>navbar</code> and <code>navButtonGroup</code> methods to render NavItems:</p>
+<h4>
+<a id="user-content-navbar" class="anchor" href="#navbar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navbar</h4>
+<p>You can render the <strong>main menu</strong> navigation using the
+<a href="https://github.com/NetCoreTemplates/sharp/blob/50b77454950ef0590042e08cf327aae602a2ab0a/MyApp/wwwroot/_layout.html#L30">navbar</a> script method:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">navbar</span> <span class="pl-c1">}}</span></pre></div>
+<p>Which by default renders the <code>View.NavItems</code> main navigation, using the default <code>NavOptions</code> and User Attributes (if authenticated):</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/nav/appsettings.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/nav/appsettings.png" alt="" style="max-width:100%;"></a></p>
+<p>You can also render a <strong>different Navigation List</strong> with:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">navItems</span>(<span class="pl-s"><span class="pl-pds">'</span>submenu<span class="pl-pds">'</span></span>)<span class="pl-e"><span class="pl-v">.navbar</span></span>() <span class="pl-c1">}}</span></pre></div>
+<p>Which can be customized using the different <code>NavOptions</code> properties above, in camelCase:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">navItems</span>(<span class="pl-s"><span class="pl-pds">'</span>submenu<span class="pl-pds">'</span></span>)<span class="pl-e"><span class="pl-v">.navbar</span></span>({ <span class="pl-e"><span class="pl-v">navClass</span></span>: <span class="pl-s"><span class="pl-pds">'</span>navbar-nav navbar-light bg-light<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
+<h4>
+<a id="user-content-button-group" class="anchor" href="#button-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Button group</h4>
+<p>The <code>navButtonGroup</code> script can render NavItems in a button group, e.g. the
+<a href="https://github.com/NetCoreTemplates/sharp/blob/50b77454950ef0590042e08cf327aae602a2ab0a/MyApp/wwwroot/login.html#L46">OAuth buttons</a>
+are rendered with:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-s"><span class="pl-pds">'</span>auth<span class="pl-pds">'</span></span><span class="pl-e"><span class="pl-v">.navItems</span></span>()<span class="pl-e"><span class="pl-v">.navButtonGroup</span></span>({ <span class="pl-e"><span class="pl-v">navClass</span></span>: <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>, <span class="pl-e"><span class="pl-v">navItemClass</span></span>: <span class="pl-s"><span class="pl-pds">'</span>btn btn-block btn-lg<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
+<p>Which renders a vertical, spaced list of buttons which look like:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/nav/auth-navitems.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/nav/auth-navitems.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-navoptions-properties" class="anchor" href="#navoptions-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NavOptions Properties</h3>
+<p>Each Nav UI Control can be further customized by overriding the <code>navOptions</code> that map to <strong>camelCase</strong> properties on the typed <code>NavOptions</code> class:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">NavOptions</span>
+{
+    <span class="pl-c"><span class="pl-c">///</span> User Attributes for conditional rendering, e.g:</span>
+    <span class="pl-c"><span class="pl-c">///</span>  - auth - User is Authenticated</span>
+    <span class="pl-c"><span class="pl-c">///</span>  - role:name - User Role</span>
+    <span class="pl-c"><span class="pl-c">///</span>  - perm:name - User Permission </span>
+    <span class="pl-k">public</span> <span class="pl-en">HashSet</span>&lt;<span class="pl-k">string</span>&gt; <span class="pl-smi">Attributes</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Path Info that should set as active </span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ActivePath</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-c"><span class="pl-c">///</span> Prefix to include before NavItem.Path (if any)</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">BaseHref</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+
+    <span class="pl-c"><span class="pl-c">//</span> Custom classes applied to different navigation elements (defaults to Bootstrap classes)</span>
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">NavClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">NavItemClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">NavLinkClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ChildNavItemClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ChildNavLinkClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ChildNavMenuClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-smi">ChildNavMenuItemClass</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+}</pre></div>
+</div>
