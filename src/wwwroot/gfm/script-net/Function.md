@@ -31,7 +31,7 @@ Function('InstanceLog.Log<int>') |> to => genericLog  // instance generic method
 o.log('B')
 log(o,'C')
 o.genericLog(1)
-o | genericLog(2)    
+o |> genericLog(2)    
 o.allLogs() |> to => snapshotLogs
 ```
 
