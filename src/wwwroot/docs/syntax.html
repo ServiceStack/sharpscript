@@ -41,10 +41,10 @@ order: 3
 {{ 'gfm/syntax/01.md' |> githubMarkdown }}
 
 <p>
-    This can also be rewritten without the "pipe" symbol by calling the method with an argument instead:
+    This can be rewritten without the "pipe forward" operator by calling it as a method or an extension method instead:
 </p>
 
-{{ 'live-template' |> partial({ template: "outside <i>{{ upper('shout') }}</i> text" }) }}
+{{ 'live-template' |> partial({ template: "outside <i>{{ upper('shout') }}</i> or <u>{{ 'shout'.upper() }}</u> text" }) }}
 
 <h4>Methods can be chained</h4>
 
