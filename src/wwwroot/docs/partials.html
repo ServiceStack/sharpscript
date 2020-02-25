@@ -67,7 +67,7 @@ Who can also access other arguments in scope <b>{{ layoutArg }}</b>`
 Customer {{ it.CustomerId }} {{ it.CompanyName |> raw }}
 {{ it.Orders |> selectPartial: order }}{{/partial}}
 
-{{ customers |> where => it.Region = 'WA' |> to => waCustomers }}
+{{ customers |> where => it.Region == 'WA' |> to => waCustomers }}
  Customers from Washington and their orders:
  {{ waCustomers |> selectPartial: customer }}` }) }}
 

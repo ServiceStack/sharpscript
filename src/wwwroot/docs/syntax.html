@@ -83,9 +83,9 @@ order: 3
     ES6 Shorthand notation is also supported where you can use the argument name as its property name in a Dictionary:
 </p>
 
-{{ 'live-template' |> partial({ template: "{{ 'foo'    |> to => bar }}
-{{ { bar }  |> to => obj }}
-{{ obj['bar'] }}" }) }}
+{{ 'live-template' |> partial({ template: "{{ var bar = 'foo'   }}
+{{ var obj = { bar } }}
+{{ obj['bar']        }}" }) }}
 
 <h4>Quotes</h4>
 
@@ -160,12 +160,12 @@ leave <em>\</em> backspaces unescaped.
 
 <p>
     To maximize readability and intuitiveness for non-programmers, boolean expressions can also adopt an SQL-like syntax where
-    instead of using <em>&amp;&amp;</em>, <em>||</em> or <em>==</em> operator syntax to define boolean expressions you can also
-    use the more human-friendly <em>and</em>, <em>or</em> and <em>=</em> alternatives:
+    instead of using <em>&amp;&amp;</em> or <em>||</em> operator syntax to define boolean expressions you can also
+    use the more human-friendly <em>and</em> and <em>or</em> alternatives:
 </p>
 
 {{ 'live-template' |> partial({ template: "{{ [0,1,2,3,4,5] 
-   |> where => (it = 2 or it = 3) and it.isOdd()
+   |> where => it.isOdd() and it == 3
    |> join }}" }) }}
 
 <h4>Include Raw Content Verbatim</h4>

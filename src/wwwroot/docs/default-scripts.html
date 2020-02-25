@@ -203,7 +203,7 @@ Time: {{ now.TimeOfDay |> timeFormat('h\\:mm') }} default: {{ now.TimeOfDay |> t
 or: {{ true || false }}, {{ false || false }}, {{ true | OR(true) }}
 and: {{ true && false }}, {{ false and false }}, {{ true | AND(true) }}
 exists: {{ null | exists }}, {{ 1 | exists }}, {{ unknownArg | exists }}
-equals: {{ 1 = 1 }}, {{ 1 == 1 }}, {{1 |> equals(1)}}, {{'A' |> equals('A')}}, {{1 |> eq(1)}}
+equals: {{ 1 == 1 }}, {{1 |> equals(1)}}, {{'A' |> equals('A')}}, {{1 |> eq(1)}}
 notEquals: {{ 2 != 1 }}, {{2 |> notEquals(1)}}, {{'A' |> notEquals('A')}} or {{1 |> not(1)}}
 greaterThan: {{ 1 > 1 }}, {{ 1 |> greaterThan(1) }} or {{ 1 |> gt(1) }}
 greaterEqual: {{ 1 >= 1 }}, {{ 1 |> greaterThanEqual(1) }} or {{ 1 |> gte(1) }}
@@ -333,7 +333,7 @@ onlyIfEmpty: {{ a |> onlyIfEmpty |> show: a is empty }}` }) }}
 
 {{ 'live-template' |> partial({ rows: 6, template: "{{ [1,2,3,4,5] |> to => numbers }}
 {{ numbers |> join }}
-{{ numbers |> do => assign('numbers[index]', it * it) }}
+{{ numbers |> do => numbers[index] = it * it }}
 {{ numbers |> join }}
 {{ 5 |> times |> do => assign(`num${index}`, it) }}
 {{ num4 }}" }) }}
@@ -404,7 +404,7 @@ Property Value: {{ 'A String'.Length }}, {{ 'A String'['Len' + 'gth'] }}` }) }}
 {{ 'live-template' |> partial({ rows: 8, template: "{{ 100 |> toString |> select: {it.Length} }}
 {{ { x:1, y:2 } |> toList |> map => `${it.Key} = ${it.Value}` |> join(', ') }}
 {{ range(5) |> toArray |> to => numbers }}
-{{ numbers.Length |> times |> do => assign('numbers[index]', -numbers[index]) }}
+{{ numbers.Length |> times |> do => numbers[index] = -numbers[index] }}
 {{ numbers |> join }}
 Bob's score: {{ [{name:'Alice',score:50},{name:'Bob',score:40}] 
   |> toDictionary => it.name |> map => it.Bob.score }}" }) }}
@@ -513,8 +513,8 @@ var escapeLines = '{{ "new" |> appendLine |> append("line") |> escapeNewLines }}
 <p>If you instead need to iterate over a collection to perform side-effects without generating output you can use <em>forEach</em>:</p>
 
 {{ 'live-template' |> partial({ rows: 4, template: "{{ [{name:'Alice',score:50},{name:'Bob',score:40}] |> to => scoreRecords }}
-{{ [] |> to => scores }}
-{{scoreRecords.forEach((record, index) => scores.push(record.score))}}
+{{ var scores = [] }}
+{{ scoreRecords.forEach((record, index) => scores.push(record.score)) }}
 {{ scores |> join}}" }) }}
 
 

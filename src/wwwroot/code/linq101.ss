@@ -4,7 +4,7 @@
    |> to => lowNumbers }}
 First run numbers <= 3:
 {{ lowNumbers  |> joinln }}
-{{ 10 |> times |> do => assign('numbers[index]', -numbers[index]) }}
+{{ 10 |> times |> do => numbers[index] = -numbers[index] }}
 Second run numbers <= 3:
 {{ lowNumbers  |> joinln }}
 Contents of numbers:

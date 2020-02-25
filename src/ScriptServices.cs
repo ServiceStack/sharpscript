@@ -109,7 +109,7 @@ namespace SharpScript
             var expr = JS.expression(request.Expression.Trim());
 
             var response = new EvalExpressionResponse {
-                Result = expr.Evaluate(scope),
+                Result = ScriptLanguage.UnwrapValue(expr.Evaluate(scope)),
                 Tree = expr.ToJsAstString(),
             };
             return response;
