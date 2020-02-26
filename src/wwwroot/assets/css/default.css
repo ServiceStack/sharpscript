@@ -82,8 +82,8 @@ a:hover {
     top: 63px;
     left: 0;
     bottom: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: scroll;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
 }
