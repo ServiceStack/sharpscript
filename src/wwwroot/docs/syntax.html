@@ -489,14 +489,21 @@ Lisp:
 {{ 'live-template' |> partial({ rows:39, template }) }}
 
 {{#markdown}}
-The **Template** syntax is a "template-first" language where only expressions within `{{ ... }}` literals are evaluated, everything outside 
-it is emitted verbatim, in consequence it's white-space sensitive where the indention of logic blocks affect its output as 
-seen above where all lines are indented the same 2 spaces as its free-text contents.
 
-By contrast [#Script Code](/scode/) is an inverted Templates where it's a "code-first" language where all statements are treated as code blocks
+#### Template
+
+`#Script` is a **"template-first"** language where only expressions within `{{ ... }}` literals are evaluated, everything outside 
+it is emitted verbatim, as consequence it's white-space sensitive where the indention of logic blocks affect its output as 
+seen above where all lines are indented with the same 2 spaces as its free-text contents.
+
+#### Code
+
+By contrast [#Script Code](/scode/) is an inverted Templates where it's a **"code-first"** language where all statements are treated as code blocks
 so statements don't require the `{{ ... }}` boilerplate and are not white-space sensitive. Like Templates each content block 
 still generates output (unless its suppressed with the [quiet modifier](/docs/syntax#language-block-modifiers)) but needs to be a valid expression
 like a string literal, argument or expression as seen in the **code** example above.
+
+#### Lisp
 
 [#Script Lisp](/lisp/) lets you use the venerable and highly dynamic and functional [Lisp language](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29)
 that's particularly strong at capturing algorithms and composing functions, although FizzBuzz isn't a particularly
