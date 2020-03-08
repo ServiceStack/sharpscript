@@ -193,7 +193,7 @@ Captured Argument: {{template}}"
 
 <p>
     An alternative way to temporarily disable an expression is to prefix the expression with the <em>end</em> method to 
-    immediately short-circuit evaluation, e.g: <em>{{#raw}}{{ end | now |> dateFormat }}{{/raw}}</em>
+    immediately short-circuit evaluation, e.g: <em>{{#raw}}{{ end |> now |> dateFormat }}{{/raw}}</em>
 </p>
 
 <p>
@@ -433,7 +433,101 @@ The multi-languages support in `#Script` is designed to be extensible where ever
 
 Any language expressions and language blocks referencing it become inert and its source code emitted as plain-text.
 
+### Language Comparisons
+
+Whilst all languages have access to the same [Script Methods](/docs/methods) and [.NET Scripting interop](/docs/script-net), they all have 
+unique characteristics that make them suitable for different use-cases. The default template syntax is ideal for generating text output where 
+you need to embed logic when generating text output, [#Script Code](/scode/) is ideal when logic is more important then the text output like in 
+[Sharp Scripts](/docs/sharp-scripts), whilst [#Script Lisp](/lisp/) is ideal for defining algorithms or for developers who prefer Lisp syntax 
+or for devs who prefer development in a functional style.
+
+A good comparison showing the differences, strengths and weaknesses of each language can be seen with the implementation of FizzBuzz in each language:
+
 {{/markdown}}
 
+{{#raw template}}
+Template:
+{{#each range(1,15) }}
+{{#if it % 3 == 0 && it % 5 == 0}}
+  FizzBuzz
+{{else if it % 3 == 0}}
+  Fizz
+{{else if it % 5 == 0}}
+  Buzz
+{{else}}
+  {{it}}
+{{/if}}
+{{/each}}
+
+Code:
+```code
+#each range(1,15)
+    #if it % 3 == 0 && it % 5 == 0
+        "FizzBuzz"
+    else if it % 3 == 0
+        "Fizz"
+    else if it % 5 == 0
+        "Buzz"
+    else
+        it
+    /if
+/each
+```
+
+Lisp:
+```lisp
+(defn fizzbuzz [i]
+    (cond ((and (zero? (mod i 3)) 
+                (zero? (mod i 5))) "FizzBuzz")
+          ((zero? (mod i 3))       "Fizz")
+          ((zero? (mod i 5))       "Buzz")
+          (t i)))
+
+(dorun println (map fizzbuzz (range 1 16)))
+```{{/raw}}
+
+{{ 'live-template' |> partial({ rows:39, template }) }}
+
+{{#markdown}}
+The **Template** syntax is a "template-first" language where only expressions within `{{ ... }}` literals are evaluated, everything outside 
+it is emitted verbatim, in consequence it's white-space sensitive where the indention of logic blocks affect its output as 
+seen above where all lines are indented the same 2 spaces as its free-text contents.
+
+By contrast [#Script Code](/scode/) is an inverted Templates where it's a "code-first" language where all statements are treated as code blocks
+so statements don't require the `{{ ... }}` boilerplate and are not white-space sensitive. Like Templates each content block 
+still generates output (unless its suppressed with the [quiet modifier](/docs/syntax#language-block-modifiers)) but needs to be a valid expression
+like a string literal, argument or expression as seen in the **code** example above.
+
+[#Script Lisp](/lisp/) lets you use the venerable and highly dynamic and functional [Lisp language](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29)
+that's particularly strong at capturing algorithms and composing functions, although FizzBuzz isn't a particularly
+good showcase of either of its dynamism of functional strengths, the last line shows a glimpse of its natural functional composition.
+
+### Combine strengths of all Languages
+
+As all languages compile down into the same AST block we can freely use all languages within the same Script block to take advantage
+of the strengths of each, e.g. **Template** is great at generating text and **Lisp** excels at algorithms which make a great combination if you
+ever need to combine the 2, so you could easily for example use the [defn Script Block](/docs/blocks#defn) to define a function
+in Lisp, compiled to a .NET delegate so its invocable as a regular function inside a Template Block that generates markdown 
+captured by the [capture Script Block](/docs/blocks#capture) and converted to HTML using the [markdown filter transformer](/docs/sharp-pages#markdown):
+{{/markdown}}
+
+{{#raw template}}
+{{#defn fizzbuzz [i] }}
+    (cond ((and (zero? (mod i 3)) 
+                (zero? (mod i 5))) "FizzBuzz")
+          ((zero? (mod i 3))       "Fizz")
+          ((zero? (mod i 5))       "Buzz")
+          (t i))
+{{/defn}}
+
+{{#capture md}}
+## FizzBuzz
+{{#each range(1,15) }}
+  - {{ fizzbuzz(it) }}
+{{/each}}
+{{/capture}}
+{{ md |> markdown }}{{/raw}}
+
+{{ 'live-template' |> partial({ output:'html-md no-pre', rows:15, template }) }}
 
 {{ "doc-links" |> partial({ order }) }}

@@ -200,6 +200,9 @@ caption {
 .html-sm {
     font-size: .75rem;
 }
+.no-pre, .no-pre .output {
+    white-space: normal;
+}
 .html {
     font-size: .8rem;
 }

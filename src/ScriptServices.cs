@@ -77,6 +77,7 @@ namespace SharpScript
                 },
                 Plugins = {
                     new ServiceStackScriptBlocks(),
+                    new MarkdownScriptPlugin(),
                 }
             };
             //Register any dependencies filters need:
