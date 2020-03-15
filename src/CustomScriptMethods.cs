@@ -139,32 +139,18 @@ namespace SharpScript
         public Process processById(int processId) => Process.GetProcessById(processId);
         public Process currentProcess() => Process.GetCurrentProcess();
 
-        Type GetFilterType(string name)
-        {
-            switch(name)
-            {
-                case nameof(DefaultScripts):
-                    return typeof(DefaultScripts);
-                case nameof(HtmlScripts):
-                    return typeof(HtmlScripts);
-                case nameof(ProtectedScripts):
-                    return typeof(ProtectedScripts);
-                case nameof(InfoScripts):
-                    return typeof(InfoScripts);
-                case nameof(RedisScripts):
-                    return typeof(RedisScripts);
-                case nameof(DbScripts):
-                    return typeof(DbScripts);
-                case nameof(DbScriptsAsync):
-                    return typeof(DbScriptsAsync);
-                case nameof(ServiceStackScripts):
-                    return typeof(ServiceStackScripts);
-                case nameof(AutoQueryScripts):
-                    return typeof(AutoQueryScripts);
-            }
-
-            throw new NotSupportedException("Unknown Filter: " + name);
-        }
+        Type GetFilterType(string name) => name switch {
+            nameof(DefaultScripts) =>      typeof(DefaultScripts),
+            nameof(HtmlScripts) =>         typeof(HtmlScripts),
+            nameof(ProtectedScripts) =>    typeof(ProtectedScripts),
+            nameof(InfoScripts) =>         typeof(InfoScripts),
+            nameof(RedisScripts) =>        typeof(RedisScripts),
+            nameof(DbScripts) =>           typeof(DbScripts),
+            nameof(DbScriptsAsync) =>      typeof(DbScriptsAsync),
+            nameof(ValidateScripts) =>     typeof(ValidateScripts),
+            nameof(AutoQueryScripts) =>    typeof(AutoQueryScripts),
+            nameof(ServiceStackScripts) => typeof(ServiceStackScripts),
+        };
 
         public IRawString methodLinkToSrc(string name)
         {
