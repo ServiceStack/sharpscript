@@ -167,6 +167,10 @@ namespace SharpScript
                     ? "https://github.com/ServiceStack/ServiceStack.Redis/blob/master/src/ServiceStack.Redis/RedisScripts.cs"
                     : type == typeof(DbScripts) || type == typeof(DbScriptsAsync)
                     ? $"https://github.com/ServiceStack/ServiceStack.OrmLite/tree/master/src/ServiceStack.OrmLite/{type.Name}.cs"
+                    : type == typeof(ValidateScripts)
+                    ? "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ValidateScripts.cs"
+                    : type == typeof(AutoQueryScripts)
+                    ? "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Server/AutoQueryScripts.cs"
                     : type == typeof(ServiceStackScripts)
                     ? "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ServiceStackScripts.cs"
                     : prefix;
@@ -221,13 +225,13 @@ namespace SharpScript
         public string Body => ParamCount == 0
             ? $"{Name}"
             : ParamCount == 1
-                ? $"| {Name}"
-                : $"| {Name}(" + string.Join(", ", RemainingParams) + $")";
+                ? $"|> {Name}"
+                : $"|> {Name}(" + string.Join(", ", RemainingParams) + $")";
 
         public string Display => ParamCount == 0
             ? $"{Name}{Return}"
             : ParamCount == 1
-                ? $"{FirstParam} | {Name}{Return}"
-                : $"{FirstParam} | {Name}(" + string.Join(", ", RemainingParams) + $"){Return}";
+                ? $"{FirstParam} |> {Name}{Return}"
+                : $"{FirstParam} |> {Name}(" + string.Join(", ", RemainingParams) + $"){Return}";
     }
 }
