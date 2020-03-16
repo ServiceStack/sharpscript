@@ -47,10 +47,19 @@ Templates and Dynamic API Pages to implement all of its functionality.</p>
 <p>The preview API above is what provides the new <a href="http://blog.web-app.io/" rel="nofollow">Blog Web App's</a> Live Preview feature where it will render any
 #Script provided in the <strong>content</strong> Query String or HTTP Post Form Data, e.g:</p>
 <ul>
-<li><a href="http://blog.web-app.io/preview?content=%7B%7B10%7Ctimes%7Cselect:%7Bpow(index,2)%7D,%7D%7D" rel="nofollow">/preview?content={{10|times|select:{pow(index,2)},}}</a></li>
+<li><a href="http://blog.web-app.io/preview?content=%7B%7B10%7C%3Etimes%7C%3Emap=%3Eit.pow(2)%7C%3Ejoinln%7D%7D" rel="nofollow">/preview?content={{10|&gt;times|&gt;map=&gt;it.pow(2)|&gt;joinln}}</a></li>
 </ul>
 <p>Which renders the plain text response:</p>
-<pre><code>0,1,4,9,16,25,36,49,64,81,
+<pre><code>0
+1
+4
+9
+16
+25
+36
+49
+64
+81
 </code></pre>
 <h3>
 <a id="user-content-_userapi-page" class="anchor" href="#_userapi-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>/_user/api Page</h3>
