@@ -12,8 +12,8 @@
 <p>Most development will happen within <code>/client</code> which is automatically published to <code>/app</code> using parcel's CLI that's invoked from the included npm scripts.</p>
 <h3>
 <a id="user-content-client" class="anchor" href="#client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>client</h3>
-<p>The difference with <a href="https://github.com/NetCoreTemplates/templates-webapp">templates-webapp</a> is that the client source code is maintained in the <code>/client</code> folder and uses <a href="https://parceljs.org" rel="nofollow">Parcel JS</a> to automatically bundle and publish your App to <code>/app/wwwroot</code> which is updated with live changes during development.</p>
-<p>The client folder also contains the npm <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/package.json">package.json</a> which contains all npm scripts required during development.</p>
+<p>The difference with <a href="https://github.com/NetCoreTemplates/templates-app">templates-app</a> is that the client source code is maintained in the <code>/client</code> folder and uses <a href="https://parceljs.org" rel="nofollow">Parcel JS</a> to automatically bundle and publish your App to <code>/app/wwwroot</code> which is updated with live changes during development.</p>
+<p>The client folder also contains the npm <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/package.json">package.json</a> which contains all npm scripts required during development.</p>
 <p>If this is the first time using Parcel, you will need to install its global CLI:</p>
 <pre><code>$ npm install -g parcel-bundler
 </code></pre>
@@ -29,7 +29,7 @@ which will automatically reload your web page as it detects any file changes mad
 <h3>
 <a id="user-content-server" class="anchor" href="#server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>server</h3>
 <p>To enable even richer functionality, this Sharp Apps template is also pre-configured with a custom Server project where you can extend your Web App with <a href="http://sharpscript.net/docs/sharp-apps#plugins" rel="nofollow">Plugins</a> where all <code>Plugins</code>, <code>Services</code>, <code>Filters</code>, etc are automatically wired and made available to your Web App.</p>
-<p>This template includes a simple <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/server/ServerPlugin.cs">ServerPlugin.cs</a> which contains an Empty <code>ServerPlugin</code> and <code>Hello</code> Service:</p>
+<p>This template includes a simple <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/server/ServerPlugin.cs">ServerPlugin.cs</a> which contains an Empty <code>ServerPlugin</code> and <code>Hello</code> Service:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ServerPlugin</span> : <span class="pl-en">IPlugin</span>
 {
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Register</span>(<span class="pl-en">IAppHost</span> <span class="pl-smi">appHost</span>)
@@ -62,11 +62,11 @@ which will automatically reload your web page as it detects any file changes mad
 <p>One benefit of creating your APIs with C# ServiceStack Services instead of <a href="http://sharpscript.net/docs/sharp-apis" rel="nofollow">API Pages</a> is that you can generate TypeScript DTOs with:</p>
 <pre><code>$ npm run dtos
 </code></pre>
-<p>Which saves generate DTOs for all your ServiceStack Services in <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/dtos.ts">dtos.ts</a> which can then be accessed in your TypeScript source code.</p>
-<p>If preferred you can instead develop Server APIs with API Pages, an example is included in <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/hello/_name.html">/client/hello/_name.html</a></p>
+<p>Which saves generate DTOs for all your ServiceStack Services in <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/dtos.ts">dtos.ts</a> which can then be accessed in your TypeScript source code.</p>
+<p>If preferred you can instead develop Server APIs with API Pages, an example is included in <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/hello/_name.html">/client/hello/_name.html</a></p>
 <div class="highlight highlight-text-html-basic"><pre>{{ { result: `Hi ${name} from /hello/_name.html` } |&gt; return }}</pre></div>
 <p>Which as it uses the same data structure as the <code>Hello</code> Service above, can be called with ServiceStack's <code>JsonServiceClient</code> and generated TypeScript DTOs.</p>
-<p>The <a href="https://github.com/NetCoreTemplates/parcel-webapp/blob/master/client/index.ts">/client/index.ts</a> shows an example of this where initially the App calls  the C# <code>Hello</code> ServiceStack Service:</p>
+<p>The <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/index.ts">/client/index.ts</a> shows an example of this where initially the App calls  the C# <code>Hello</code> ServiceStack Service:</p>
 <div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> { <span class="pl-smi">client</span> } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./shared<span class="pl-pds">"</span></span>;
 <span class="pl-k">import</span> { <span class="pl-smi">Hello</span>, <span class="pl-smi">HelloResponse</span> } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./dtos<span class="pl-pds">"</span></span>;
 
