@@ -8,7 +8,7 @@ Unlike most languages, `#Script` has 2 outputs, the side-effect of the script it
 literate programming where executable snippets can be embedded inside an executable document. 
 
 [code blocks](/docs/syntax#code-blocks) are a convenient markup for embedding executable scripts within a document without the distracting boilerplate 
-of wrapping each statement in expression blocks. Together with `web watch`, `#Script` allows for an iterative, exploratory style of programming
+of wrapping each statement in expression blocks. Together with `x watch`, `#Script` allows for an iterative, exploratory style of programming
 in a live programming environment that benefits many domains whose instant progressive feedback unleashes an unprecedented amount of
 productivity, one of those areas it benefits is shell scripting where the iterative feedback is invaluable in working towards a solution
 for automating the desired task.
@@ -108,7 +108,7 @@ for Exploratory tasks.
 
 The Vue and React "lite" project templates take advantage of this in their 
 [Pre-compiled minified production _bundle.ss script](https://docs.servicestack.net/templates-lite#pre-compiled-minified-production-bundles) 
-which is run with `web run {script}`:
+which is run with `x run {script}`:
 {{/markdown}}
 
 {{ 'gfm/sharp-scripts/10.md' | githubMarkdown | convertScriptToCodeBlocks }}
