@@ -68,16 +68,19 @@ Then you can run <em>x open</em> to see which apps are available to install:
     By default this will list all <a href="https://github.com/sharp-apps">sharp-apps</a> available: 
 </p>
 
-<pre class="sh"><code>    1. redis       Simple, lightweight, versatile Redis Admin UI
-    2. spirals     Explore and generate different Spirals with SVG
-    3. blog        Minimal, multi-user Twitter Auth blogging app
-    4. rockwind    Example combining Rockstars website + data-driven Northwind Browser
-    5. redis-html  Redis Admin Viewer developed as server-generated HTML Website
-    6. plugins     Extend Apps with Plugins, ServiceStack Services and other C# extensions
-    7. chat        Extensible App with custom AppHost leveraging OAuth + SSE for real-time Chat
-    8. bare        Basic Sharp Content Website
-
-Usage: web open &lt;name&gt;</code></pre>
+<pre class="sh"><code> 1. redis       Simple, lightweight, versatile Redis Admin UI
+ 2. spirals     Explore and generate different Spirals with SVG
+ 3. blog        Minimal, multi-user Twitter Auth blogging app
+ 4. rockwind    Example combining Rockstars website + data-driven Northwind Browser
+ 5. redis-html  Redis Admin Viewer developed as server-generated HTML Website
+ 6. plugins     Extend Apps with Plugins, ServiceStack Services and other C# extensions
+ 7. chat        Extensible App with custom AppHost leveraging OAuth + SSE for real-time Chat
+ 8. bare        Basic Sharp Content Website
+ 9. studio      Admin UI for managing ServiceStack Instances (v5.9+)
+10. sharpdata   Instant UI for browsing multiple RDBMS's
+11. win32       Demo Desktop App showcasing Win32 APIs
+ 
+Usage: x open &lt;name&gt;</code></pre>
 
 <p>
     Where any of the apps can be installed by specifying the <b>name</b>, e.g. 
@@ -92,6 +95,8 @@ Usage: web open &lt;name&gt;</code></pre>
 </p>
 
 <pre class="sh"><code>$ x run spirals</code></pre>
+
+<h4>Windows 64 Desktop App</h4>
 
 <p>
     Each Sharp App can also be run as a 
@@ -109,7 +114,7 @@ Usage: web open &lt;name&gt;</code></pre>
 
 <h3>Spirals</h3>
 <div class="source">
-    <em>x install spirals</em> -
+    <a name="app://spirals">app://spirals</a> -
     <a href="http://spirals.web-app.io">spirals.web-app.io</a> -
     <a href="https://github.com/sharp-apps/spirals">sharp-apps/spirals</a>
 </div>
@@ -119,25 +124,11 @@ Usage: web open &lt;name&gt;</code></pre>
     model to leverage advanced Web Technologies like SVG in a fun, interactive and live development experience.
 </p>
 
-<a name="videos"></a>
-<p class="videos">
-    <style>
-        .youtube-viewer:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
-    </style>
-    <div class="youtube-viewer" data-video="https://www.youtube.com/embed/Cf-vstYXrmY">
-        <img style="position:absolute; width:100px; margin:310px 0 0 390px" src="https://servicestack.net/img/youtube-play.png"/>
-        <img width="880" src="/assets/img/screenshots/spirals.png">
-    </div>
-    <script>
-        document.querySelector('.youtube-viewer').addEventListener('click', function () {
-            var video = '<iframe width="880" height="495" src="' + $(this).attr('data-video') + '?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-            this.innerHTML = video;
-        });
-    </script>
-</p>
+{{#markdown}}
+> YouTube: [youtu.be/2FFRLxs7orU](https://youtu.be/Cf-vstYXrmY)
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/animated.png)](https://youtu.be/Cf-vstYXrmY)
+{{/markdown}}
 
 <p>
     See the <a href="https://github.com/sharp-apps/spirals#the-making-of-spirals">Making of Spirals</a> for a walk through on how to create
@@ -298,15 +289,27 @@ webRoot ~/../bare</code></pre>
 
 {{#markdown}}
 
-- [Spirals](/sharp-apps/spirals)
-- [Redis](/sharp-apps/redis)
-- [Rockwind](/sharp-apps/rockwind)
-- [Plugins](/sharp-apps/plugins)
-- [Chat](/sharp-apps/chat)
-- [Blog](/sharp-apps/blog)
-- [SharpData](/sharp-apps/sharpdata)
-- [Win32](/sharp-apps/win32)
-- [ServiceStack Studio](/sharp-apps/studio)
+- [Spirals](/sharp-apps/spirals) - [app://spirals](app://spirals)
+- [Redis](/sharp-apps/redis) - [app://redis](app://redis)
+- [Rockwind](/sharp-apps/rockwind) - [app://rockwind](app://rockwind)
+- [Plugins](/sharp-apps/plugins) - [app://plugins](app://plugins)
+- [Chat](/sharp-apps/chat) - [app://chat](app://chat)
+- [Blog](/sharp-apps/blog) - [app://blog](app://blog)
+- [SharpData](/sharp-apps/sharpdata) - [app://sharpdata](app://sharpdata?mix=northwind.sharpdata)
+- [Win32](/sharp-apps/win32) - [app://win32](app://win32)
+- [ServiceStack Studio](/sharp-apps/studio) - [app://studio](app://studio)
+
+#### app URL Schemes
+
+To open Sharp Apps with the `app://` URL Scheme install the [app dotnet tool](https://docs.servicestack.net/netcore-windows-desktop):
+
+    $ dotnet tool install -g app
+    $ app -version
+
+If on macOS/Linux you can use the cross-platform [x dotnet tool](https://docs.servicestack.net/dotnet-tool) to open Sharp Apps in your Default Browser:
+
+    $ dotnet tool install -g x
+    $ x open spirals
 
 {{/markdown}}
 
