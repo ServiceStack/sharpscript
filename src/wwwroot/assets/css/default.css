@@ -247,6 +247,19 @@ caption {
     background-color: #f8f8f8;
 }
 
+.youtube-play {
+    background: no-repeat url(/assets/img/youtube-play.png);
+    display: block;
+    position: absolute;
+    opacity: 0.8;
+}
+.youtube-play:hover {
+    background: no-repeat url(/assets/img/youtube-play-hover.png);
+    opacity: 1;
+    background-color: rgba(255,255,255,.1);
+    cursor: pointer;
+}
+
 @media (max-width: 1366px) {
     #content {
         margin-left: 240px;

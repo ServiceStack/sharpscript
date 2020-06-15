@@ -1,0 +1,113 @@
+<div class="gfm"><p>The <a href="https://github.com/sharp-apps/win32">win32</a> Sharp App contains an examples dashboard of invoking different native Win32 functions:</p>
+<p><a href="https://github.com/sharp-apps/win32"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/win32.png" alt="" style="max-width:100%;"></a></p>
+<p>You can run this Gist Desktop App via URL Scheme from:</p>
+<pre><code>[app://win32](app://win32)
+</code></pre>
+<p>Or via command-line:</p>
+<pre><code>$ app open win32
+</code></pre>
+<p>The main source code of this component is in <a href="https://github.com/sharp-apps/win32/blob/master/src/components/Win32/index.ts">Win32/index.ts</a>,
+which makes use of the built in TypeScript APIs below from <code>@servicestack/desktop</code>:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-en">start</span><span class="pl-kos">(</span><span class="pl-s">'%USERPROFILE%\\\\.sharp-apps'</span><span class="pl-kos">)</span>
+
+<span class="pl-en">openUrl</span><span class="pl-kos">(</span><span class="pl-s">'https://google.com'</span><span class="pl-kos">)</span>
+
+<span class="pl-en">messageBox</span><span class="pl-kos">(</span><span class="pl-s">'The Title'</span><span class="pl-kos">,</span> <span class="pl-s">'Caption'</span><span class="pl-kos">,</span> <span class="pl-smi">MessageBoxType</span><span class="pl-kos">.</span><span class="pl-c1">YesNo</span> | <span class="pl-smi">MessageBoxType</span><span class="pl-kos">.</span><span class="pl-c1">IconInformation</span><span class="pl-kos">)</span>
+
+<span class="pl-k">await</span> <span class="pl-en">openFile</span><span class="pl-kos">(</span>  <span class="pl-kos">{</span>
+    <span class="pl-c1">title</span>: <span class="pl-s">'Pick Images'</span><span class="pl-kos">,</span>
+    <span class="pl-c1">filter</span>: <span class="pl-s">"Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*"</span><span class="pl-kos">,</span>
+    <span class="pl-c1">initialDir</span>: <span class="pl-k">await</span> <span class="pl-en">expandEnvVars</span><span class="pl-kos">(</span><span class="pl-s">'%USERPROFILE%\\\\Pictures'</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+    <span class="pl-c1">defaultExt</span>: <span class="pl-s">'*.png'</span><span class="pl-kos">,</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span>
+
+<span class="pl-en">openFile</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">isFolderPicker</span>: <span class="pl-c1">true</span> <span class="pl-kos">}</span><span class="pl-kos">)</span>
+
+<span class="pl-en">deviceScreenResolution</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
+
+<span class="pl-en">primaryMonitorInfo</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
+
+<span class="pl-en">windowSetPosition</span><span class="pl-kos">(</span><span class="pl-s1">x</span><span class="pl-kos">,</span> <span class="pl-s1">y</span><span class="pl-kos">)</span>
+
+<span class="pl-en">windowSetSize</span><span class="pl-kos">(</span><span class="pl-s1">width</span><span class="pl-kos">,</span> <span class="pl-s1">height</span><span class="pl-kos">)</span></pre></div>
+<h4>
+<a id="user-content-custom-win32-api" class="anchor" href="#custom-win32-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Win32 API</h4>
+<p>You're also not limited to calling the built-in Win32 APIs above as calling custom APIs just involves wrapping the C# inside
+your preferred <a href="/docs/methods">#Script method</a> that you would like to make it available to JS as,
+e.g. here's the <strong>win32</strong> implementation for launching <a href="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box" rel="nofollow">Win32's Color Dialog Box</a>
+and returning the selected color in HTML Color format:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">CustomMethods</span> : <span class="pl-en">ScriptMethods</span>
+{
+    [<span class="pl-en">DllImport</span>(<span class="pl-s"><span class="pl-pds">"</span>ComDlg32.dll<span class="pl-pds">"</span></span>, <span class="pl-en">CharSet</span> <span class="pl-k">=</span> <span class="pl-smi">CharSet</span>.<span class="pl-smi">Unicode</span>)]
+    <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">extern</span> <span class="pl-k">int</span> <span class="pl-en">CommDlgExtendedError</span>();
+
+    [<span class="pl-en">DllImport</span>(<span class="pl-s"><span class="pl-pds">"</span>ComDlg32.dll<span class="pl-pds">"</span></span>, <span class="pl-en">CharSet</span> <span class="pl-k">=</span> <span class="pl-smi">CharSet</span>.<span class="pl-smi">Unicode</span>)]
+    <span class="pl-k">internal</span> <span class="pl-k">static</span> <span class="pl-k">extern</span> <span class="pl-k">bool</span> <span class="pl-en">ChooseColor</span>(<span class="pl-k">ref</span> <span class="pl-en">ChooseColor</span> <span class="pl-smi">cc</span>);
+    
+    <span class="pl-k">private</span> <span class="pl-k">int</span>[] <span class="pl-smi">customColors</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">int</span>[<span class="pl-c1">16</span>] {
+        <span class="pl-c1">0x00FFFFFF</span>, <span class="pl-c1">0x00C0C0C0</span>, <span class="pl-c1">0x00808080</span>, <span class="pl-c1">0x00000000</span>,
+        <span class="pl-c1">0x00FF0000</span>, <span class="pl-c1">0x00800000</span>, <span class="pl-c1">0x00FFFF00</span>, <span class="pl-c1">0x00808000</span>,
+        <span class="pl-c1">0x0000FF00</span>, <span class="pl-c1">0x00008000</span>, <span class="pl-c1">0x0000FFFF</span>, <span class="pl-c1">0x00008080</span>,
+        <span class="pl-c1">0x000000FF</span>, <span class="pl-c1">0x00000080</span>, <span class="pl-c1">0x00FF00FF</span>, <span class="pl-c1">0x00800080</span>,
+    };
+
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">chooseColor</span>(<span class="pl-en">ScriptScopeContext</span> <span class="pl-smi">scope</span>) <span class="pl-k">=&gt;</span> <span class="pl-en">chooseColor</span>(<span class="pl-smi">scope</span>, <span class="pl-s"><span class="pl-pds">"</span>#ffffff<span class="pl-pds">"</span></span>);
+
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">chooseColor</span>(<span class="pl-en">ScriptScopeContext</span> <span class="pl-smi">scope</span>, <span class="pl-k">string</span> <span class="pl-smi">defaultColor</span>) <span class="pl-k">=&gt;</span> <span class="pl-smi">scope</span>.<span class="pl-en">DoWindow</span>(<span class="pl-smi">w</span> <span class="pl-k">=&gt;</span> {
+        <span class="pl-k">var</span> <span class="pl-smi">cc</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ChooseColor</span>();
+        <span class="pl-smi">cc</span>.<span class="pl-smi">lStructSize</span> <span class="pl-k">=</span> <span class="pl-smi">Marshal</span>.<span class="pl-en">SizeOf</span>(<span class="pl-smi">cc</span>);
+        <span class="pl-k">var</span> <span class="pl-smi">lpCustColors</span> <span class="pl-k">=</span> <span class="pl-smi">Marshal</span>.<span class="pl-en">AllocCoTaskMem</span>(<span class="pl-c1">16</span> <span class="pl-k">*</span> <span class="pl-en">sizeof</span>(<span class="pl-smi">int</span>));
+        <span class="pl-k">try</span>
+        {
+            <span class="pl-smi">Marshal</span>.<span class="pl-en">Copy</span>(<span class="pl-smi">customColors</span>, <span class="pl-c1">0</span>, <span class="pl-smi">lpCustColors</span>,<span class="pl-c1">16</span>);
+            <span class="pl-smi">cc</span>.<span class="pl-smi">hwndOwner</span> <span class="pl-k">=</span> <span class="pl-smi">w</span>;
+            <span class="pl-smi">cc</span>.<span class="pl-smi">lpCustColors</span> <span class="pl-k">=</span> <span class="pl-smi">lpCustColors</span>;
+            <span class="pl-smi">cc</span>.<span class="pl-smi">Flags</span> <span class="pl-k">=</span> <span class="pl-smi">ChooseColorFlags</span>.<span class="pl-smi">FullOpen</span> <span class="pl-k">|</span> <span class="pl-smi">ChooseColorFlags</span>.<span class="pl-smi">RgbInit</span>;
+            <span class="pl-k">var</span> <span class="pl-smi">c</span> <span class="pl-k">=</span> <span class="pl-smi">ColorTranslator</span>.<span class="pl-en">FromHtml</span>(<span class="pl-smi">defaultColor</span>);
+            <span class="pl-smi">cc</span>.<span class="pl-smi">rgbResult</span> <span class="pl-k">=</span> <span class="pl-smi">ColorTranslator</span>.<span class="pl-en">ToWin32</span>(<span class="pl-smi">c</span>);
+
+            <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-en">ChooseColor</span>(<span class="pl-k">ref</span> <span class="pl-smi">cc</span>)) 
+                <span class="pl-k">return</span> (<span class="pl-k">string</span>) <span class="pl-c1">null</span>;
+        
+            <span class="pl-smi">c</span> <span class="pl-k">=</span> <span class="pl-smi">ColorTranslator</span>.<span class="pl-en">FromWin32</span>(<span class="pl-smi">cc</span>.<span class="pl-smi">rgbResult</span>);
+            <span class="pl-k">return</span> <span class="pl-smi">ColorTranslator</span>.<span class="pl-en">ToHtml</span>(<span class="pl-smi">c</span>);
+        }
+        <span class="pl-k">finally</span>
+        {
+            <span class="pl-smi">Marshal</span>.<span class="pl-en">FreeCoTaskMem</span>(<span class="pl-smi">lpCustColors</span>);
+        }
+    });
+}</pre></div>
+<p>ServiceStack.Desktop's IPC takes care of invoking the <code>#Script</code> <a href="/docs/expression-viewer">JS-compatible expression</a> and returning the result:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">selectedColor</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">evaluateCode</span><span class="pl-kos">(</span><span class="pl-s">'chooseColor(`#336699`)'</span><span class="pl-kos">)</span></pre></div>
+<p><a href="https://github.com/sharp-apps/win32"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/win32-choosecolor.png" alt="" style="max-width:100%;"></a></p>
+<p>The <code>scope.DoWindow()</code> extension method supports expressions being invoked in-process when launched by <code>app.exe</code> as well as when
+invoked during development in "detached mode" if electing to run the .NET Core backend as a stand-alone Web App.</p>
+<p>If your App calls your custom APIs a lot you can wrap it in a first-class TypeScript method that mirrors the server #Script method:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">function</span> <span class="pl-en">chooseColor</span><span class="pl-kos">(</span><span class="pl-s1">defaultColor</span>?:<span class="pl-smi">string</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-s1">defaultColor</span>
+        ? <span class="pl-en">evaluateCode</span><span class="pl-kos">(</span><span class="pl-s">`chooseColor(<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-en">quote</span><span class="pl-kos">(</span><span class="pl-s1">defaultColor</span><span class="pl-kos">)</span><span class="pl-kos">}</span></span>)`</span><span class="pl-kos">)</span>
+        : <span class="pl-en">evaluateCode</span><span class="pl-kos">(</span><span class="pl-s">`chooseColor()`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre></div>
+<p>Where it can be called using the same syntax in JS and #Script:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">selectedColor</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">chooseColor</span><span class="pl-kos">(</span><span class="pl-s">`#336699`</span><span class="pl-kos">)</span></pre></div>
+<h3>
+<a id="user-content-highly-productive-live-reloading-development-experience" class="anchor" href="#highly-productive-live-reloading-development-experience" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Highly productive live-reloading Development experience</h3>
+<p>If it weren't for the productivity possible for being able to only needing to develop for Chrome's state-of-the-art rendering engine where you can use advanced features like CSS grid along with the productivity of high-level productive Reactive UI frameworks like Vue, the effort into create a Desktop App like ServiceStack Studio wouldn't be justifiable.</p>
+<p>After the next release we'll create pre-packaged project templates for <strong>vue-desktop</strong> and <strong>react-desktop</strong> Desktop Apps to make it easy develop Vue &amp; React Desktop Apps along with scripts to bundle it &amp; publish it to gist. If preferred <code>app.exe</code> also lets you deploy the published app to your own private repo &amp; limit access to only users accessible with a GitHub token which they can open with from a URL with:</p>
+<pre><code>app://user/repo?token={GITHUB_TOKEN}
+</code></pre>
+<p>Or on the command line with:</p>
+<pre><code>$ app user/repo -token $GITHUB_TOKEN
+</code></pre>
+<blockquote>
+<p>Or without a token by setting it in the <code>GITHUB_TOKEN</code> Environment variable</p>
+</blockquote>
+<p>For offline deployments the published <code>/dist</code> folder can be copied and launched with <code>app</code> (or <code>x</code>) in the app's folder:</p>
+<pre><code>$ app
+</code></pre>
+<p>For better Desktop integration this (or custom command-line arguments) can be wrapped in a new Windows Shortcut:</p>
+<pre><code>$ app shortcut
+</code></pre>
+<p>For a look at example Desktop App projects built using this development model can checkout <a href="https://github.com/ServiceStack/Studio">ServiceStack/Studio</a> or <a href="https://github.com/NetCoreApps/SharpData">NetCoreApps/SharpData</a>.</p>
+</div>

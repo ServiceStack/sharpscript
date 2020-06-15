@@ -9,31 +9,6 @@ order: 3
     <a href="https://github.com/sharp-apps/spirals">sharp-apps/spirals</a>
 </div>
 
-<p>
-    Spirals is a good example showing how easy it is to create .NET Core Desktop Web Apps utilizing HTML5's familiar and simple development 
-    model to leverage advanced Web Technologies like SVG in a fun, interactive and live development experience.
-</p>
-
-<a name="videos"></a>
-<p class="videos">
-    <style>
-        .youtube-viewer:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
-    </style>
-    <div class="youtube-viewer" data-video="https://www.youtube.com/embed/Cf-vstYXrmY">
-        <img style="position:absolute; width:100px; margin:310px 0 0 390px" src="https://servicestack.net/img/youtube-play.png"/>
-        <img width="880" src="/assets/img/screenshots/spirals.png">
-    </div>
-    <script>
-        document.querySelector('.youtube-viewer').addEventListener('click', function () {
-            var video = '<iframe width="880" height="495" src="' + $(this).attr('data-video') + '?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-            this.innerHTML = video;
-        });
-    </script>
-</p>
-
 {{ 'gfm/apps/01.md' |> githubMarkdown }}
 
 {{ "apps-links" |> partial({ order }) }}

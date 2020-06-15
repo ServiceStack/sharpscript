@@ -175,25 +175,11 @@ YouTube: <a href="https://youtu.be/GQvxyPHQjhM">youtu.be/GQvxyPHQjhM</a>
     for a glimpse of the Live Development experience available:
 </p>
 
-<a name="videos"></a>
-<p class="videos">
-    <style>
-        .youtube-viewer:hover {
-            opacity: 0.8;
-            cursor: pointer;
-        }
-    </style>
-<div class="youtube-viewer" data-video="https://www.youtube.com/embed/Cf-vstYXrmY">
-    <img style="position:absolute; width:100px; margin:310px 0 0 390px" src="https://servicestack.net/img/youtube-play.png"/>
-    <img width="880" src="/assets/img/screenshots/spirals.png">
-</div>
-<script>
-    document.querySelector('.youtube-viewer').addEventListener('click', function () {
-        var video = '<iframe width="880" height="495" src="' + $(this).attr('data-video') + '?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-        this.innerHTML = video;
-    });
-</script>
-</p>
+{{#markdown}}
+> YouTube: [youtu.be/2FFRLxs7orU](https://youtu.be/Cf-vstYXrmY)
+
+[![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/animated.png)](https://youtu.be/Cf-vstYXrmY)
+{{/markdown}}
 
 <blockquote>
     See the <a href="https://github.com/sharp-apps/spirals#the-making-of-spirals">Making of Spirals</a> for a walk through on how to create
