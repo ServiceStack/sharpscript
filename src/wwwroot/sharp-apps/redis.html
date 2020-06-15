@@ -1,0 +1,195 @@
+<!--
+title: App - Redis
+order: 4
+-->
+
+<h3>Redis HTML</h3>
+<div class="source">
+    <em>x open redis-html</em> -
+    <a href="http://redis-html.web-app.io">redis-html.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/redis-html">sharp-apps/redis-html</a>
+</div>
+
+<p>
+    For the Redis Browser Web App, we wanted to implement an App that was an ideal candidate for a Single Page App but constrain ourselves
+    to do all HTML rendering on the server and have each interaction request a full-page reload to see how a traditional server-generated
+    Web App feels like with the performance of .NET Core 3.1 and <em>#Script</em>. We're pleasantly surprised with the result as when 
+    the App is run locally the responsiveness is effectively indistinguishable from an Ajax App. When hosted on the Internet 
+    there is a sub-second delay which causes a noticeable flicker but it still retains a pleasant UX that's faster than most websites.
+</p>
+
+<p>
+    The benefits of a traditional website is that it doesn't break the web where the back button and deep linking work without effort 
+    and you get to avoid the complexity train of adopting a premier JavaScript SPA Framework's configuration, dependencies, workflow 
+    and build system which has become overkill for small projects.
+</p>
+
+<a href="http://redis-html.web-app.io"><img src="/assets/img/screenshots/redis-html.png" alt="Redis HTML WebApp Screenshot"></a>
+
+<p>
+    We've had a sordid history developing Redis UI's which we're built using the popular JavaScript frameworks that appeared 
+    dominant at the time but have since seen their ecosystem decline, starting with the
+    <a href="http://redisadminui.servicestack.net/">Redis Admin UI</a> (<a href="https://github.com/ServiceStackApps/RedisAdminUI">src</a>) 
+    built using 
+    <a href="https://github.com/google/closure-library">Google's Closure Library</a> that as it works different to everything else 
+    needed a complete rewrite when creating <a href="http://redisreact.servicestack.net">redisreact.servicestack.net</a>
+    (<a href="https://github.com/ServiceStackApps/RedisReact">src</a>) using the hot new React framework, unfortunately it uses React's old 
+    deprecated ES5 syntax and Reflux which is sufficiently different from our current recommended 
+    <a href="https://docs.servicestack.net/templates-single-page-apps">TypeScript + React + Redux + WebPack</a> JavaScript SPA Stack,
+    that is going to require a significant refactor to adopt our preferred SPA tech stack.
+</p>
+
+<h5>Beautiful, succinct, declarative code</h5>
+
+<p>
+    The nice thing about generating HTML is that it's the one true constant in Web development that will always be there.
+    The entire functionality for the Redis Web App is contained in a single
+    <a href="https://github.com/sharp-apps/redis-html/blob/master/index.html">/redis-html/app/index.html</a> which includes
+    all Template and JavaScript Source Code in <b>&lt; 200 lines</b> which also includes all as server logic as it doesn't rely on any 
+    back-end Services and just uses the <a href="/docs/redis-scripts">Redis Scripts</a> to interface with Redis directly.
+    The <a href="https://github.com/sharp-apps/redis-html/blob/master/index.html">source code</a> also serves as a good 
+    demonstration of the declarative coding style that <em>#Script</em> encourages that in addition to being highly-readable requires orders 
+    of magnitude less code than our previous Redis JavaScript SPA's with a comparable feature-set.
+</p>
+
+<p>
+    Having a much smaller code-base makes it much easier to maintain and enhance whilst being less susceptible to becoming obsolete 
+    by the next new JavaScript framework as it would only require rewriting 75 lines of JavaScript instead of the complete rewrite 
+    that would be required to convert the existing JavaScript Apps to a use different JavaScript fx.
+</p>
+
+<h5><a href="https://github.com/sharp-apps/redis-html/blob/master/app.settings">app.settings</a></h5>
+
+<p>
+    The <em>app.settings</em> for Redis is similar to Web App Starter above except it adds a <em>redis.connection</em>
+    to configure a <a href="https://github.com/ServiceStack/ServiceStack.Redis#redismanagerpool">RedisManagerPool</a> at the
+    <a href="https://github.com/ServiceStack/ServiceStack.Redis#redis-connection-strings">connection string</a> provided
+    as well as <a href="/docs/redis-scripts">Redis Scripts</a> to give the scripts access to the Redis instance.
+</p>
+
+<pre class="settings"><code>debug true
+name Redis Web App
+contentRoot ~/../redis-html
+webRoot ~/../redis-html
+redis.connection localhost:6379</code></pre>
+
+<h3>Redis Vue</h3>
+<div class="source">
+    <em>x open redis</em> -
+    <a href="http://redis.web-app.io">redis.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/Redis">sharp-apps/Redis</a>
+</div>
+
+<p>
+    Whilst the above server-generated HTML Redis UI shows how you can easily develop traditional Web Apps using <em>#Script</em>, we've also
+    rewritten the Redis UI as a Single Page App which is the more suitable choice for an App like this as it provides a more
+    optimal and responsive UX by only loading the HTML page once on Startup then utilizes Ajax to only download and update 
+    the incremental parts of the App's UI that needs changing.
+</p>
+
+<p>
+    Instead of using jQuery and server-side HTML this version has been rewritten to use <a href="https://vuejs.org">Vue</a>
+    where the UI has been extracted into isolated Vue components utilizing 
+    <a href="https://vuejs.org/v2/guide/components.html#X-Templates">Vue X-Templates</a> to render the App on the client where 
+    all Redis Vue's functionality is contained within the
+    <a href="https://github.com/sharp-apps/Redis/blob/master/index.html">Redis/app/index.html</a> page.     
+</p>
+
+<a href="http://redis.web-app.io"><img src="/assets/img/screenshots/redis.png" alt="Redis Vue WebApp Screenshot"></a>
+
+<h4>Simple Vue App</h4>
+
+<p>
+    <em>#Script</em> also provides a great development experience for Single Page Apps which for the most part gets out of your way letting you 
+    develop the Single Page App as if it were a static <em>.html</em> file, but also benefits from the flexibility of a 
+    dynamic web page when needed. 
+</p>
+<p>
+    The containing <a href="https://github.com/sharp-apps/Redis/blob/master/_layout.html">_layout.html</a>
+    page can be separated from the <a href="https://github.com/sharp-apps/Redis/blob/master/index.html">index.html</a> page 
+    that contains the App's functionality, where it's able to extract the <em>title</em> of the page and embed it in the 
+    HTML <em>&lt;head/&gt;</em> as well as embed the page's <em>&lt;script /&gt;</em> in its optimal location at the bottom of the 
+    HTML <em>&lt;body/&gt;</em>, after the page's blocking script dependencies:
+</p>
+
+{{ 'gfm/sharp-apps/07.md' |> githubMarkdown }}
+
+<p>
+    Redis Vue avoids the complexity of adopting a npm build system by referencing Vue libraries as a simple script include:
+</p>
+
+<pre class="html"><code>&lt;script src="../assets/js/vue{{ pass: '.min' |> if(!debug) }}.js"&gt;</script></code></pre>
+
+<p>
+    Where it uses the more verbose and developer-friendly 
+    <a href="https://github.com/sharp-apps/Redis/blob/master/assets/js/vue.js">vue.js</a>
+    during development whilst using the production optimized 
+    <a href="https://github.com/sharp-apps/Redis/blob/master/assets/js/vue.min.js">vue.min.js</a>
+    for deployments. So despite avoiding the complexity tax of an npm-based build system it still gets some of its benefits
+    like conditional deployments and effortless <a href="/docs/hot-reloading">hot reloading</a>.
+</p>
+
+<h4>Server Pages</h4>
+
+<p>
+    Whilst most of <a href="https://github.com/sharp-apps/Redis/blob/master/index.html">index.html</a> is a static Vue 
+    app, <em>#Script</em> is leveraged to generate the body of the <em>&lt;redis-info/&gt;</em> Component on the initial home page render:
+</p>
+
+{{ 'gfm/sharp-apps/08.md' |> githubMarkdown }}
+
+<p>
+    This technique increases the time to first paint by being able to render the initial Vue page without waiting for an Ajax call response
+    whilst benefiting from improved SEO from server-generated HTML.
+</p>
+
+<h4>Server Handling</h4>
+
+<p>
+    Another area <em>#Script</em> is used is to handle the HTTP POST where it calls the <em>redisChangeConnection</em> filter to change 
+    the current Redis connection before rendering the 
+    <a href="https://github.com/sharp-apps/Redis/blob/master/connection-info.html">connection-info.html</a> partial with the 
+    current connection info:
+</p>
+
+{{ 'gfm/sharp-apps/09.md' |> githubMarkdown }}
+
+<h4>Vue Ajax Server APIs</h4>
+
+<p>
+    All other Server functionality is invoked by Vue using Ajax to call one of the Ajax APIs below implemented as 
+    <a href="/docs/sharp-apis">API Pages</a>:
+</p>
+
+<h5><a href="https://github.com/sharp-apps/Redis/blob/master/api/search.html">search.html</a></h5>
+
+<p>
+    Called when searching for Redis keys where the query is forwarded to the <em>redisSearchKeys</em> filter:
+</p>
+
+{{ 'gfm/sharp-apps/10.md' |> githubMarkdown }}
+
+<h5><a href="https://github.com/sharp-apps/Redis/blob/master/api/call.html">call.html</a></h5>
+
+<p>
+    Called to execute an arbitrary Redis command on the connected instance, with the response from Redis is returned as a 
+    plain-text HTTP Response:
+</p>
+
+{{ 'gfm/sharp-apps/11.md' |> githubMarkdown }}
+
+<p>
+    The benefits of using API Pages instead of a normal C# Service is being able to retain Web App's productive development workflow
+    where the entire Redis Vue App is built without requiring any compilation.
+</p>
+
+<h3>Deep linking and full page reloads</h3>
+
+<p>
+    The Redis Vue Single Page App also takes advantage of HTML5's <em>history.pushState</em> API to enable deep-linking and back-button
+    support where most UI state changes is captured on the query string and used to initialize the Vue state on page navigation or
+    full-page reloads where it provides transparent navigation and back-button support that functions like a traditional Web App but with 
+    the instant performance of a Single Page App.
+</p>
+
+{{ "apps-links" |> partial({ order }) }}

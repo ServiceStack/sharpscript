@@ -761,3 +761,9 @@
 .gfm .vg { color: #dd7700 } /* Name.Variable.Global */
 .gfm .vi { color: #3333bb } /* Name.Variable.Instance */
 .gfm .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+/* Custom */
+
+.gfm blockquote p {
+  padding: .5em 0;
+}

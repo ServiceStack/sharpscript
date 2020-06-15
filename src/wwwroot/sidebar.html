@@ -12,6 +12,15 @@
     </li>
 
     <li>
+        <h5>sharp apps</h5>
+        <ul>
+            {{#each appsLinks}}
+            <li {{ {active: matchesPathInfo(Key)} |> htmlClass }}><a href="{{Key}}">{{Value}}</a></li>
+            {{/each}}
+        </ul>
+    </li>
+
+    <li>
         <h5>code</h5>
         <ul>
             {{#each codeLinks}}

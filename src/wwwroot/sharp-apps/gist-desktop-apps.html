@@ -1,0 +1,488 @@
+<!--
+title: Gist Desktop Apps
+order: 1
+-->
+
+{{#markdown}}
+[Sharp Apps](https://sharpscript.net/docs/sharp-apps) can also be published to Gists where they can be <b>run on-the-fly without installation</b>, 
+they're always up-to-date, have tiny footprints that are fast to download and launch, that can also run locally, off-line and cross-platform across
+Windows, macOS and Linux OS's.
+
+To recap [Sharp Apps](https://sharpscript.net/docs/sharp-apps) enable a dramatically simplified and productive workflow where
+entire Apps can be **developed in a real-time without compilation** using a [JavaScript inspired syntax](https://sharpscript.net/docs/syntax)
+and access to a [comprehensive default library](https://sharpscript.net/docs/scripts-reference) including built-in support 
+for the [most popular RDBMS's](https://sharpscript.net/docs/sharp-apps#multi-platform-configurations), 
+[Redis](https://sharpscript.net/docs/redis-scripts), AWS, and Azure that can be further extended with support for
+[plugins](https://sharpscript.net/docs/sharp-apps#plugins).
+
+### Windows .NET Core Desktop Apps
+
+Major disadvantages to developing Desktop Apps today include limitations in available UI frameworks not being as flexible and feature-rich
+as modern browser rendering engines, slow development/iteration times, large downloads, forced upfront installations, stale versions, 
+and cumbersome upgrades - resulting in both increased cost to develop Desktop Apps and reduced accessibility and potential popularity with 
+the additional barrier to entry of forced installations.
+
+[Electron](https://electronjs.org/) resolves some of these issues and has seen a surge of popularity vs Native Apps with its more productive web development model
+and partial support for auto updating, but it still requires a large download and upfront installation.
+
+#### Tiny Footprint
+
+By contrast, the majority of the download size of Sharp Apps is in the local .NET Core installation and [app](https://docs.servicestack.net/netcore-windows-desktop) 
+dotnet tool which are **shared by all Sharp Apps**, only the app-specific web assets and `#Script` source files need to be downloaded, making
+them a lot smaller and quicker to download (and run instantly). 
+
+They can even be further reduced by utilizing the resources embedded into **[ServiceStack](https://docs.servicestack.net/)** like the built-in 
+[SVG images](https://docs.servicestack.net/svg) and stylesheet and `/css/bootstrap.css`, which many Sharp Apps take advantage of to reduce their footprint.
+
+### Running Gist Desktop Apps
+
+If you haven't already, install the [app](https://docs.servicestack.net/netcore-windows-desktop) dotnet tool which is the 
+**only app required** to run **all Gist and Sharp Desktop Apps**:
+
+    $ dotnet tool install -g app
+
+<iframe width="896" height="525" src="https://www.youtube.com/embed/FlKeaav0gt8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+> OSX or Linux users can run Sharp Apps with the cross-platform [x](https://docs.servicestack.net/dotnet-tool) dotnet tool instead
+
+Now everyone can launch a Windows Desktop Sharp App by specifying the name of the App they want to open with:
+
+    $ app open redis    
+
+#### redis
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-redis.png)
+
+### Instant Run Without Installation
+
+This searches the [global App registry](https://gist.github.com/gistlyn/802daba52b6fe6e2ed1430348dc596cb) for the link to the 
+App, and in this case launches the Redis Sharp App within a Chromium Desktop shell as seen above.
+
+The list of available apps is also visible from the command-line with:
+
+    $ app open
+
+    1. redis       Simple, lightweight, versatile Redis Admin UI                            by @ServiceStack
+    2. spirals     Explore and generate different Spirals with SVG                          by @ServiceStack
+    3. blog        Minimal, multi-user Twitter Auth blogging app                            by @ServiceStack
+    4. rockwind    Example combining Rockstars website + data-driven Northwind Browser      by @ServiceStack
+    5. redis-html  Redis Admin Viewer developed as server-generated HTML Website            by @sharp-apps
+    6. plugins     Extend Apps with Plugins, ServiceStack Services and other C# extensions  by @sharp-apps
+    7. chat        Extensible App with custom AppHost using OAuth + SSE for real-time Chat  by @sharp-apps
+
+### Run Apps From URLs
+
+Publishing your App to the [global registry](https://gist.github.com/gistlyn/802daba52b6fe6e2ed1430348dc596cb) makes it more
+accessible via a friendly name, but if you don't want your App shared publicly or want to test it before publishing,
+it can also be run directly from a **Gist URL**, **Gist Id**, **GitHub Repo** or **Release .zip Archive**, e.g:
+
+    $ app open https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8
+    $ app open 189cd72bfaf480526e4b34814c80f2c0
+    $ app open https://github.com/sharp-apps/redis
+    $ app open https://github.com/sharp-apps/plugins/archive/v5.zip
+
+Local Sharp Apps can simply run `app` in the Sharp Apps directory:
+
+    $ app
+
+### Cross Platform
+
+If you're using macOS or Linux you can run all Sharp Apps using the cross-platform [x](https://docs.servicestack.net/dotnet-tool) dotnet tool where it will launch
+in your preferred Web Browser instead:
+
+    $ x open redis    
+
+> Every `app` command is substitutable with `web` to run it within your preferred browser in Windows, macOS or Linux
+
+### Always Up-To-Date
+
+Another unique characteristic of Sharp Apps launched with `open` is that they **always run the latest version** of the App, thereby avoiding the need to implement an Update feature or maintain patch release versions.
+
+### Run Apps Offline
+
+When Apps are launched with `open`, a folder is created in the Users `.sharp-apps` directory, e.g:
+
+    $HOME\.sharp-apps\redis
+
+This is the current directory that the App is run from and where any files created by Apps will be saved to and preserved across App runs.
+
+For **Gist Apps this is an empty folder** as the Gist files are loaded into memory, however to support being able to run Apps offline
+it also serializes all Gist files (after fetching all truncated files) to JSON at:
+
+    $HOME\.sharp-apps\redis.gist
+
+This is so after Apps **are launched once** with `open`, they can then be **run locally** with:
+
+    $ app run redis
+
+Which will load the Gist files from the serialized **redis.gist** JSON blob instead of downloading them from the gist on GitHub.  This is useful for times you don't have an Internet connection, or GitHub is down. However as small Apps like **redis** start instantly,
+it's preferred to run them with `app open redis` so you're always running the latest version.
+
+### Run Local Modified Versions Of Existing Sharp Apps
+
+Installing or running a Sharp App will install it in the `$HOME\.sharp-apps\` folder but if you want to make changes to it, it's easier
+to install it in a local directory. For Sharp Apps published in a GitHub Repo you can either clone the repo or use the dotnet tools to
+install it from the command-line with the `new` command to specify the Repo you want to download and the `-source` parameter to specify
+which GitHub User or Organization. 
+
+E.g. you can install [https://github.com/sharp-apps/redis](https://github.com/sharp-apps/redis) with:
+
+    $ app new redis -source sharp-apps
+
+Where you can open it in a text editor like VS Code:
+
+    $ code redis
+
+And run it in the VS Code terminal window, which during development you'll likely want to run it with your preferred Web Browser to access its Dev tools:
+
+    $ app
+
+Then you'll be able to make changes to the App whilst it's running to see any changes in real-time.
+
+#### Gist Apps
+
+To modify Gist Apps you can use the [mix dotnet tool](https://docs.servicestack.net/mix-tool) to download a Gist files contents.  
+For example, you can download the **redis** Gist App with:
+
+    $ app mix https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8
+
+#### Uninstall Apps
+
+As Gist Apps are downloaded on-the-fly and loaded into memory there's not much to uninstall just an empty folder and a `<app-name>.gist`
+JSON blob which you can either manually delete or get the dotnet tool to do it for you.
+
+To view all App's you've opened, run:
+
+    $ app uninstall
+
+This displays a list of Sharp App's you've run at least once:
+
+    Usage: app uninstall <app>
+
+    Installed Apps:
+    blog
+    chat
+    plugins
+    redis
+    rockwind
+    spirals
+
+To delete all traces of the `redis` App from your system, run:
+
+    $ app uninstall redis
+
+Which removes the empty `$HOME\.sharp-apps\redis` folder and `$HOME\.sharp-apps\redis.gist`.
+
+### Gist Sharp Apps
+
+If we peek into the [markdown of app.md](https://gist.githubusercontent.com/gistlyn/802daba52b6fe6e2ed1430348dc596cb/raw/2b90536198e14fb0e3494bc5f89dbc55c72c8e88/apps.md) we can see the different ways Sharp Apps can be hosted, 
+for **redis** we see that the entire App is [published in a Gist](https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8):
+
+    - [redis](https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8) 
+
+Thanks to ServiceStacks' [GistVirtualFiles support](https://docs.servicestack.net/virtual-file-system), Gist Apps were trivial to support which only required launching
+the ServiceStack App with a configured `GistVirtualFiles` that references the **redis** Gist, i.e:
+
+    appHost.InsertVirtualFileSources.Add(new GistVirtualFiles("6de7993333b457445793f51f6f520ea8"));
+
+Hosting Apps in Gists provides numerous benefits: predominantly they're effectively a free, public, distributed app host which are
+tied to Authenticated GitHub Accounts and have a public version history of every commit so each change is visible.
+
+GitHub also provides both a Web UI and HTTP UI to manage gists making them easy to modify, both manually and programmatically where
+you can use their Web UI to make a quick fix - which is instantly available the next time the app is launched. 
+
+We've already had quick look at the **redis** Gist App that provides a nice UI for querying and editing a Redis instance
+(an example of an App that can't be implemented as a website). Let's have a look at some other Gist Apps that are well suited 
+for development as Sharp Apps:
+
+#### Spirals
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-spirals.png)
+
+Open with:
+
+    $ app open spirals
+
+Spirals in an example of a minimally useful App to explore and generate different spirals with SVG that showcases the productivity and 
+live Development experience of Sharp Apps where you can create an App from scratch with just a text editor and the `web` tool, without
+a single re-compile or app restart:
+
+<iframe width="896" height="525" src="https://www.youtube.com/embed/Cf-vstYXrmY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+### Publishing Gist Apps
+
+Now that we've created an App, it's time to publish it to a Gist. To do this we need to 
+[create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) with the **gist**
+permission so it's able to create gists.
+
+You can provide your access token via the `-token` command-line argument:
+
+    $ app publish -token {GITHUB_TOKEN}
+
+But **our recommendation** is instead to set it in the `GITHUB_GIST_TOKEN` Environment Variable to avoid needing to provide it each time.
+
+Before publishing our App, our **app.settings** looks something like:
+
+    debug true
+    name Spirals
+    CefConfig { width:1100, height:900 }
+
+Then in your App's home directory (containing the **app.settings**), run:
+
+    $ app publish
+
+This creates a new Gist with your App and is confirmed by a successful response:
+
+    App published to: https://api.github.com/gists/4e06df1f1b9099526a7c97721aa7f69c
+
+    Publish App to the public registry by re-publishing with app.settings:
+
+    appName     <app alias>    # required: alpha-numeric snake-case characters only, 30 chars max
+    description <app summary>  # optional: 20-150 chars
+    tags        <app tags>     # optional: space delimited, alpha-numeric snake-case, 3 tags max
+
+It also modifies your `app.settings` to include the gist that your App was published to:
+
+    debug true
+    name Spirals
+    CefConfig { width:1100, height:900 }
+    publish https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+
+Containing the location your App will be published to in the future.
+
+At this point anyone will now be able to run your App locally with the link it's published to:
+
+    $ app open https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+
+Or using just the **gist id**:
+
+    $ app open 4e06df1f1b9099526a7c97721aa7f69c
+
+Or you can give it a friendlier name and make it more discoverable by publishing it to the global App Directory
+by updating your app.settings to include **appName**, **description** and **tags** settings, e.g:
+
+    debug true
+    name Spirals
+    CefConfig { width:1100, height:900 }
+    publish https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+    appName spirals
+    description Explore and generate different Spirals with SVG
+    tags svg
+
+Now when you re-publish your App:
+
+    $ app publish
+
+It will update your Apps gist, register **spirals** with the App directory and output the command everyone will be able to run your App with:
+
+    App updated at: https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+
+    Run published App:
+
+        app open spirals
+
+Users that are not on Windows can use the `web` tool instead to launch your App in their preferred browser:
+
+    $ x open spirals
+
+With its built-in publishing support, you can **create an App from scratch, publish it to a gist, register it in the App directory** - 
+where your creations are ready for the world to use **in minutes!**
+
+We are not aware of any other Desktop App solution that comes close to this level of turn around time.
+
+#### Blog
+
+Spirals are cool, but lets explore some more useful real-world Apps:
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-blog.png)
+
+Open with:
+
+    $ app open blog
+
+**blog** is an sqlite-powered multi-user blogging system, that in addition to supporting Markdown, also lets you use `#Script` in your 
+posts so you're able to post **"live executable documents"** that can mix both content and executable scripts.
+
+As we envisage sqlite to a popular storage option we'll go through a couple of ways to make use of it in Gist Apps as your Apps
+Gist files are read-only and loaded in memory where as SQLite is on disk.
+
+To configure your App to use SQLite, add **db sqlite** and **db.connection dbname.sqlite** to:
+
+#### [app.settings](https://gist.github.com/gistlyn/ddc064f62cafc91ead200552d9d8ad89#file-app-settings)
+
+    debug false
+    name Blog Web App
+    db sqlite
+    db.connection blog.sqlite
+
+This will create an empty file at `$HOME\.sharp-apps\blog\blog.sqlite` when your App is first launched.
+
+You can then create your DB Schema and populate your database using [Database Scripts](https://sharpscript.net/docs/db-scripts)
+in a file called `_init.html` which is executed just before your App is launched.
+
+The **blog** App uses this approach for creating its' database and populating it with initial seed data if the database is empty, e.g:
+
+#### [_init.html](https://gist.github.com/gistlyn/ddc064f62cafc91ead200552d9d8ad89#file-_init-html)
+
+    {{  `CREATE TABLE IF NOT EXISTS "Post" 
+        (
+            "Id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+            "Slug" VARCHAR(8000) NULL, 
+            "Title" VARCHAR(8000) NULL, 
+            "Content" VARCHAR(8000) NULL, 
+            "Created" VARCHAR(8000) NOT NULL, 
+            "CreatedBy" VARCHAR(8000) NOT NULL, 
+            "Modified" VARCHAR(8000) NOT NULL,
+            "ModifiedBy" VARCHAR(8000) NOT NULL 
+        );
+        
+        CREATE TABLE IF NOT EXISTS "UserInfo" 
+        (
+            "UserName" VARCHAR(8000) PRIMARY KEY, 
+            "DisplayName" VARCHAR(8000) NULL, 
+            "AvatarUrl" VARCHAR(8000) NULL, 
+            "AvatarUrlLarge" VARCHAR(8000) NULL, 
+            "Created" VARCHAR(8000) NOT NULL,
+            "Modified" VARCHAR(8000) NOT NULL
+        );` 
+        
+        |> dbExec
+    }}
+
+    {{ dbScalar(`SELECT COUNT(*) FROM Post`) |> to => postsCount }}
+
+    {{#if postsCount == 0 }}
+
+        {{ `datetime(CURRENT_TIMESTAMP,'localtime')` |> to => sqlNow }}
+        {{ `ServiceStack`                            |> to => user }}
+
+        ========================
+        Create ServiceStack User - Contains same info as if was @ServiceStack authenticated via Twitter
+        ========================
+
+        {{ `INSERT INTO UserInfo (UserName, DisplayName, AvatarUrl, AvatarUrlLarge, Created, Modified) 
+                        VALUES (@user, @user, @avatarUrl, @avatarUrlLarge, ${sqlNow}, ${sqlNow})`
+            |> dbExec({ 
+                user: 'ServiceStack', 
+                avatarUrl: 'https://pbs.twimg.com/profile_images/876249730078056448/JuTVEkWX_normal.jpg',
+                avatarUrlLarge: 'https://pbs.twimg.com/profile_images/876249730078056448/JuTVEkWX.jpg'
+            }) 
+        }}
+
+        ...
+        
+    {{/if}}
+
+The next time the `blog` App is run it uses the existing `$HOME\.sharp-apps\blog\blog.sqlite` and skips populating the database above.
+
+#### rockwind
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-rockwind.png)
+
+**Querying Embedded Northwind SQLite Database:**
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-rockwind2.png)
+
+Open with:
+
+    $ app open rockwind
+
+Rockwind is an example of a larger (60+ files) multi-versatile App of hybrid content, data driven App with a UI and Web API 
+over northwind tables that also combines multiple different layouts in a single App. 
+
+Its data-driven Web UI and Web API requires the northwind database which is included in the gist as `northwind.readonly.sqlite`
+then in the init script it saves a copy to **northwind.sqlite** if it doesn't already exist:
+
+#### [_init.html](https://gist.github.com/gistlyn/0148c87e154fb4731c7fa6219375d989#file-_init-html)
+
+    vfsFileSystem('.') |> to => fs
+
+    #if !fs.fileExists('northwind.sqlite') || fs.file('northwind.sqlite').Length == 0
+        fs.writeFile('northwind.sqlite', file('northwind.readonly.sqlite'))
+    /if
+
+rockwind contains a number of other hidden useful gems like how easy it is to create multi-linked query reports:
+
+#### [northwind\order-report\_id.html](https://gist.github.com/gistlyn/0148c87e154fb4731c7fa6219375d989#file-northwind-order-report-_id-html)
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-rockwind3.png)
+
+As well as a dynamic SQL Studio UI that re-queries as-you-type:
+
+#### [northwind\sql\index.html](https://gist.github.com/gistlyn/0148c87e154fb4731c7fa6219375d989#file-northwind-sql-api-html)
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-rockwind4.png)
+
+### GitHub Sharp Apps
+
+Up to this point we've only seen running Sharp Apps from Gists, but they can also be run from traditional GitHub repos as we can
+see from the **chat** App which links to its repo:
+
+    - [chat](https://github.com/sharp-apps/chat)
+
+The difference between Gist an GitHub Repo Apps is that GitHub repos need to be installed before they're run. 
+When you run a GitHub Repo App with `open`, e.g:
+
+    $ app open chat
+
+It downloads the repo archive (either the last released version or current master archive), extracts its contents to the Apps
+`$HOME\.sharp-apps\chat` folder then runs it as a traditional Web App where its files are maintained on disk.
+
+As this process takes a little longer to start than Gist Apps you may prefer to use `run` for subsequent App runs:
+
+    $ app run chat
+
+Where it will run it from disk, whereas `open` will nuke the existing install, re-download the archive and extract it again before launching.
+
+For GitHub Repo apps, `open` is equivalent to re-running `install` and `run` each time:
+
+    $ app install chat
+    $ app run chat
+
+### GitHub Sharp App Commands
+
+Whilst they work differently, `open`, `install`, `run` and `uninstall` have the **same behavior** for both Gist and GitHub Repo Apps, i.e:
+
+  - `open` - Always run the latest version of the App
+  - `install` - Download the App only so it can be run offline
+  - `run` - Run the locally downloaded App
+  - `uninstall` - Remove all traces of previously installed or opened Apps
+
+#### chat
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-chat.png)
+
+Open with:
+
+    $ app open chat
+
+
+**[chat](https://sharpscript.net/docs/sharp-apps#chat)** is an example of the ultimate form of extensibility where instead of just being able to add Services, Filters and Plugins, you can add your entire AppHost which Sharp Apps will use instead of its own. This vastly expands the use-cases that can be built with Sharp Apps as it gives you complete fine-grained control over exactly how your App is configured.
+
+#### Plugins
+
+The last packaging option supported for running Sharp Apps is being able to link to a specific GitHub Release version of your App, e.g:
+
+    - [plugins](https://github.com/sharp-apps/plugins/archive/v5.zip)
+
+Which will ensure you're always running the same version of the App which is useful in being able to easily run and compare different App versions
+or be able to support beta releases of your App that you don't want everyone to use yet.
+
+![](https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-plugins.png)
+
+Open with:
+
+    $ app open plugins
+
+**[plugins](https://sharpscript.net/docs/sharp-apps#plugins)** showcases the easy extensibility of Sharp Apps which allow "no touch" sharing of 
+[ServiceStack Plugins](https://docs.servicestack.net/plugins), [Services](https://docs.servicestack.net/create-your-first-webservice), 
+[Script Methods](http://sharpscript.net/docs/methods), [Sharp Code Pages](http://sharpscript.net/docs/code-pages) and 
+[Validators](https://docs.servicestack.net/validation) contained within **.dll's** or **.exe's** dropped in a Sharp Apps 
+[/plugins](https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/plugins/plugins) folder which are auto-registered 
+on startup. The source code for all plugins used in this App were built from the .NET Core 3.1 projects in the
+[example-plugins](https://github.com/ServiceStack/dotnet-app/tree/master/src/example-plugins) folder. 
+
+{{/markdown}}
+
+
+{{ "apps-links" |> partial({ order }) }}

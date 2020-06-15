@@ -94,6 +94,15 @@ namespace SharpScript
                     }
                 }
 
+                foreach (var file in files.GetDirectory("sharp-apps").GetAllMatchingFiles("*.html"))
+                {
+                    var page = feature.GetPage(file.VirtualPath).Init().Result;
+                    if (page.Args.TryGetValue("order", out object order) && page.Args.TryGetValue("title", out object title))
+                    {
+                        customFilters.AppsIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
+                    }
+                }
+
                 foreach (var file in files.GetDirectory("scode").GetAllMatchingFiles("*.html"))
                 {
                     var page = feature.GetPage(file.VirtualPath).Init().Result;
@@ -102,7 +111,6 @@ namespace SharpScript
                         customFilters.CodeIndex[int.Parse((string)order)] = new KeyValuePair<string,string>(GetPath(file.VirtualPath), (string)title);
                     }
                 }
-
 
                 foreach (var file in files.GetDirectory("lisp").GetAllMatchingFiles("*.html"))
                 {

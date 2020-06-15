@@ -1,0 +1,81 @@
+<!--
+title: App - Blog
+order: 8
+-->
+
+<div class="source">
+    <em>x open blog</em> -
+    <a href="http://blog.web-app.io">blog.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/Blog">sharp-apps/Blog</a>
+</div>
+
+{{ 'gfm/sharp-apps/14.md' |> githubMarkdown }}
+
+<h3 id="customizable-auth-providers">Customizable Auth Providers</h3>
+
+<p>
+    Authentication can now be configured using plain text config in your <em>app.settings</em> where initially you need register the <em>AuthFeature</em> 
+    <a href="http://sharpscript.net/docs/sharp-apps#registering-servicestack-plugins">plugin as normal</a> by specifying it in the 
+    <em>features</em> list:
+</p>
+
+<pre><code>features AuthFeature</code></pre>
+
+<p>
+    Then using <em>AuthFeature.AuthProviders</em> you can specify which Auth Providers you want to have registered, e.g:
+</p>
+
+<pre><code>AuthFeature.AuthProviders TwitterAuthProvider, GithubAuthProvider</code></pre>
+
+<p>
+    Each Auth Provider checks the Sharp Apps <em>app.settings</em> for its Auth Provider specific configuration it needs, e.g. to configure both 
+    Twitter and GitHub Auth Providers you would populate it with your 
+    <a href="https://docs.servicestack.net/authentication-and-authorization#oauth-configuration">OAuth Apps details</a>:
+</p>
+
+<pre><code>oauth.RedirectUrl http://127.0.0.1:5000/
+oauth.CallbackUrl http://127.0.0.1:5000/auth/{0}
+
+oauth.twitter.ConsumerKey {Twitter App Consumer Key}
+oauth.twitter.ConsumerSecret {Twitter App Consumer Secret Key}
+
+oauth.github.ClientId {GitHub Client Id}
+oauth.github.ClientSecret {GitHub Client Secret}
+oauth.github.Scopes {GitHub Auth Scopes}</code></pre>
+
+<h3 id="customizable-markdown-providers">Customizable Markdown Providers</h3>
+
+<p>
+    By default Sharp Apps now utilize <a href="https://github.com/lunet-io/markdig">Markdig</a> implementation to render its Markdown. 
+    You can also switch it back to the built-in Markdown provider that ServiceStack uses with:
+</p>
+
+<pre><code>markdownProvider MarkdownDeep</code></pre>
+
+<h3 id="rich-config-arguments">Rich Config Arguments</h3>
+
+<p>
+    Any <em>app.settings</em> configs that are prefixed with <em>args.</em> are made available to #Script Pages and any arguments starting with 
+    a <em>{</em> or <em>[</em> are automatically converted into a JS object:
+</p>
+
+<pre><code>args.blog { name:'blog.web-app.io', href:'/' }
+args.tags ['technology','marketing']</code></pre>
+
+<p>
+    Where they can be referenced as an <em>object</em> or an <em>array</em> directly:
+</p>
+
+{{#raw appendTo configExample}}<a href="{{blog.href}}">{{blog.name}}</a>{{/raw}}
+
+<pre><code class="html">{{#raw}}{{#each tags}} <em>{{it}}</em> {{/each}}{{/raw}}<br>{{configExample}}</code></pre>
+
+<p>
+    The alternative approach is to give each argument value a different name:
+</p>
+
+<pre><code>args.blogName blog.web-app.io
+args.blogHref /
+</code></pre>
+
+{{ "apps-links" |> partial({ order }) }}

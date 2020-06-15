@@ -1,0 +1,352 @@
+<!--
+title: App - Rockwind
+order: 5
+-->
+
+<div class="source">
+    <em>x open rockwind</em> -
+    <a href="http://rockwind-sqlite.web-app.io">rockwind-sqlite.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/Rockwind">sharp-apps/Rockwind</a>
+</div>
+
+<p>
+    The Rockwind website shows an example of combining multiple websites in a single Web App - a 
+    <b><em>Rock</em>stars</b> Content Website and a dynamic data-driven UI for the <b>North<em>wind</em></b> database which can 
+    run against either SQL Server, MySql or SQLite database using just configuration. It also includes 
+    <a href="/docs/sharp-apis">API Pages</a> examples for rapidly developing Web APIs.
+</p>
+
+<h4>Rockstars</h4>
+
+<p>
+    <a href="https://github.com/sharp-apps/Rockwind/tree/master/rockstars">/rockstars</a> is an 
+    example of a Content Website that itself maintains multiple sub sections with their own layouts -
+    <a href="https://github.com/sharp-apps/Rockwind/tree/master/rockstars/alive">/rockstars/alive</a> 
+    for living Rockstars and 
+    <a href="https://github.com/sharp-apps/Rockwind/tree/master/rockstars/dead">/rockstars/dead</a>
+    for the ones that have died. Each Rockstar maintains their own encapsulated
+    <a href="https://github.com/sharp-apps/Rockwind/tree/master/rockstars/alive/grohl">mix of HTML, markdown content and splash image</a>
+    that intuitively uses the closest <em>_layout.html</em>, <em>content.md</em> and <em>splash.jpg</em> from the page they're
+    referenced from. This approach makes it easy to move entire sub sections over by just moving a folder and it will automatically
+    use the relevant layout and partials of its parent.
+</p>
+
+<a href="http://rockwind-sqlite.web-app.io"><img src="/assets/img/screenshots/rockwind.png" alt="Rockwind WebApp screenshot"></a>
+
+<h4>Northwind</h4>
+
+<p>
+    <a href="https://github.com/sharp-apps/Rockwind/tree/master/northwind">/northwind</a> is an example of 
+    a dynamic UI for a database containing a 
+    <a href="http://rockwind-sqlite.web-app.io/northwind/customers?country=Germany">form to filter results</a>, multi-nested 
+    <a href="http://rockwind-sqlite.web-app.io/northwind/customer?id=ALFKI">detail pages</a> and 
+    <a href="http://rockwind-sqlite.web-app.io/northwind/order?id=10643">deep-linking</a> for quickly navigating between 
+    referenced data. <em>#Script</em> is also a great solution for rapidly developing Web APIs where the 
+    <a href="https://github.com/sharp-apps/Rockwind/blob/master/api/customers.html">/api/customers.html</a>
+    API Page below:
+</p>
+
+{{ 'gfm/sharp-apis/02.md' |> githubMarkdown }}
+
+<p>
+    Is all the code needed to generate the following API endpoints:
+</p>
+
+<style>
+    th:first-child {
+        text-align: right;
+    }
+</style>
+
+<table class="table table-striped">
+    <tr class="bg-success">
+        <td colspan="2" style="text-align:center;color:#fff;font-size:1.5rem">/customers API</td>
+    </tr>
+    <tr>
+        <th>All Customers</th>
+        <td>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers">/api/customers</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.csv">/api/customers.csv</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.html">/api/customers.html</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers?format=html">/api/customers?format=html</a></div>
+            <div style="margin:5px 0 0 0;color:#888;font-size:13px"><b>Accept</b> HTTP Header also supported</div>
+        </td>
+    </tr>
+    <tr>
+        <th>Alfreds Futterkiste Details</th>
+        <td>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers/ALFKI">/api/customers/ALFKI</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers/ALFKI.csv">/api/customers/ALFKI.csv</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers/ALFKI.html">/api/customers/ALFKI.html</a></div>
+        </td>
+    </tr>
+    <tr>
+        <th>As List</th>
+        <td>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers?id=ALFKI">/api/customers?id=ALFKI</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.csv?id=ALFKI">/api/customers.csv?id=ALFKI</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.html?id=ALFKI">/api/customers.html?id=ALFKI</a></div>
+        </td>
+    </tr>
+    <tr>
+        <th>Customers in Germany</th>
+        <td>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers?country=Germany">/api/customers?country=Germany</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.csv?country=Germany">/api/customers.csv?country=Germany</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.html?country=Germany">/api/customers.html?country=Germany</a></div>
+        </td>
+    </tr>
+    <tr>
+        <th>Customers in London</th>
+        <td>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers?city=London">/api/customers?city=London</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.csv?city=London">/api/customers.csv?city=London</a></div>
+            <div><a href="http://rockwind-sqlite.web-app.io/api/customers.html?city=London">/api/customers.html?city=London</a></div>
+        </td>
+    </tr>    
+    <tr>
+        <th>Combination Query</th>
+        <td>
+            <a href="http://rockwind-sqlite.web-app.io/api/customers?city=London&amp;country=UK&amp;limit=3">/api/customers?city=London&amp;country=UK&amp;limit=3</a>
+        </td>
+    </tr>
+</table>
+
+<h4>Multi platform configurations</h4>
+
+<p>
+    In addition to being a .NET Core 3.1 App that runs flawlessly cross-platform on Windows, Linux and OSX, Sharp Apps can also support 
+    multiple RDBMS's and <a href="https://docs.servicestack.net/virtual-file-system">Virtual File Systems</a> using just configuration.
+</p>
+
+<h4 id="app-sqlite-settings">app.sqlite.settings</h4>
+
+<p>
+    SQLite uses a file system database letting you bundle your database with your App. So we can share the 
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps">northwind.sqlite</a> database across multiple Apps, 
+    the <em>contentRoot</em> is set to the <em>/apps</em> directory which can only be accessed by your App, whilst
+    the <em>webRoot</em> is configured to use the Sharp Apps folder that hosts all the publicly accessible files of your App.
+</p>
+
+<pre class="settings"><code>debug true
+name Rockwind SQLite Web App
+contentRoot ..
+webRoot .
+db sqlite
+db.connection ~/northwind.sqlite</code></pre>
+
+<p>
+    To run the Rockwind app using the <em>northwind.sqlite</em> database, run the command below on Windows, Linux or OSX: 
+</p>
+
+<pre class="sh"><code>x app.sqlite.settings</code></pre>
+
+<h5 id="app-sqlserver-settings">app.sqlserver.settings</h5>
+
+<p>
+    To switch to use the Northwind database in SQL Server we just need to update the configuration to point to a SQL Server database 
+    instance. Since the App no longer need access to the <em>northwind.sqlite</em> database, the <em>contentRoot</em> can be reverted 
+    back to the Sharp Apps folder:
+</p>
+
+<pre class="settings"><code>debug true
+name Rockwind SQL Server Web App
+port 5000
+db sqlserver
+db.connection Server=localhost;Database=northwind;User Id=test;Password=test;</code></pre>
+
+<p>
+    The <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/support/northwind-data">/support/northwind-data</a>
+    project lets you quickly try out Rockwind against your local RDBMS by populating it with a copy of the Northwind database
+    using the same <em>sqlserver</em> identifier and connection string from the App, e.g:
+</p>
+
+<pre class="sh"><code>dotnet run sqlserver "Server=localhost;Database=northwind;User Id=test;Password=test;"</code></pre>
+
+<h4 id="app-mysql-settings">app.mysql.settings</h4>
+
+<p>
+    You can run against a MySql database in the same way as SQL Server above but using a MySql db connection string:
+</p>
+
+<pre class="settings"><code>debug true
+name Rockwind MySql Web App
+port 5000
+db mysql
+db.connection Server=localhost;Database=northwind;UID=root;Password=test;SslMode=none</code></pre>
+
+<h4 id="app-azure-settings">app.azure.settings</h4>
+
+<p>
+    The example <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind/app.azure.settings">app.azure.settings</a>
+    Azure configuration is also configured to use a different Virtual File System where instead of sourcing 
+    Web App files from the filesystem they're sourced from an 
+    <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs">Azure Blob Container</a>.
+    In this case we're not using any files from the App so we don't need to set a <em>contentRoot</em> or <em>webRoot</em> path.
+    This also means that for deployment we're just deploying the WebApp binaries with just this <em>app.settings</em> since both the 
+    Web App files and database are sourced remotely.
+</p>
+
+<pre class="settings"><code># Note: values prefixed with '$' are resolved from Environment Variables
+debug false
+name Azure Blob SQL Server Web App
+bind *
+port 5000
+db sqlserver
+db.connection $AZURE_SQL_CONNECTION_STRING
+files azure
+files.config {ConnectionString:$AZURE_BLOB_CONNECTION_STRING,ContainerName:rockwind-fs}
+
+# Reduces a Blob Storage API call, but takes longer for modified pages to appear
+checkForModifiedPagesAfterSecs 60
+defaultFileCacheExpirySecs     60</code></pre>
+
+<p>
+    The <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/support/copy-files">/support/copy-files</a>
+    project lets you run Rockwind against your own Azure Blob Container by populating it with a copy of the 
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind">/rockwind</a> App's files using 
+    the same configuration above:
+</p>
+
+<pre class="sh"><code>dotnet run azure "{ConnectionString:$AZURE_BLOB_CONNECTION_STRING,ContainerName:rockwind}"</code></pre>
+
+<h4>Multi-RDBMS SQL</h4>
+
+<p>
+    As <em>#Script</em> is unable to use a Typed ORM like <a href="https://github.com/ServiceStack/ServiceStack.OrmLite">OrmLite</a>
+    to hide the nuances of each database, we need to be a bit more diligent in <em>#Script</em> to use parameterized SQL that works across 
+    multiple databases by using the 
+    <a href="/docs/scripts-reference?nameContains=sql&amp;tab=db-scripts"><em>sql*</em> DB Filters</a> to avoid using RDBMS-specific
+    SQL syntax. The 
+    <a href="https://github.com/sharp-apps/Rockwind/blob/master/northwind/customer.html">/northwind/customer.html</a>
+    contains a good example containing a number of things to watch out for:
+</p>
+
+{{ 'gfm/sharp-apps/01.md' |> githubMarkdown }}
+
+<p>
+    Use <em>sqlConcat</em> to concatenate strings using the RDBMS-specific SQL for the configured database. Likewise
+    <em>sqlCurrency</em> utilizes RDBMS-specific SQL functions to return monetary values in a currency format, whilst 
+    <em>sqlQuote</em> is used for quoting tables named after a reserved word.
+</p>
+
+<blockquote>
+    Of course if you don't intend on supporting multiple RDBMS's, you can ignore this and use RDBMS-specific syntax.    
+</blockquote>
+
+<h3>Rockwind VFS</h3>
+<div class="source">
+    <em>x open rockwind-aws</em> -
+    <a href="http://rockwind-aws.web-app.io">rockwind-aws.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/rockwind-aws">sharp-apps/rockwind-aws</a>
+</div>
+
+<p>
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind-vfs">/rockwind-vfs</a> is a clone of
+    the Rockwind Web App with 3 differences: It uses the <em>resolveAsset</em> filter for each <em>.js</em>, <em>.css</em> and 
+    <em>image</em> web asset so that it's able to generate external URLs directly to the S3 Bucket, Azure Blob Container or CDN 
+    hosting a copy of your files to both reduce the load on your Web App and maximize the responsiveness to the end user.    
+</p>
+
+<p>
+    To maximize responsiveness when using remote storage, all 
+    <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind-vfs/rockstars/alive/grohl/index.html">embedded files utilize caching</a>:
+</p>
+
+<pre class="tpl"><code>{{ pass: "content.md" |> includeFileWithCache |> markdown }}</code></pre>
+
+<p>
+    The other difference is that each table and column has been quoted in "double-quotes" so that it works in PostgreSQL which
+    otherwise treats unquoted symbols as lowercase. This version of Rockwind also works with SQL Server and SQLite as they also 
+    support <em>"Table"</em> quotes but not MySql which uses <em>`BackTicks`</em> or <em>[SquareBrackets]</em>. It's therefore
+    infeasible to develop Apps that support both PostgreSQL and MySql unless you're willing to use all <b>lowercase</b>, 
+    <b>snake_case</b> or the <em>sqlQuote</em> filter for every table and column.
+</p>
+
+<a href="http://rockwind-aws.web-app.io"><img src="/assets/img/screenshots/rockwind.png" alt="Rockwind VFS WebApp screenshot"></a>
+
+<h4>resolveAsset</h4>
+
+<p>
+    If using a remote file storage like AWS S3 or Azure Blob Storage it's a good idea to use the <em>resolveAsset</em> filter 
+    for each external file reference. By default it returns the same path it was called with so it will continue to work locally 
+    but then ServiceStack effectively becomes a proxy where it has to call the remote Storage Service for each requested download.
+</p>
+
+{{ 'gfm/sharp-apps/02.md' |> githubMarkdown }}
+
+<p>
+    ServiceStack asynchronously writes each file to the Response Stream with the last <em>Last-Modified</em> HTTP Header to 
+    enable browser caching so it's still a workable solution but for optimal performance you can specify an <em>args.assetsBase</em>
+    in your app.settings to populate the assetsBase <em>ScriptContext</em> Argument the <em>resolveAsset</em> filter uses to generate
+    an external URL reference to the file on the remote storage service, reducing the load and improving the performance of your App, 
+    especially if it's configured to use a CDN. 
+</p>
+
+<h4 id="pure-cloud-apps">Pure Cloud Apps</h4>
+
+<h5><a href="https://github.com/sharp-apps/rockwind-aws/blob/master/app/app.settings">rockwind-aws/app/app.settings</a></h5>
+
+<p>
+    The AWS settings shows an example of this where every external resource 
+    rockwind-aws.web-app.io has been replaced with a direct reference to the 
+    asset on the S3 bucket:
+</p>
+
+<pre class="settings"><code># Note: values prefixed with '$' are resolved from Environment Variables
+debug false
+name AWS S3 PostgreSQL Web App
+db postgres
+db.connection $AWS_RDS_POSTGRES
+files s3
+files.config {AccessKey:$AWS_S3_ACCESS_KEY,SecretKey:$AWS_S3_SECRET_KEY,Region:us-east-1,Bucket:rockwind}
+args.assetsBase http://s3-postgresql.s3-website-us-east-1.amazonaws.com/
+
+# Reduces an S3 API call, but takes longer for modified pages to appear
+checkForModifiedPagesAfterSecs 60
+defaultFileCacheExpirySecs     60</code></pre>
+
+<p>
+    With all files being sourced from S3 and the App configured to use AWS RDS PostgreSQL, the AWS settings is an example of 
+    a <b>Pure Cloud App</b> where the entire App is hosted on managed cloud services that's decoupled from the .NET Core 3.1 binary 
+    that runs it that for the most part won't require redeploying the Web App binary unless making configuration changes or 
+    upgrading the <a href="https://docs.servicestack.net/dotnet-tool">x</a> dotnet tool
+    as any App changes can just be uploaded straight to S3 which changes reflected within the
+    <em>checkForModifiedPagesAfterSecs</em> setting, which tells the Web App how long to wait before checking for file changes
+    whilst <em>defaultFileCacheExpirySecs</em> specifies how long to cache files like <em>content.md</em> for.
+</p>
+
+<h5><a href="https://github.com/sharp-apps/rockwind-aws/blob/master/Dockerfile">DockerFile</a></h5>
+
+<p>
+    Deployments are also greatly simplified as all that's needed is to deploy the WebApp binary and app.settings of your Cloud App,
+    e.g. here's the DockerFile for rockwind-aws.web-app.io - deployed to AWS ECS 
+    using the deployment scripts in <a href="https://github.com/sharp-apps/rockwind-aws">rockwind-aws</a> and following our 
+    <a href="https://docs.servicestack.net/deploy-netcore-docker-aws-ecs">.NET Core Docker Deployment Guideline</a>:
+</p>
+
+{{ 'gfm/sharp-apps/03.md' |> githubMarkdown }}
+
+<h5><a href="https://github.com/sharp-apps/rockwind-azure/blob/master/app/app.settings">rockwind-azure/app/app.settings</a></h5>
+
+<p>
+    We can also create Azure Cloud Apps in the same we've done for AWS above, which runs the same 
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind-vfs">/rockwind-vfs</a>
+    Web App but using an Azure hosted SQL Server database and its files hosted on Azure Blob Storage:
+</p>
+
+<pre class="settings"><code># Note: values prefixed with '$' are resolved from Environment Variables
+debug false
+name Azure Blob SQL Server Web App
+bind *
+db sqlserver
+db.connection $AZURE_SQL_CONNECTION_STRING
+files azure
+files.config {ConnectionString:$AZURE_BLOB_CONNECTION_STRING,ContainerName:rockwind}
+args.assetsBase https://servicestack.blob.core.windows.net/rockwind/
+
+# Reduces an S3 API call, but takes longer for modified pages to appear
+checkForModifiedPagesAfterSecs 60
+defaultFileCacheExpirySecs     60</code></pre>
+
+{{ "apps-links" |> partial({ order }) }}

@@ -1,0 +1,422 @@
+<div class="gfm"><p>The <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> .NET Core project is a generic tool for providing an instant UI around multiple RDBMS's:</p>
+<blockquote>
+<p>YouTube: <a href="https://youtu.be/EJ-lDWshjcY" rel="nofollow">youtu.be/EJ-lDWshjcY</a></p>
+</blockquote>
+<p><a href="https://youtu.be/EJ-lDWshjcY" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" alt="" style="max-width:100%;"></a></p>
+<p>An impressively capable .NET Core App that fits into a tiny <strong>20kb .zip</strong> footprint thanks to <a href="/gist-desktop-apps">Gist Desktop App's Architecture</a>. It's small dynamic <code>#Script</code> &amp; Vue TypeScript code-base also makes it highly customizable to tailor &amp; further extend with
+App-specific requirements - suitable for offering advanced system users a quick, capable customized read-only UI of your DBs.</p>
+<p><strong>SharpData</strong> started as a demonstration showing how productive <a href="https://sharpscript.net" rel="nofollow">#Script</a> can be in the number of areas where
+dynamic languages offer far superior productivity then the typical .NET approach of using C# to type an entire code-base &amp; models.</p>
+<p>For example a single <code>#Script</code> page provides a lot of the functionality in <a href="https://docs.servicestack.net/autoquery-rdbms" rel="nofollow">AutoQuery</a> where it provides an instant HTTP API
+(in all registered ServiceStack formats) around all registered RDBMS tables, in all OrmLite supported RBDMS's, that includes support for custom fields,
+multiple querying options, paging, multi OrderBy's in a parameterized SQL query executed with OrmLite's SQL async DB APIs:</p>
+<h2>
+<a id="user-content-autoquery-script" class="anchor" href="#autoquery-script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AutoQuery Script</h2>
+<h3>
+<a id="user-content-db_db_tableindexhtml" class="anchor" href="#db_db_tableindexhtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/db/_db/_table/index.html">/db/_db/_table/index.html</a>
+</h3>
+<pre><code>{{ {namedConnection:db} |&gt; if (db &amp;&amp; db != 'main') |&gt; useDb }}
+
+```code|quiet
+var ignore = ['db','fields','format','skip','take','orderBy']
+var fields = qs.fields ? qs.fields.split(',').map(x =&gt; sqlQuote(x)).join(',') : '*'
+var sql = `SELECT ${fields} FROM ${sqlQuote(table)}`
+var filters = []
+var queryMap = qs.toObjectDictionary().withoutKeys(ignore)
+#each queryMap.Keys.toList()
+    var search = queryMap[it.sqlVerifyFragment()].sqlVerifyFragment();
+    #if search == '=null' || search == '!=null'
+        `${sqlQuote(it)} ${search=='=null' ? 'IS' : 'IS NOT'} NULL` |&gt; addTo =&gt; filters
+        queryMap[it] = null
+    else if search.startsWith('=')
+        `${sqlQuote(it)} = @${it}` |&gt; addTo =&gt; filters
+        queryMap[it] = search.substring(1).coerce()
+    else if search.startsWith('&lt;=') || search.startsWith('&gt;=') || search.startsWith('!=')
+        `${sqlQuote(it)} ${search.substring(0,2)} @${it}` |&gt; addTo =&gt; filters
+        queryMap[it] = search.substring(2).coerce()
+    else if search.startsWith('&lt;') || search.startsWith('&gt;')
+        `${sqlQuote(it)} ${search.substring(0,1)} @${it}` |&gt; addTo =&gt; filters
+        queryMap[it] = search.substring(1).coerce()
+    else if search.endsWith(',')
+        `${sqlQuote(it)} IN (${search.trimEnd(',').split(',').map(i=&gt;i.toLong()).join(',')})` |&gt;addTo=&gt;filters
+        queryMap[it] = null
+    else if search.startsWith('%') || search.endsWith('%')
+        `${sqlQuote(it).sqlCast('varchar')} LIKE @${it}` |&gt; addTo =&gt; filters
+    else
+        `${sqlQuote(it).sqlCast('varchar')} = @${it}` |&gt; addTo =&gt; filters
+    /if
+/each
+#if !filters.isEmpty()
+    sql = `${sql} WHERE ${filters.join(' AND ')}`
+/if
+#if qs.orderBy
+    sql = `${sql} ORDER BY ${sqlOrderByFields(qs.orderBy)}`
+/if
+#if qs.skip || qs.take
+    sql = `${sql} ${sqlLimit(qs.skip,qs.take)}`
+/if
+sql |&gt; dbSelect(queryMap) |&gt; return
+```
+{{ ifError |&gt; show(sql) }}
+{{htmlError}}
+</code></pre>
+<p>The <code>_</code> prefixes in the path utilizes <a href="https://sharpscript.net/docs/sharp-pages#page-based-routing" rel="nofollow">Page Based Routing</a> allowing for
+<a href="https://en.wikipedia.org/wiki/Convention_over_configuration" rel="nofollow">CoC</a> based
+<a href="https://en.wikipedia.org/wiki/Clean_URL" rel="nofollow">Clean URL</a> routes without needing to define &amp; maintain separate routes where the
+same script supports querying all <a href="https://docs.servicestack.net/multitenancy#changedb-apphost-registration" rel="nofollow">registered multitenancy databases</a>.</p>
+<h3>
+<a id="user-content-instant-customizable-rdbms-ui" class="anchor" href="#instant-customizable-rdbms-ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instant Customizable RDBMS UI</h3>
+<p>The <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> project essentially provides a UI around this script, surfacing its features &amp; give
+it instant utility which ended up being so useful that it's become the quickest way to perform fast adhoc DB queries as it's easy to configure
+which RDBMS's &amp; tables to show in a simple text file, easy to customize its UI, enables 1-click export into Excel and its shortcut syntax
+support in column filters is a fast way to perform quick adhoc queries.</p>
+<h3>
+<a id="user-content-quick-tour" class="anchor" href="#quick-tour" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Tour</h3>
+<p>We'll quickly go through some of its features to give you an idea of its capabilities, from the above screenshot we can some of its
+filtering capabilities. All results displayed in the UI are queried using the above
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/db/_db/_table/index.html">sharpdata</a> <code>#Script</code> HTTP API
+which supports the following features:</p>
+<h3>
+<a id="user-content-filters" class="anchor" href="#filters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Filters</h3>
+<p>All query string parameter except for <code>db,fields,format,skip,take,orderBy</code> are treated as filters, where you can:</p>
+<ul>
+<li>Use <code>=null</code> or <code>!=null</code> to search <code>NULL</code> columns</li>
+<li>Use <code>&lt;=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;&gt;</code>, <code>!=</code> prefix to search with that operator</li>
+<li>Use <code>,</code> trailing comma to perform an <code>IN (values)</code> search (integer columns only)</li>
+<li>Use <code>%</code> suffix or prefix to perform a <code>LIKE</code> search</li>
+<li>Use <code>=</code> prefix to perform a coerced "JS" search, for exact <code>number</code>, <code>boolean</code>, <code>null</code> and WCF date comparisons</li>
+<li>Otherwise by default performs a "string equality" search where columns are casted and compared as strings</li>
+</ul>
+<p>Here's the filtered list used in the above screenshot:</p>
+<p><a href="http://sharpdata.netcore.io/db/main/Order?format=json&amp;Id=%3E10200&amp;CustomerId=V%25&amp;Freight=%3C%3D30&amp;OrderDate=%3E1997-01-01&amp;take=100" rel="nofollow">/db/main/Order?Id=&gt;10200&amp;CustomerId=V%&amp;Freight=&lt;=30&amp;OrderDate=&gt;1997-01-01</a></p>
+<h3>
+<a id="user-content-custom-field-selection" class="anchor" href="#custom-field-selection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Field Selection</h3>
+<p>The <strong>column selection</strong> icon on the top left of the results lets you query custom select columns which is specified using <code>?fields</code>:</p>
+<ul>
+<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json&amp;fields=Id%2CCompanyName%2CContactName%2CContactTitle&amp;take=100" rel="nofollow">/db/main/Customer?fields=Id,CompanyName,ContactName,ContactTitle</a></li>
+</ul>
+<h3>
+<a id="user-content-multiple-orderbys" class="anchor" href="#multiple-orderbys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple OrderBy's</h3>
+<p>You can use <a href="https://docs.servicestack.net/autoquery-rdbms#multiple-orderbys" rel="nofollow">AutoQuery Syntax</a> to specify multiple Order By's:</p>
+<ul>
+<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json&amp;orderBy=-Id,CompanyName,-ContactName" rel="nofollow">/db/main/Customer?orderBy=-Id,CompanyName,-ContactName</a></li>
+</ul>
+<h3>
+<a id="user-content-paging" class="anchor" href="#paging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Paging</h3>
+<p>Use <code>?skip</code> and <code>?take</code> to page through a result set</p>
+<h3>
+<a id="user-content-format" class="anchor" href="#format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Format</h3>
+<p>Use <code>?format</code> to specify which <strong>Content-Type</strong> to return the results in, e.g:</p>
+<ul>
+<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=html" rel="nofollow">/db/main/Customer?format=html</a></li>
+<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json" rel="nofollow">/db/main/Customer?format=json</a></li>
+<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=csv" rel="nofollow">/db/main/Customer?format=csv</a></li>
+</ul>
+<h3>
+<a id="user-content-multitenancy" class="anchor" href="#multitenancy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multitenancy</h3>
+<p>You can specify which registered DB to search using the path info, use <code>main</code> to query the default database:</p>
+<pre><code>/db/&lt;named-db&gt;/&lt;table&gt;
+</code></pre>
+<h3>
+<a id="user-content-launching-sharpdata" class="anchor" href="#launching-sharpdata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Launching SharpData</h3>
+<p>To run SharpData in a .NET Core Desktop App you'll need latest <code>app</code> dotnet tool:</p>
+<pre><code>$ dotnet tool update -g app
+</code></pre>
+<blockquote>
+<p>If on macOS/Linux you can use the <a href="https://docs.servicestack.net/dotnet-tool" rel="nofollow">x dotnet tool</a> instead to view SharpData in your default browser</p>
+</blockquote>
+<h3>
+<a id="user-content-configure-rdbms-from-command-line" class="anchor" href="#configure-rdbms-from-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configure RDBMS from command-line</h3>
+<p>You can override which database to connect to by specifying it on the command line, e.g. here's an example of connecting to <a href="https://techstacks.io" rel="nofollow">https://techstacks.io</a> RDBMS:</p>
+<pre><code>$ app open sharpdata -db postgres -db.connection $TECHSTACKS_DB
+</code></pre>
+<p>Which will open SharpData listing all of TechStack's RDBMS tables. If you have a lot of tables the <strong>Sidebar filter</strong> provides a quick way to
+find the table you want, e.g:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-technology.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-technology.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-app-url-schemes" class="anchor" href="#app-url-schemes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>app URL Schemes</h3>
+<p>What can be done with the <code>open</code> command on the command-line can also be done from a <strong>custom URL Scheme</strong>, a feature that opens up a myriad of new
+possibilities as <code>app</code> can open <a href="https://sharpscript.net/docs/gist-desktop-apps" rel="nofollow">Gist Desktop Apps</a> from Gists or in public &amp; private GitHub repositories,
+where it's able to download and launch Apps on the fly with custom arguments - allowing a single URL to run a <strong>never installed</strong> Desktop App stored in a
+Gist &amp; pass it custom params to enable <strong>deep linking</strong>.</p>
+<p>With this organizations could maintain a dashboard of links to its different Desktop Apps that anyone can access, especially useful as the
+<strong>only software</strong> that's needed to run any <a href="https://sharpscript.net/docs/sharp-apps" rel="nofollow">Sharp Apps</a> is the <code>app</code> dotnet tool which thanks to all
+ServiceStack .dll's &amp; dependencies being bundled with the tool, (including Vue/React/Bootstrap fontawesome and Material SVG Icon assets),
+the only files that need to be published are the App's specific resources, which is how Apps like <strong>SharpData</strong> can be compressed in a
+<strong>20kb .zip</strong> - a tiny payload that's viable to download the latest app each on each run, removing the pain &amp; friction to distribute updates as
+everyone's already running the latest version every time it's run.</p>
+<p>Should you need to (e.g. large Sharp App or github.com is down) you can run your previously locally cached App using <code>run</code>:</p>
+<pre><code>$ app run sharpdata
+</code></pre>
+<p>With Custom URL Schemes everyone with <code>app</code> installed can view any database they have network access to from specifying the db type and connection string in the URL:</p>
+<pre><code>app://sharpdata?db=postgres&amp;db.connection={CONNECTION_STRING}
+</code></pre>
+<blockquote>
+<p>CONNECTION_STRING needs to be URL Encoded, e.g. with JS's <code>encodeURIComponent()</code></p>
+</blockquote>
+<p>or by specifying an Environment variable containing the connection string:</p>
+<pre><code>app://sharpdata?db=postgres&amp;db.connection=$TECHSTACKS_DB
+</code></pre>
+<p>In addition to Sharp Apps being downloaded and run on the fly, they're also able to take advantage of the dotnet tools <a href="https://docs.servicestack.net/mix-tool" rel="nofollow">mix support</a> to
+also download another Gist's content into the Sharp App's working directory.</p>
+<p>With this you can publish a custom dataset in an SQLite database save it as a gist and <strong>generate a single URL</strong> that everyone can use to
+download the database and open it in <strong>SharpData</strong>, e.g:</p>
+<ul>
+<li>app://sharpdata?mix=northwind.sqlite&amp;db=sqlite&amp;db.connection=northwind.sqlite</li>
+</ul>
+<p>It's possible to use the user-friendly <code>northwind.sqlite</code> alias here as it's published in the global <a href="https://gist.github.com/gistlyn/9b32b03f207a191099137429051ebde8">mix.md</a> directory where it links to the <a href="https://gist.github.com/gistlyn/97d0bcd3ebd582e06c85f8400683e037">northwind.sqlite gist</a>.</p>
+<p>For your custom databases you use the <strong>Gist Id</strong> instead or if you plan to use this feature a lot you can override which <code>mix.md</code> document that
+<code>app</code> should source its links from by specifying another <strong>Gist Id</strong> in the <code>MIX_SOURCE</code> Environment variable (or see below - to create a local alias).</p>
+<p>But if you're already mixing in an external gist you may as well include a custom <code>app.settings</code> in the Gist so it's pre-configured with custom
+RDBMS registrations and table lists, e.g:</p>
+<ul>
+<li>app://sharpdata?mix=northwind.sharpdata</li>
+</ul>
+<p>Which applies the <a href="https://gist.github.com/gistlyn/0ce0d5b828303f1cb4637450b563adbd">northwind.sharpdata gist</a>, which can also be referenced by <strong>Gist Id</strong>:</p>
+<ul>
+<li>app://sharpdata?mix=0ce0d5b828303f1cb4637450b563adbd</li>
+</ul>
+<p>Alternatively you may instead prefer to publish it to a private GitHub repo instead of a Gist which anyone can open up with:</p>
+<pre><code>app://user/sharpdata-private?token={TOKEN}
+</code></pre>
+<p>The <code>app</code> dotnet tools will use the <strong>latest published GitHub release</strong> if there are any, otherwise will use the <strong>master.zip</strong> archive,
+this feature can be used to maintain a working master repo and maintain control ver when to publish new versions of your custom SharpData App.</p>
+<h3>
+<a id="user-content-app-local-aliases" class="anchor" href="#app-local-aliases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>app local aliases</h3>
+<p>Where ever you can use a Gist Id, you can assign a local user-friendly alias to use instead. So if you had a custom <strong>sqlite</strong> database and
+sharpdata <strong>app.settings</strong> you could assign it to a local <strong>db</strong> alias with:</p>
+<pre><code>$ app alias db 0ce0d5b828303f1cb4637450b563adbd
+</code></pre>
+<p>Which you'll be able to use in place of the Gist Id, e.g. via command-line:</p>
+<pre><code>$ app open sharpdata mix db
+</code></pre>
+<p>or via URL Scheme:</p>
+<pre><code>app://sharpdata?mix=db
+</code></pre>
+<p>Likewise the gist alias can also be used for referencing <a href="https://sharpscript.net/docs/gist-desktop-apps" rel="nofollow">Gist Desktop Apps</a>, e.g. we can assign the
+<a href="https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8">redis gist app</a> to use our preferred alias:</p>
+<pre><code>$ app alias local-redis 6de7993333b457445793f51f6f520ea8
+</code></pre>
+<p>That we can open via command-line:</p>
+<pre><code>$ app open local-redis
+</code></pre>
+<p>Or URL Scheme:</p>
+<pre><code>app://local-redis
+</code></pre>
+<p>Or if we want to run our own modified copy of the Redis Desktop App, we can <a href="https://docs.servicestack.net/mix-tool" rel="nofollow">mix</a> the Gist files to our
+local directory:</p>
+<pre><code>$ app mix local-redis
+</code></pre>
+<p>Make the changes we want, then run our local copy by running <code>app</code> (or <code>x</code>) without arguments:</p>
+<pre><code>$ app
+</code></pre>
+<p>Other alias command include:</p>
+<h4>
+<a id="user-content-view-all-aliases" class="anchor" href="#view-all-aliases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>View all aliases</h4>
+<pre><code>$ app alias
+</code></pre>
+<h4>
+<a id="user-content-view-single-alias" class="anchor" href="#view-single-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>View single alias</h4>
+<pre><code>$ app alias db
+</code></pre>
+<h4>
+<a id="user-content-remove-an-alias" class="anchor" href="#remove-an-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remove an alias</h4>
+<pre><code>$ app unalias db
+</code></pre>
+<h3>
+<a id="user-content-custom-app-settings" class="anchor" href="#custom-app-settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom App Settings</h3>
+<p>Each time a Gist Desktop App is opened it downloads and overrides the existing Gist with the latest version which it loads in a <a href="https://docs.servicestack.net/virtual-file-system#gistvirtualfiles" rel="nofollow">Gist VFS</a> where any of its files can be overridden with a local copy.</p>
+<p>As the App's working directory is preserved between restarts you can provide a custom <code>app.settings</code> at:</p>
+<pre><code>%USERPROFILE%\.sharp-apps\sharpdata\app.settings
+</code></pre>
+<p>Where you can customize which RDBMS's and tables you want to be able to access, e.g:</p>
+<pre><code>debug false
+name Northwind SharpData
+appName sharpdata
+
+db sqlite
+db.connection northwind.sqlite
+db.connections[techstacks] { db:postgres, connection:$TECHSTACKS_DB }
+
+args.tables Customer,Order,OrderDetail,Category,Product,Employee,EmployeeTerritory,Shipper,Supplier,Region,Territory
+args.tables_techstacks technology,technology_stack,technology_choice,organization,organization_member,post,post_comment,post_vote,custom_user_auth,user_auth_details,user_activity,page_stats
+</code></pre>
+<p>Which will display both RDBMS Databases, showing only the user-specified tables in app.settings above:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-open-in-excel" class="anchor" href="#open-in-excel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open in Excel</h3>
+<p>SharpData detects if <strong>Excel</strong> is installed and lets you open the un-paged filtered resultset directly by clicking the <strong>Excel</strong> button</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" alt="" style="max-width:100%;"></a></p>
+<p>This works seamlessly as it's able to "by-pass" the browser download where the query is performed by the back-end .NET Core Server who streams the response directly to the Users <strong>Downloads</strong> folder and launches it in Excel as soon as it's finished.</p>
+<h3>
+<a id="user-content-custom-row-components" class="anchor" href="#custom-row-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Row Components</h3>
+<p>Whilst a tabular grid view might be a natural UI for browsing a database for devs, we can do better since we have the full UI source code of the Vue components.
+A filtered tabular view makes it fast to find the record you're interested in, but it's not ideal for quickly finding related information about an Entity.</p>
+<p>To provide a more customized UX for different App UIs, <strong>SharpData</strong> includes support for <strong>"Row Components"</strong>
+(defined in <a href="https://github.com/NetCoreApps/SharpData/tree/master/src/components/Custom">/components/Custom</a>) to be able to quickly drill down &amp; view
+richer info on any record.</p>
+<p>For example when viewing an <strong>Order</strong>, it's natural to want to view the <strong>Order Details</strong> with it, enabled with the custom Vue component registration below:</p>
+<div class="highlight highlight-source-ts"><pre>@<span class="pl-smi">Component</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">template</span>:
+<span class="pl-s">`&lt;div v-if="id"&gt;</span>
+<span class="pl-s">    &lt;jsonviewer :value="details" /&gt;</span>
+<span class="pl-s">&lt;/div&gt;</span>
+<span class="pl-s">&lt;div v-else class="alert alert-danger"&gt;Order Id needs to be selected&lt;/div&gt;`</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span>
+<span class="pl-k">class</span> <span class="pl-smi">Order</span> <span class="pl-k">extends</span> <span class="pl-smi">Vue</span> <span class="pl-kos">{</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">db</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">table</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">row</span>: <span class="pl-smi">any</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">columns</span>: <span class="pl-smi">ColumnSchema</span><span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+
+    <span class="pl-c1">details</span>:<span class="pl-smi">any</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+
+    <span class="pl-k">get</span> <span class="pl-en">id</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-k">return</span> <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">row</span><span class="pl-kos">.</span><span class="pl-c1">Id</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+
+    <span class="pl-k">async</span> <span class="pl-en">mounted</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">details</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">sharpData</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">db</span><span class="pl-kos">,</span><span class="pl-s">'OrderDetail'</span><span class="pl-kos">,</span><span class="pl-kos">{</span> <span class="pl-c1">OrderId</span>: <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">id</span> <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+<span class="pl-kos">}</span>
+<span class="pl-en">registerRowComponent</span><span class="pl-kos">(</span><span class="pl-s">'main'</span><span class="pl-kos">,</span><span class="pl-s">'Order'</span><span class="pl-kos">,</span> <span class="pl-smi">Order</span><span class="pl-kos">,</span> <span class="pl-s">'order'</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<p>All Row components are injected with the <code>db</code>, <code>table</code> properties, the entire <code>row</code> object that was selected as well as the Column Schema definition for that table. Inside the component you're free to display anything, in this case we're using the <code>sharpData</code> helper for calling the server <code>#Script</code> HTTP API to get it to fetch all <code>OrderDetail</code> entries for this order.</p>
+<blockquote>
+<p>If the resultset is filtered without the Order <code>Id</code> PK it can't fetch its referenced data, so displays an error instead</p>
+</blockquote>
+<p>The <a href="https://github.com/NetCoreApps/SharpData/blob/master/src/JsonViewer.ts">jsonviewer</a> component used is similar to ServiceStack's
+<a href="https://docs.servicestack.net/html5reportformat" rel="nofollow">HTML5 auto pages</a> to quickly view contents of any object.</p>
+<p>The <code>registerRowComponent(db,table,VueComponent,componentName)</code> API is used to register this component with <strong>SharpData</strong> to make it available to render any order.</p>
+<p>With the <code>Order</code> component registered we can now drill down into any <strong>Order</strong> to view its <strong>Order Details</strong>:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-rowcomponents.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-rowcomponents.png" alt="" style="max-width:100%;"></a></p>
+<p>You're free to render any kind of UI in the row component, e.g. here's the <a href="https://github.com/NetCoreApps/SharpData/blob/master/src/components/Custom/Customer.ts">Customer.ts</a> row component used to render a richer view for Customers:</p>
+<div class="highlight highlight-source-ts"><pre>@<span class="pl-smi">Component</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">template</span>:
+<span class="pl-s">`&lt;div v-if="id" class="pl-2"&gt;</span>
+<span class="pl-s">    &lt;h3 class="text-success"&gt;{{customer.ContactName}}&lt;/h3&gt;</span>
+<span class="pl-s">    &lt;table class="table table-bordered" style="width:auto"&gt;</span>
+<span class="pl-s">        &lt;tr&gt;</span>
+<span class="pl-s">            &lt;th&gt;Contact!&lt;/th&gt;</span>
+<span class="pl-s">            &lt;td&gt;{{ customer.ContactName }} ({{ customer.ContactTitle }})&lt;/td&gt;</span>
+<span class="pl-s">        &lt;/tr&gt;</span>
+<span class="pl-s">        &lt;tr&gt;</span>
+<span class="pl-s">            &lt;th&gt;Address&lt;/th&gt;</span>
+<span class="pl-s">            &lt;td&gt;</span>
+<span class="pl-s">                &lt;div&gt;{{ customer.Address }}&lt;/div&gt;</span>
+<span class="pl-s">                &lt;div&gt;{{ customer.City }}, {{ customer.PostalCode }}, {{ customer.Country }}&lt;/div&gt;</span>
+<span class="pl-s">            &lt;/td&gt;</span>
+<span class="pl-s">        &lt;/tr&gt;</span>
+<span class="pl-s">        &lt;tr&gt;</span>
+<span class="pl-s">            &lt;th&gt;Phone&lt;/th&gt;</span>
+<span class="pl-s">            &lt;td&gt;{{ customer.Phone }}&lt;/td&gt;</span>
+<span class="pl-s">        &lt;/tr&gt;</span>
+<span class="pl-s">        &lt;tr v-if="customer.Fax"&gt;</span>
+<span class="pl-s">            &lt;th&gt;Fax&lt;/th&gt;</span>
+<span class="pl-s">            &lt;td&gt;{{ customer.Fax }}&lt;/td&gt;</span>
+<span class="pl-s">        &lt;/tr&gt;</span>
+<span class="pl-s">    &lt;/table&gt;</span>
+<span class="pl-s">    &lt;jsonviewer :value="orders" /&gt;</span>
+<span class="pl-s">&lt;/div&gt;</span>
+<span class="pl-s">&lt;div v-else class="alert alert-danger"&gt;Customer Id needs to be selected&lt;/div&gt;`</span><span class="pl-kos">}</span><span class="pl-kos">)</span>
+<span class="pl-k">class</span> <span class="pl-smi">Customer</span> <span class="pl-k">extends</span> <span class="pl-smi">Vue</span> <span class="pl-kos">{</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">db</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">table</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">row</span>: <span class="pl-smi">any</span><span class="pl-kos">;</span>
+    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">columns</span>: <span class="pl-smi">ColumnSchema</span><span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+
+    <span class="pl-c1">customer</span>:<span class="pl-smi">any</span> <span class="pl-c1">=</span> null<span class="pl-kos">;</span>
+    <span class="pl-c1">orders</span>:<span class="pl-smi">any</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+
+    <span class="pl-k">get</span> <span class="pl-en">id</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-k">return</span> <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">row</span><span class="pl-kos">.</span><span class="pl-c1">Id</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+
+    <span class="pl-k">async</span> <span class="pl-en">mounted</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">customer</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-k">await</span> <span class="pl-en">sharpData</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">db</span><span class="pl-kos">,</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">table</span><span class="pl-kos">,</span><span class="pl-kos">{</span> <span class="pl-c1">Id</span>: <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">id</span> <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-k">const</span> <span class="pl-s1">fields</span> <span class="pl-c1">=</span> <span class="pl-s">'Id,EmployeeId,OrderDate,Freight,ShipVia,ShipCity,ShipCountry'</span><span class="pl-kos">;</span>
+        <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">orders</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">sharpData</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">db</span><span class="pl-kos">,</span><span class="pl-s">'Order'</span><span class="pl-kos">,</span><span class="pl-kos">{</span> <span class="pl-c1">CustomerId</span>: <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">id</span><span class="pl-kos">,</span> fields <span class="pl-kos">}</span><span class="pl-kos">)</span>
+    <span class="pl-kos">}</span>
+<span class="pl-kos">}</span>
+<span class="pl-en">registerRowComponent</span><span class="pl-kos">(</span><span class="pl-s">'main'</span><span class="pl-kos">,</span><span class="pl-s">'customer'</span><span class="pl-kos">,</span> <span class="pl-smi">Customer</span><span class="pl-kos">,</span> <span class="pl-s">'customer'</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<p>Which looks like:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-customer-rowcomponent.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-customer-rowcomponent.png" alt="" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-sharpdata-net-core-project" class="anchor" href="#sharpdata-net-core-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SharpData .NET Core Project</h3>
+<p>Whilst <a href="https://github.com/NetCoreApps/SharpData">NetCoreApps/SharpData</a> can live a charmed life as a Desktop App, it's also just a regular ServiceStack .NET Core App with a <a href="https://github.com/NetCoreApps/SharpData/blob/master/Startup.cs">Startup.cs</a> and <code>AppHost</code> that can be developed, published and deployed as you're used to, here's an instance of it <a href="https://docs.servicestack.net/netcore-deploy-rsync" rel="nofollow">deployed as a .NET Core App on Linux</a>:</p>
+<h4>
+<a id="user-content-sharpdatanetcoreio" class="anchor" href="#sharpdatanetcoreio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://sharpdata.netcore.io" rel="nofollow">sharpdata.netcore.io</a>
+</h4>
+<blockquote>
+<p>For best experience we recommend running locally to experience it without latency of our servers in Germany</p>
+</blockquote>
+<p>It's a unique ServiceStack App in that it doesn't contain any ServiceStack Services as it's only using pre-existing functionality already built into ServiceStack,
+<code>#Script</code> for its HTTP APIs and a Vue SPA for its UI, so requires no <code>.dll's</code> need to be deployed with it.</p>
+<p>It uses the same Vue SPA solution as <a href="https://github.com/NetCoreTemplates/vue-lite">vue-lite</a> to avoid npm's size &amp; complexity where you only need to run TypeScript's <code>tsc -w</code> to enable its <a href="https://docs.servicestack.net/hot-reloading" rel="nofollow">live-reload</a> dev UX which provides its instant feedback during development.</p>
+<p>Some other of its unique traits is that instead of manually including all the Vue framework <code>.js</code> libraries, it instead references the new <code>ServiceStack.Desktop.dll</code> for its Vue framework libraries and its Material design SVG icons which are <a href="https://github.com/NetCoreApps/SharpData/blob/0499e7c66ca4289d17158e79bcc91815bbcd7a99/wwwroot/_layout.html#L60-L66">referenced as normal file references</a>:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-kos">{</span><span class="pl-kos">{</span> <span class="pl-kos">[</span>
+    <span class="pl-s">`/lib/js/vue/vue.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/vue-router/vue-router.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/vue-class-component/vue-class-component.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/vue-property-decorator/vue-property-decorator.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/@servicestack/desktop/servicestack-desktop.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/@servicestack/client/servicestack-client.min.js`</span><span class="pl-kos">,</span>
+    <span class="pl-s">`/lib/js/@servicestack/vue/servicestack-vue.min.js`</span><span class="pl-kos">,</span>
+<span class="pl-kos">]</span> |<span class="pl-c1">&gt;</span> <span class="pl-s1">map</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`&lt;script src="<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">it</span><span class="pl-kos">}</span></span>"&gt;&lt;/script&gt;`</span> |<span class="pl-c1">&gt;</span> <span class="pl-s1">joinln</span> |<span class="pl-c1">&gt;</span> <span class="pl-s1">raw</span> <span class="pl-kos">}</span><span class="pl-kos">}</span></pre></div>
+<p>But instead of needing to exist on disk &amp; deployed with your project it's referencing the embedded resources in <code>ServiceStack.Desktop.dll</code> and only the bundled assets need to be <a href="https://github.com/NetCoreApps/SharpData/blob/0499e7c66ca4289d17158e79bcc91815bbcd7a99/SharpData.csproj#L17">deployed with your project</a> which is using the built-in <a href="https://github.com/xoofx/NUglify">NUglify</a> support in the <a href="https://docs.servicestack.net/dotnet-tool" rel="nofollow">dotnet tools</a> to produce its highly optimized/minified bundle without needing to rely on any npm tooling when publishing the .NET Core App:</p>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">Target</span> <span class="pl-e">Name</span>=<span class="pl-s"><span class="pl-pds">"</span>Bundle<span class="pl-pds">"</span></span> <span class="pl-e">BeforeTargets</span>=<span class="pl-s"><span class="pl-pds">"</span>AfterPublish<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">Exec</span> <span class="pl-e">Command</span>=<span class="pl-s"><span class="pl-pds">"</span>x run _bundle.ss -to /bin/Release/netcoreapp3.1/publish/wwwroot<span class="pl-pds">"</span></span> /&gt;
+&lt;/<span class="pl-ent">Target</span>&gt;</pre></div>
+<p>The included <a href="https://github.com/NetCoreApps/SharpData/tree/master/typings">/typings</a> are just the TypeScript definitions for each library which
+TypeScript uses for its static analysis &amp; its great dev UX in IDEs &amp; VSCode, but are only needed during development and not deployed with the project.</p>
+<h3>
+<a id="user-content-publish-to-gist-desktop-app" class="anchor" href="#publish-to-gist-desktop-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publish to Gist Desktop App</h3>
+<p>The primary way <strong>SharpData</strong> is distributed is as a <a href="https://sharpscript.net/docs/gist-desktop-apps" rel="nofollow">Gist Desktop App</a>, where it's able to provide instant utility by running on a users local machine inside a native Chromium Desktop App making it suitable for a much broader use-case as a fast, lightweight, always up-to-date Desktop App with deeper Windows integration all packaged in a tiny <strong>20kb .zip</strong> footprint. There's no need to provision servers, setup CI, manage cloud hosting resources, you can simply run a script to update a Gist where its latest features are immediately available to your end users the next time it's run.</p>
+<p>To run, test &amp; publish it as a Desktop App you can use the pre-made scripts in <a href="https://github.com/NetCoreApps/SharpData/blob/master/package.json">package.json</a>.
+Rider provides a nice UX here as it lets you run each individual script directly from their json editor:</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-scripts.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-scripts.png" alt="" style="max-width:100%;"></a></p>
+<p>Essentially to package it into a <a href="https://sharpscript.net/docs/sharp-apps" rel="nofollow">Sharp App</a> you just need to run the <code>pack</code> script which will bundle &amp; copy all required assets into the <code>/dist</code> folder which you can then test locally in a <a href="https://docs.servicestack.net/netcore-windows-desktop" rel="nofollow">.NET Core Desktop App</a> by running <code>app</code> in that folder:</p>
+<pre><code>$ cd dist
+$ app
+</code></pre>
+<p>The <code>init-test</code> script just copies an example <strong>northwind.sqlite</strong> database and sample <code>app.settings</code> so you have something to test it with if you need it.</p>
+<p>The <code>publish-app</code> script is if you want to publish it to a Gist, you will need it to provide the GitHub <strong>AccessToken</strong> with write access to the Gist User Account you want to publish it to. Adding an <code>appName</code> and <code>description</code> to <code>app.settings</code> will publish it to the <a href="https://sharpscript.net/docs/gist-desktop-apps#instant-run-without-installation" rel="nofollow">Global App Registry</a>, make it publicly discoverable and allow anyone to open your App using your user-friendly <code>appName</code> alias, otherwise they can run it using the <strong>Gist Id</strong> or <strong>Gist URL</strong>.</p>
+<p>Alternatively the contents of the <code>dist/</code> folder can be published to a GitHub repo (public or private) and run with:</p>
+<pre><code>$ app open &lt;user&gt;/&lt;repo&gt;
+</code></pre>
+<p>Or link to it with its custom URL Scheme:</p>
+<pre><code>app://&lt;user&gt;/repo
+</code></pre>
+<p>If it's in a private repo they'll need to either provide an <strong>AccessToken</strong> in the <code>GITHUB_TOKEN</code> Environment variable or using the <code>-token</code> argument:</p>
+<pre><code>$ app open &lt;user&gt;/&lt;repo&gt; -token &lt;token&gt;
+</code></pre>
+<p>URL Scheme:</p>
+<pre><code>app://&lt;user&gt;/repo?token=&lt;token&gt;
+</code></pre>
+<h3>
+<a id="user-content-rdbms-configuration" class="anchor" href="#rdbms-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RDBMS Configuration</h3>
+<p>When running as a .NET Core App you'd need to register which RDBMS's you want to use with OrmLite's configuration, e.g. the screenshot above registers an SQLite <code>northwind.sqlite</code> database and the <a href="https://techstacks.io" rel="nofollow">https://techstacks.io</a> PostgreSQL Database:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">container</span>.<span class="pl-en">Register</span>&lt;<span class="pl-en">IDbConnectionFactory</span>&gt;(<span class="pl-smi">c</span> <span class="pl-k">=&gt;</span> <span class="pl-k">new</span> <span class="pl-en">OrmLiteConnectionFactory</span>(
+    <span class="pl-en">MapProjectPath</span>(<span class="pl-s"><span class="pl-pds">"</span>~/northwind.sqlite<span class="pl-pds">"</span></span>), <span class="pl-smi">SqliteDialect</span>.<span class="pl-smi">Provider</span>));
+
+<span class="pl-k">var</span> <span class="pl-smi">dbFactory</span> <span class="pl-k">=</span> <span class="pl-smi">container</span>.<span class="pl-en">Resolve</span>&lt;<span class="pl-en">IDbConnectionFactory</span>&gt;();
+<span class="pl-smi">dbFactory</span>.<span class="pl-en">RegisterConnection</span>(<span class="pl-s"><span class="pl-pds">"</span>techstacks<span class="pl-pds">"</span></span>,
+     <span class="pl-smi">Environment</span>.<span class="pl-en">GetEnvironmentVariable</span>(<span class="pl-s"><span class="pl-pds">"</span>TECHSTACKS_DB<span class="pl-pds">"</span></span>),
+     <span class="pl-smi">PostgreSqlDialect</span>.<span class="pl-smi">Provider</span>);</pre></div>
+<p>By default it shows all Tables in each RDBMS, but you can limit it to only show a user-defined list of tables with <code>#Script</code> Arguments:</p>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">SharpPagesFeature</span> {
+    <span class="pl-c"><span class="pl-c">//</span>...</span>
+    <span class="pl-smi">Args</span> <span class="pl-k">=</span> {
+        <span class="pl-c"><span class="pl-c">//</span>Only display user-defined list of tables:</span>
+        [<span class="pl-s"><span class="pl-pds">"</span>tables<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Customer,Order,OrderDetail,Category,Product,Employee,EmployeeTerritory,Shipper,Supplier,Region,Territory<span class="pl-pds">"</span></span>,
+        [<span class="pl-s"><span class="pl-pds">"</span>tables_techstacks<span class="pl-pds">"</span></span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>technology,technology_stack,technology_choice,organization,organization_member,post,post_comment,post_vote,custom_user_auth,user_auth_details,user_activity,page_stats<span class="pl-pds">"</span></span>,
+    }
+});</pre></div>
+<p>When running as a Sharp App it's instead configured in its
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/scripts/deploy/app.northwind.settings">app.settings</a>, here's equivalent settings for the above configuration:</p>
+<pre><code># Configure below. Supported dialects: sqlite, mysql, postgres, sqlserver
+db sqlite
+db.connection northwind.sqlite
+# db.connections[techstacks] { db:postgres, connection:$TECHSTACKS_DB }
+
+args.tables Customer,Order,OrderDetail,Category,Product,Employee,EmployeeTerritory,Shipper,Supplier,Region,Territory
+args.tables_techstacks technology,technology_stack,technology_choice,organization,organization_member,post,post_comment,post_vote,custom_user_auth,user_auth_details,user_activity,page_stats
+</code></pre>
+<h3>
+<a id="user-content-feedback" class="anchor" href="#feedback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Feedback</h3>
+<p>We hope <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> serves useful in some capacity, whether it's being able to quickly develop and Ship a UI to stakeholders or as a template to develop .NET Core Apps that you can distribute as <strong>Sharp Apps</strong>, as an example to explore the delivery and platform potential of URL schemes and install-less Desktop Apps or just as an inspiration for areas where <code>#Script</code> shines &amp; the different kind of Apps you can create with it.</p>
+<p>Whilst <code>app</code> is Windows 64 only, you can use the <code>x</code> cross-platform tool and its <code>xapp://</code> URL scheme to run Sharp Apps on macOS/Linux, it just wont have access to any of its Window Integration features.</p>
+</div>

@@ -1,0 +1,84 @@
+<!--
+title: App - Chat
+order: 7
+-->
+
+<div class="source">
+    <em>x open chat</em> -
+    <a href="http://chat.web-app.io">chat.web-app.io</a> -
+    <a href="https://github.com/sharp-apps/Chat">sharp-apps/Chat</a>
+</div>
+
+<p>
+    <a href="https://github.com/sharp-apps/Chat/tree/master/app">/chat</a> is an example of the ultimate form 
+    of extensibility where instead of just being able to add Services, Filters and Plugins, etc. You can add your entire 
+    <em>AppHost</em> which Sharp Apps will use instead of its own. This vastly expands the use-cases that can be built with 
+    Sharp Apps as it gives you complete fine-grained control over how your App is configured.
+</p>
+
+<a href="http://chat.web-app.io"><img src="/assets/img/screenshots/chat.png" alt="Chat WebApp screenshot"></a>
+
+<h4>Develop back-end using .NET IDE's</h4>
+
+<p>
+    For <a href="http://chat.web-app.io">chat.web-app.io</a> we've taken a copy of the existing .NET Core 3.1 
+    <a href="https://github.com/NetCoreApps/Chat">Chat App</a> and moved its C# code to
+    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/example-plugins/Chat">/example-plugins/Chat</a>
+    and its files to <a href="https://github.com/sharp-apps/Chat/tree/master/app">/apps/chat</a> 
+    where it can be developed like any other Web App except it utilizes the Chat AppHost and implementation in the 
+    <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/example-plugins/Chat/Program.cs">SelfHost Chat App</a>.
+</p>
+
+<p>
+    Customizations from the original 
+    <a href="https://github.com/NetCoreApps/Chat/blob/master/src/Chat/Startup.cs">.NET Core Chat implementation</a> 
+    includes removing MVC and Razor dependencies and configuration, extracting its 
+    <a href="https://github.com/sharp-apps/Chat/tree/master/_layout.html">_layout.html</a> and 
+    converting <a href="https://github.com/sharp-apps/Chat/tree/master/index.html">index.html</a>
+    to use <em>#Script</em> from its original 
+    <a href="https://github.com/NetCoreApps/Chat/blob/master/src/Chat/wwwroot/default.cshtml">default.cshtml</a>.
+    It's also been enhanced with the ability to evaluate scripts from the Chat window, as seen in the screenshot above.
+</p>
+
+<h4>Chat AppHost</h4>
+
+{{ 'gfm/sharp-apps/06.md' |> githubMarkdown }}
+
+<h5>Reusing Web App's app.setting and files</h5>
+
+<p>
+    One nice thing from being able to reuse existing AppHost's is being able to develop all back-end C# Services and Custom Filters 
+    as a stand-alone .NET Core Project where it's more productive with access to .NET IDE tooling and debugging.
+</p>
+
+<p>
+    To account for these 2 modes we use <em>AddIfNotExists</em> to only register the <em>SharpPagesFeature</em> plugin 
+    when running as a stand-alone App and add an additional constructor so it reuses the existing <em>app.settings</em> as its 
+    <a href="https://docs.servicestack.net/appsettings">IAppSettings</a> provider for is custom App configuration like OAuth App keys 
+    required for enabling Sign-In's via with Twitter, Facebook and GitHub when running on <em>http://localhost:5000</em>:        
+</p>
+
+<pre class="cs"><code>debug true
+name Chat Web App
+contentRoot ~/../chat
+webRoot ~/../chat
+
+oauth.RedirectUrl http://localhost:5000/
+oauth.CallbackUrl http://localhost:5000/auth/{0}
+oauth.twitter.ConsumerKey JvWZokH73rdghDdCFCFkJtCEU
+oauth.twitter.ConsumerSecret WNeOT6YalxXDR4iWZjc4jVjFaydoDcY8jgRrGc5FVLjsVlY2Y8
+oauth.facebook.Permissions email
+oauth.facebook.AppId 447523305684110
+oauth.facebook.AppSecret 7d8a16d5c7cbbfab4b49fd51183c93a0
+oauth.github.Scopes user
+oauth.github.ClientId dbe8c242e3d1099f4558
+oauth.github.ClientSecret 42c8db8d0ca72a0ef202e0c197d1377670c990f4
+</code></pre>
+
+<p>
+    After the back-end has been implemented we can build and copy the compiled <b>Chat.dll</b> into the Chat's 
+    <a href="https://github.com/sharp-apps/Chat/tree/master/plugins">/plugins</a> folder where 
+    we can take advantage of the improved development experience for rapidly developing its UI.
+</p>
+
+{{ "apps-links" |> partial({ order }) }}

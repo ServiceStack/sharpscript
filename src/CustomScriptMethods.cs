@@ -15,6 +15,7 @@ namespace SharpScript
     public class CustomScriptMethods : ScriptMethods
     {
         public Dictionary<int, KeyValuePair<string, string>> DocsIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
+        public Dictionary<int, KeyValuePair<string, string>> AppsIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
         public Dictionary<int, KeyValuePair<string, string>> CodeIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
         public Dictionary<int, KeyValuePair<string, string>> LispIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
         public Dictionary<int, KeyValuePair<string, string>> UseCasesIndex { get; } = new Dictionary<int, KeyValuePair<string, string>>();
@@ -30,6 +31,20 @@ namespace SharpScript
         public object nextDocLink(int order)
         {
             if (DocsIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
+        public object prevAppsLink(int order)
+        {
+            if (AppsIndex.TryGetValue(order - 1, out KeyValuePair<string,string> entry))
+                return entry;
+            return null;
+        }
+
+        public object nextAppsLink(int order)
+        {
+            if (AppsIndex.TryGetValue(order + 1, out KeyValuePair<string,string> entry))
                 return entry;
             return null;
         }
@@ -92,6 +107,9 @@ namespace SharpScript
 
         List<KeyValuePair<string,string>> sortedDocLinks;
         public object docLinks() => sortedDocLinks ?? (sortedDocLinks = sortLinks(DocsIndex));
+
+        List<KeyValuePair<string,string>> sortedAppsLinks;
+        public object appsLinks() => sortedAppsLinks ?? (sortedAppsLinks = sortLinks(AppsIndex));
 
         List<KeyValuePair<string,string>> sortedCodeLinks;
         public object codeLinks() => sortedCodeLinks ?? (sortedCodeLinks = sortLinks(CodeIndex));
