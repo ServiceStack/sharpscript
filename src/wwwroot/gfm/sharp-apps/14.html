@@ -2,6 +2,14 @@
 <blockquote>
 <p>Live Demo: <a href="http://blog.web-app.io" rel="nofollow">blog.web-app.io</a></p>
 </blockquote>
+<p>You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):</p>
+<p><strong><a name="user-content-app://blog">app://blog</a></strong></p>
+<p>Or via command-line:</p>
+<pre><code>$ app open blog
+</code></pre>
+<p>Cross platform (Default Browser):</p>
+<pre><code>$ x open blog
+</code></pre>
 <p>To maximize approachability the <a href="https://github.com/NetCoreWebApps/Blog/tree/master/app">/Blog</a> Web App has no C# source code, plugins and uses
 no JavaScript or CSS frameworks yielding an enjoyable development experiences as all the usual complexities of developing a C# Server and modern
 JS App has been dispensed and you can just focus on the App you want to create, using a plain-text editor on the left, a live updating browser on
@@ -58,35 +66,35 @@ the database instead of <code>localStorage</code>.</p>
 <p>Creating and Posting content benefit from Live Previews where its rendered output can be visualized in real-time before it's published.</p>
 <p>Any textarea can easily be enhanced to enable Live Preview by including the <code>data-livepreview</code> attribute with the element where the output
 should be rendered in, e.g:</p>
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">textarea</span> <span class="pl-e">data-livepreview</span>=<span class="pl-s"><span class="pl-pds">"</span>.preview<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">textarea</span>&gt;
-&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>preview<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">textarea</span> <span class="pl-c1">data-livepreview</span>="<span class="pl-s">.preview</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">textarea</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">class</span>="<span class="pl-s">preview</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span></pre></div>
 <p>The implementation of which is surprisingly simple where the JavaScript snippet in
 <a href="https://github.com/NetCoreWebApps/Blog/blob/master/default.js">default.js</a> below is used to send its content on each change:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span> Enable Live Preview of new Content</span>
-textAreas <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">querySelectorAll</span>(<span class="pl-s"><span class="pl-pds">"</span>textarea[data-livepreview]<span class="pl-pds">"</span></span>);
-<span class="pl-k">for</span> (<span class="pl-k">let</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>; i <span class="pl-k">&lt;</span> <span class="pl-smi">textAreas</span>.<span class="pl-c1">length</span>; i<span class="pl-k">++</span>) {
-  textAreas[i].<span class="pl-c1">addEventListener</span>(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>, livepreview, <span class="pl-c1">false</span>);
-  <span class="pl-en">livepreview</span>({ target<span class="pl-k">:</span> textAreas[i] });
-}
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Enable Live Preview of new Content</span>
+<span class="pl-s1">textAreas</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">querySelectorAll</span><span class="pl-kos">(</span><span class="pl-s">"textarea[data-livepreview]"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">textAreas</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-s1">textAreas</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-en">addEventListener</span><span class="pl-kos">(</span><span class="pl-s">"input"</span><span class="pl-kos">,</span> <span class="pl-s1">livepreview</span><span class="pl-kos">,</span> <span class="pl-c1">false</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-en">livepreview</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">target</span>: <span class="pl-s1">textAreas</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span> <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span>
 
-<span class="pl-k">function</span> <span class="pl-en">livepreview</span>(<span class="pl-smi">e</span>) {
-  <span class="pl-k">let</span> el <span class="pl-k">=</span> <span class="pl-smi">e</span>.<span class="pl-c1">target</span>;
-  <span class="pl-k">let</span> sel <span class="pl-k">=</span> <span class="pl-smi">el</span>.<span class="pl-c1">getAttribute</span>(<span class="pl-s"><span class="pl-pds">"</span>data-livepreview<span class="pl-pds">"</span></span>);
+<span class="pl-k">function</span> <span class="pl-en">livepreview</span><span class="pl-kos">(</span><span class="pl-s1">e</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">let</span> <span class="pl-s1">el</span> <span class="pl-c1">=</span> <span class="pl-s1">e</span><span class="pl-kos">.</span><span class="pl-c1">target</span><span class="pl-kos">;</span>
+  <span class="pl-k">let</span> <span class="pl-s1">sel</span> <span class="pl-c1">=</span> <span class="pl-s1">el</span><span class="pl-kos">.</span><span class="pl-en">getAttribute</span><span class="pl-kos">(</span><span class="pl-s">"data-livepreview"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-  <span class="pl-k">if</span> (<span class="pl-smi">el</span>.<span class="pl-c1">value</span>.<span class="pl-en">trim</span>() <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>) {
-    <span class="pl-c1">document</span>.<span class="pl-c1">querySelector</span>(sel).<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;div&gt;Live Preview&lt;/div&gt;<span class="pl-pds">"</span></span>;
-    <span class="pl-k">return</span>;
-  }
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">el</span><span class="pl-kos">.</span><span class="pl-c1">value</span><span class="pl-kos">.</span><span class="pl-en">trim</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">==</span> <span class="pl-s">""</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">querySelector</span><span class="pl-kos">(</span><span class="pl-s1">sel</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s">"&lt;div&gt;Live Preview&lt;/div&gt;"</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
 
-  <span class="pl-k">let</span> formData <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">FormData</span>();
-  <span class="pl-smi">formData</span>.<span class="pl-c1">append</span>(<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>, <span class="pl-smi">el</span>.<span class="pl-c1">value</span>);
+  <span class="pl-k">let</span> <span class="pl-s1">formData</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">FormData</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-s1">formData</span><span class="pl-kos">.</span><span class="pl-en">append</span><span class="pl-kos">(</span><span class="pl-s">"content"</span><span class="pl-kos">,</span> <span class="pl-s1">el</span><span class="pl-kos">.</span><span class="pl-c1">value</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-  <span class="pl-en">fetch</span>(<span class="pl-s"><span class="pl-pds">"</span>/preview<span class="pl-pds">"</span></span>, {
-    method<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span>,
-    body<span class="pl-k">:</span> formData
-  }).<span class="pl-c1">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">r</span>) { <span class="pl-k">return</span> <span class="pl-smi">r</span>.<span class="pl-c1">text</span>(); })
-    .<span class="pl-c1">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">r</span>) { <span class="pl-c1">document</span>.<span class="pl-c1">querySelector</span>(sel).<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> r; });
-}</pre></div>
+  <span class="pl-en">fetch</span><span class="pl-kos">(</span><span class="pl-s">"/preview"</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+    <span class="pl-c1">method</span>: <span class="pl-s">"post"</span><span class="pl-kos">,</span>
+    <span class="pl-c1">body</span>: <span class="pl-s1">formData</span>
+  <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">then</span><span class="pl-kos">(</span><span class="pl-k">function</span><span class="pl-kos">(</span><span class="pl-s1">r</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-k">return</span> <span class="pl-s1">r</span><span class="pl-kos">.</span><span class="pl-en">text</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-kos">}</span><span class="pl-kos">)</span>
+    <span class="pl-kos">.</span><span class="pl-en">then</span><span class="pl-kos">(</span><span class="pl-k">function</span><span class="pl-kos">(</span><span class="pl-s1">r</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">querySelector</span><span class="pl-kos">(</span><span class="pl-s1">sel</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s1">r</span><span class="pl-kos">;</span> <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre></div>
 <p>To the <a href="https://github.com/NetCoreWebApps/blog/blob/master/preview.html">/preview.html</a> API Page which just renders and captures any
 Template Content its sent and returns the output:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">content</span>  |&gt; <span class="pl-e"><span class="pl-v">evalTemplate</span></span>({<span class="pl-e"><span class="pl-v">use</span></span>:{<span class="pl-e"><span class="pl-v">plugins</span></span>:<span class="pl-s"><span class="pl-pds">'</span>MarkdownScriptPlugin<span class="pl-pds">'</span></span><span class="pl-c1">}}</span>) |&gt; to =&gt;response }}

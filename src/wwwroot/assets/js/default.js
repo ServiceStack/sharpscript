@@ -216,3 +216,9 @@ function bindYouTubeImages() {
 }
 
 $(bindYouTubeImages);
+
+$(function(){
+    $("a[name*='app://']").each(function() {
+        this.href = 'app://' + splitOnFirst(this.getAttribute('name'), '://')[1];
+    });    
+});

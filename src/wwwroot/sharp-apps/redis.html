@@ -3,12 +3,33 @@ title: App - Redis
 order: 4
 -->
 
+<p>
+    The <a href="#redis-html">Redis HTML</a> 
+    and 
+    <a href="#redis-vue">Redis Vue</a> Apps below
+    demonstrates the versatility of Sharp Apps showcasing the same App implemented in both <b>server-generated HTML</b> and a <b>Vue SPA App</b>.
+</p>
+
 <h3>Redis HTML</h3>
 <div class="source">
-    <em>x open redis-html</em> -
+    <a name="app://redis-html">app://redis-html</a> -
     <a href="http://redis-html.web-app.io">redis-html.web-app.io</a> -
     <a href="https://github.com/sharp-apps/redis-html">sharp-apps/redis-html</a>
 </div>
+
+{{#markdown}}
+You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):
+
+<strong><a name="app://redis-html">app://redis-html</a></strong>
+
+Or via command-line:
+
+    $ app open redis-html
+
+Cross platform (Default Browser):
+
+    $ x open redis-html
+{{/markdown}}
 
 <p>
     For the Redis Browser Web App, we wanted to implement an App that was an ideal candidate for a Single Page App but constrain ourselves
@@ -75,10 +96,24 @@ redis.connection localhost:6379</code></pre>
 
 <h3>Redis Vue</h3>
 <div class="source">
-    <em>x open redis</em> -
+    <a name="app://redis">app://redis</a> -
     <a href="http://redis.web-app.io">redis.web-app.io</a> -
     <a href="https://github.com/sharp-apps/Redis">sharp-apps/Redis</a>
 </div>
+
+{{#markdown}}
+You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):
+
+<strong><a name="app://redis">app://redis</a></strong>
+
+Or via command-line:
+
+    $ app open redis
+
+Cross platform (Default Browser):
+
+    $ x open redis
+{{/markdown}}
 
 <p>
     Whilst the above server-generated HTML Redis UI shows how you can easily develop traditional Web Apps using <em>#Script</em>, we've also
