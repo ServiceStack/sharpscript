@@ -287,17 +287,69 @@ webRoot ~/../bare</code></pre>
     <a href="https://github.com/sharp-apps">github.com/sharp-apps</a>. 
 </p>
 
+{{* 'gfm/sharp-apps/15.md' |> githubMarkdown *}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>App</th>
+            <th>URL Scheme</th>
+            <th>Command line (Win/macOS/Linux)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="/sharp-apps/spirals">Spirals</a></td>
+            <td><a href="app://spirals">app://spirals</a></td>
+            <td>x open spirals</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/redis">Redis</a></td>
+            <td><a href="app://redis">app://redis</a></td>
+            <td>$ x open redis</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/rockwind">Rockwind</a></td>
+            <td><a href="app://rockwind">app://rockwind</a></td>
+            <td>$ x open rockwind</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/plugins">Plugins</a></td>
+            <td><a href="app://plugins">app://plugins</a></td>
+            <td>$ x open plugins</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/chat">Chat</a></td>
+            <td><a href="app://chat">app://chat</a></td>
+            <td>$ x open chat</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/blog">Blog</a></td>
+            <td><a href="app://blog">app://blog</a></td>
+            <td>$ x open blog</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/win32">Win32</a></td>
+            <td><a href="app://win32">app://win32</a></td>
+            <td>$ x open win32</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/studio">ServiceStack Studio</a></td>
+            <td><a href="app://studio">app://studio</a></td>
+            <td>$ x open studio</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/sharpdata">SharpData</a></td>
+            <td><a href="app://sharpdata?mix=northwind.sharpdata">app://sharpdata?mix=northwind.sharpdata</a></td>
+            <td>$ x open sharpdata mix northwind.sharpdata</td>
+        </tr>
+    </tbody>
+</table>
+
 {{#markdown}}
 
-- [Spirals](/sharp-apps/spirals) - [app://spirals](app://spirals)
-- [Redis](/sharp-apps/redis) - [app://redis](app://redis)
-- [Rockwind](/sharp-apps/rockwind) - [app://rockwind](app://rockwind)
-- [Plugins](/sharp-apps/plugins) - [app://plugins](app://plugins)
-- [Chat](/sharp-apps/chat) - [app://chat](app://chat)
-- [Blog](/sharp-apps/blog) - [app://blog](app://blog)
-- [SharpData](/sharp-apps/sharpdata) - [app://sharpdata](app://sharpdata?mix=northwind.sharpdata)
-- [Win32](/sharp-apps/win32) - [app://win32](app://win32)
-- [ServiceStack Studio](/sharp-apps/studio) - [app://studio](app://studio)
+> As [SharpData](/sharp-apps/sharpdata) is a generic RDBMS UI it needs to [mix in Gists](/sharp-apps/sharpdata#mix-in-gists) containing the DB 
+info and/or **.sqlite** db if using SQLite
 
 #### app URL Schemes
 

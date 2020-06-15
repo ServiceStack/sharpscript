@@ -220,5 +220,12 @@ $(bindYouTubeImages);
 $(function(){
     $("a[name*='app://']").each(function() {
         this.href = 'app://' + splitOnFirst(this.getAttribute('name'), '://')[1];
-    });    
+    });
+    $(".gfm h2 .anchor,.gfm h3 .anchor,.gfm h4 .anchor").each(function() {
+        var href = this.href;
+        if (!href) return;
+        var h = $(this).parent();
+        h.addClass('h-link');
+        h.on('click', function() { location.href = href; });
+    })
 });

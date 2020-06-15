@@ -11,7 +11,7 @@
 </ul>
 <p>Most development will happen within <code>/client</code> which is automatically published to <code>/app</code> using parcel's CLI that's invoked from the included npm scripts.</p>
 <h3>
-<a id="user-content-client" class="anchor" href="#client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>client</h3>
+<a id="client" class="anchor" href="#client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>client</h3>
 <p>The difference with <a href="https://github.com/NetCoreTemplates/templates-app">templates-app</a> is that the client source code is maintained in the <code>/client</code> folder and uses <a href="https://parceljs.org" rel="nofollow">Parcel JS</a> to automatically bundle and publish your App to <code>/app/wwwroot</code> which is updated with live changes during development.</p>
 <p>The client folder also contains the npm <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/package.json">package.json</a> which contains all npm scripts required during development.</p>
 <p>If this is the first time using Parcel, you will need to install its global CLI:</p>
@@ -27,7 +27,7 @@
 <p>Which will host your App at <code>http://localhost:5000</code> which in <code>debug</code> mode will enable <a href="http://sharpscript.net/docs/hot-reloading" rel="nofollow">hot reloading</a>
 which will automatically reload your web page as it detects any file changes made by parcel.</p>
 <h3>
-<a id="user-content-server" class="anchor" href="#server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>server</h3>
+<a id="server" class="anchor" href="#server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>server</h3>
 <p>To enable even richer functionality, this Sharp Apps template is also pre-configured with a custom Server project where you can extend your Web App with <a href="http://sharpscript.net/docs/sharp-apps#plugins" rel="nofollow">Plugins</a> where all <code>Plugins</code>, <code>Services</code>, <code>Filters</code>, etc are automatically wired and made available to your Web App.</p>
 <p>This template includes a simple <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/server/ServerPlugin.cs">ServerPlugin.cs</a> which contains an Empty <code>ServerPlugin</code> and <code>Hello</code> Service:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ServerPlugin</span> : <span class="pl-en">IPlugin</span>
@@ -64,29 +64,29 @@ which will automatically reload your web page as it detects any file changes mad
 </code></pre>
 <p>Which saves generate DTOs for all your ServiceStack Services in <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/dtos.ts">dtos.ts</a> which can then be accessed in your TypeScript source code.</p>
 <p>If preferred you can instead develop Server APIs with API Pages, an example is included in <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/hello/_name.html">/client/hello/_name.html</a></p>
-<div class="highlight highlight-text-html-basic"><pre>{{ { result: `Hi ${name} from /hello/_name.html` } |&gt; return }}</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>{{ { result: `Hi ${name} from /hello/_name.html` } |<span class="pl-kos">&gt;</span> return }}</pre></div>
 <p>Which as it uses the same data structure as the <code>Hello</code> Service above, can be called with ServiceStack's <code>JsonServiceClient</code> and generated TypeScript DTOs.</p>
 <p>The <a href="https://github.com/NetCoreTemplates/parcel-app/blob/master/client/index.ts">/client/index.ts</a> shows an example of this where initially the App calls  the C# <code>Hello</code> ServiceStack Service:</p>
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> { <span class="pl-smi">client</span> } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./shared<span class="pl-pds">"</span></span>;
-<span class="pl-k">import</span> { <span class="pl-smi">Hello</span>, <span class="pl-smi">HelloResponse</span> } <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">"</span>./dtos<span class="pl-pds">"</span></span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> <span class="pl-kos">{</span> <span class="pl-s1">client</span> <span class="pl-kos">}</span> <span class="pl-k">from</span> <span class="pl-s">"./shared"</span><span class="pl-kos">;</span>
+<span class="pl-k">import</span> <span class="pl-kos">{</span> <span class="pl-smi">Hello</span><span class="pl-kos">,</span> <span class="pl-smi">HelloResponse</span> <span class="pl-kos">}</span> <span class="pl-k">from</span> <span class="pl-s">"./dtos"</span><span class="pl-kos">;</span>
 
-<span class="pl-k"><span class="pl-k">const</span></span> result <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">querySelector</span>(<span class="pl-s"><span class="pl-pds">"</span>#result<span class="pl-pds">"</span></span>)<span class="pl-k">!</span>;
+<span class="pl-k">const</span> <span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">querySelector</span><span class="pl-kos">(</span><span class="pl-s">"#result"</span><span class="pl-kos">)</span>!<span class="pl-kos">;</span>
 
-<span class="pl-c1">document</span>.<span class="pl-c1">querySelector</span>(<span class="pl-s"><span class="pl-pds">"</span>#Name<span class="pl-pds">"</span></span>)<span class="pl-k">!</span>.<span class="pl-c1">addEventListener</span>(<span class="pl-s"><span class="pl-pds">"</span>input<span class="pl-pds">"</span></span>, <span class="pl-k">async</span> <span class="pl-v">e</span> <span class="pl-k">=&gt;</span> {
-  <span class="pl-k"><span class="pl-k">const</span></span> value <span class="pl-k">=</span> (<span class="pl-smi">e</span>.<span class="pl-c1">target</span> <span class="pl-k">as</span> <span class="pl-en">HTMLInputElement</span>).<span class="pl-c1">value</span>;
-  <span class="pl-k">if</span> (<span class="pl-smi">value</span> <span class="pl-k">!=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>) {
-    <span class="pl-k"><span class="pl-k">const</span></span> request <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Hello</span>();
-    <span class="pl-smi">request</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> <span class="pl-smi">value</span>;
-    <span class="pl-k"><span class="pl-k">const</span></span> response <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">client</span>.<span class="pl-c1">get</span>(<span class="pl-smi">request</span>);
-    <span class="pl-c"><span class="pl-c">//</span> const response = await client.get&lt;HelloResponse&gt;(`/hello/${request.name}`); //call /hello/_name.html</span>
-    <span class="pl-smi">result</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-smi">response</span>.<span class="pl-smi">result</span>;
-  } <span class="pl-k">else</span> {
-    <span class="pl-smi">result</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>;
-  }
-});</pre></div>
+<span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">querySelector</span><span class="pl-kos">(</span><span class="pl-s">"#Name"</span><span class="pl-kos">)</span>!<span class="pl-kos">.</span><span class="pl-en">addEventListener</span><span class="pl-kos">(</span><span class="pl-s">"input"</span><span class="pl-kos">,</span> <span class="pl-k">async</span> <span class="pl-s1">e</span> <span class="pl-c1">=&gt;</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">value</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-s1">e</span><span class="pl-kos">.</span><span class="pl-c1">target</span> <span class="pl-k">as</span> <span class="pl-smi">HTMLInputElement</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">value</span><span class="pl-kos">;</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">value</span> != <span class="pl-s">""</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">const</span> <span class="pl-s1">request</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-smi">Hello</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">request</span><span class="pl-kos">.</span><span class="pl-c1">name</span> <span class="pl-c1">=</span> <span class="pl-s1">value</span><span class="pl-kos">;</span>
+    <span class="pl-k">const</span> <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">client</span><span class="pl-kos">.</span><span class="pl-en">get</span><span class="pl-kos">(</span><span class="pl-s1">request</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">// const response = await client.get&lt;HelloResponse&gt;(`/hello/${request.name}`); //call /hello/_name.html</span>
+    <span class="pl-s1">result</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s1">response</span><span class="pl-kos">.</span><span class="pl-c1">result</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span> <span class="pl-k">else</span> <span class="pl-kos">{</span>
+    <span class="pl-s1">result</span><span class="pl-kos">.</span><span class="pl-c1">innerHTML</span> <span class="pl-c1">=</span> <span class="pl-s">""</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
 <p>But while your App is running you can instead toggle the uncommented the line and hit <code>Ctrl+S</code> to save <code>index.ts</code> which Parcel will automatically transpile and publish to <code>/app/wwwroot</code> that will be detected by Hot Reload to automatically reload the page with the latest changes. Now typing in the text field will display the response from calling the <code>/hello/_name.html</code> API instead.</p>
 <h3>
-<a id="user-content-deployments" class="anchor" href="#deployments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployments</h3>
+<a id="deployments" class="anchor" href="#deployments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployments</h3>
 <p>During development Parcel maintains a debug and source-code friendly version of your App. Before deploying you can build an optimized production version of your App with:</p>
 <pre><code>$ npm run build
 </code></pre>

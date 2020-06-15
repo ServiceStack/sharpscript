@@ -59,6 +59,8 @@ namespace SharpScript
             return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
         }
 
+        const bool ReplaceUserContent = true;
+
         public async Task githubMarkdown(ScriptScopeContext scope, string markdownPath) 
         {
             var file = Context.ProtectedMethods.ResolveFile(nameof(githubMarkdown), scope, markdownPath);
@@ -119,14 +121,24 @@ namespace SharpScript
                             .PostBytesToUrlAsync(new Dictionary<string,string> { {"text", bytes.FromUtf8Bytes() }, {"mode", Mode}, {"context", RepositoryContext} }.ToJson().ToUtf8Bytes(), 
                                 contentType:MimeTypes.Json, requestFilter:x => x.UserAgent = "#Script");
 
+                    byte[] wrappedBytes = null;
 
-                    var headerBytes = "<div class=\"gfm\">".ToUtf8Bytes();
-                    var footerBytes = "</div>".ToUtf8Bytes();
-                    
-                    var wrappedBytes = new byte[headerBytes.Length + htmlBytes.Length + footerBytes.Length];
-                    System.Buffer.BlockCopy(headerBytes, 0, wrappedBytes, 0, headerBytes.Length);
-                    System.Buffer.BlockCopy(htmlBytes, 0, wrappedBytes, headerBytes.Length, htmlBytes.Length);
-                    System.Buffer.BlockCopy(footerBytes, 0, wrappedBytes, headerBytes.Length + htmlBytes.Length, footerBytes.Length);
+                    if (ReplaceUserContent)
+                    {
+                        var html = htmlBytes.FromUtf8Bytes();
+                        html = html.Replace("user-content-","");
+                        wrappedBytes = ("<div class=\"gfm\">" + html + "</div>").ToUtf8Bytes();
+                    }
+                    else
+                    {
+                        var headerBytes = "<div class=\"gfm\">".ToUtf8Bytes();
+                        var footerBytes = "</div>".ToUtf8Bytes();
+                        
+                        wrappedBytes = new byte[headerBytes.Length + htmlBytes.Length + footerBytes.Length];
+                        System.Buffer.BlockCopy(headerBytes, 0, wrappedBytes, 0, headerBytes.Length);
+                        System.Buffer.BlockCopy(htmlBytes, 0, wrappedBytes, headerBytes.Length, htmlBytes.Length);
+                        System.Buffer.BlockCopy(footerBytes, 0, wrappedBytes, headerBytes.Length + htmlBytes.Length, footerBytes.Length);
+                    }
 
                     if (Context.VirtualFiles is IVirtualFiles vfs)
                     {

@@ -767,3 +767,12 @@
 .gfm blockquote p {
   padding: .5em 0;
 }
+#content .gfm h2, #content .gfm h3, #content .gfm h4 {
+  padding: 0;
+}
+.gfm .h-link {
+  cursor: pointer;
+}
+.gfm h2.h-link:hover:after, .gfm h3.h-link:hover:after, .gfm h4.h-link:hover:after {
+  content: " \00B6";
+}

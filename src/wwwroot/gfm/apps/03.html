@@ -1,7 +1,7 @@
 <div class="gfm"><p>The <a href="https://github.com/sharp-apps/win32">win32</a> Sharp App contains an examples dashboard of invoking different native Win32 functions:</p>
 <p><a href="https://github.com/sharp-apps/win32"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/win32.png" alt="" style="max-width:100%;"></a></p>
 <p>You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):</p>
-<p><strong><a name="user-content-app://win32">app://win32</a></strong></p>
+<p><strong><a name="app://win32">app://win32</a></strong></p>
 <p>Or via command-line:</p>
 <pre><code>$ app open win32
 </code></pre>
@@ -9,7 +9,7 @@
 <pre><code>$ x open win32
 </code></pre>
 <h3>
-<a id="user-content-kiosk-mode" class="anchor" href="#kiosk-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kiosk Mode</h3>
+<a id="kiosk-mode" class="anchor" href="#kiosk-mode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kiosk Mode</h3>
 <p>This app starts in full-screen <strong>Kiosk</strong> mode, enabled in its <a href="https://github.com/sharp-apps/win32/blob/master/scripts/deploy/app.settings">app.settings</a> by:</p>
 <pre><code>CefConfig { Kiosk:true }
 </code></pre>
@@ -38,7 +38,7 @@ which makes use of the built in TypeScript APIs below from <code>@servicestack/d
 
 <span class="pl-en">windowSetSize</span><span class="pl-kos">(</span><span class="pl-s1">width</span><span class="pl-kos">,</span> <span class="pl-s1">height</span><span class="pl-kos">)</span></pre></div>
 <h3>
-<a id="user-content-custom-win32-api" class="anchor" href="#custom-win32-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Win32 API</h3>
+<a id="custom-win32-api" class="anchor" href="#custom-win32-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Win32 API</h3>
 <p>You're also not limited to calling the built-in Win32 APIs above as calling custom APIs just involves wrapping the C# inside
 your preferred <a href="/docs/methods">#Script method</a> that you would like to make it available to JS as,
 e.g. here's the <strong>win32</strong> implementation for launching <a href="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box" rel="nofollow">Win32's Color Dialog Box</a>
@@ -99,7 +99,7 @@ invoked during development in "detached mode" if electing to run the .NET Core b
 <p>Where it can be called using the same syntax in JS and #Script:</p>
 <div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">selectedColor</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">chooseColor</span><span class="pl-kos">(</span><span class="pl-s">`#336699`</span><span class="pl-kos">)</span></pre></div>
 <h2>
-<a id="user-content-highly-productive-live-reloading-development-experience" class="anchor" href="#highly-productive-live-reloading-development-experience" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Highly productive live-reloading Development experience</h2>
+<a id="highly-productive-live-reloading-development-experience" class="anchor" href="#highly-productive-live-reloading-development-experience" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Highly productive live-reloading Development experience</h2>
 <p>If it weren't for the productivity possible for being able to only needing to develop for Chrome's state-of-the-art rendering engine where you can use advanced features like CSS grid along with the productivity of high-level productive Reactive UI frameworks like Vue, the effort into create a Desktop App like ServiceStack Studio wouldn't be justifiable.</p>
 <p>After the next release we'll create pre-packaged project templates for <strong>vue-desktop</strong> and <strong>react-desktop</strong> Desktop Apps to make it easy develop Vue &amp; React Desktop Apps along with scripts to bundle it &amp; publish it to gist. If preferred <code>app.exe</code> also lets you deploy the published app to your own private repo &amp; limit access to only users accessible with a GitHub token which they can open with from a URL with:</p>
 <pre><code>app://user/repo?token={GITHUB_TOKEN}

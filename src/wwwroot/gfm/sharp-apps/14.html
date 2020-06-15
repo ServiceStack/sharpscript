@@ -3,7 +3,7 @@
 <p>Live Demo: <a href="http://blog.web-app.io" rel="nofollow">blog.web-app.io</a></p>
 </blockquote>
 <p>You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):</p>
-<p><strong><a name="user-content-app://blog">app://blog</a></strong></p>
+<p><strong><a name="app://blog">app://blog</a></strong></p>
 <p>Or via command-line:</p>
 <pre><code>$ app open blog
 </code></pre>
@@ -18,13 +18,13 @@ the right and nothing else to interrupt your flow.</p>
 <a href="/docs/sharp-pages#init-pages">automatically created an populated on first run</a> if no database exists, or if preferred can be
 <a href="/docs/sharp-apps#multi-platform-configurations">changed to use any other popular RDBMS</a> using just config.</p>
 <h3>
-<a id="user-content-multi-user-blogging-platform" class="anchor" href="#multi-user-blogging-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multi User Blogging Platform</h3>
+<a id="multi-user-blogging-platform" class="anchor" href="#multi-user-blogging-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multi User Blogging Platform</h3>
 <p>Any number of users can Sign In via Twitter and publish content under their Twitter Username where only they'll be able to modify their own Content.
 Setting up Twitter is as easy as it can be which just requires modifying the
 <a href="#customizable-auth-providers">Twitter Auth Config in app.settings</a> with the URL where the blog
 is hosted and the OAuth Keys for the Twitter OAuth App created at <a href="https://apps.twitter.com" rel="nofollow">apps.twitter.com</a>.</p>
 <h3>
-<a id="user-content-rich-content" class="anchor" href="#rich-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rich Content</h3>
+<a id="rich-content" class="anchor" href="#rich-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rich Content</h3>
 <p>Whilst most blogging platforms just edit static text, each Post content has access to full Templates language features so they can be used to create
 <a href="http://blog.web-app.io/posts/live-document-example" rel="nofollow">Live Documents</a> or
 <a href="http://blog.web-app.io/posts/markdown-example" rel="nofollow">Render Markdown</a> which is itself just
@@ -35,7 +35,7 @@ is hosted and the OAuth Keys for the Twitter OAuth App created at <a href="https
 <p>By default the <a href="https://github.com/lunet-io/markdig">Markdig</a> implementation is used to render Markdown but can also be configured to use an
 <a href="http://blog.web-app.io/posts/web-app-customizations#customizable-markdown-providers" rel="nofollow">alternate Markdown provider</a>.</p>
 <h3>
-<a id="user-content-rich-markdown-editor" class="anchor" href="#rich-markdown-editor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rich Markdown Editor</h3>
+<a id="rich-markdown-editor" class="anchor" href="#rich-markdown-editor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rich Markdown Editor</h3>
 <p>To make it easy to recall Markdown features, each Content is equipped with a Rich Text editor containing the most popular formatting controls
 along with common short-cuts for each feature, discoverable by hovering over each button:</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/blog/editor.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/blog/editor.png" alt="" style="max-width:100%;"></a></p>
@@ -43,13 +43,13 @@ along with common short-cuts for each feature, discoverable by hovering over eac
 <code>Ctrl+/</code> or blocks with <code>CTRL+SHIFT+/</code>.</p>
 <p>Another nice productivity win is being able to <code>CTRL+CLICK</code> on any Content you created to navigate to its Edit page.</p>
 <h3>
-<a id="user-content-auto-saved-drafts" class="anchor" href="#auto-saved-drafts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auto saved drafts</h3>
+<a id="auto-saved-drafts" class="anchor" href="#auto-saved-drafts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auto saved drafts</h3>
 <p>The content in each Text <code>input</code> and <code>textarea</code> is saved to <code>localStorage</code> on each key-press so you can freely reload pages and navigate
 around the site where all unpublished content will be preserved upon return.</p>
 <p>When you want to revert back to the original published content you can clear the text boxes and reload the page which will load content from
 the database instead of <code>localStorage</code>.</p>
 <h3>
-<a id="user-content-server-validation" class="anchor" href="#server-validation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Validation</h3>
+<a id="server-validation" class="anchor" href="#server-validation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Validation</h3>
 <p>The <a href="https://github.com/NetCoreWebApps/Blog/blob/master/posts/new.html">new.html</a> and <a href="https://github.com/NetCoreWebApps/Blog/blob/master/posts/_slug/edit.html">edit.html</a> pages shows examples of performing server validation with #Script:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">assignErrorAndContinueExecuting</span>: <span class="pl-e"><span class="pl-v">ex</span></span> <span class="pl-c1">}}</span>
 
@@ -62,7 +62,7 @@ the database instead of <code>localStorage</code>.</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/blog/server-validation.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/blog/server-validation.png" alt="" style="max-width:100%;"></a></p>
 <p>For more info see the docs on <a href="/docs/error-handling">Error Handling</a>.</p>
 <h3>
-<a id="user-content-live-previews" class="anchor" href="#live-previews" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Previews</h3>
+<a id="live-previews" class="anchor" href="#live-previews" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Previews</h3>
 <p>Creating and Posting content benefit from Live Previews where its rendered output can be visualized in real-time before it's published.</p>
 <p>Any textarea can easily be enhanced to enable Live Preview by including the <code>data-livepreview</code> attribute with the element where the output
 should be rendered in, e.g:</p>

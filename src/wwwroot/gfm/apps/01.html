@@ -5,7 +5,7 @@ model to leverage advanced Web Technologies like SVG in a fun, interactive and l
 </blockquote>
 <p><a href="https://youtu.be/Cf-vstYXrmY" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/animated.png" alt="" style="max-width:100%;"></a></p>
 <p>You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):</p>
-<p><strong><a name="user-content-app://spirals">app://spirals</a></strong></p>
+<p><strong><a name="app://spirals">app://spirals</a></strong></p>
 <p>Or via command-line:</p>
 <pre><code>$ app open spirals
 </code></pre>
@@ -13,7 +13,7 @@ model to leverage advanced Web Technologies like SVG in a fun, interactive and l
 <pre><code>$ x open spirals
 </code></pre>
 <h2>
-<a id="user-content-the-making-of-spirals" class="anchor" href="#the-making-of-spirals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Making of Spirals</h2>
+<a id="the-making-of-spirals" class="anchor" href="#the-making-of-spirals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Making of Spirals</h2>
 <p>Spirals is a good example showing how easy it is to create .NET Core Desktop Web Apps utilizing HTML5's familiar and simple development model to
 leverage advanced Web Technologies like SVG in a fun, interactive and live development experience.</p>
 <p>To start install the dotnet <code>app</code> global tool:</p>
@@ -68,7 +68,7 @@ This is the home page.</pre></div>
 <p>We can now <strong>save</strong> changes to any of the pages and see our changes reflected instantly in the running App. But we also have access to an even better
 live-development experience than <strong>preview as you save</strong> with <strong>preview as you type</strong> :)</p>
 <h3>
-<a id="user-content-live-previews" class="anchor" href="#live-previews" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Previews</h3>
+<a id="live-previews" class="anchor" href="#live-previews" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Previews</h3>
 <p>To take advantage of this we can exploit one of the features available in all ServiceStack Apps by clicking on <code>/metadata</code> Menu Item to view the
 <a href="/metadata-page">Metadata page</a> containing links to our Apps Services, links to Metadata Services and any registered plugins:</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-init-metadata.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-init-metadata.png" alt="" style="max-width:100%;"></a></p>
@@ -118,7 +118,7 @@ quickly able to apply some constants to draw the <strong>tall &amp; narrow</stro
 <p>Great, hitting <code>save</code> again will show us the effects of each change side-by-size:</p>
 <p><a href="http://spirals.web-app.io" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/single-fill-radius.png" alt="" style="max-width:100%;"></a></p>
 <h3>
-<a id="user-content-multiplying" class="anchor" href="#multiplying" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiplying</h3>
+<a id="multiplying" class="anchor" href="#multiplying" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiplying</h3>
 <p>Now that we have the effect that we want, let's go back to the debug inspector and see what a number of different spirals look side-by-side
 by wrapping our last svg snippet in another each block:</p>
 <div class="highlight highlight-text-html-handlebars"><pre>&lt;<span class="pl-ent">table</span>&gt;<span class="pl-c1">{{</span><span class="pl-c1">#each</span> <span class="pl-v">i</span> <span class="pl-c1">in</span> <span class="pl-v">range</span>(<span class="pl-e"><span class="pl-v">0</span></span>, <span class="pl-e"><span class="pl-v">4</span></span>) <span class="pl-c1">}}</span>
@@ -156,7 +156,7 @@ to quickly discover new aesthetically pleasing patterns :)</p>
 <p>Where upon save, our creation will reveal itself in the App's menu:</p>
 <p><a href="http://spirals.web-app.io/multi" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/multi.png" alt="" style="max-width:100%;"></a></p>
 <h3>
-<a id="user-content-animating" class="anchor" href="#animating" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Animating</h3>
+<a id="animating" class="anchor" href="#animating" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Animating</h3>
 <p>With the help of SVG's <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate" rel="nofollow"><code>&lt;animate&gt;</code></a> we can easily bring our spirals to life
 by animating different properties on the generated SVG circles.</p>
 <p>As we have to wait for the animation to complete before trying out different effects, we won't benefit from Debug Inspector's live REPL
@@ -191,7 +191,7 @@ arriving at a combination we like:</p>
 <p>Checkout <a href="http://spirals.web-app.io/animated?from=0" rel="nofollow">spirals.web-app.io</a> for the animated version.</p>
 </blockquote>
 <h3>
-<a id="user-content-navigating" class="anchor" href="#navigating" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navigating</h3>
+<a id="navigating" class="anchor" href="#navigating" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navigating</h3>
 <p>Lets expand our App beyond these static Spirals by enabling some navigation, this is easily done by adding the snippet below on the top of the home page:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">from</span> ?? <span class="pl-e"><span class="pl-v">1</span></span> | <span class="pl-e"><span class="pl-v">toInt</span></span> |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">from</span></span> <span class="pl-c1">}}</span>
 &lt;<span class="pl-ent">div</span> <span class="pl-e"><span class="pl-e">style</span>=</span><span class="pl-s"><span class="pl-pds">"</span>text-align:right;margin:-54px 0 30px 0<span class="pl-pds">"</span></span>&gt;
@@ -247,7 +247,7 @@ catalog our favorite picks and add them to a bookmarked list at the bottom of th
 into the rich colorful world of SVG is complete:</p>
 <p><a href="http://spirals.web-app.io/animated" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/spirals/spiral-nav.png" alt="" style="max-width:100%;"></a></p>
 <h3>
-<a id="user-content-recap" class="anchor" href="#recap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recap</h3>
+<a id="recap" class="anchor" href="#recap" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recap</h3>
 <p>If you've reached this far you've created a beautiful Desktop App without waiting for a single build or App restart, in a live and
 interactive environment which let you rapidly prototype and get real-time feedback of any experimental changes, to produce a
 rich graphical app with fast and fluid animations taking advantage of the impressive engineering invested in Chrome, implemented
@@ -259,7 +259,7 @@ the rapid iterations lets us try out and perfect different ideas in the moment, 
 of effort and friction to achieve the same result would take the enjoyment out of the experience and the end result would have much less utility
 where it wouldn't be able to be re-used on different OS's or other websites.</p>
 <h2>
-<a id="user-content-publishing-your-app" class="anchor" href="#publishing-your-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing your App</h2>
+<a id="publishing-your-app" class="anchor" href="#publishing-your-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing your App</h2>
 <p>To share our digital masterpiece with the world we just need to publish it in a GitHub repo, which I've already done for my Spirals app at:
 <a href="github.com/mythz/spirals">https://github.com/mythz/spirals</a>.</p>
 <p>Anyone will then be able to install your App by first downloading the <code>app</code> tool themselves (<a href="https://www.microsoft.com/net/download/dotnet-core/2.1" rel="nofollow">.NET Core 2.1 Required</a>):</p>
@@ -271,7 +271,7 @@ where it wouldn't be able to be re-used on different OS's or other websites.</p>
 <p>Which installs instantly thanks to the <code>7kb</code> .zip download that can then be opened by double-clicking on the generated <strong>Spirals</strong> Desktop Shortcut:</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-install-spirals.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-install-spirals.png" alt="" style="max-width:100%;"></a></p>
 <h3>
-<a id="user-content-publishing-your-app-with-binaries" class="anchor" href="#publishing-your-app-with-binaries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing your App with binaries</h3>
+<a id="publishing-your-app-with-binaries" class="anchor" href="#publishing-your-app-with-binaries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing your App with binaries</h3>
 <p>The unique characteristics of Web Apps affords us different ways of publishing your App, e.g. to save users from needing to install the
 <code>app</code> tool you can run <code>publish</code> in your App's directory:</p>
 <pre><code>$ app publish
@@ -284,7 +284,7 @@ If you know it will be in a fixed location you can update the <strong>Target</st
 <p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-shortcut-properties.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/app-shortcut-properties.png" alt="" style="max-width:100%;"></a></p>
 <p>This includes all <code>app</code> binaries needed to run Web Apps which compresses to <strong>89 MB</strong> in a <code>.zip</code> or <strong>61 MB</strong> in 7-zip <code>.7z</code> archive.</p>
 <h3>
-<a id="user-content-publishing-a-self-contained-windows-64-executable" class="anchor" href="#publishing-a-self-contained-windows-64-executable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing a self-contained Windows 64 executable</h3>
+<a id="publishing-a-self-contained-windows-64-executable" class="anchor" href="#publishing-a-self-contained-windows-64-executable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publishing a self-contained Windows 64 executable</h3>
 <p>But that's not all, we can even save end users who want to run your app the inconvenience of installing .NET Core :) by creating a self-contained
 executable with:</p>
 <pre><code>$ app publish-exe
@@ -294,7 +294,7 @@ executable with:</p>
 the app copied to <code>publish/app</code>.</p>
 <p>This publishing option includes a self-contained .NET Core with all <code>app</code> binaries which compresses to <strong>121 MB</strong> in a <code>.zip</code> or <strong>83 MB</strong> in 7-zip <code>.7z</code> archive.</p>
 <h3>
-<a id="user-content-publish-to-the-world" class="anchor" href="#publish-to-the-world" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publish to the world</h3>
+<a id="publish-to-the-world" class="anchor" href="#publish-to-the-world" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publish to the world</h3>
 <p>To maximize reach and accessibility of your App leave a comment on the <a href="https://gist.github.com/gistlyn/f555677c98fb235dccadcf6d87b9d098">App Gallery</a>
 where after we link to it on <a href="https://github.com/NetCoreWebApps">NetCoreWebApps</a> it will available to all users when they look for available apps in:</p>
 <pre><code>$ app list
@@ -303,7 +303,7 @@ where after we link to it on <a href="https://github.com/NetCoreWebApps">NetCore
 <pre><code>$ app install spirals
 </code></pre>
 <h3>
-<a id="user-content-learnable-living-apps" class="anchor" href="#learnable-living-apps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Learnable Living Apps</h3>
+<a id="learnable-living-apps" class="anchor" href="#learnable-living-apps" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Learnable Living Apps</h3>
 <p>A beautiful feature of Web Apps is that they can be enhanced and customized in real-time whilst the App is running. No pre-installation of dev tools
 or knowledge of .NET and C# is required, anyone can simply use any text editor to peek inside <code>.html</code> files to see how it works and see any of their
 customizations visible in real-time.</p>
