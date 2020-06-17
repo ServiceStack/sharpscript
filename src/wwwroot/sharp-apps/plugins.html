@@ -6,7 +6,7 @@ order: 6
 <div class="source">
     <a name="app://plugins">app://plugins</a> -
     <a href="http://plugins.web-app.io">plugins.web-app.io</a> -
-    <a href="https://github.com/sharp-apps/Plugins">sharp-apps/Plugins</a>
+    <a href="https://github.com/sharp-apps/plugins">sharp-apps/Plugins</a>
 </div>
 
 <p>
@@ -14,25 +14,23 @@ order: 6
     but still retain all the benefits of developing Web Apps you can drop <b>.dll</b> with custom functionality into your 
     Web App's <em>/plugins</em> folder. The plugins support in Web Apps is as friction-less as we could make it, there's no 
     configuration to maintain or special interfaces to implement, you're able to drop your <b>existing implementation .dll's</b> 
-    as-is into the App's `/plugins` folder.
+    as-is into the App's <b>/plugins</b> folder.
 </p>
 
 <p>
     Plugins allow "no touch" sharing of 
     <a href="https://docs.servicestack.net/plugins">ServiceStack Plugins</a>, 
     <a href="https://docs.servicestack.net/create-your-first-webservice">Services</a>, 
-    <a href="http://sharpscript.net/docs/methods">Script Methods</a>
-    <a href="http://sharpscript.net/docs/code-pages">Sharp Code Pages</a>,
+    <a href="https://sharpscript.net/docs/methods">Script Methods</a>
+    <a href="https://sharpscript.net/docs/code-pages">Sharp Code Pages</a>,
     <a href="https://docs.servicestack.net/validation">Validators</a>, etc.
     contained within <b>.dll's</b> or <b>.exe's</b> dropped in a Sharp App's 
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/plugins/plugins">/plugins</a> folder which are auto-registered 
-    on startup. The source code for all plugins used in this App were built from the .NET Core 3.1 projects in the
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/example-plugins">/example-plugins</a> folder. The 
-    <a href="http://plugins.web-app.io">plugins.web-app.io</a> Sharp App below walks through examples of using Custom Filters, 
-    Services and Validators:
+    <a href="https://github.com/sharp-apps/plugins/tree/master/plugins/plugins">/plugins</a> folder which are auto-registered 
+    on startup. This source code for plugins used in this App were built from the .NET Core 3.1 projects in the
+    <a href="https://github.com/sharp-apps/plugins/tree/master/src">/plugins/src</a> folder.
 </p>
 
-<a href="http://plugins.web-app.io"><img src="/assets/img/screenshots/plugins.png" alt="Plugins WebApp screenshot"></a>
+<a href="http://plugins.web-app.io"><img src="/assets/img/screenshots/plugins.png" alt="Plugins Sharp App Screenshot"></a>
 
 {{#markdown}}
 You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):
@@ -54,16 +52,15 @@ Cross platform (Default Browser):
 <p>
     <a href="https://docs.servicestack.net/plugins">ServiceStack Plugins</a> can be added to your App by 
     listing it's Type Name in the <em>features</em> config entry in 
-    <a href="https://github.com/sharp-apps/Plugins/tree/master/app.settings">app.settings</a>:
+    <a href="https://github.com/sharp-apps/plugins/tree/master/app.settings">app.settings</a>:
 </p>
 
 <pre class="settings"><code>debug true
-name Web App Plugins
-contentRoot ~/../plugins
-webRoot ~/../plugins
+name Plugins Sharp App
 features CustomPlugin, OpenApiFeature, PostmanFeature, CorsFeature, ValidationFeature
 CustomPlugin { ShowProcessLinks: true }
 ValidationFeature { ScanAppHostAssemblies: true }
+CefConfig { width:1150, height:1050 }
 </code></pre>
 
 <p>
@@ -77,7 +74,7 @@ ValidationFeature { ScanAppHostAssemblies: true }
 <h4>Custom Plugin</h4>
 
 <p>
-    In this case it tells our <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/example-plugins/ServerInfo/CustomPlugin.cs">CustomPlugin</a>
+    In this case it tells our <a href="https://github.com/sharp-apps/plugins/blob/master/src/ServerInfo/CustomPlugin.cs">CustomPlugin</a>
     from <b>/plugins/ServerInfo.dll</b> to also show Process Links in its
     <a href="http://plugins.web-app.io/metadata">/metadata</a> Page:
 </p>
@@ -88,23 +85,24 @@ ValidationFeature { ScanAppHostAssemblies: true }
     Where as it was first registered in the list will appear before any links registered by other plugins:
 </p>
 
-<img src="http://plugins.web-app.io/assets/img/metadata-screenshot.png" alt="Metadata screenshot">
+<img src="https://raw.githubusercontent.com/sharp-apps/plugins/master/assets/img/metadata-screenshot.png" alt="Metadata screenshot">
 
 <h4>Built-in Plugins</h4>
 
 <p>
     It also tells the <em>ValidationFeature</em> to scan all Service Assemblies for Validators and to automatically register them
     which is how ServiceStack was able to find the
-    <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/example-plugins/ServerInfo/ContactServices.cs">ContactValidator</a>
+    <a href="https://github.com/sharp-apps/plugins/blob/master/src/ServerInfo/ContactServices.cs">ContactValidator</a>
     used to validate the <em>StoreContact</em> request.
 </p>
 
 <p>
-    Other optional plugins registered in this Web App is the metadata Services required for 
+    Other optional plugins registered in this App is the metadata Services required for 
     <a href="https://docs.servicestack.net/openapi">Open API</a>, 
     <a href="https://docs.servicestack.net/postman">Postman</a> as well as
     <a href="https://docs.servicestack.net/corsfeature">support for CORS</a>.
-    You can check the <a href="/metadata/debug">/metadata/debug</a> Inspector for all Plugins loaded in your AppHost.
+    You can check the <a href="https://sharpscript.net/docs/servicestack-scripts#debug-template">Metadata Debug Inspector</a> for all Plugins 
+    loaded in your AppHost.
 </p>
 
 <h3 id="netcore-extensibility">.NET Extensibility</h3>
@@ -115,8 +113,7 @@ ValidationFeature { ScanAppHostAssemblies: true }
 
 <p>
     To simplify configuration you can use the <em>plugins/*</em> wildcard in 
-    <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/plugins2/app.settings">app.settings</a>
-    at the end of an ordered plugin list to register all remaining Plugins it finds in the apps `/plugins` folder:
+    <b>app.settings</b> at the end of an ordered plugin list to register all remaining Plugins it finds in the apps <em>/plugins</em> folder:
 </p>
 
 
@@ -130,7 +127,7 @@ CustomPlugin { ShowProcessLinks: true }
 
 <p>
     The <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/plugins2">/plugins2</a>  App shows an example of this with the 
-    <a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/example-plugins/ServerInfo/StartupPlugin.cs">StartupPlugin</a>
+    <a href="https://github.com/sharp-apps/plugins/blob/master/src/ServerInfo/StartupPlugin.cs">StartupPlugin</a>
     registering a <em>StartupDep</em> dependency which is used by its <em>StartupServices</em> at runtime:
 </p>
 
