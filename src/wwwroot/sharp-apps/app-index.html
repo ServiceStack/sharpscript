@@ -114,18 +114,34 @@ Make the changes we want, then run our local copy by running `app` (or `x`) with
 
 Other alias command include:
 
-#### View all aliases
+**View all local aliases**
 
     $ app alias
 
-#### View single alias
+**View single alias**
 
     $ app alias db
 
-#### Remove an alias
+**Remove a local alias**
 
     $ app unalias db
 
+### Private Sharp Apps
+
+Alternatively Sharp Apps can be published to a GitHub repo (public or private) and run with:
+
+    $ app open <user>/<repo>
+
+Or link to it with its custom URL Scheme:
+
+    app://<user>/repo
+
+If it's in a **private** repo they'll need to either provide an **AccessToken** in the `GITHUB_TOKEN` Environment variable or using the `-token` argument:
+
+    app://<user>/repo?token=<token>
+
+Command Line:
+
+    $ app open <user>/<repo> -token <token>
 
 {{/markdown}}
-
