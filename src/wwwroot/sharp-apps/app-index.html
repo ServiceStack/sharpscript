@@ -1,0 +1,131 @@
+<!--
+title: App Index
+order: 2
+-->
+
+<p>
+    In addition to the <a href="/sharp-apps/#init">Sharp App Templates</a> 
+    there's a number of Sharp Apps to illustrate the various features available and to showcase the different 
+    kind of Web Apps that can easily be developed. The source code for each app is available either individually from 
+    <a href="https://github.com/sharp-apps">github.com/sharp-apps</a> or published as 
+    <a href="/sharp-apps/gist-desktop-apps">Gist Desktop Apps</a>.
+</p>
+
+{{* 'gfm/sharp-apps/15.md' |> githubMarkdown *}}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>App</th>
+            <th>URL Scheme</th>
+            <th>Command line (Win/macOS/Linux)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="/sharp-apps/spirals">Spirals</a></td>
+            <td><a href="app://spirals">app://spirals</a></td>
+            <td>$ x open spirals</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/redis">Redis</a></td>
+            <td><a href="app://redis">app://redis</a></td>
+            <td>$ x open redis</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/rockwind">Rockwind</a></td>
+            <td><a href="app://rockwind">app://rockwind</a></td>
+            <td>$ x open rockwind</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/plugins">Plugins</a></td>
+            <td><a href="app://plugins">app://plugins</a></td>
+            <td>$ x open plugins</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/chat">Chat</a></td>
+            <td><a href="app://chat">app://chat</a></td>
+            <td>$ x open chat</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/blog">Blog</a></td>
+            <td><a href="app://blog">app://blog</a></td>
+            <td>$ x open blog</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/win32">Win32</a></td>
+            <td><a href="app://win32">app://win32</a></td>
+            <td>$ x open win32</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/studio">ServiceStack Studio</a></td>
+            <td><a href="app://studio">app://studio</a></td>
+            <td>$ x open studio</td>
+        </tr>
+        <tr>
+            <td><a href="/sharp-apps/sharpdata">SharpData</a></td>
+            <td><a href="app://sharpdata?mix=northwind.sharpdata">app://sharpdata?mix=northwind.sharpdata</a></td>
+            <td>$ x open sharpdata mix northwind.sharpdata</td>
+        </tr>
+    </tbody>
+</table>
+
+{{#markdown}}
+
+> As [SharpData](/sharp-apps/sharpdata) is a generic RDBMS UI it needs to [mix in Gists](/sharp-apps/sharpdata#mix-in-gists) containing the DB 
+info and/or **.sqlite** db if using SQLite
+
+### app URL Schemes
+
+To open Sharp Apps with the `app://` URL Scheme install the [app dotnet tool](https://docs.servicestack.net/netcore-windows-desktop):
+
+    $ dotnet tool install -g app
+    $ app -version
+
+If on macOS/Linux you can use the cross-platform [x dotnet tool](https://docs.servicestack.net/dotnet-tool) to open Sharp Apps in your Default Browser:
+
+    $ dotnet tool install -g x
+    $ x open spirals
+
+### app local aliases
+
+Where ever you can use a **Gist Id**, you can assign a local user-friendly alias to use instead such as referencing 
+[Gist Desktop Apps](https://sharpscript.net/docs/gist-desktop-apps), e.g. we can assign the 
+[redis gist app](https://gist.github.com/gistlyn/6de7993333b457445793f51f6f520ea8) to use our preferred alias:
+
+    $ app alias local-redis 6de7993333b457445793f51f6f520ea8
+
+That we can open via command-line:
+
+    $ app open local-redis
+
+Or URL Scheme:
+
+    app://local-redis
+
+Or if we want to run our own modified copy of the Redis Desktop App, we can [mix](https://docs.servicestack.net/mix-tool) the Gist files to our
+local directory:
+
+    $ app mix local-redis
+
+Make the changes we want, then run our local copy by running `app` (or `x`) without arguments:
+
+    $ app
+
+Other alias command include:
+
+#### View all aliases
+
+    $ app alias
+
+#### View single alias
+
+    $ app alias db
+
+#### Remove an alias
+
+    $ app unalias db
+
+
+{{/markdown}}
+
