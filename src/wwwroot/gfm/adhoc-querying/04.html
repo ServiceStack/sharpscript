@@ -53,7 +53,7 @@ with a <a href="http://sharpscript.net/docs/html-scripts" rel="nofollow">HTML Sc
 <p><a href="http://rockwind-sqlite.web-app.io/northwind/sql/" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/rockwind/sql-viewer.png" alt="" style="max-width:100%;"></a></p>
 <p>The <a href="http://rockwind-sqlite.web-app.io/northwind/sql/" rel="nofollow">Northwind SQL Viewer</a> above was developed using the 2 #Script Pages below:</p>
 <h4>
-<a id="user-content-northwindsqlindexhtml" class="anchor" href="#northwindsqlindexhtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind/northwind/sql/index.html">/northwind/sql/index.html</a>
+<a id="user-content-northwindsqlindexhtml" class="anchor" href="#northwindsqlindexhtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/sharp-apps/rockwind/blob/master/northwind/sql/index.html">/northwind/sql/index.html</a>
 </h4>
 <p>A Sharp Page to render the UI, shortcut links to quickly see the last 10 rows of each table, a <code>&lt;textarea/&gt;</code> to capture the SQL Query which
 is sent to an API on every keystroke where the results are displayed instantly:</p>
@@ -102,7 +102,7 @@ is sent to an API on every keystroke where the results are displayed instantly:<
 <span class="pl-s1">}</span>
 <span class="pl-s1"></span>&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 <h4>
-<a id="user-content-northwindsqlapihtml" class="anchor" href="#northwindsqlapihtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/ServiceStack/dotnet-app/blob/master/src/apps/rockwind/northwind/sql/api.html">/northwind/sql/api.html</a>
+<a id="user-content-northwindsqlapihtml" class="anchor" href="#northwindsqlapihtml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/sharp-apps/rockwind/blob/master/northwind/sql/api.html">/northwind/sql/api.html</a>
 </h4>
 <p>All that's left is to implement the API which just needs to check to ensure the SQL does not contain any destructive operations using the
 <code>isUnsafeSql</code> DB filter, if it doesn't execute the SQL with the <code>dbSelect</code> DB Filter, generate a HTML Table with <code>htmlDump</code> and return

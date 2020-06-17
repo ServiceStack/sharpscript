@@ -220,7 +220,7 @@ defaultFileCacheExpirySecs     60</code></pre>
 <p>
     The <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/support/copy-files">/support/copy-files</a>
     project lets you run Rockwind against your own Azure Blob Container by populating it with a copy of the 
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind">/rockwind</a> App's files using 
+    <a href="https://github.com/sharp-apps/rockwind">/rockwind</a> App's files using 
     the same configuration above:
 </p>
 
@@ -258,7 +258,7 @@ defaultFileCacheExpirySecs     60</code></pre>
 </div>
 
 <p>
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind-vfs">/rockwind-vfs</a> is a clone of
+    <a href="https://github.com/sharp-apps/rockwind-vfs">/rockwind-vfs</a> is a clone of
     the Rockwind Web App with 3 differences: It uses the <em>resolveAsset</em> filter for each <em>.js</em>, <em>.css</em> and 
     <em>image</em> web asset so that it's able to generate external URLs directly to the S3 Bucket, Azure Blob Container or CDN 
     hosting a copy of your files to both reduce the load on your Web App and maximize the responsiveness to the end user.    
@@ -347,7 +347,7 @@ defaultFileCacheExpirySecs     60</code></pre>
 
 <p>
     We can also create Azure Cloud Apps in the same we've done for AWS above, which runs the same 
-    <a href="https://github.com/ServiceStack/dotnet-app/tree/master/src/apps/rockwind-vfs">/rockwind-vfs</a>
+    <a href="https://github.com/sharp-apps/rockwind-vfs">/rockwind-vfs</a>
     Web App but using an Azure hosted SQL Server database and its files hosted on Azure Blob Storage:
 </p>
 
