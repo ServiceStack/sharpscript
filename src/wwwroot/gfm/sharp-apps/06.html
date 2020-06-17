@@ -1,22 +1,21 @@
 <div class="gfm"><div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Startup</span>
 {
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>, <span class="pl-en">IHostingEnvironment</span> <span class="pl-smi">env</span>, <span class="pl-en">ILoggerFactory</span> <span class="pl-smi">loggerFactory</span>)
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">IApplicationBuilder</span> <span class="pl-smi">app</span>)
     {
-        <span class="pl-smi">loggerFactory</span>.<span class="pl-en">AddConsole</span>();
-        <span class="pl-k">var</span> <span class="pl-smi">appSettings</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">TextFileSettings</span>(<span class="pl-s"><span class="pl-pds">"</span>~/../../apps/chat/app.settings<span class="pl-pds">"</span></span>.<span class="pl-en">MapProjectPath</span>());
+        <span class="pl-k">var</span> <span class="pl-smi">appSettings</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">TextFileSettings</span>(<span class="pl-s"><span class="pl-pds">"</span>~/../app.settings<span class="pl-pds">"</span></span>.<span class="pl-en">MapProjectPath</span>());
         <span class="pl-smi">app</span>.<span class="pl-en">UseServiceStack</span>(<span class="pl-k">new</span> <span class="pl-en">AppHost</span>(<span class="pl-smi">appSettings</span>));
     }
 }
 
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AppHost</span> : <span class="pl-en">AppHostBase</span>
 {
-    <span class="pl-k">public</span> <span class="pl-en">AppHost</span>() : <span class="pl-k">base</span>(<span class="pl-s"><span class="pl-pds">"</span>Chat Web App<span class="pl-pds">"</span></span>, <span class="pl-k">typeof</span>(<span class="pl-en">ServerEventsServices</span>).<span class="pl-smi">Assembly</span>) {}
+    <span class="pl-k">public</span> <span class="pl-en">AppHost</span>() : <span class="pl-k">base</span>(<span class="pl-s"><span class="pl-pds">"</span>Chat Sharp App<span class="pl-pds">"</span></span>, <span class="pl-k">typeof</span>(<span class="pl-en">ServerEventsServices</span>).<span class="pl-smi">Assembly</span>) {}
     <span class="pl-k">public</span> <span class="pl-en">AppHost</span>(<span class="pl-en">IAppSettings</span> <span class="pl-smi">appSettings</span>) : <span class="pl-k">this</span>() <span class="pl-k">=&gt;</span> <span class="pl-smi">AppSettings</span> <span class="pl-k">=</span> <span class="pl-smi">appSettings</span>;
 
     <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">Configure</span>(<span class="pl-en">Container</span> <span class="pl-smi">container</span>)
     {
         <span class="pl-smi">Plugins</span>.<span class="pl-en">AddIfNotExists</span>(<span class="pl-k">new</span> <span class="pl-en">SharpPagesFeature</span>()); <span class="pl-c"><span class="pl-c">//</span>Already added if it's running as a Web App</span>
-        
+
         <span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">ServerEventsFeature</span>());
 
         <span class="pl-en">SetConfig</span>(<span class="pl-k">new</span> <span class="pl-en">HostConfig</span>
@@ -31,17 +30,10 @@
         <span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">AuthFeature</span>(
             () <span class="pl-k">=&gt;</span> <span class="pl-k">new</span> <span class="pl-en">AuthUserSession</span>(),
             <span class="pl-k">new</span> <span class="pl-en">IAuthProvider</span>[] {
-                <span class="pl-k">new</span> <span class="pl-en">TwitterAuthProvider</span>(<span class="pl-smi">AppSettings</span>),   <span class="pl-c"><span class="pl-c">//</span>Sign-in with Twitter</span>
                 <span class="pl-k">new</span> <span class="pl-en">FacebookAuthProvider</span>(<span class="pl-smi">AppSettings</span>),  <span class="pl-c"><span class="pl-c">//</span>Sign-in with Facebook</span>
-                <span class="pl-k">new</span> <span class="pl-en">GithubAuthProvider</span>(<span class="pl-smi">AppSettings</span>),    <span class="pl-c"><span class="pl-c">//</span>Sign-in with GitHub</span>
             }));
 
         <span class="pl-smi">container</span>.<span class="pl-en">RegisterAutoWiredAs</span>&lt;<span class="pl-en">MemoryChatHistory</span>, <span class="pl-en">IChatHistory</span>&gt;();
-
-        <span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">CorsFeature</span>(
-            <span class="pl-smi">allowOriginWhitelist</span>: <span class="pl-k">new</span>[] { <span class="pl-s"><span class="pl-pds">"</span>http://localhost<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>http://null.jsbin.com<span class="pl-pds">"</span></span> },
-            <span class="pl-smi">allowCredentials</span>: <span class="pl-c1">true</span>,
-            <span class="pl-smi">allowedHeaders</span>: <span class="pl-s"><span class="pl-pds">"</span>Content-Type, Allow, Authorization<span class="pl-pds">"</span></span>));
     }
 }</pre></div>
 </div>

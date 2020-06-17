@@ -17,7 +17,7 @@
 <p>Usage: /hello/{name}</p>
 </blockquote>
 <p>An API which returns the same wire response as above can be implemented in API Pages by creating a page at
-<a href="https://github.com/NetCoreWebApps/Blog/blob/master/hello/_name/index.html">/hello/_name/index.html</a>
+<a href="https://github.com/sharp-apps/blog/blob/master/hello/_name/index.html">/hello/_name/index.html</a>
 that includes the 1-liner:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> { <span class="pl-e"><span class="pl-v">result</span></span>: `<span class="pl-e"><span class="pl-v">Hello</span></span>, ${<span class="pl-e"><span class="pl-v">name</span></span>}!` } |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span></pre></div>
 <p>Which supports the same content negotiation as a ServiceStack Service where calling it in a browser will generate a
@@ -41,7 +41,7 @@ Templates and Dynamic API Pages to implement all of its functionality.</p>
 <blockquote>
 <p>Usage: /preview?content={templates}</p>
 </blockquote>
-<p>The <a href="https://github.com/NetCoreWebApps/blog/blob/master/preview.html">/preview.html</a> API page uses this to force a plain-text response with:</p>
+<p>The <a href="https://github.com/sharp-apps/blog/blob/master/preview.html">/preview.html</a> API page uses this to force a plain-text response with:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">content</span>  |&gt; <span class="pl-e"><span class="pl-v">evalTemplate</span></span>({<span class="pl-e"><span class="pl-v">use</span></span>:{<span class="pl-e"><span class="pl-v">plugins</span></span>:<span class="pl-s"><span class="pl-pds">'</span>MarkdownScriptPlugin<span class="pl-pds">'</span></span><span class="pl-c1">}}</span>) |&gt; to =&gt;response }}
 <span class="pl-c1">{{</span> <span class="pl-v">response</span> |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">contentType</span></span>:<span class="pl-s"><span class="pl-pds">'</span>text/plain<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 <p>The preview API above is what provides the new <a href="http://blog.web-app.io/" rel="nofollow">Blog Web App's</a> Live Preview feature where it will render any
@@ -66,7 +66,7 @@ Templates and Dynamic API Pages to implement all of its functionality.</p>
 <blockquote>
 <p>Usage: /{user}/api</p>
 </blockquote>
-<p>The <a href="https://github.com/NetCoreWebApps/blog/blob/master/_user/api.html">/_user/api.html</a> API page shows an example of how easy it is to
+<p>The <a href="https://github.com/sharp-apps/blog/blob/master/_user/api.html">/_user/api.html</a> API page shows an example of how easy it is to
 create data-driven APIs where you can literally return the response of a parameterized SQL query using the <code>dbSelect</code> filter and returning
 the results:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> `<span class="pl-e"><span class="pl-v">SELECT</span></span> * 
@@ -92,7 +92,7 @@ the results:</p>
 <blockquote>
 <p>Usage:  /posts/{slug}/api</p>
 </blockquote>
-<p>The <a href="https://github.com/NetCoreWebApps/blog/blob/master/posts/_slug/api.html">/posts/_slug/api.html</a> page shows an example of using the
+<p>The <a href="https://github.com/sharp-apps/blog/blob/master/posts/_slug/api.html">/posts/_slug/api.html</a> page shows an example of using the
 <code>httpResult</code> filter to return a custom HTTP Response where if the post with the specified slug does not exist it will return a
 <code>404 Post was not found</code> HTTP Response:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> `<span class="pl-e"><span class="pl-v">SELECT</span></span> * 
@@ -119,7 +119,7 @@ the results:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> <span class="pl-v">post</span> |&gt; <span class="pl-e"><span class="pl-v">return</span></span>({ <span class="pl-e"><span class="pl-v">format</span></span>:<span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>X-Powered-By<span class="pl-pds">'</span></span>:<span class="pl-s"><span class="pl-pds">'</span>#Script<span class="pl-pds">'</span></span> }) <span class="pl-c1">}}</span></pre></div>
 <p>Using the explicit <code>httpResult</code> filter is useful for returning a custom HTTP Response without a Response Body, e.g. the <strong>New Post</strong> page
 uses <code>httpFilter</code> to
-<a href="https://github.com/NetCoreWebApps/Blog/blob/e8bb7249192c5797348ced091ad5fd434db9a619/app/posts/new.html#L33">redirect back to the Users posts page</a>
+<a href="https://github.com/sharp-apps/blog/blob/e8bb7249192c5797348ced091ad5fd434db9a619/app/posts/new.html#L33">redirect back to the Users posts page</a>
 after they've successfully created a new Post:</p>
 <div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-c1">#if</span> <span class="pl-v">success</span><span class="pl-c1">}}</span>
     <span class="pl-c1">{{</span> <span class="pl-v">httpResult</span>({ <span class="pl-e"><span class="pl-v">status</span></span>:<span class="pl-e"><span class="pl-v">301</span></span>, <span class="pl-e"><span class="pl-v">Location</span></span>:`/${<span class="pl-e"><span class="pl-v">userName</span></span>}` }) |&gt; <span class="pl-e"><span class="pl-v">return</span></span> <span class="pl-c1">}}</span>

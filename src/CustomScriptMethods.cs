@@ -163,11 +163,11 @@ namespace SharpScript
             nameof(ProtectedScripts) =>    typeof(ProtectedScripts),
             nameof(InfoScripts) =>         typeof(InfoScripts),
             nameof(RedisScripts) =>        typeof(RedisScripts),
-            nameof(DbScripts) =>           typeof(DbScripts),
             nameof(DbScriptsAsync) =>      typeof(DbScriptsAsync),
             nameof(ValidateScripts) =>     typeof(ValidateScripts),
             nameof(AutoQueryScripts) =>    typeof(AutoQueryScripts),
             nameof(ServiceStackScripts) => typeof(ServiceStackScripts),
+            _ => throw new NotSupportedException(name)
         };
 
         public IRawString methodLinkToSrc(string name)
@@ -183,8 +183,8 @@ namespace SharpScript
                     ? "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/InfoScripts.cs"
                     : type == typeof(RedisScripts)
                     ? "https://github.com/ServiceStack/ServiceStack.Redis/blob/master/src/ServiceStack.Redis/RedisScripts.cs"
-                    : type == typeof(DbScripts) || type == typeof(DbScriptsAsync)
-                    ? $"https://github.com/ServiceStack/ServiceStack.OrmLite/tree/master/src/ServiceStack.OrmLite/{type.Name}.cs"
+                    : type == typeof(DbScriptsAsync)
+                    ? "https://github.com/ServiceStack/ServiceStack.OrmLite/tree/master/src/ServiceStack.OrmLite/DbScriptsAsync.cs"
                     : type == typeof(ValidateScripts)
                     ? "https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack/ValidateScripts.cs"
                     : type == typeof(AutoQueryScripts)

@@ -197,12 +197,12 @@ A popular combination for deploying .NET Core Apps is to use the online [Travis 
 Continuous Integration Service to package your App in a Docker Container and deploy it to AWS ECS which takes care of
 the management and deployment of Docker instances over a configured cluster of EC2 compute instances.
 
-The easiest way to set this up is to clone the [rockwind-aws](https://github.com/NetCoreWebApps/rockwind-aws)
+The easiest way to set this up is to clone the [rockwind-aws](https://github.com/sharp-apps/rockwind-aws)
 Web App which is preconfigured with a working scripts using Travis CI to package the Web App in a Docker container 
 and deploy it to AWS ECS. In your local copy replace the 
-[/app](https://github.com/NetCoreWebApps/rockwind-aws/tree/master/app) folder with your App files, e.g:
+[/app](https://github.com/sharp-apps/rockwind-aws/tree/master/app) folder with your App files, e.g:
 
-#### [Dockerfile](https://github.com/NetCoreWebApps/rockwind-aws/blob/master/Dockerfile)
+#### [Dockerfile](https://github.com/sharp-apps/rockwind-aws/blob/master/Dockerfile)
 
 {{/markdown}}
 
@@ -212,7 +212,7 @@ and deploy it to AWS ECS. In your local copy replace the
     The only other file that needs to change is <em>deploy-envs.sh</em> to configure it to use your App's deployment settings:
 </p>
 
-<h4><a href="https://github.com/NetCoreWebApps/rockwind-aws/blob/master/deploy-envs.sh">deploy-envs.sh</a></h4>
+<h4><a href="https://github.com/sharp-apps/rockwind-aws/blob/master/deploy-envs.sh">deploy-envs.sh</a></h4>
 
 {{ 'gfm/deploying-sharp-apps/03.md' |> githubMarkdown }}
 
