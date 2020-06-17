@@ -144,4 +144,20 @@ Command Line:
 
     $ app open <user>/<repo> -token <token>
 
+### Private Gist Desktop Apps
+
+You can also use tokens to run Gist Desktop Apps published to **private gists**:
+
+    app://<gist-id>?token=<token>
+
+### Publishing Sharp Apps
+
+Publishing a Sharp App just involves uploading the directory of files to a Gist which can be done with the `publish` command along with the 
+GitHub AccessToken with write permissions to the Gist that the App's static files is published to:
+
+    $ x publish -token <token>
+
+The first time it's run it will publish the current directory of files to a new Gist and save the **Gist Id** to `.publish` file where it 
+will publish future updates to the next time the `publish` command is run.
+
 {{/markdown}}
