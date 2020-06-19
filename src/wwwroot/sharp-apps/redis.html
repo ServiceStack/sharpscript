@@ -79,19 +79,17 @@ Cross platform (Default Browser):
     that would be required to convert the existing JavaScript Apps to a use different JavaScript fx.
 </p>
 
-<h5><a href="https://github.com/sharp-apps/redis-html/blob/master/app.settings">app.settings</a></h5>
+<h4 id="app-settings">app.settings</h4>
 
 <p>
-    The <em>app.settings</em> for Redis is similar to Web App Starter above except it adds a <em>redis.connection</em>
-    to configure a <a href="https://github.com/ServiceStack/ServiceStack.Redis#redismanagerpool">RedisManagerPool</a> at the
+    The <a href="https://github.com/sharp-apps/redis-html/blob/master/app.settings">app.settings</a> for Redis is similar to Web App Starter above except it adds a 
+    <em>redis.connection</em> to configure a <a href="https://github.com/ServiceStack/ServiceStack.Redis#redismanagerpool">RedisManagerPool</a> at the
     <a href="https://github.com/ServiceStack/ServiceStack.Redis#redis-connection-strings">connection string</a> provided
     as well as <a href="/docs/redis-scripts">Redis Scripts</a> to give the scripts access to the Redis instance.
 </p>
 
 <pre class="settings"><code>debug true
 name Redis Web App
-contentRoot ~/../redis-html
-webRoot ~/../redis-html
 redis.connection localhost:6379</code></pre>
 
 <h3>Redis Vue</h3>
