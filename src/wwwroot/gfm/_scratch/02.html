@@ -1,0 +1,161 @@
+<div class="gfm"><table>
+<thead>
+<tr>
+<th>name</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bind</td>
+<td>localhost</td>
+<td>Which hostname to bind .NET Core Server to</td>
+</tr>
+<tr>
+<td>ssl</td>
+<td>true</td>
+<td>Use https for .NET Core Server</td>
+</tr>
+<tr>
+<td>port</td>
+<td>5001</td>
+<td>Which port to bind .NET Core Server to</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Sharp App</td>
+<td>AppHost name (also used in Shortcuts)</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>ASP.NET Default</td>
+<td>Enable additional logging &amp; diagnostics</td>
+</tr>
+<tr>
+<td>contentRoot</td>
+<td>app.settings dir</td>
+<td>ASP.NET Content Root Directory</td>
+</tr>
+<tr>
+<td>webRoot</td>
+<td>wwwroot/</td>
+<td>ASP.NET Web Root Directory</td>
+</tr>
+<tr>
+<td>apiPath</td>
+<td>/api</td>
+<td>Path of Sharp APIs</td>
+</tr>
+<tr>
+<td>defaultRedirect</td>
+<td></td>
+<td>Default Fallback RedirectPath</td>
+</tr>
+<tr>
+<td>db</td>
+<td></td>
+<td>OrmLite Dialect: sqlite, sqlserver, mysql postgres</td>
+</tr>
+<tr>
+<td>db.connection</td>
+<td></td>
+<td>RDBMS Connection String</td>
+</tr>
+<tr>
+<td>redis.connection</td>
+<td></td>
+<td>ServiceStack.Redis Connection String</td>
+</tr>
+<tr>
+<td>files</td>
+<td></td>
+<td>VFS provider: filesystem, s3, azureblob</td>
+</tr>
+<tr>
+<td>files.config</td>
+<td></td>
+<td>Virtual File System JS Object Configuration</td>
+</tr>
+<tr>
+<td>checkForModifiedPagesAfterSecs</td>
+<td></td>
+<td>How long to check backing VFS provider for changes</td>
+</tr>
+<tr>
+<td>defaultFileCacheExpirySecs</td>
+<td></td>
+<td>How long to preserve static file caches for</td>
+</tr>
+<tr>
+<td>defaultUrlCacheExpirySecs</td>
+<td></td>
+<td>How long to preserve URL caches for</td>
+</tr>
+<tr>
+<td>features</td>
+<td></td>
+<td>List of plugins to load</td>
+</tr>
+<tr>
+<td>markdownProvider</td>
+<td>MarkDig</td>
+<td>Markdown provider: MarkdownDeep, Markdig</td>
+</tr>
+<tr>
+<td>jsMinifier</td>
+<td>NUglify</td>
+<td>JS Minifier: NUglify, ServiceStack</td>
+</tr>
+<tr>
+<td>cssMinifier</td>
+<td>NUglify</td>
+<td>CSS Minifier: NUglify, ServiceStack</td>
+</tr>
+<tr>
+<td>htmlMinifier</td>
+<td>NUglify</td>
+<td>HTML Minifier: NUglify, ServiceStack</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>favicon.ico</td>
+<td>Relative or Absolute Path to Shortcut &amp; Desktop icon</td>
+</tr>
+<tr>
+<td>appName</td>
+<td></td>
+<td>Unique Id to identify Desktop App (snake-case)</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>Short Description of Desktop App (20-150 chars)</td>
+</tr>
+<tr>
+<td>tags</td>
+<td></td>
+<td>Desktop App Tags space-delimited, snake-case, 3 max</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight highlight-source-cs"><pre><span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">DesktopFeature</span> {
+    <span class="pl-c"><span class="pl-c">//</span> access role for Script, File &amp; Download services</span>
+    <span class="pl-smi">AccessRole</span> <span class="pl-k">=</span> <span class="pl-smi">Config</span>.<span class="pl-smi">DebugMode</span> 
+        <span class="pl-k">?</span> <span class="pl-smi">RoleNames</span>.<span class="pl-smi">AllowAnon</span>
+        <span class="pl-k">:</span> <span class="pl-smi">RoleNames</span>.<span class="pl-smi">Admin</span>,
+    <span class="pl-smi">ImportParams</span> <span class="pl-k">=</span> { <span class="pl-c"><span class="pl-c">//</span> app.settings you want auto-populated in your App</span>
+        <span class="pl-s"><span class="pl-pds">"</span>debug<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>connect<span class="pl-pds">"</span></span>,
+    },
+    <span class="pl-c"><span class="pl-c">//</span> Create a URL Scheme proxy rule for each registered site</span>
+    <span class="pl-smi">ProxyConfigs</span> <span class="pl-k">=</span> <span class="pl-smi">sites</span>.<span class="pl-smi">Keys</span>.<span class="pl-en">Map</span>(<span class="pl-smi">baseUrl</span> <span class="pl-k">=&gt;</span> <span class="pl-k">new</span> <span class="pl-en">Uri</span>(<span class="pl-smi">baseUrl</span>))
+        .<span class="pl-en">Map</span>(<span class="pl-smi">uri</span> <span class="pl-k">=&gt;</span> <span class="pl-k">new</span> <span class="pl-en">ProxyConfig</span> {
+            <span class="pl-smi">Scheme</span> <span class="pl-k">=</span> <span class="pl-smi">uri</span>.<span class="pl-smi">Scheme</span>,
+            <span class="pl-smi">TargetScheme</span> <span class="pl-k">=</span> <span class="pl-smi">uri</span>.<span class="pl-smi">Scheme</span>,
+            <span class="pl-smi">Domain</span> <span class="pl-k">=</span> <span class="pl-smi">uri</span>.<span class="pl-smi">Host</span>,
+            <span class="pl-smi">AllowCors</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>,
+            <span class="pl-smi">IgnoreHeaders</span> <span class="pl-k">=</span> { <span class="pl-s"><span class="pl-pds">"</span>X-Frame-Options<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Content-Security-Policy<span class="pl-pds">"</span></span> }, 
+        })
+});</pre></div>
+</div>

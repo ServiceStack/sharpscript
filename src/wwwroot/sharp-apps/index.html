@@ -272,5 +272,33 @@ name Bare Sharp App</code></pre>
 
 {{ 'gfm/sharp-apps/13.md' |> githubMarkdown }}
 
+<h2 id="reference">Reference</h2>
+
+{{#markdown}}
+All common functionality contained in Sharp Apps are implemented in the [dotnet tools](https://docs.servicestack.net/dotnet-tool), 
+most of which is contained within these 2 classes (for all dotnet tools):
+
+ - [Startup.cs](https://github.com/ServiceStack/dotnet-app/blob/master/src/Web/Startup.cs)
+ - [Startup.Mix.cs](https://github.com/ServiceStack/dotnet-app/blob/master/src/Web/Startup.Mix.cs)
+
+The [app dotnet tool](https://docs.servicestack.net/netcore-windows-desktop) contains additional Chromium Desktop related features in its 
+[/src/App](https://github.com/ServiceStack/dotnet-app/tree/master/src/App) project.
+
+### app.settings options
+
+These different options are covered in the [various example Sharp Apps](/sharp-apps/app-index), e.g:
+
+ - [DB settings](/sharp-apps/rockwind#multi-platform-configurations)
+ - [Redis settings](/sharp-apps/redis#app-settings)
+ - [Virtual File System (VFS) settings](/sharp-apps/rockwind#resolveasset)
+ - [Configuring Plugins](/sharp-apps/plugins#registering-servicestack-plugins)
+ - [Using a Custom AppHost](/sharp-apps/chat#develop-back-end-using-net-ides)
+ - [Passing Rich Config Arguments to your App](/sharp-apps/blog#rich-config-arguments)
+
+{{/markdown}}
+
+{{ 'gfm/apps/04.md' |> githubMarkdown }}
+
+
 {{ "apps-links" |> partial({ order }) }}
 
