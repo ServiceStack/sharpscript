@@ -107,4 +107,14 @@ Customer {{ c.CustomerId }} {{ c.CompanyName |> raw }}
 
 <pre class="cs"><code>{{ pass: 'dir/subdir/my-partial' |> partial }}</code></pre>
 
+<h4>ownProps</h4>
+
+<p>
+    Use <em>ownProps</em> to iterate all user-defined arguments specified for a partial, e.g:
+</p>
+
+{{ 'live-template' |> partial({ rows:2, template: `{{#partial test}} {{ it.ownProps() |> map => it.Key |> dump }} {{/partial}}
+{{ 'test' |> partial({ A:1, B:2, C:3 }) }}` }) }}
+
+
 {{ "doc-links" |> partial({ order }) }}

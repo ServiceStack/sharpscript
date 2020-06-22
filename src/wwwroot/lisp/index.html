@@ -592,6 +592,19 @@ Another way to generate output from Lisp is to use its built-in print functions 
  - **(pr ...args)** - same as `print` but **HTML encode** all arguments
  - **(prn ...args)** - same as `println` but **HTML encode** all arguments
  
+### dorun
+
+[dorun](https://clojuredocs.org/clojure.core/dorun) can be used for executing a "statement block" (sequence of expressions) 
+with side-effects that you want to discard the return type (akin to `void` return type):
+
+    (dorun println (map fizzbuzz (range 1 100)))
+
+Or you can use `do` to return the last expression in the statement block:
+
+    (do (+ 1 1) (+ 2 2))       ; 4
+    (do (+ 1 1) (+ 2 2) nil))  ; null
+    (do ())                    ; null
+
 ## Learn #Script Lisp
 
 A great resource for learning Script Lisp is seeing it in action by seeing how to implement **C#'s 101 LINQ Examples in Lisp**:
@@ -637,7 +650,7 @@ For reference, here's are a quick list of all built-in Lisp symbols:
     - % * *gensym-counter* *version* / /= _append _nreverse + < <= = > >= 1- 1+ 1st 2nd 3rd abs all? and any? 
     append apply assoc assoc-key assoc-value assq atom atom? average butlast C caaar caadr caar cadar caddr 
     cadr car cdaar cdadr cdar cddar cdddr cddr cdr ceiling cons cons? consp cos count debug dec decf def 
-    defmacro defn defun dispose dolist doseq doseq-while dotimes dump dump-inline elt empty? end? endp 
+    defmacro defn defun dispose do dolist dorun doseq doseq-while dotimes dump dump-inline elt empty? end? endp 
     enumerator enumeratorCurrent enumeratorNext eq eql equal error even? every every? exit exp expt F f++ 
     false filter filter-index first flatmap flatten floor gensym glob globln group-by htmldump identity if 
     inc incf instance? intern isqrt it last length let letrec list list? listp load load-src logand logior 

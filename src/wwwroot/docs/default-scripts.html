@@ -19,8 +19,10 @@ order: 11
     Script Methods with no arguments can be used in-place of an argument binding, <em>now</em> and <em>utcNow</em> are some examples of this:
 </p>
 
-{{ 'live-template' |> partial({ template: "now: {{ now |> dateFormat }}
-UTC now: {{ utcNow |> dateFormat('o') }}" }) }}
+{{ 'live-template' |> partial({ rows: 4, template: "now: {{ now |> dateFormat }}
+UTC now: {{ utcNow |> dateFormat('o') }}
+UTC DateTimeOffset {{ utcNowOffset }},
+nguid: {{ nguid }}" }) }}
 
 <p>
     Many methods have an implicit default format which can be overridden in the ScriptContext's <em>Args</em>, e.g

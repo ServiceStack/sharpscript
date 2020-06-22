@@ -87,6 +87,51 @@ order: 3
 {{ var obj = { bar } }}
 {{ obj['bar']        }}" }) }}
 
+<h4>Local Variables</h4>
+
+<p>
+    Like JavaScript you can declare a locally scoped variable with <em>var</em>:
+</p>
+
+<pre><code>var sliders = dirFiles('img/sliders')</code></pre>
+
+<p>
+    Like JS you can use either <em>var</em>, <em>let</em> or <em>const</em> but they all behave like let and assign a locally scoped variable 
+    at the time the expression is executed. Also like JS the semicolon is optional and you can assign multiple variables in a single expression:
+</p>
+
+<pre><code>let a = 1 + 2, b = 3 * 4, c, d = 'D';</code></pre>
+
+<h4>Global Variables</h4>
+
+<p>
+    Global Variables in <em>#Script</em> are maintained in the <em>PageResult.Args</em> dictionary which you could previously assign to using the 
+    <em>toGlobal</em> script method where it’s accessible to all scripts rendered within that <em>PageResult</em>.
+</p>
+
+<p>
+    <em>#Script</em> now mimics JS's behavior to allow assignment expressions to assign global variables where **Assignment Expressions** on 
+    undeclared variables (i.e. where no locally scoped variable exists) will assign a global variable:
+</p>
+
+<pre><code>a = 1</code></pre>
+
+<p>
+    A more descriptive syntax available to declare a global variable is to assign it to the <em>global</em> object (inspired by node’s global) 
+    which is an alias to the <em>PageResult.Args</em> dictionary:
+</p>
+
+<pre><code>global.a = 1</code></pre>
+
+<h4>Assignment Expressions</h4>
+
+<p>
+    In addition to declaring and assigning variables, there’s also support for using assignment expressions to assign and mutate Collections and 
+    Type Properties using either Member Expression or Index expression syntax, e.g:
+</p>
+
+{{ 'gfm/syntax/11.md' |> githubMarkdown }}
+
 <h4>Quotes</h4>
 
 <p>

@@ -7,7 +7,7 @@
         <span class="pl-s"><span class="pl-pds">"</span>Created<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-v">VARCHAR</span></span>(<span class="pl-e"><span class="pl-v">8000</span></span>) <span class="pl-e"><span class="pl-v">NOT</span></span> <span class="pl-e"><span class="pl-v">NULL</span></span>,
         <span class="pl-s"><span class="pl-pds">"</span>Modified<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-v">VARCHAR</span></span>(<span class="pl-e"><span class="pl-v">8000</span></span>) <span class="pl-e"><span class="pl-v">NOT</span></span> <span class="pl-e"><span class="pl-v">NULL</span></span>
     );`    
-    | <span class="pl-e"><span class="pl-v">dbExec</span></span>
+    |&gt; <span class="pl-e"><span class="pl-v">dbExec</span></span>
 <span class="pl-c1">}}</span>
 
 <span class="pl-c1">{{</span> <span class="pl-v">dbScalar</span>(`<span class="pl-e"><span class="pl-v">SELECT</span></span> <span class="pl-e"><span class="pl-v">COUNT</span></span>(*) <span class="pl-e"><span class="pl-v">FROM</span></span> <span class="pl-e"><span class="pl-v">Post</span></span>`) |&gt; <span class="pl-e"><span class="pl-v">to</span></span> =&gt; <span class="pl-e"><span class="pl-v">postsCount</span></span> <span class="pl-c1">}}</span>
@@ -23,13 +23,47 @@
 <span class="pl-c1">{{</span><span class="pl-c1">/if</span>}
 
 {{ htmlError <span class="pl-c1">}}</span></pre></div>
-<p>The output of the <code>_init</code> page is captured in the <code>initout</code> argument which can be later inspected as a normal template argument as seen in
-<a href="https://github.com/sharp-apps/blog/blob/master/log.html">log.html</a>:</p>
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span>&gt;
-    Output from init.html:
-
-    &lt;<span class="pl-ent">pre</span>&gt;{{initout |> raw}}&lt;/<span class="pl-ent">pre</span>&gt;
-&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
 <p>If there was an Exception with any of the SQL Statements it will be displayed in the <code>{{ htmlError }}</code> filter which can be
 later viewed in the <a href="http://blog.web-app.io/log" rel="nofollow">/log</a> page above.</p>
+<p>The output of the <code>_init</code> page is captured in the <code>initout</code> argument which can be later inspected as a normal template argument as seen in
+<a href="https://github.com/sharp-apps/blog/blob/master/log.html">log.html</a>:</p>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-kos">&lt;</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+    Output from init.html:
+    <span class="pl-kos">&lt;</span><span class="pl-ent">pre</span><span class="pl-kos">&gt;</span>{{initout |<span class="pl-kos">&gt;</span> raw}}<span class="pl-kos">&lt;/</span><span class="pl-ent">pre</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span></pre></div>
+<p>A good idea to view Script <strong>Init</strong> &amp; <strong>Page</strong> Errors is to include both <code>initError</code> and <code>htmlError</code> in your <strong>_layout.html</strong> as done in
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/_layout.html">/SharpData/wwwroot/_layout.html</a>:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span><span class="pl-v">initError</span> |&gt; <span class="pl-e"><span class="pl-v">htmlError</span></span><span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-v">htmlError</span><span class="pl-c1">}}</span></pre></div>
+<h3>
+<a id="initss" class="anchor" href="#initss" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>init.ss</h3>
+<p>Instead of <code>init.html</code> you can also use <a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/_init.ss">_init.ss</a> which is used in
+Apps like <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> to construct a ServiceStack App's <a href="https://docs.servicestack.net/svg" rel="nofollow">SVG stylesheet bundle</a>
+from a user-defined list of embedded <code>*.svg</code> resources and inline SVG declarations, e.g:</p>
+<div class="highlight highlight-text-html-handlebars"><pre><span class="pl-c1">{{</span> 
+    <span class="pl-e"><span class="pl-v">var</span></span> <span class="pl-e"><span class="pl-v">AppSvgs</span></span> = {
+        <span class="pl-s"><span class="pl-pds">'</span>action/home.svg<span class="pl-pds">'</span></span>:                    <span class="pl-s"><span class="pl-pds">'</span>home<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>device/storage.svg<span class="pl-pds">'</span></span>:                 <span class="pl-s"><span class="pl-pds">'</span>db<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>action/list.svg<span class="pl-pds">'</span></span>:                    <span class="pl-s"><span class="pl-pds">'</span>table<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/first_page.svg<span class="pl-pds">'</span></span>:          <span class="pl-s"><span class="pl-pds">'</span>chevron-first<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/last_page.svg<span class="pl-pds">'</span></span>:           <span class="pl-s"><span class="pl-pds">'</span>chevron-last<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/expand_more.svg<span class="pl-pds">'</span></span>:         <span class="pl-s"><span class="pl-pds">'</span>chevron-down<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/chevron_left.svg<span class="pl-pds">'</span></span>:        <span class="pl-s"><span class="pl-pds">'</span>chevron-left<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/chevron_right.svg<span class="pl-pds">'</span></span>:       <span class="pl-s"><span class="pl-pds">'</span>chevron-right<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>navigation/expand_less.svg<span class="pl-pds">'</span></span>:         <span class="pl-s"><span class="pl-pds">'</span>chevron-up<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>content/clear.svg<span class="pl-pds">'</span></span>:                  <span class="pl-s"><span class="pl-pds">'</span>clear<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>content/filter_list.svg<span class="pl-pds">'</span></span>:            <span class="pl-s"><span class="pl-pds">'</span>filter<span class="pl-pds">'</span></span>,
+    } 
+<span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span><span class="pl-c1">#each</span> <span class="pl-v">AppSvgs</span><span class="pl-c1">}}</span>
+    <span class="pl-c1">{{</span>`<span class="pl-e"><span class="pl-v">/lib/svg/material</span></span>/${<span class="pl-e"><span class="pl-v">it.Key</span></span>}` |&gt; <span class="pl-e"><span class="pl-v">svgAddFile</span></span>(<span class="pl-e"><span class="pl-v">it.Value</span></span>,<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>)<span class="pl-c1">}}</span>
+<span class="pl-c1">{{</span><span class="pl-c1">/each</span><span class="pl-c1">}}</span>
+
+<span class="pl-c1">{{</span><span class="pl-c1">#svg</span> <span class="pl-v">fields</span> <span class="pl-c1">app}}</span>
+&lt;<span class="pl-ent">svg</span> <span class="pl-e"><span class="pl-e">xmlns</span>=</span><span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2000/svg<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">viewBox</span>=</span><span class="pl-s"><span class="pl-pds">"</span>0 0 24 24<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">fill</span>=</span><span class="pl-s"><span class="pl-pds">"</span>black<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">width</span>=</span><span class="pl-s"><span class="pl-pds">"</span>48px<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">height</span>=</span><span class="pl-s"><span class="pl-pds">"</span>48px<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">path</span> <span class="pl-e"><span class="pl-e">d</span>=</span><span class="pl-s"><span class="pl-pds">"</span>M0 0h24v24H0V0z<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">fill</span>=</span><span class="pl-s"><span class="pl-pds">"</span>none<span class="pl-pds">"</span></span>/&gt;
+    &lt;<span class="pl-ent">path</span> <span class="pl-e"><span class="pl-e">d</span>=</span><span class="pl-s"><span class="pl-pds">"</span>M4 5v13h17V5H4zm10 2v9h-3V7h3zM6 7h3v9H6V7zm13 9h-3V7h3v9z<span class="pl-pds">"</span></span> <span class="pl-e"><span class="pl-e">fill</span>=</span><span class="pl-s"><span class="pl-pds">"</span>#ffffff<span class="pl-pds">"</span></span>/&gt;
+&lt;/<span class="pl-ent">svg</span>&gt;
+<span class="pl-c1">{{</span><span class="pl-c1">/svg</span><span class="pl-c1">}}</span></pre></div>
 </div>

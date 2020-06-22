@@ -1,0 +1,16 @@
+<div class="gfm"><div class="highlight highlight-source-js"><pre><span class="pl-s1">intList</span><span class="pl-kos">[</span><span class="pl-c1">1</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-c1">10</span>
+<span class="pl-s1">stringArray</span><span class="pl-kos">[</span><span class="pl-c1">1</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-s">"foo"</span>
+<span class="pl-s1">stringMap</span><span class="pl-kos">[</span><span class="pl-s">"foo"</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-s">"bar"</span>
+<span class="pl-s1">person</span><span class="pl-kos">.</span><span class="pl-c1">Age</span> <span class="pl-c1">=</span> <span class="pl-c1">27</span>
+<span class="pl-s1">objectMap</span><span class="pl-kos">.</span><span class="pl-c1">Person</span><span class="pl-kos">.</span><span class="pl-c1">Name</span> <span class="pl-c1">=</span> <span class="pl-s">"kurt"</span>
+<span class="pl-s1">objectMap</span><span class="pl-kos">[</span><span class="pl-s">'Per'</span> <span class="pl-c1">+</span> <span class="pl-s">'son'</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">Name</span> <span class="pl-c1">=</span> <span class="pl-s">"kurt"</span>
+<span class="pl-s1">intList</span><span class="pl-kos">[</span><span class="pl-c1">1.</span><span class="pl-en">isOdd</span><span class="pl-kos">(</span><span class="pl-kos">)</span> ? <span class="pl-c1">2</span> : <span class="pl-c1">3</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-c1">30</span></pre></div>
+<h3>
+<a id="dynamically-resolve-args" class="anchor" href="#dynamically-resolve-args" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dynamically resolve args</h3>
+<p>The <code>resolve*</code> APIs let you resolve a variable named with the result of an expression, e.g:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">tableNames</span> <span class="pl-c1">=</span> <span class="pl-en">resolveGlobal</span><span class="pl-kos">(</span><span class="pl-s">`<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">db</span><span class="pl-kos">}</span></span>_tables`</span><span class="pl-kos">)</span></pre></div>
+<p>Equivalent to:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">tableNames</span> <span class="pl-c1">=</span> <span class="pl-s1">global</span><span class="pl-kos">[</span><span class="pl-s">`<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">db</span><span class="pl-kos">}</span></span>_tables`</span><span class="pl-kos">]</span></pre></div>
+<p>Whereas <code>resolveArg</code> lets you resolve a variable using locally scope resolution hierarchy:</p>
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">var</span> <span class="pl-s1">tableNames</span> <span class="pl-c1">=</span> <span class="pl-en">resolveArg</span><span class="pl-kos">(</span><span class="pl-s">`<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">db</span><span class="pl-kos">}</span></span>_tables`</span><span class="pl-kos">)</span></pre></div>
+</div>
