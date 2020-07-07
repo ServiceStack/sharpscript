@@ -1,22 +1,45 @@
-<div class="gfm"><p>The <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> .NET Core project is a generic tool for providing an instant UI around multiple RDBMS's:</p>
+<div class="gfm"><p><a href="https://github.com/NetCoreApps/SharpData">SharpData</a> is a generic app for providing an instant UI around multiple RDBMS's:</p>
 <blockquote>
 <p>YouTube: <a href="https://youtu.be/EJ-lDWshjcY" rel="nofollow">youtu.be/EJ-lDWshjcY</a></p>
 </blockquote>
 <p><a href="https://youtu.be/EJ-lDWshjcY" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" alt="" style="max-width:100%;"></a></p>
-<p>You can run this Gist Desktop App via URL Scheme from (Windows Desktop App):</p>
-<p><strong><p><a name="app://sharpdata?mix=northwind.sharpdata">app://sharpdata?mix=northwind.sharpdata</a></p></strong></p>
+<p>It makes use of the <a href="https://docs.servicestack.net/netcore-windows-desktop" rel="nofollow">app</a> dotnet tool for running Chromium
+<a href="https://sharpscript.net/sharp-apps/gist-desktop-apps" rel="nofollow">Gist Desktop Apps</a> on-the-fly without installation, from a single URL that can also
+<a href="https://docs.servicestack.net/mix-tool" rel="nofollow">mix in additional gists</a> which can be used in SharpData to configure RDBMS's, copy SQLite databases and
+apply per-database customizations to add navigable deep links and customized UI Views to each table resultset.</p>
+<p>Whilst SharpData supports <a href="https://github.com/ServiceStack/ServiceStack.OrmLite#8-flavours-of-ormlite-is-on-nuget">connecting to most popular RDBMS's</a>, it's
+especially useful for being able to deploy an instant stand-alone UI with an embedded SQLite databases which can be published independently in a gist and
+launched from a single URL.</p>
+<p>For an example of this in action we've published customized gists for the
+<a href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases" rel="nofollow">Northwind</a> and
+<a href="https://www.sqlitetutorial.net/sqlite-sample-database/" rel="nofollow">Chinook</a> SQLite databases which after installing the latest
+<a href="https://docs.servicestack.net/netcore-windows-desktop" rel="nofollow">app</a> dotnet tool:</p>
+<pre><code>$ dotnet tool install -g app    
+</code></pre>
+<p>Can be run from the link below in a Windows x64 Desktop App:</p>
+<ul>
+    <li><strong><a name="app://sharpdata?mix=northwind.sharpdata">app://sharpdata?mix=northwind.sharpdata</a></strong></li>
+    <li><strong><a name="app://sharpdata?mix=chinook.sharpdata">app://sharpdata?mix=chinook.sharpdata</a></strong></li>
+</ul>
 <p>Or via command-line:</p>
 <pre><code>$ app open sharpdata mix northwind.sharpdata
+$ app open sharpdata mix chinook.sharpdata
 </code></pre>
-<p>Cross platform (Default Browser):</p>
+<p>Cross platform using the <a href="https://docs.servicestack.net/dotnet-tool" rel="nofollow">x dotnet tool</a> (in Default Browser):</p>
 <pre><code>$ x open sharpdata mix northwind.sharpdata
+$ x open sharpdata mix chinook.sharpdata
 </code></pre>
+<p>Each of these options will download &amp; run the latest version of <a href="https://github.com/NetCoreApps/SharpData">SharpData</a> along with a
+copy of the <a href="https://gist.github.com/gistlyn/0ce0d5b828303f1cb4637450b563adbd">northwind.sharpdata</a> or
+<a href="https://gist.github.com/gistlyn/96b10369daf94897531810841cb097f2">chinook.sharpdata</a> gists on-the-fly containing the embedded SQLite DB along with any
+UI customizations.</p>
 <h4>
 <a id="hosted-as-a-net-core-app" class="anchor" href="#hosted-as-a-net-core-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hosted as a .NET Core App</h4>
-<p>As <a href="https://github.com/NetCoreApps/SharpData">NetCoreApps/SharpData</a> it can also be deployed as a normal stand-alone .NET Core Web App:</p>
-<h4>
+<p>As <a href="https://github.com/NetCoreApps/SharpData">NetCoreApps/SharpData</a> is also a standard .NET Core project, it can also be deployed as a
+normal stand-alone .NET Core Web App:</p>
+<h3>
 <a id="httpssharpdatanetcoreio" class="anchor" href="#httpssharpdatanetcoreio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://sharpdata.netcore.io" rel="nofollow">https://sharpdata.netcore.io</a>
-</h4>
+</h3>
 <h3>
 <a id="tiny-footprint" class="anchor" href="#tiny-footprint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tiny footprint</h3>
 <p>An impressively capable .NET Core App that fits into a tiny <strong>20kb .zip</strong> footprint thanks to <a href="/gist-desktop-apps">Gist Desktop App's Architecture</a>. It's small dynamic <code>#Script</code> &amp; Vue TypeScript code-base also makes it highly customizable to tailor &amp; further extend with
@@ -134,6 +157,11 @@ which supports the following features:</p>
 <pre><code>/db/&lt;named-db&gt;/&lt;table&gt;
 </code></pre>
 <h3>
+<a id="open-in-excel" class="anchor" href="#open-in-excel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open in Excel</h3>
+<p>SharpData detects if <strong>Excel</strong> is installed and lets you open the un-paged filtered resultset directly by clicking the <strong>Excel</strong> button</p>
+<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" alt="" style="max-width:100%;"></a></p>
+<p>This works seamlessly as it's able to "by-pass" the browser download where the query is performed by the back-end .NET Core Server who streams the response directly to the Users <strong>Downloads</strong> folder and launches it in Excel as soon as it's finished.</p>
+<h3>
 <a id="launching-sharpdata" class="anchor" href="#launching-sharpdata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Launching SharpData</h3>
 <p>To run SharpData in a .NET Core Desktop App you'll need latest <code>app</code> dotnet tool:</p>
 <pre><code>$ dotnet tool update -g app
@@ -235,25 +263,26 @@ local directory:</p>
 </code></pre>
 <h4>
 <a id="view-single-alias" class="anchor" href="#view-single-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>View single alias</h4>
-<pre><code>$ app alias db
+<pre><code>$ app alias mydb
 </code></pre>
 <h4>
 <a id="remove-an-alias" class="anchor" href="#remove-an-alias" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Remove an alias</h4>
-<pre><code>$ app unalias db
+<pre><code>$ app unalias mydb
 </code></pre>
 <h3>
-<a id="custom-app-settings" class="anchor" href="#custom-app-settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom App Settings</h3>
+<a id="custom-sharpdata-ui" class="anchor" href="#custom-sharpdata-ui" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom SharpData UI</h3>
 <p>Each time a Gist Desktop App is opened it downloads and overrides the existing Gist with the latest version which it loads in a <a href="https://docs.servicestack.net/virtual-file-system#gistvirtualfiles" rel="nofollow">Gist VFS</a> where any of its files can be overridden with a local copy.</p>
 <p>As the App's working directory is preserved between restarts you can provide a custom <code>app.settings</code> at:</p>
 <pre><code>%USERPROFILE%\.sharp-apps\sharpdata\app.settings
 </code></pre>
-<p>Where you can customize which RDBMS's and tables you want to be able to access, e.g:</p>
+<h4>
+<a id="custom-appsettings" class="anchor" href="#custom-appsettings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom app.settings</h4>
+<p>Where you can perform basic customizations like which RDBMS's and tables you want to be able to access, e.g:</p>
 <pre><code>debug false
-name Northwind SharpData
+name Northwind &amp; TechStacks UI
 appName sharpdata
 
-db sqlite
-db.connection northwind.sqlite
+db.connections[northwind]  { db:sqlite,   connection:'northwind.sqlite' }
 db.connections[techstacks] { db:postgres, connection:$TECHSTACKS_DB }
 
 args.tables Customer,Order,OrderDetail,Category,Product,Employee,EmployeeTerritory,Shipper,Supplier,Region,Territory
@@ -262,16 +291,134 @@ args.tables_techstacks technology,technology_stack,technology_choice,organizatio
 <p>Which will display both RDBMS Databases, showing only the user-specified tables in app.settings above:</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-custom-appsettings.png" alt="" style="max-width:100%;"></a></p>
 <h3>
-<a id="open-in-excel" class="anchor" href="#open-in-excel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open in Excel</h3>
-<p>SharpData detects if <strong>Excel</strong> is installed and lets you open the un-paged filtered resultset directly by clicking the <strong>Excel</strong> button</p>
-<p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-excel.png" alt="" style="max-width:100%;"></a></p>
-<p>This works seamlessly as it's able to "by-pass" the browser download where the query is performed by the back-end .NET Core Server who streams the response directly to the Users <strong>Downloads</strong> folder and launches it in Excel as soon as it's finished.</p>
+<a id="advanced-customizations" class="anchor" href="#advanced-customizations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advanced Customizations</h3>
+<p>More advanced customizations can be added via dropping TypeScript/JavaScript source files in the <code>/custom</code> folder, e.g:</p>
+<ul>
+<li><a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/custom/chinook.ts">/wwwroot/custom/chinook.ts</a></li>
+<li><a href="https://github.com/NetCoreApps/SharpData/blob/master/wwwroot/custom/northwind.ts">/wwwroot/custom/northwind.ts</a></li>
+</ul>
+<p>Which is how the <a href="https://gist.github.com/gistlyn/0ce0d5b828303f1cb4637450b563adbd">northwind.sharpdata</a> and
+<a href="https://gist.github.com/gistlyn/96b10369daf94897531810841cb097f2">chinook.sharpdata</a> mix gists enable Customized Views for the Northwind
+&amp; Chinook databases via their dbConfig registrations below:</p>
+<h4>
+<a id="chinook" class="anchor" href="#chinook" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>chinook</h4>
+<div class="highlight highlight-source-ts"><pre><span class="pl-en">dbConfig</span><span class="pl-kos">(</span><span class="pl-s">'chinook'</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+    <span class="pl-c1">showTables</span>: <span class="pl-s">'albums,artists,playlists,tracks,genres,media_types,customers,employees,invoices'</span><span class="pl-kos">.</span><span class="pl-en">split</span><span class="pl-kos">(</span><span class="pl-s">','</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+    <span class="pl-c1">tableName</span>: <span class="pl-s1">splitPascalCase</span><span class="pl-kos">,</span>
+    <span class="pl-c1">links</span>: <span class="pl-kos">{</span>
+        <span class="pl-c1">albums</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">ArtistId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`artists?filter=ArtistId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">employees</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">ReportsTo</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`employees?filter=EmployeeId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">invoices</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">CustomerId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`customers?filter=CustomerId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">tracks</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">AlbumId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`albums?filter=AlbumId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">MediaTypeId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`media_types?filter=MediaTypeId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">GenreId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`genres?filter=GenreId:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+        <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span><span class="pl-kos">,</span>
+    <span class="pl-c1">rowComponents</span>: <span class="pl-kos">{</span>
+        <span class="pl-c1">albums</span>: <span class="pl-smi">Album</span><span class="pl-kos">,</span>
+        <span class="pl-c1">artists</span>: <span class="pl-smi">Artist</span><span class="pl-kos">,</span>
+        <span class="pl-c1">playlists</span>: <span class="pl-smi">Playlist</span><span class="pl-kos">,</span>
+    <span class="pl-kos">}</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<h4>
+<a id="northwind" class="anchor" href="#northwind" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>northwind</h4>
+<div class="highlight highlight-source-ts"><pre><span class="pl-en">dbConfig</span><span class="pl-kos">(</span><span class="pl-s">'northwind'</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+    <span class="pl-c1">showTables</span>: <span class="pl-s">'Customer,Order,OrderDetail,Category,Product,Employee,Shipper,Supplier,Region'</span><span class="pl-kos">.</span><span class="pl-en">split</span><span class="pl-kos">(</span><span class="pl-s">','</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+    <span class="pl-c1">tableName</span>: <span class="pl-s1">splitPascalCase</span><span class="pl-kos">,</span>
+    <span class="pl-c1">links</span>: <span class="pl-kos">{</span>
+        <span class="pl-c1">Order</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">CustomerId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">string</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Customer?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">EmployeeId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">string</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Employee?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">ShipVia</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Shipper?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">OrderDetail</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">OrderId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">string</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Order?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">ProductId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">string</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Product?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">Product</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">SupplierId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Supplier?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+            <span class="pl-en">CategoryId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Category?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+        <span class="pl-c1">Territory</span>: <span class="pl-kos">{</span>
+            <span class="pl-en">RegionId</span>: <span class="pl-kos">(</span><span class="pl-s1">id</span>:<span class="pl-smi">number</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-s">`Region?filter=Id:<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">id</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+        <span class="pl-kos">}</span><span class="pl-kos">,</span>
+    <span class="pl-kos">}</span><span class="pl-kos">,</span>
+    <span class="pl-c1">rowComponents</span>: <span class="pl-kos">{</span>
+        Order<span class="pl-kos">,</span>
+        Customer<span class="pl-kos">,</span>
+    <span class="pl-kos">}</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<p>These db customizations let you specify which RDBMS tables &amp; the order that they should be displayed, the table names text casing function,
+which columns to linkify &amp; any custom Row Components for different tables.</p>
+<h3>
+<a id="deploying-customizations" class="anchor" href="#deploying-customizations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deploying Customizations</h3>
+<p>When deploying as a .NET Core project the customizations are deployed with your <a href="https://github.com/NetCoreApps/SharpData/tree/master/wwwroot">/wwwroot</a>
+as normal.</p>
+<p>To make customizations available to load with the SharpData Gist Desktop App you'll need to publish the directory of customizations to a gist.
+Here are the customizations for the <a href="https://gist.github.com/gistlyn/0ce0d5b828303f1cb4637450b563adbd">northwind.sharpdata</a> and
+<a href="https://gist.github.com/gistlyn/96b10369daf94897531810841cb097f2">chinook.sharpdata</a> gists:</p>
+<h3>
+<a id="dist-mix" class="anchor" href="#dist-mix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/NetCoreApps/SharpData/tree/master/dist-mix">/dist-mix</a>
+</h3>
+<ul>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/tree/master/dist-mix/chinook">/chinook</a>
+<ul>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/tree/master/dist-mix/chinook/custom">/custom</a>
+<ul>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/chinook/custom/chinook.js">chinook.js</a> - UI Customizations</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/chinook/app.settings">app.settings</a> - Custom App Settings</li>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/chinook/chinook.sqlite">chinook.sqlite</a> - Embedded SQLite database</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/tree/master/dist-mix/northwind">/northwind</a>
+<ul>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/tree/master/dist-mix/chinook/northwind">/custom</a>
+<ul>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/northwind/custom/northwind.js">northwind.js</a> - UI Customizations</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/northwind/app.settings">app.settings</a> - Custom App Settings</li>
+<li>
+<a href="https://github.com/NetCoreApps/SharpData/blob/master/dist-mix/northwind/northwind.sqlite">northwind.sqlite</a> - Embedded SQLite database</li>
+</ul>
+</li>
+</ul>
+<p>You can <a href="/sharp-apps/app-index#publishing-gist-desktop-apps">publish a directory of files to a GitHub Gist</a> using the <code>x publish</code> command with the
+GitHub <strong>AccessToken</strong> with gist write access you want to write to, e.g:</p>
+<pre><code>$ cd northwind
+$ x publish -token %TOKEN%
+</code></pre>
+<h3>
+<a id="viewing-customizations" class="anchor" href="#viewing-customizations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Viewing Customizations</h3>
+<p>When published these Gist Customizations can be viewed by gist id directly or by a user friendly gist mix or local alias:</p>
+<ul>
+    <li><strong><a name="app://sharpdata?mix=0ce0d5b828303f1cb4637450b563adbd">app://sharpdata?mix=0ce0d5b828303f1cb4637450b563adbd</a></strong></li>
+    <li><strong><a name="app://sharpdata?mix=96b10369daf94897531810841cb097f2">app://sharpdata?mix=96b10369daf94897531810841cb097f2</a></strong></li>
+</ul>
 <h3>
 <a id="custom-row-components" class="anchor" href="#custom-row-components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Row Components</h3>
 <p>Whilst a tabular grid view might be a natural UI for browsing a database for devs, we can do better since we have the full UI source code of the Vue components.
 A filtered tabular view makes it fast to find the record you're interested in, but it's not ideal for quickly finding related information about an Entity.</p>
 <p>To provide a more customized UX for different App UIs, <strong>SharpData</strong> includes support for <strong>"Row Components"</strong>
-(defined in <a href="https://github.com/NetCoreApps/SharpData/tree/master/src/components/Custom">/components/Custom</a>) to be able to quickly drill down &amp; view
+(defined in <a href="https://github.com/NetCoreApps/SharpData/tree/master/wwwroot/custom">/wwwroot/custom</a>) to be able to quickly drill down &amp; view
 richer info on any record.</p>
 <p>For example when viewing an <strong>Order</strong>, it's natural to want to view the <strong>Order Details</strong> with it, enabled with the custom Vue component registration below:</p>
 <div class="highlight highlight-source-ts"><pre>@<span class="pl-smi">Component</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">template</span>:
@@ -280,12 +427,7 @@ richer info on any record.</p>
 <span class="pl-s">&lt;/div&gt;</span>
 <span class="pl-s">&lt;div v-else class="alert alert-danger"&gt;Order Id needs to be selected&lt;/div&gt;`</span>
 <span class="pl-kos">}</span><span class="pl-kos">)</span>
-<span class="pl-k">class</span> <span class="pl-smi">Order</span> <span class="pl-k">extends</span> <span class="pl-smi">Vue</span> <span class="pl-kos">{</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">db</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">table</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">row</span>: <span class="pl-smi">any</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">columns</span>: <span class="pl-smi">ColumnSchema</span><span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
-
+<span class="pl-k">class</span> <span class="pl-smi">Order</span> <span class="pl-k">extends</span> <span class="pl-smi">RowComponent</span> <span class="pl-kos">{</span>
     <span class="pl-c1">details</span>:<span class="pl-smi">any</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
 
     <span class="pl-k">get</span> <span class="pl-en">id</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-k">return</span> <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">row</span><span class="pl-kos">.</span><span class="pl-c1">Id</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
@@ -293,8 +435,7 @@ richer info on any record.</p>
     <span class="pl-k">async</span> <span class="pl-en">mounted</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
         <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">details</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">sharpData</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">db</span><span class="pl-kos">,</span><span class="pl-s">'OrderDetail'</span><span class="pl-kos">,</span><span class="pl-kos">{</span> <span class="pl-c1">OrderId</span>: <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">id</span> <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
     <span class="pl-kos">}</span>
-<span class="pl-kos">}</span>
-<span class="pl-en">registerRowComponent</span><span class="pl-kos">(</span><span class="pl-s">'main'</span><span class="pl-kos">,</span><span class="pl-s">'Order'</span><span class="pl-kos">,</span> <span class="pl-smi">Order</span><span class="pl-kos">,</span> <span class="pl-s">'order'</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<span class="pl-kos">}</span></pre></div>
 <p>All Row components are injected with the <code>db</code>, <code>table</code> properties, the entire <code>row</code> object that was selected as well as the Column Schema definition for that table. Inside the component you're free to display anything, in this case we're using the <code>sharpData</code> helper for calling the server <code>#Script</code> HTTP API to get it to fetch all <code>OrderDetail</code> entries for this order.</p>
 <blockquote>
 <p>If the resultset is filtered without the Order <code>Id</code> PK it can't fetch its referenced data, so displays an error instead</p>
@@ -310,7 +451,7 @@ richer info on any record.</p>
 <span class="pl-s">    &lt;h3 class="text-success"&gt;{{customer.ContactName}}&lt;/h3&gt;</span>
 <span class="pl-s">    &lt;table class="table table-bordered" style="width:auto"&gt;</span>
 <span class="pl-s">        &lt;tr&gt;</span>
-<span class="pl-s">            &lt;th&gt;Contact!&lt;/th&gt;</span>
+<span class="pl-s">            &lt;th&gt;Contact&lt;/th&gt;</span>
 <span class="pl-s">            &lt;td&gt;{{ customer.ContactName }} ({{ customer.ContactTitle }})&lt;/td&gt;</span>
 <span class="pl-s">        &lt;/tr&gt;</span>
 <span class="pl-s">        &lt;tr&gt;</span>
@@ -331,12 +472,9 @@ richer info on any record.</p>
 <span class="pl-s">    &lt;/table&gt;</span>
 <span class="pl-s">    &lt;jsonviewer :value="orders" /&gt;</span>
 <span class="pl-s">&lt;/div&gt;</span>
-<span class="pl-s">&lt;div v-else class="alert alert-danger"&gt;Customer Id needs to be selected&lt;/div&gt;`</span><span class="pl-kos">}</span><span class="pl-kos">)</span>
-<span class="pl-k">class</span> <span class="pl-smi">Customer</span> <span class="pl-k">extends</span> <span class="pl-smi">Vue</span> <span class="pl-kos">{</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">db</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-k">public</span> <span class="pl-c1">table</span>: <span class="pl-smi">string</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">row</span>: <span class="pl-smi">any</span><span class="pl-kos">;</span>
-    @<span class="pl-smi">Prop</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">columns</span>: <span class="pl-smi">ColumnSchema</span><span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+<span class="pl-s">&lt;div v-else class="alert alert-danger"&gt;Customer Id needs to be selected&lt;/div&gt;`</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span>
+<span class="pl-k">class</span> <span class="pl-smi">Customer</span> <span class="pl-k">extends</span> <span class="pl-smi">RowComponent</span> <span class="pl-kos">{</span>
 
     <span class="pl-c1">customer</span>:<span class="pl-smi">any</span> <span class="pl-c1">=</span> null<span class="pl-kos">;</span>
     <span class="pl-c1">orders</span>:<span class="pl-smi">any</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
@@ -348,18 +486,17 @@ richer info on any record.</p>
         <span class="pl-k">const</span> <span class="pl-s1">fields</span> <span class="pl-c1">=</span> <span class="pl-s">'Id,EmployeeId,OrderDate,Freight,ShipVia,ShipCity,ShipCountry'</span><span class="pl-kos">;</span>
         <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">orders</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">sharpData</span><span class="pl-kos">(</span><span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">db</span><span class="pl-kos">,</span><span class="pl-s">'Order'</span><span class="pl-kos">,</span><span class="pl-kos">{</span> <span class="pl-c1">CustomerId</span>: <span class="pl-smi">this</span><span class="pl-kos">.</span><span class="pl-c1">id</span><span class="pl-kos">,</span> fields <span class="pl-kos">}</span><span class="pl-kos">)</span>
     <span class="pl-kos">}</span>
-<span class="pl-kos">}</span>
-<span class="pl-en">registerRowComponent</span><span class="pl-kos">(</span><span class="pl-s">'main'</span><span class="pl-kos">,</span><span class="pl-s">'customer'</span><span class="pl-kos">,</span> <span class="pl-smi">Customer</span><span class="pl-kos">,</span> <span class="pl-s">'customer'</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
+<span class="pl-kos">}</span></pre></div>
 <p>Which looks like:</p>
 <p><a href="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-customer-rowcomponent.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/release-notes/v5.9/sharpdata-customer-rowcomponent.png" alt="" style="max-width:100%;"></a></p>
 <h3>
 <a id="sharpdata-net-core-project" class="anchor" href="#sharpdata-net-core-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SharpData .NET Core Project</h3>
 <p>Whilst <a href="https://github.com/NetCoreApps/SharpData">NetCoreApps/SharpData</a> can live a charmed life as a Desktop App, it's also just a regular ServiceStack .NET Core App with a <a href="https://github.com/NetCoreApps/SharpData/blob/master/Startup.cs">Startup.cs</a> and <code>AppHost</code> that can be developed, published and deployed as you're used to, here's an instance of it <a href="https://docs.servicestack.net/netcore-deploy-rsync" rel="nofollow">deployed as a .NET Core App on Linux</a>:</p>
-<h4>
+<h3>
 <a id="sharpdatanetcoreio" class="anchor" href="#sharpdatanetcoreio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://sharpdata.netcore.io" rel="nofollow">sharpdata.netcore.io</a>
-</h4>
+</h3>
 <blockquote>
-<p>For best experience we recommend running locally to experience it without latency of our servers in Germany</p>
+<p>For best experience we recommend running against local network databases</p>
 </blockquote>
 <p>It's a unique ServiceStack App in that it doesn't contain any ServiceStack Services as it's only using pre-existing functionality already built into ServiceStack,
 <code>#Script</code> for its HTTP APIs and a Vue SPA for its UI, so requires no <code>.dll's</code> need to be deployed with it.</p>
@@ -390,8 +527,8 @@ Rider provides a nice UX here as it lets you run each individual script directly
 <pre><code>$ cd dist
 $ app
 </code></pre>
-<p>The <code>init-test</code> script just copies an example <strong>northwind.sqlite</strong> database and sample <code>app.settings</code> so you have something to test it with if you need it.</p>
-<p>The <code>publish-app</code> script is if you want to publish it to a Gist, you will need it to provide the GitHub <strong>AccessToken</strong> with write access to the Gist User Account you want to publish it to. Adding an <code>appName</code> and <code>description</code> to <code>app.settings</code> will publish it to the <a href="https://sharpscript.net/docs/gist-desktop-apps#instant-run-without-installation" rel="nofollow">Global App Registry</a>, make it publicly discoverable and allow anyone to open your App using your user-friendly <code>appName</code> alias, otherwise they can run it using the <strong>Gist Id</strong> or <strong>Gist URL</strong>.</p>
+<p>The <code>mix-*</code> scripts copies the db customizations so you have something to test it with which you can run with the <code>run-test</code> script.</p>
+<p>The <code>publish-app</code> script is if you want to publish it to a Gist Desktop App, where you will need it to provide the GitHub <strong>AccessToken</strong> with write access to the Gist User Account you want to publish it to. Adding an <code>appName</code> and <code>description</code> to <code>app.settings</code> will publish it to the <a href="https://sharpscript.net/docs/gist-desktop-apps#instant-run-without-installation" rel="nofollow">Global App Registry</a>, make it publicly discoverable and allow anyone to open your App using your user-friendly <code>appName</code> alias, otherwise they can run it using the <strong>Gist Id</strong> or <strong>Gist URL</strong>.</p>
 <p>Alternatively the contents of the <code>dist/</code> folder can be published to a GitHub repo (public or private) and run with:</p>
 <pre><code>$ app open &lt;user&gt;/&lt;repo&gt;
 </code></pre>
@@ -426,9 +563,8 @@ $ app
 <p>When running as a Sharp App it's instead configured in its
 <a href="https://github.com/NetCoreApps/SharpData/blob/master/scripts/deploy/app.northwind.settings">app.settings</a>, here's equivalent settings for the above configuration:</p>
 <pre><code># Configure below. Supported dialects: sqlite, mysql, postgres, sqlserver
-db sqlite
-db.connection northwind.sqlite
-# db.connections[techstacks] { db:postgres, connection:$TECHSTACKS_DB }
+db.connections[northwind]  { db:sqlite,   connection:'northwind.sqlite' }
+db.connections[techstacks] { db:postgres, connection:$TECHSTACKS_DB }
 
 args.tables Customer,Order,OrderDetail,Category,Product,Employee,EmployeeTerritory,Shipper,Supplier,Region,Territory
 args.tables_techstacks technology,technology_stack,technology_choice,organization,organization_member,post,post_comment,post_vote,custom_user_auth,user_auth_details,user_activity,page_stats
