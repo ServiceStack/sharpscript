@@ -127,18 +127,18 @@ which supports the following features:</p>
 <li>Otherwise by default performs a "string equality" search where columns are casted and compared as strings</li>
 </ul>
 <p>Here's the filtered list used in the above screenshot:</p>
-<p><a href="http://sharpdata.netcore.io/db/main/Order?format=json&amp;Id=%3E10200&amp;CustomerId=V%25&amp;Freight=%3C%3D30&amp;OrderDate=%3E1997-01-01&amp;take=100" rel="nofollow">/db/main/Order?Id=&gt;10200&amp;CustomerId=V%&amp;Freight=&lt;=30&amp;OrderDate=&gt;1997-01-01</a></p>
+<p><a href="http://sharpdata.netcore.io/db/northwind/Order?format=json&amp;Id=%3E10200&amp;CustomerId=V%25&amp;Freight=%3C%3D30&amp;OrderDate=%3E1997-01-01&amp;take=100" rel="nofollow">/db/northwind/Order?Id=&gt;10200&amp;CustomerId=V%&amp;Freight=&lt;=30&amp;OrderDate=&gt;1997-01-01</a></p>
 <h3>
 <a id="custom-field-selection" class="anchor" href="#custom-field-selection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom Field Selection</h3>
 <p>The <strong>column selection</strong> icon on the top left of the results lets you query custom select columns which is specified using <code>?fields</code>:</p>
 <ul>
-<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json&amp;fields=Id%2CCompanyName%2CContactName%2CContactTitle&amp;take=100" rel="nofollow">/db/main/Customer?fields=Id,CompanyName,ContactName,ContactTitle</a></li>
+<li><a href="https://sharpdata.netcore.io/db/northwind/Customer?format=json&amp;fields=Id%2CCompanyName%2CContactName%2CContactTitle&amp;take=100" rel="nofollow">/db/northwind/Customer?fields=Id,CompanyName,ContactName,ContactTitle</a></li>
 </ul>
 <h3>
 <a id="multiple-orderbys" class="anchor" href="#multiple-orderbys" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple OrderBy's</h3>
 <p>You can use <a href="https://docs.servicestack.net/autoquery-rdbms#multiple-orderbys" rel="nofollow">AutoQuery Syntax</a> to specify multiple Order By's:</p>
 <ul>
-<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json&amp;orderBy=-Id,CompanyName,-ContactName" rel="nofollow">/db/main/Customer?orderBy=-Id,CompanyName,-ContactName</a></li>
+<li><a href="https://sharpdata.netcore.io/db/northwind/Customer?format=json&amp;orderBy=-Id,CompanyName,-ContactName" rel="nofollow">/db/northwind/Customer?orderBy=-Id,CompanyName,-ContactName</a></li>
 </ul>
 <h3>
 <a id="paging" class="anchor" href="#paging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Paging</h3>
@@ -147,9 +147,9 @@ which supports the following features:</p>
 <a id="format" class="anchor" href="#format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Format</h3>
 <p>Use <code>?format</code> to specify which <strong>Content-Type</strong> to return the results in, e.g:</p>
 <ul>
-<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=html" rel="nofollow">/db/main/Customer?format=html</a></li>
-<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=json" rel="nofollow">/db/main/Customer?format=json</a></li>
-<li><a href="https://sharpdata.netcore.io/db/main/Customer?format=csv" rel="nofollow">/db/main/Customer?format=csv</a></li>
+<li><a href="https://sharpdata.netcore.io/db/northwind/Customer?format=html" rel="nofollow">/db/northwind/Customer?format=html</a></li>
+<li><a href="https://sharpdata.netcore.io/db/northwind/Customer?format=json" rel="nofollow">/db/northwind/Customer?format=json</a></li>
+<li><a href="https://sharpdata.netcore.io/db/northwind/Customer?format=csv" rel="nofollow">/db/northwind/Customer?format=csv</a></li>
 </ul>
 <h3>
 <a id="multitenancy" class="anchor" href="#multitenancy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multitenancy</h3>
