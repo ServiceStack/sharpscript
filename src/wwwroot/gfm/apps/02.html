@@ -14,9 +14,10 @@ launched from a single URL.</p>
 <a href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases" rel="nofollow">Northwind</a> and
 <a href="https://www.sqlitetutorial.net/sqlite-sample-database/" rel="nofollow">Chinook</a> SQLite databases which after installing the latest
 <a href="https://docs.servicestack.net/netcore-windows-desktop" rel="nofollow">app</a> dotnet tool:</p>
-<pre><code>$ dotnet tool install -g app    
+<pre><code>$ dotnet tool install -g app
+$ app -version
 </code></pre>
-<p>Can be run from the link below in a Windows x64 Desktop App:</p>
+<p>First time <code>app</code> is run it registers the <a href="#app-url-schemes">app:// URL scheme</a> allowing Windows x64 Desktop Apps to be launched from URLs:</p>
 <ul>
     <li><strong><a name="app://sharpdata?mix=northwind.sharpdata">app://sharpdata?mix=northwind.sharpdata</a></strong></li>
     <li><strong><a name="app://sharpdata?mix=chinook.sharpdata">app://sharpdata?mix=chinook.sharpdata</a></strong></li>
