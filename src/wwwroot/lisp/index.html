@@ -500,8 +500,10 @@ outer page to access any Lisp symbols they need to be exported, e.g:
 
 {{/markdown}}
 
-{{ "live-template" |> partial({ output:'no-scroll', rows:7, template: "{{ 2 |> toGlobal => pageResultArg }} 
-{{ 3 |> to => scopeArg }}
+{{ "live-template" |> partial({ output:'no-scroll', rows:9, template: "```code|q
+pageResultArg = 2
+var scopeArg = 3
+```
 ...lisp
 (export retVal (+ pageResultArg scopeArg) 
         newVal 2)
@@ -518,7 +520,7 @@ into a .NET Delegate, e.g:
 {{/markdown}}
 
 {{ "live-template" |> partial({ output:'no-scroll', rows:7, template: "
-{{ 1 |> to => scopeArg }}
+{{ var scopeArg = 1 }}
 ...lisp
 (def localArg 2)
 (def lispAdd  #(+ %1 %2 localArg))
@@ -650,8 +652,8 @@ For reference, here's are a quick list of all built-in Lisp symbols:
     - % * *gensym-counter* *version* / /= _append _nreverse + < <= = > >= 1- 1+ 1st 2nd 3rd abs all? and any? 
     append apply assoc assoc-key assoc-value assq atom atom? average butlast C caaar caadr caar cadar caddr 
     cadr car cdaar cdadr cdar cddar cdddr cddr cdr ceiling cons cons? consp cos count debug dec decf def 
-    defmacro defn defun dispose do dolist dorun doseq doseq-while dotimes dump dump-inline elt empty? end? endp 
-    enumerator enumeratorCurrent enumeratorNext eq eql equal error even? every every? exit exp expt F f++ 
+    defmacro defn defun dispose do dolist dorun doseq doseq-while dotimes dump dump-inline elt empty? end?
+    endp enumerator enumeratorCurrent enumeratorNext eq eql equal error even? every every? exit exp expt F f++
     false filter filter-index first flatmap flatten floor gensym glob globln group-by htmldump identity if 
     inc incf instance? intern isqrt it last length let letrec list list? listp load load-src logand logior 
     logxor lower-case make-symbol map mapc mapcan mapcar map-index map-where max member memq min mod nbutlast 
