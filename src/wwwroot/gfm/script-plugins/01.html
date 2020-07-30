@@ -22,13 +22,11 @@ to a ServiceStack <code>AppHost</code>, you can encapsulate a suite of functiona
         
         <span class="pl-smi">context</span>.<span class="pl-smi">ScriptMethods</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">MarkdownScriptMethods</span>());
 
-        <span class="pl-smi">ScriptConfig</span>.<span class="pl-smi">DontEvaluateBlocksNamed</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>markdown<span class="pl-pds">"</span></span>);
-        
         <span class="pl-smi">context</span>.<span class="pl-smi">ScriptBlocks</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">MarkdownScriptBlock</span>());
     }
 }</pre></div>
 <h3>
-<a id="user-content-creating-plugins" class="anchor" href="#creating-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating Plugins</h3>
+<a id="creating-plugins" class="anchor" href="#creating-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating Plugins</h3>
 <p>Plugin are simply classes that implement <code>IScriptPlugin</code> interface and its <code>Register()</code> method to extend the <code>ScriptContext</code>
 with additional functionality we want to make available:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IScriptPlugin</span>
@@ -48,7 +46,7 @@ with additional functionality we want to make available:</p>
     <span class="pl-k">void</span> <span class="pl-en">AfterPluginsLoaded</span>(<span class="pl-en">ScriptContext</span> <span class="pl-smi">context</span>);
 }</pre></div>
 <h2>
-<a id="user-content-pre-registered-plugins-in-scriptcontext" class="anchor" href="#pre-registered-plugins-in-scriptcontext" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-registered Plugins in <code>ScriptContext</code>
+<a id="pre-registered-plugins-in-scriptcontext" class="anchor" href="#pre-registered-plugins-in-scriptcontext" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-registered Plugins in <code>ScriptContext</code>
 </h2>
 <p>Pre-registered plugins are useful when you want to easily <strong>remove</strong> a pre-registered suite of functionality, e.g:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">var</span> <span class="pl-smi">context</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ScriptContext</span> {
@@ -58,7 +56,7 @@ with additional functionality we want to make available:</p>
     .<span class="pl-en">RemovePlugins</span>(<span class="pl-smi">x</span> <span class="pl-k">=&gt;</span> <span class="pl-smi">x</span> <span class="pl-k">is</span> <span class="pl-en">HtmlScriptBlocks</span>)    <span class="pl-c"><span class="pl-c">//</span> Remove all html blocks</span>
     .<span class="pl-en">Init</span>();</pre></div>
 <h3>
-<a id="user-content-defaultscriptblocks" class="anchor" href="#defaultscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DefaultScriptBlocks</h3>
+<a id="defaultscriptblocks" class="anchor" href="#defaultscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DefaultScriptBlocks</h3>
 <p>The Default <a href="/docs/blocks">Script Blocks</a> contain all the <strong>statement</strong> functionality in <code>#Script</code> which includes:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">DefaultScriptBlocks</span> : <span class="pl-en">IScriptPlugin</span>
 {
@@ -80,7 +78,7 @@ with additional functionality we want to make available:</p>
     }
 }</pre></div>
 <h3>
-<a id="user-content-htmlscriptblocks" class="anchor" href="#htmlscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HtmlScriptBlocks</h3>
+<a id="htmlscriptblocks" class="anchor" href="#htmlscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HtmlScriptBlocks</h3>
 <p>The purpose of the <a href="/docs/blocks#html">HTML Script Blocks</a> is to pack a suite of generically useful functionality commonly used when generating html.
 All html blocks inherit the same functionality with blocks registered for the most popular HTML elements, currently:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">HtmlScriptBlocks</span> : <span class="pl-en">IScriptPlugin</span>
@@ -127,12 +125,12 @@ All html blocks inherit the same functionality with blocks registered for the mo
     }
 }</pre></div>
 <h2>
-<a id="user-content-pre-registered-plugins-in-sharppagesfeature" class="anchor" href="#pre-registered-plugins-in-sharppagesfeature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-registered Plugins in <code>SharpPagesFeature</code>
+<a id="pre-registered-plugins-in-sharppagesfeature" class="anchor" href="#pre-registered-plugins-in-sharppagesfeature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-registered Plugins in <code>SharpPagesFeature</code>
 </h2>
 <p>The <a href="/docs/sharp-pages">SharpPagesFeature</a> in <code>ServiceStack.dll</code> has access to more dependencies than <code>ScriptContext</code> and
 is able to pre-register more functionality by default including:</p>
 <h3>
-<a id="user-content-servicestackscriptblocks" class="anchor" href="#servicestackscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ServiceStackScriptBlocks</h3>
+<a id="servicestackscriptblocks" class="anchor" href="#servicestackscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ServiceStackScriptBlocks</h3>
 <p>Containing the <code>{{#minifyjs}}{{/minifyjs}}</code>, <code>{{#minifycss}}{{/minifycss}}</code> and <code>{{#minifyhtml}}{{/minifyhtml}}</code> for minifying
 its contents:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ServiceStackScriptBlocks</span> : <span class="pl-en">IScriptPlugin</span>
@@ -148,7 +146,7 @@ its contents:</p>
     }
 }</pre></div>
 <h3>
-<a id="user-content-markdownscriptplugin" class="anchor" href="#markdownscriptplugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MarkdownScriptPlugin</h3>
+<a id="markdownscriptplugin" class="anchor" href="#markdownscriptplugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MarkdownScriptPlugin</h3>
 <p>Adds Markdown supports to <a href="/docs/sharp-pages">#Script Pages</a> by default:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MarkdownScriptPlugin</span> : <span class="pl-en">IScriptPlugin</span>
 {
@@ -163,18 +161,16 @@ its contents:</p>
         
         <span class="pl-smi">context</span>.<span class="pl-smi">ScriptMethods</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">MarkdownScriptMethods</span>());
 
-        <span class="pl-smi">ScriptConfig</span>.<span class="pl-smi">DontEvaluateBlocksNamed</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>markdown<span class="pl-pds">"</span></span>);
-        
         <span class="pl-smi">context</span>.<span class="pl-smi">ScriptBlocks</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">MarkdownScriptBlock</span>());
     }
 }</pre></div>
 <p>Added using:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-smi">Plugins</span>.<span class="pl-en">Add</span>(<span class="pl-k">new</span> <span class="pl-en">MarkdownScriptPlugin</span> { <span class="pl-smi">RegisterPageFormat</span> <span class="pl-k">=</span> <span class="pl-c1">false</span> });</pre></div>
 <h2>
-<a id="user-content-available-plugins" class="anchor" href="#available-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Available Plugins</h2>
+<a id="available-plugins" class="anchor" href="#available-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Available Plugins</h2>
 <p>List of available plugins that's not pre-registered anywhere include:</p>
 <h3>
-<a id="user-content-protectedscriptblocks" class="anchor" href="#protectedscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ProtectedScriptBlocks</h3>
+<a id="protectedscriptblocks" class="anchor" href="#protectedscriptblocks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ProtectedScriptBlocks</h3>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ProtectedScriptBlocks</span> : <span class="pl-en">IScriptPlugin</span>
 {
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">Register</span>(<span class="pl-en">ScriptContext</span> <span class="pl-smi">context</span>)
@@ -186,7 +182,7 @@ its contents:</p>
 }</pre></div>
 <p>Although generally not required as <a href="/docs/default-scripts#evalTemplate">evalTemplate script method</a> registered by default has equivalent functionality.</p>
 <h3>
-<a id="user-content-githubplugin" class="anchor" href="#githubplugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GitHubPlugin</h3>
+<a id="githubplugin" class="anchor" href="#githubplugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GitHubPlugin</h3>
 <p>ServiceStack's available GitHub integration can be used in your <code>#Script</code> by adding <code>GitHubPlugin</code> to your <code>ScriptContext</code> or <code>SharpPagesFeature</code>:</p>
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">new</span> <span class="pl-smi">ScriptContext</span> {
     <span class="pl-smi">Plugins</span> <span class="pl-k">=</span> { <span class="pl-k">new</span> <span class="pl-en">GitHubPlugin</span>() },
@@ -194,24 +190,24 @@ its contents:</p>
 <p>This is enabled by default in the <code>web</code> and <code>app</code> dotnet tools so they can be used in <code>#Script</code> <strong>.ss</strong> scripts.</p>
 <p>Checkout <a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/Script/Methods/GitHubScripts.cs">GitHubScripts.cs</a>
 for the full API available. Here's <a href="https://developer.github.com/v3/gists/#example">GitHub's Gist API</a> example of creating gists in <code>#Script</code>:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-en">githubGateway</span>(<span class="pl-s"><span class="pl-pds">'</span>GITHUB_GIST_TOKEN<span class="pl-pds">'</span></span>.<span class="pl-en">envVariable</span>()) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gateway
+<div class="highlight highlight-source-js"><pre><span class="pl-en">githubGateway</span><span class="pl-kos">(</span><span class="pl-s">'GITHUB_GIST_TOKEN'</span><span class="pl-kos">.</span><span class="pl-en">envVariable</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span> |<span class="pl-c1">&gt;</span> <span class="pl-s1">to</span> <span class="pl-c1">=&gt;</span> <span class="pl-s1">gateway</span>
 
-{{ <span class="pl-smi">gateway</span>.<span class="pl-en">githubCreateGist</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World Examples<span class="pl-pds">'</span></span>, {
-     <span class="pl-s"><span class="pl-pds">'</span>hello_world_ruby.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span>   <span class="pl-s"><span class="pl-pds">'</span>Run `ruby hello_world.rb` to print Hello World<span class="pl-pds">'</span></span>,
-     <span class="pl-s"><span class="pl-pds">'</span>hello_world_python.txt<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Run `python hello_world.py` to print Hello World<span class="pl-pds">'</span></span>,
-   })
-   <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> newGist }}
+<span class="pl-kos">{</span><span class="pl-kos">{</span> <span class="pl-s1">gateway</span><span class="pl-kos">.</span><span class="pl-en">githubCreateGist</span><span class="pl-kos">(</span><span class="pl-s">'Hello World Examples'</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+     <span class="pl-s">'hello_world_ruby.txt'</span>:   <span class="pl-s">'Run `ruby hello_world.rb` to print Hello World'</span><span class="pl-kos">,</span>
+     <span class="pl-s">'hello_world_python.txt'</span>: <span class="pl-s">'Run `python hello_world.py` to print Hello World'</span><span class="pl-kos">,</span>
+   <span class="pl-kos">}</span><span class="pl-kos">)</span>
+   |<span class="pl-c1">&gt;</span> <span class="pl-s1">to</span> <span class="pl-c1">=&gt;</span> <span class="pl-s1">newGist</span> <span class="pl-kos">}</span><span class="pl-kos">}</span>
 
-{ <span class="pl-k">...</span>newGist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>new gist<span class="pl-pds">'</span></span> })</pre></div>
+<span class="pl-kos">{</span> ...<span class="pl-s1">newGist</span><span class="pl-kos">,</span> <span class="pl-c1">Files</span>: <span class="pl-c1">null</span><span class="pl-kos">,</span> <span class="pl-c1">Owner</span>: <span class="pl-c1">null</span> <span class="pl-kos">}</span> |<span class="pl-c1">&gt;</span> <span class="pl-en">textDump</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">caption</span>: <span class="pl-s">'new gist'</span> <span class="pl-kos">}</span><span class="pl-kos">)</span></pre></div>
 <p>View Gist files and metadata example:</p>
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">gateway</span>.<span class="pl-en">githubGist</span>(gistId) <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-smi">to</span> <span class="pl-k">=&gt;</span> gist
+<div class="highlight highlight-source-js"><pre><span class="pl-s1">gateway</span><span class="pl-kos">.</span><span class="pl-en">githubGist</span><span class="pl-kos">(</span><span class="pl-s1">gistId</span><span class="pl-kos">)</span> |<span class="pl-c1">&gt;</span> <span class="pl-s1">to</span> <span class="pl-c1">=&gt;</span> <span class="pl-s1">gist</span>
 
-{ <span class="pl-k">...</span>gist, Files<span class="pl-k">:</span> <span class="pl-c1">null</span>, Owner<span class="pl-k">:</span> <span class="pl-c1">null</span> } <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>gist<span class="pl-pds">'</span></span> })
+<span class="pl-kos">{</span> ...<span class="pl-s1">gist</span><span class="pl-kos">,</span> <span class="pl-c1">Files</span>: <span class="pl-c1">null</span><span class="pl-kos">,</span> <span class="pl-c1">Owner</span>: <span class="pl-c1">null</span> <span class="pl-kos">}</span> |<span class="pl-s1"></span><span class="pl-c1">&gt;</span> <span class="pl-en">textDump</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">caption</span>: <span class="pl-s">'gist'</span> <span class="pl-kos">}</span><span class="pl-kos">)</span>
 
-<span class="pl-s"><span class="pl-pds">`</span>#### Gist Files<span class="pl-pds">`</span></span>
-#each file <span class="pl-k">in</span> <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>.<span class="pl-smi">Keys</span>
-    <span class="pl-smi">gist</span>.<span class="pl-smi">Files</span>[file] <span class="pl-k">|</span><span class="pl-k">&gt;</span> <span class="pl-en">textDump</span>({ caption<span class="pl-k">:</span> file })
-<span class="pl-k">/</span>each</pre></div>
+<span class="pl-s">`#### Gist Files`</span>
+#<span class="pl-s1">each</span> <span class="pl-s1">file</span> <span class="pl-k">in</span> <span class="pl-s1">gist</span><span class="pl-kos">.</span><span class="pl-c1">Files</span><span class="pl-kos">.</span><span class="pl-c1">Keys</span>
+    <span class="pl-s1">gist</span><span class="pl-kos">.</span><span class="pl-c1">Files</span><span class="pl-kos">[</span><span class="pl-s1">file</span><span class="pl-kos">]</span> |<span class="pl-c1">&gt;</span> <span class="pl-en">textDump</span><span class="pl-kos">(</span><span class="pl-kos">{</span> <span class="pl-c1">caption</span>: <span class="pl-s1">file</span> <span class="pl-kos">}</span><span class="pl-kos">)</span>
+/<span class="pl-s1">each</span></pre></div>
 <p>Which renders the following GitHub Flavored Markdown output:</p>
 <table>
 <thead>
@@ -296,7 +292,7 @@ for the full API available. Here's <a href="https://developer.github.com/v3/gist
 </tbody>
 </table>
 <h4>
-<a id="user-content-gist-files" class="anchor" href="#gist-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gist Files</h4>
+<a id="gist-files" class="anchor" href="#gist-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gist Files</h4>
 <table>
 <thead>
 <tr>
