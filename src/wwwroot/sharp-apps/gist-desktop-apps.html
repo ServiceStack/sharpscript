@@ -219,7 +219,7 @@ You can provide your access token via the `-token` command-line argument:
 
     $ app publish -token {GITHUB_TOKEN}
 
-But **our recommendation** is instead to set it in the `GITHUB_GIST_TOKEN` Environment Variable to avoid needing to provide it each time.
+**Our recommendation** is instead to set it in the `GITHUB_TOKEN` Environment Variable to avoid needing to provide it each time.
 
 Before publishing our App, our **app.settings** looks something like:
 
@@ -227,63 +227,52 @@ Before publishing our App, our **app.settings** looks something like:
     name Spirals
     CefConfig { width:1100, height:900 }
 
-Then in your App's home directory (containing the **app.settings**), run:
-
-    $ app publish
-
-This creates a new Gist with your App and is confirmed by a successful response:
-
-    App published to: https://api.github.com/gists/4e06df1f1b9099526a7c97721aa7f69c
-
-    Publish App to the public registry by re-publishing with app.settings:
+To make your App listed in our Global App Directory, include the following metadata about your App:
 
     appName     <app alias>    # required: alpha-numeric snake-case characters only, 30 chars max
-    description <app summary>  # optional: 20-150 chars
+    description <app summary>  # required: 20-150 chars
     tags        <app tags>     # optional: space delimited, alpha-numeric snake-case, 3 tags max
 
-It also modifies your `app.settings` to include the gist that your App was published to:
+The `appName` is the globally unique short alias you want your App to be launched as, e.g:
 
-    debug true
-    name Spirals
-    CefConfig { width:1100, height:900 }
-    publish https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+    app://my-alias
+    $ app open my-alias
 
-Containing the location your App will be published to in the future.
-
-At this point anyone will now be able to run your App locally with the link it's published to:
-
-    $ app open https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
-
-Or using just the **gist id**:
-
-    $ app open 4e06df1f1b9099526a7c97721aa7f69c
-
-Or you can give it a friendlier name and make it more discoverable by publishing it to the global App Directory
-by updating your app.settings to include **appName**, **description** and **tags** settings, e.g:
-
-    debug true
-    name Spirals
-    CefConfig { width:1100, height:900 }
-    publish https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
-    appName spirals
-    description Explore and generate different Spirals with SVG
-    tags svg
-
-Now when you re-publish your App:
+If your app.settings contains the app metadata above, publishing the app will publish your App to a Gist & register your App's alias to the Global App Directory:
 
     $ app publish
 
-It will update your Apps gist, register **spirals** with the App directory and output the command everyone will be able to run your App with:
-
-    App updated at: https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+    published to: https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
 
     Run published App:
 
-        app open spirals
+        x open spirals
 
-Users that are not on Windows can use the `web` tool instead to launch your App in their preferred browser:
+When your App is published the first time, the created gist URL will be saved in a local `.publish` text file & used for subsequent App publishes.
+
+After it's published anyone will now be able to run your App locally with the global alias (if specified):
+
+    app://spirals
+    $ app open spirals
+
+The Gist Id:
+
+    app://4e06df1f1b9099526a7c97721aa7f69c
+    $ app open 4e06df1f1b9099526a7c97721aa7f69c
+
+Or Gist URL:
+
+    $ app open https://gist.github.com/gistlyn/4e06df1f1b9099526a7c97721aa7f69c
+
+Users that are not on Windows can use the `x` dotnet tool instead to launch your App in their preferred browser:
 
     $ x open spirals
+
+If preferred, Windows users can also launch your Gist Desktop App in their preferred browser (i.e. instead of a Chromium Desktop Shell) with the `xapp://` URL Scheme:
+
+    xapp://spirals
+
+#### Share your Windows Desktop App creations in minutes!
 
 With its built-in publishing support, you can **create an App from scratch, publish it to a gist, register it in the App directory** - 
 where your creations are ready for the world to use **in minutes!**
