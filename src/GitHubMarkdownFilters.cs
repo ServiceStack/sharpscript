@@ -59,7 +59,7 @@ namespace SharpScript
             return MemoryStreamFactory.GetStream(html.ToUtf8Bytes());
         }
 
-        const bool ReplaceUserContent = true;
+        static bool ReplaceUserContent = true;
 
         public async Task githubMarkdown(ScriptScopeContext scope, string markdownPath) 
         {

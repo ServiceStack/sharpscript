@@ -70,7 +70,7 @@ namespace SharpScript
                 DebugMode = false,
                 ScriptLanguages = { ScriptLisp.Language },
                 ScriptMethods = {
-                    new DbScripts(),
+                    new DbScriptsAsync(),
                     new AutoQueryScripts(),
                     new ServiceStackScripts(),
                     new CustomScriptMethods(),
