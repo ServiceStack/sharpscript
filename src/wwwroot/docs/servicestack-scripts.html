@@ -249,6 +249,14 @@ AUTH = {{ {} |> sendToGateway('Authenticate', { ifErrorReturn: "null" }) |> json
         <td>IRequest.GetSessionId()</td>
     </tr>
     <tr>
+        <th>userAuthId</th>
+        <td>IRequest.GetSession()?.UserAuthId</td>
+    </tr>
+    <tr>
+        <th>userAuthName</th>
+        <td>IRequest.GetSession()?.UserAuthName</td>
+    </tr>
+    <tr>
         <th>userSession</th>
         <td>IRequest.GetSession()</td>
     </tr>
