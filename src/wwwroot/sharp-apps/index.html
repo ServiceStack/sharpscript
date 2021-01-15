@@ -184,6 +184,29 @@ Usage: x open &lt;name&gt;</code></pre>
 
 <iframe width="896" height="525" src="https://www.youtube.com/embed/kRnQSWdqH6U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+<p>
+    To run Chromium Desktop Apps install the
+    <a href="https://docs.servicestack.net/netcore-windows-desktop">app tool</a>:
+</p>
+
+<pre class="sh"><code>$ dotnet tool install -g app</code></pre>
+
+<p>This has all the same features of the <a href="https://docs.servicestack.net/dotnet-tool">x tool</a> where you can create new projects with:</p>
+
+<pre class="sh"><code>$ app new vue-desktop ProjectName</code></pre>
+
+<p>
+    Then after packaging the Web App into a Sharp App with:
+</p>
+
+<pre class="sh"><code>$ npm run pack-app</code></pre>
+
+<p>
+    You can run it as a Desktop App by running the <em>app</em> tool in the <em>dist</em> folder:
+</p>
+
+<pre class="sh"><code>$ cd dist && app</code></pre>
+
 <h4 id="bare-app">Bare SharpApp</h4>
 
 <p>
