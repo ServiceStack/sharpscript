@@ -16,38 +16,6 @@ order: 6
     APIs and functionality and can do anything that built-in scripts can do. 
 </p>
 
-<h3>Delegate Arguments</h3>
-
-<p>
-    In addition to Script Methods, <em>#Script</em> also lets you call delegates registered as arguments:
-</p>
-
-{{ 'gfm/script-net/01.md' |> githubMarkdown }}
-
-<p>
-    Which just like <a href="/docs/blocks#function">user-defined functions</a> and other Script Methods can be called positionally or as an
-    <a href="/docs/syntax#extension-methods">extension method</a>:
-</p>
-
-<pre><code>fn(1,2)
-1.fn(2)</code></pre>
-
-<h4 id="shadowing">Shadowing Methods</h4>
-
-<p>
-    You can easily override default script methods with the same name and arguments by inserting them at the start of the <em>ScriptMethods</em> list:
-</p>
-
-{{ 'gfm/methods/01.md' |> githubMarkdown }}
-
-<h4 id="removing">Removing Default Scripts</h4>
-
-<p>
-    Or if you want to start from a clean slate, the default scripts can be removed by clearing the collection:
-</p>
-
-{{ 'gfm/methods/02.md' |> githubMarkdown }}
-
 <h4>What are Script Methods?</h4>
 
 <p>
@@ -108,7 +76,7 @@ order: 6
     Where it will search each Type in the Assembly for Script Methods and automatically register them.
 </p>
 
-<h5>Method Resolution</h5>
+<h3>Method Resolution</h3>
 
 <p>
     #Script will use the first matching method with the same name and argument count it can find by searching through all 
@@ -116,7 +84,34 @@ order: 6
     inserting your ScriptMethods as the first item in the collection, e.g:
 </p>
 
+<h5 id="shadowing">Shadowing Methods</h5>
+
 {{ 'gfm/methods/09.md' |> githubMarkdown }}
+
+<h3>Delegate Arguments</h3>
+
+<p>
+    In addition to Script Methods, <em>#Script</em> also lets you call delegates registered as arguments:
+</p>
+
+{{ 'gfm/script-net/01.md' |> githubMarkdown }}
+
+<p>
+    Which just like <a href="/docs/blocks#function">user-defined functions</a> and other Script Methods can be called positionally or as an
+    <a href="/docs/syntax#extension-methods">extension method</a>:
+</p>
+
+<pre><code>fn(1,2)
+1.fn(2)</code></pre>
+
+<h4 id="removing">Removing Default Scripts</h4>
+
+<p>
+    Or if you want to start from a clean slate, the default scripts can be removed by clearing the collection:
+</p>
+
+{{ 'gfm/methods/02.md' |> githubMarkdown }}
+
 
 <h4>Auto coercion into Method argument Types</h4>
 
