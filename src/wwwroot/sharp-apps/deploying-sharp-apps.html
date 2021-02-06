@@ -132,7 +132,7 @@ And voila! your Gist Sharp App is now being served at **redis.your-domain.com**
 
 We'll then configure [supervisord](http://supervisord.org/index.html) to further harden the .NET Core App process by having it run under a managed process,
 by [creating a deploy User Account](https://sharpscript.net/docs/deploying-sharp-apps#setup-the-deploy-user-account) and giving it
-permission to run the `supervisorctl` and `web` programs, then change directory to:
+permission to run the `supervisorctl` and `x` programs, then change directory to:
 
     $ cd /etc/supervisor/conf.d
 
