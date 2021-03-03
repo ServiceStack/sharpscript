@@ -1,0 +1,94 @@
+name: Release
+on:
+  release:
+    types: [published]
+jobs:
+  push_to_ecr:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: repository name fix
+        run: echo "image_repository_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login_ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Create ECR repo if not exists.
+        env:
+          ECR_REPOSITORY: ${{ env.image_repository_name }}
+        run: aws ecr describe-repositories --repository-names ${ECR_REPOSITORY} || aws ecr create-repository --repository-name ${ECR_REPOSITORY}
+
+      - name: Build and push to ECR
+        id: push_image_to_ecr
+        uses: docker/build-push-action@v2.2.2
+        with:
+          file: Dockerfile
+          context: .
+          push: true
+          tags: ${{ steps.login_ecr.outputs.registry }}/${{ env.image_repository_name }}:${{ github.event.release.tag_name }}
+
+  deploy_ecs:
+    needs: push_to_ecr
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login_ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Repository name fix and env values setup
+        run: |
+          echo "image_repository_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "domain=${{ secrets.HOST_DOMAIN }}" >> $GITHUB_ENV
+          echo "letsencrypt_email=${{ secrets.LETSENCRYPT_EMAIL }}" >> $GITHUB_ENV
+          echo "app_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]' | cut -d'/' -f2)" >> $GITHUB_ENV
+          echo "cluster_name=${{ secrets.AWS_ECS_CLUSTER }}" >> $GITHUB_ENV
+          echo "image_url=${{ steps.login_ecr.outputs.registry }}/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "aws_region=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+
+      - name: Populate task definition template
+        uses: danielr1996/envsubst-action@1.0.0
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+          APP_NAME: ${{ env.app_name }}
+          IMAGE_URL: ${{ env.image_url }}
+          HOST_DOMAIN: ${{ env.domain }}
+          LETSENCRYPT_EMAIL: ${{ env.letsencrypt_email }}
+          AWS_REGION: ${{ env.aws_region }}
+          CLUSTER_NAME: ${{ env.cluster_name }}
+        with:
+          input: deploy/task-definition-template.json
+          output: deploy/task-definition.json
+
+      - name: Create task definition if doesn't exist
+        run: aws ecs describe-task-definition --task-definition ${{ env.app_name }} || aws ecs register-task-definition --cli-input-json file://deploy/task-definition.json
+
+      - name: Create ECS Service if not exists.
+        run: aws ecs describe-services --cluster ${{ env.cluster_name }} --services ${{ env.app_name }} | jq '.services[0]' -e || aws ecs create-service --cluster ${{ env.cluster_name }} --service-name ${{ env.app_name }} --task-definition ${{ env.app_name }} --desired-count 1
+
+      - name: Deploy new revision of the task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: deploy/task-definition.json
+          service: ${{ env.app_name }}
+          cluster: ${{ env.cluster_name }}
+          force-new-deployment: true

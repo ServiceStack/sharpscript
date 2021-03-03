@@ -1,0 +1,50 @@
+{
+  "family": "${APP_NAME}",
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "protocol": "tcp",
+          "containerPort": 5000
+        }
+      ],
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "VIRTUAL_HOST",
+          "value": "${HOST_DOMAIN}"
+        },
+        {
+          "name": "LETSENCRYPT_HOST",
+          "value": "${HOST_DOMAIN}"
+        },
+        {
+          "name": "LETSENCRYPT_EMAIL",
+          "value": "${LETSENCRYPT_EMAIL}"
+        },
+        {
+          "name": "APP_VERSION",
+          "value": "${RELEASE_VERSION}"
+        }
+      ],
+      "mountPoints": [],
+      "memory": 128,
+      "volumesFrom": [],
+      "image": "${IMAGE_URL}",
+      "essential": true,
+      "name": "${APP_NAME}",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${CLUSTER_NAME}-${APP_NAME}",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}
