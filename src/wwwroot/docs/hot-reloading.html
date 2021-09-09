@@ -4,7 +4,7 @@ order: 19
 -->
 
 <p>
-    #Script has a simple, but effective configuration-free hot-reloading feature built-in that's enabled 
+    <em>#Script</em> has a simple, but effective configuration-free hot-reloading feature built-in that's enabled 
     when registering the <a href="/docs/sharp-pages">SharpPagesFeature</a> plugin:
 </p>
 
@@ -54,5 +54,12 @@ order: 19
     Since it's just scanning the AST instead of evaluating it, it will only be able to find files and partials that were 
     statically referenced, i.e. the typical case of using a string literal for the file name as opposed to a dynamically creating it.
 </p>
+
+<h4>Preview</h4>
+
+<p>If enabled and working correctly hot reloading should allow you to view instant UI changes on save:</p>
+
+<a href="https://www.vuedesktop.com"><img src="https://raw.githubusercontent.com/ServiceStack/docs/master/docs/images/app/vue-desktop/vuedesktop-livereload.gif" alt=""></a>
+
 
 {{ "doc-links" |> partial({ order }) }}
