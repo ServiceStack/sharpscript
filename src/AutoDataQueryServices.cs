@@ -115,7 +115,7 @@ namespace SharpScript
         {
             try {
                 return "https://api.github.com".CombineWith(route)
-                    .GetJsonFromUrl(requestFilter: req => req.UserAgent = nameof(AutoDataQueryServices))
+                    .GetJsonFromUrl(requestFilter: req => req.With(c => c.UserAgent = nameof(AutoDataQueryServices)))
                     .FromJson<T>();
             } catch(Exception) { return default(T); }
         }

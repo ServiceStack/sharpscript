@@ -11,16 +11,16 @@
     <PackageReference Include="System.IO.FileSystem.DriveInfo" Version="4.3.*" />
     <PackageReference Include="NUglify" Version="1.5.13" />
 
-    <PackageReference Include="ServiceStack" Version="5.*" />
-    <PackageReference Include="ServiceStack.Interfaces" Version="5.*" />
-    <PackageReference Include="ServiceStack.Text" Version="5.*" />
-    <PackageReference Include="ServiceStack.Client" Version="5.*" />
-    <PackageReference Include="ServiceStack.Common" Version="5.*" />
-    <PackageReference Include="ServiceStack.Redis" Version="5.*" /> 
-    <PackageReference Include="ServiceStack.OrmLite" Version="5.*" />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.*" />
-    <PackageReference Include="ServiceStack.Server" Version="5.*" /> 
-    <PackageReference Include="ServiceStack.Api.OpenApi" Version="5.*" /> 
+    <PackageReference Include="ServiceStack" Version="6.*" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="6.*" />
+    <PackageReference Include="ServiceStack.Text" Version="6.*" />
+    <PackageReference Include="ServiceStack.Client" Version="6.*" />
+    <PackageReference Include="ServiceStack.Common" Version="6.*" />
+    <PackageReference Include="ServiceStack.Redis" Version="6.*" /> 
+    <PackageReference Include="ServiceStack.OrmLite" Version="6.*" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="6.*" />
+    <PackageReference Include="ServiceStack.Server" Version="6.*" /> 
+    <PackageReference Include="ServiceStack.Api.OpenApi" Version="6.*" /> 
   </ItemGroup>
 
 </Project>
