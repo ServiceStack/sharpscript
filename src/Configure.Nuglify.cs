@@ -1,3 +1,4 @@
+using System;
 using ServiceStack;
 using ServiceStack.Html;
 using NUglify;
@@ -6,7 +7,18 @@ namespace SharpScript
 {
     public class NUglifyJsMinifier : ICompressor
     {
-        public string Compress(string js) => Uglify.Js(js).Code;
+        public string Compress(string js)
+        {
+            try
+            {
+                return Uglify.Js(js).Code;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return js;
+            }
+        }
     }
     public class NUglifyCssMinifier : ICompressor
     {
