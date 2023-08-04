@@ -5,7 +5,7 @@ services:
         restart: always
         network_mode: bridge
         ports:
-            - "80"
+            - "5000"
         environment:
             VIRTUAL_HOST: ${HOST_DOMAIN}
             LETSENCRYPT_HOST: ${HOST_DOMAIN}
