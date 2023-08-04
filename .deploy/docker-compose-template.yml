@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+    ${APP_NAME}:
+        image: ghcr.io/${IMAGE_REPO}:${RELEASE_VERSION}
+        restart: always
+        network_mode: bridge
+        ports:
+            - "80"
+        environment:
+            VIRTUAL_HOST: ${HOST_DOMAIN}
+            LETSENCRYPT_HOST: ${HOST_DOMAIN}
+            LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+            SERVICESTACK_LICENSE: ${SERVICESTACK_LICENSE}
+            FORUMS_DB: ${FORUMS_DB}
+            TECHSTACKS_SMTP_USER: ${TECHSTACKS_SMTP_USER}
+            TECHSTACKS_SMTP_PASS: ${TECHSTACKS_SMTP_PASS}
+        volumes:
+            - ${APP_NAME}-mydb:/app/App_Data
+    ${APP_NAME}-migration:
+        image: ghcr.io/${IMAGE_REPO}:${RELEASE_VERSION}
+        restart: "no"
+        profiles:
+            - migration
+        command: --AppTasks=migrate
+        volumes:
+            - ${APP_NAME}-mydb:/app/App_Data
+
+volumes:
+    ${APP_NAME}-mydb:
