@@ -13,5 +13,10 @@ services:
         volumes:
             - ${APP_NAME}-mydb:/app/App_Data
 
+networks:
+  default:
+    name: nginx
+    external: true
+
 volumes:
     ${APP_NAME}-mydb:
