@@ -20,5 +20,5 @@ jobs:
 
       - name: build
         run: dotnet build
-        working-directory: ./src
+        working-directory: .
 
