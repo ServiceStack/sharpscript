@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ContainerLabel Include="service" Value="my-app" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="SharpScript" />
     <Using Include="ServiceStack" />
   </ItemGroup>
