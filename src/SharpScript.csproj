@@ -1,26 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+  <PropertyGroup> 
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>SharpScript</AssemblyName>
     <PackageId>SharpScript</PackageId>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <PublishProfile>DefaultContainer</PublishProfile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ContainerLabel Include="service" Value="my-app" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="SharpScript" />
+    <Using Include="ServiceStack" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.*" />
     <PackageReference Include="System.IO.FileSystem.DriveInfo" Version="4.3.*" />
-    <PackageReference Include="NUglify" Version="1.20.0" />
+    <PackageReference Include="NUglify" Version="1.*" />
 
-    <PackageReference Include="ServiceStack" Version="6.*" />
-    <PackageReference Include="ServiceStack.Interfaces" Version="6.*" />
-    <PackageReference Include="ServiceStack.Text" Version="6.*" />
-    <PackageReference Include="ServiceStack.Client" Version="6.*" />
-    <PackageReference Include="ServiceStack.Common" Version="6.*" />
-    <PackageReference Include="ServiceStack.Redis" Version="6.*" /> 
-    <PackageReference Include="ServiceStack.OrmLite" Version="6.*" />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="6.*" />
-    <PackageReference Include="ServiceStack.Server" Version="6.*" /> 
-    <PackageReference Include="ServiceStack.Api.OpenApi" Version="6.*" /> 
+    <PackageReference Include="ServiceStack" Version="8.*" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="8.*" />
+    <PackageReference Include="ServiceStack.Text" Version="8.*" />
+    <PackageReference Include="ServiceStack.Client" Version="8.*" />
+    <PackageReference Include="ServiceStack.Common" Version="8.*" />
+    <PackageReference Include="ServiceStack.Redis" Version="8.*" /> 
+    <PackageReference Include="ServiceStack.OrmLite" Version="8.*" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="8.*" />
+    <PackageReference Include="ServiceStack.Server" Version="8.*" /> 
+    <PackageReference Include="ServiceStack.Api.OpenApi" Version="8.*" /> 
   </ItemGroup>
 
 </Project>
